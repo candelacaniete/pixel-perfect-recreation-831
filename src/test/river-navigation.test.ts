@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { riverTarget, riverFrame, project, curve, curveD } from "@/components/safari/river/world";
+import { riverTarget, riverFrame, project, curve, curveD, riverSequenceTarget, canLeaveCrocodile } from "@/components/safari/river/world";
 import { assetUrl } from "@/lib/asset-url";
 
 describe("River navigation", () => {
@@ -31,4 +31,19 @@ it("capybara lets the traveller through on the attempt after one wrong guess", (
   expect(truckOutcome("Machete+Tarp", 0)).toBe("miss");
   expect(truckOutcome("Flashlight+Rope", 1)).toBe("solved");
   expect(truckOutcome("Jerrycan+Rope", 0)).toBe("solved");
+});
+
+it("requires offering food before continuing the crocodile section", () => {
+  expect(canLeaveCrocodile("waiting")).toBe(false);
+  expect(canLeaveCrocodile("feeding")).toBe(false);
+  expect(canLeaveCrocodile("ready")).toBe(true);
+});
+it("inserts wildlife between guardians without replacing the five CLICK principles", () => {
+  expect(riverSequenceTarget([], 0, false)).toEqual({ index: 0, z: 46 });
+  expect(riverSequenceTarget([0], 46, false)).toEqual({ index: -2, z: 72 });
+  expect(riverSequenceTarget([0], 72, true)).toEqual({ index: 1, z: 96 });
+});
+it("allows destination jumps past the wildlife gate and still reaches the map ending", () => {
+  expect(riverSequenceTarget([0], 95, false)).toEqual({ index: 1, z: 96 });
+  expect(riverSequenceTarget([0, 1, 2, 3, 4], 296, false)).toEqual({ index: -1, z: 296 });
 });

@@ -4,11 +4,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { signals } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
-import landSignals from "@/assets/land-signals-flatlands.jpg";
+import landSignals from "@/assets/land-signals-observation.jpg";
 import yrmisHand from "@/assets/yrmis-hand.jpg.asset.json";
 import yrmisZebra from "@/assets/yrmis-zebra.jpg.asset.json";
 import { Scene, Fireflies } from "@/components/safari/motion";
-import puma from "@/assets/puma.png";
 
 export const Route = createFileRoute("/signals")({
   head: () => ({
@@ -28,7 +27,7 @@ function SignalsPage() {
   useEffect(() => markVisited("signals"), []);
   return (
     <main className="overflow-hidden bg-night text-paper">
-      {/* Hero — the observatory, the macaw interrupting the masthead */}
+      {/* A quieter observatory: the landscape and reflections lead. */}
       <Scene className="isolate relative overflow-hidden px-5 pb-20 pt-28 md:px-12">
         <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
           <img src={landSignals} alt="" width={1920} height={1088} className="photo-bg object-[75%_center]" />
@@ -78,7 +77,6 @@ function SignalsPage() {
       {/* Archive note + onward path */}
       <Scene className="relative overflow-hidden border-t-2 border-scarlet bg-scarlet px-5 py-20 md:px-12">
         <p aria-hidden className="display-xl mask-word pointer-events-none absolute -bottom-6 left-0 whitespace-nowrap text-[30vw] text-ink/25">READ</p>
-        <img src={puma} alt="" aria-hidden width={1024} height={1024} loading="lazy" className="emerge pointer-events-none absolute -bottom-10 right-[-6%] w-56 md:w-[26rem]" />
         <p className="eyebrow relative text-gold">Recent issues</p>
         <p className="relative mt-3 max-w-md text-paper/85">The issue archive will appear here. Until then, every issue lives on Substack.</p>
         <div className="relative mt-6 flex flex-wrap gap-3">

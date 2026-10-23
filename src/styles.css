@@ -241,3 +241,42 @@
 @keyframes firefly-drift { to { transform: translate(var(--fx), var(--fy)); } }
 @keyframes firefly-blink { 0%, 30% { opacity: 0.1; } 60%, 100% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .firefly { animation: none; opacity: 0.7; } }
+
+/* Wildlife interlude: image cutouts share the existing river, never a separate game. */
+.crocodile-character { position: absolute; left: 50%; top: 32%; width: min(48vw, 32vh); height: 40vh; object-fit: contain; transform: translateX(-50%); pointer-events: none; }
+.crocodile-arrives { animation: crocodile-arrival 1.1s cubic-bezier(.2,.8,.2,1) both; }
+.crocodile-feeds { animation: crocodile-feed 1.8s ease-in-out both; }
+.crocodile-dives { opacity: 0; transform: translate(-50%, 18vh); transition: opacity .8s, transform .8s; }
+@keyframes crocodile-arrival { from { transform: translate(-50%, 20vh); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+@keyframes crocodile-feed { 0%, 20% { transform: translate(-50%, 0); } 48% { transform: translate(-50%, -7vh) rotate(-4deg); } 70% { transform: translate(-50%, 0); opacity: 1; } 100% { transform: translate(-50%, 18vh); opacity: 0; } }
+.crocodile-waterline { position: absolute; top: 68%; left: 50%; width: min(70vw, 26rem); height: 3rem; border: 1px solid var(--river); border-radius: 50%; transform: translateX(-50%); opacity: .5; }
+.is-splashing { animation: crocodile-splash 1.8s ease-out both; }
+@keyframes crocodile-splash { 0% { scale: .6; } 40% { scale: 1.3; opacity: .8; } 100% { scale: 1.8; opacity: 0; } }
+.feeding-stick { position: absolute; inset: auto 5% 15% auto; width: min(75vw, 30rem); height: 6rem; padding: 0; overflow: visible; touch-action: none; color: var(--paper); background: transparent; }
+.feeding-stick:hover { background: transparent; }
+.stick-shaft { position: absolute; left: 0; right: 5%; top: 1rem; height: .65rem; background: var(--bow-inner); border: 1px solid var(--gold); border-radius: .25rem; transform: rotate(-12deg); transform-origin: 95% 50%; transition: transform .5s; }
+.stick-food { position: absolute; left: -.3rem; top: -.55rem; width: 1.5rem; height: 1.7rem; border-radius: 35%; background: var(--crimson); border: 2px solid var(--gold); }
+.stick-grip { position: absolute; bottom: 0; right: 0; display: flex; gap: .5rem; align-items: center; padding: .6rem .8rem; background: var(--night); border: 1px solid var(--gold); border-radius: 4px; min-height: 44px; }
+.is-offered .stick-shaft { transform: rotate(24deg) translateY(-10vh); }
+.piranha-sighting { position: absolute; top: 64%; width: min(34vw, 11rem); height: min(25vw, 8rem); padding: 0; background: transparent; animation: piranha-surface 4.3s ease-in-out both; }
+.piranha-sighting:hover { background: transparent; }
+.piranha-right { right: 12%; }
+.piranha-left { left: 12%; }
+.piranha-left img { transform: scaleX(-1); }
+@keyframes piranha-surface { 0% { opacity: 0; transform: translate(1rem, 3rem) rotate(12deg); } 25% { opacity: 1; transform: translate(0, -1rem) rotate(-8deg); } 65% { opacity: 1; transform: translate(-1rem, 0); } 100% { opacity: 0; transform: translate(-2rem, 3rem) rotate(15deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .crocodile-arrives, .crocodile-feeds, .piranha-sighting { animation: none; }
+  .crocodile-feeds { opacity: .6; }
+  .crocodile-dives { transition: none; }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .crocodile-caption { top: 5rem; }
+  .crocodile-caption h2 { font-size: 1.25rem; }
+  .crocodile-caption .speech { margin-top: .35rem; font-size: 1rem; }
+  .crocodile-character { left: 28%; top: 45%; height: 25vh; width: 22vh; }
+  .crocodile-waterline { left: 28%; top: 70%; width: 23vw; height: 1rem; }
+  .feeding-stick { width: 40vw; bottom: 14%; height: 4rem; }
+  .crocodile-actions { justify-content: flex-start; bottom: 1rem; }
+  .crocodile-actions a { font-size: .75rem; }
+}

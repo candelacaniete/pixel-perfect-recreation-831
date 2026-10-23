@@ -2,10 +2,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { stops, LANDING_Z, ambientLines } from "@/content/journey";
-import { curve, curveD, width, project, hash, palette, rgb, riverTarget, riverFrame, type Cam } from "./world";
+import { curve, curveD, width, project, hash, palette, rgb, riverSequenceTarget, riverFrame, CROCODILE_Z, type Cam } from "./world";
 import { journey, useJourney } from "../journeyStore";
 import { useReducedMotion } from "../visited";
 import { EncounterLayer, type Phase } from "./EncounterLayer";
+import { CrocodileEncounter, PiranhaSightings } from "./RiverWildlife";
 
 import capyImg from "@/assets/sp-capybara.webp";
 import birdImg from "@/assets/sp-bird.webp";
@@ -67,6 +68,7 @@ export function RiverJourney() {
   const [nearLine, setNearLine] = useState<string | null>(null);
   const [hint, setHint] = useState(true);
   const [fade, setFade] = useState(false);
+  const [crocodileActive, setCrocodileActive] = useState(false);
 
   useEffect(() => {
     if (!j.landed) return;
@@ -75,7 +77,7 @@ export function RiverJourney() {
   }, [j.landed, navigate]);
 
   // mutable sim state
-  const sim = useRef({ cam: j.cam, vel: 0, push: 0, logCleared: 0, fogSteps: 0, encounter: null as number | null, t: 0, world: [] as Obj[], pan: 0, flow: 0, splashes: [] as { z: number; x: number; t0: number }[] });
+  const sim = useRef({ cam: j.cam, vel: 0, push: 0, logCleared: 0, fogSteps: 0, crocodileFed: j.cam > CROCODILE_Z, crocodileActive: false, encounter: null as number | null, t: 0, world: [] as Obj[], pan: 0, flow: 0, splashes: [] as { z: number; x: number; t0: number }[] });
   const imgs = useRef<Partial<Record<Key, HTMLImageElement>>>({});
 
   useEffect(() => {
@@ -91,6 +93,8 @@ export function RiverJourney() {
     const id = setTimeout(() => {
       sim.current.cam = Math.max(0, target - 0.02);
       sim.current.vel = 2; sim.current.encounter = null;
+      sim.current.crocodileActive = false;
+      setCrocodileActive(false);
       setActive(null);
       journey.set({ jump: null, landed: false });
       setFade(false);
@@ -145,9 +149,9 @@ export function RiverJourney() {
 
       // --- movement ---
       const st = journey.get();
-      if (S.encounter == null && !st.landed) {
+      if (S.encounter == null && !S.crocodileActive && !st.landed) {
         const base = reduced ? 0 : 1.5;
-        const { index: next, z: targetZ } = riverTarget(st.passed);
+        const { index: next, z: targetZ } = riverSequenceTarget(st.passed, S.cam, S.crocodileFed);
         const D = targetZ - S.cam;
         S.vel += S.push; S.push = 0;
         S.vel += (base - S.vel) * Math.min(1, dt * 0.9);
@@ -157,7 +161,8 @@ export function RiverJourney() {
         S.cam = Math.max(0, Math.min(targetZ, S.cam + S.vel * dt));
         if (S.cam >= targetZ - 0.05) {
           S.cam = targetZ; S.vel = 0;
-          if (next >= 0) { S.encounter = next; setActive(next); setPhase("dialogue"); }
+          if (next === -2) { S.crocodileActive = true; setCrocodileActive(true); }
+          else if (next >= 0) { S.encounter = next; setActive(next); setPhase("dialogue"); }
           else journey.set({ landed: true });
         }
       } else { S.push = 0; S.vel *= 0.9; }
@@ -354,9 +359,7 @@ export function RiverJourney() {
       ctx.globalCompositeOperation = "multiply"; ctx.fillStyle = rgb(pal.wash); ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
       draw.filter((x) => x.guardian).forEach((x) => x.fn());
 
-      // fireflies — each with its own drift, speed and pulse, in three depth
-      // bands; they gather by a waiting guardian, shimmer on the water, and
-      // fade out as dawn takes the sky
+      // Fireflies remain in the landscape on the banks, never a swarm by the bow.
       if (pal.night > 0.05) {
         const night = pal.night;
         const count = reduced ? 45 : 110;
@@ -364,8 +367,9 @@ export function RiverJourney() {
           const band = hash(i + 41); // 0 = close to the camera, 1 = deep in the trees
           const spd = 0.35 + hash(i + 7) * 0.9;
           const ph = i * 1.71;
-          let z = S.cam + 1.5 + hash(i) * 38;
-          let x = curve(z) + (hash(i + 1) * 2 - 1) * (4 + band * 9);
+          let z = S.cam + 10 + hash(i) * 32;
+          const bank = hash(i + 1) > 0.5 ? 1 : -1;
+          let x = curve(z) + bank * (width(z) + 1.5 + band * 7);
           let y = 0.25 + hash(i + 2) * (1.2 + band * 2.4);
           if (!reduced) {
             x += Math.sin(S.t * spd + ph) * 0.7 + Math.sin(S.t * 0.23 + i) * 0.5;
@@ -376,7 +380,7 @@ export function RiverJourney() {
           const pulse = reduced ? 0.75 : 0.3 + 0.7 * Math.abs(Math.sin(S.t * (0.9 + hash(i + 3) * 1.6) + ph));
           const a = night * pulse * (1 - band * 0.55);
           if (a < 0.03) continue;
-          const r = Math.max(1, 0.05 * p.s * (1.5 - band));
+          const r = Math.min(1.8, Math.max(0.7, 0.02 * p.s));
           const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4);
           g.addColorStop(0, `rgba(255,238,150,${a})`);
           g.addColorStop(0.4, `rgba(214,232,120,${a * 0.5})`);
@@ -420,6 +424,13 @@ export function RiverJourney() {
   return (
     <div className="fixed inset-0 h-[100dvh] overflow-hidden bg-night text-paper select-none touch-none" aria-label="A first-person boat journey down a river">
       <canvas ref={canvas} className="absolute inset-0 h-full w-full" aria-hidden />
+      <PiranhaSightings enabled={!stop && !crocodileActive} reduced={reduced} />
+      {crocodileActive && <CrocodileEncounter reduced={reduced} onContinue={() => {
+        sim.current.crocodileFed = true;
+        sim.current.crocodileActive = false;
+        sim.current.vel = 2.5;
+        setCrocodileActive(false);
+      }} />}
 
       {/* bow of the boat */}
       <svg aria-hidden viewBox="0 0 400 160" className={`pointer-events-none absolute bottom-[-8px] left-1/2 w-[min(90vw,560px,95vh)] ${reduced ? "-translate-x-1/2" : "animate-bob"}`}>
@@ -447,18 +458,18 @@ export function RiverJourney() {
         )}
       </div>
 
-      {caption && !stop && (
+      {caption && !stop && !crocodileActive && (
         <figure key={caption.text} className="pointer-events-none absolute inset-x-0 top-[18%] mx-auto max-w-xl px-6 text-center animate-in fade-in slide-in-from-bottom-2 duration-1000">
           <blockquote className="font-display text-xl italic leading-snug text-paper text-shadow-river md:text-3xl">“{caption.text}”</blockquote>
           {caption.cite && <figcaption className="eyebrow mt-3 text-gold">— {caption.cite}</figcaption>}
         </figure>
       )}
 
-      {hint && !stop && (
+      {hint && !stop && !crocodileActive && (
         <p className="eyebrow pointer-events-none absolute inset-x-0 bottom-28 text-center text-paper/80 animate-pulse">Scroll, swipe or hold ↑ to row · the river carries you anyway</p>
       )}
 
-      {!stop && !j.landed && (
+      {!stop && !crocodileActive && !j.landed && (
         <Button data-ui variant="ghost" onPointerDown={() => { sim.current.push += 3; setHint(false); }} className="row-btn h-auto absolute bottom-6 right-5 z-20" aria-label="Row forward">
           Row ↑
         </Button>

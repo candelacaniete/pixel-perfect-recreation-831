@@ -9,6 +9,18 @@ export function riverTarget(passed: number[]) {
   return { index, z: stops[index]?.z ?? LANDING_Z };
 }
 
+export const CROCODILE_Z = 72;
+/** A separate wildlife interlude, never a sixth CLICK principle. Jumps past it remain free. */
+export function riverSequenceTarget(passed: number[], cam: number, crocodileFed: boolean) {
+  const target = riverTarget(passed);
+  return !crocodileFed && cam <= CROCODILE_Z && target.z > CROCODILE_Z
+    ? { index: -2, z: CROCODILE_Z }
+    : target;
+}
+
+export type CrocodilePhase = "waiting" | "feeding" | "ready";
+export function canLeaveCrocodile(phase: CrocodilePhase) { return phase === "ready"; }
+
 export function riverFrame(W: number, H: number) {
   return { F: Math.min(H * 0.9, W * 0.6), hy: H * 0.46 };
 }

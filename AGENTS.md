@@ -15,3 +15,4 @@
 - The world map is the homepage; /click is the continuous canvas river journey and returns to the map when finished. Scene math lives in world.ts, guardian script in src/content/journey.ts, and boat progress in journeyStore.ts.
 - Resolve managed photo pointers through src/lib/asset-url.ts using the public Lovable asset origin so photos also load on external hosts without a /__l5e handler.
 - Map destinations reuse scenic page imagery in one responsive ordered grid; this keeps navigation aligned with each destination without detached creature stickers or overlapping labels.
+- River wildlife interludes are separate from the five guardian stops; sequence gating uses pure world helpers, while pointer/tap/reduced-motion behavior lives in RiverWildlife so the CLICK framework and global navigation stay independent.

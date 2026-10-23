@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ventures, hqPillars } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
-import landVentures from "@/assets/land-ventures-flatlands.jpg";
+import landVentures from "@/assets/land-ventures-crocodile.jpg";
 import mhImg from "@/assets/mh-greenhouse.jpg.asset.json";
 import absImg from "@/assets/abs-family.jpg.asset.json";
 import hemImg from "@/assets/hem-todo.jpg.asset.json";
@@ -40,7 +40,7 @@ function VenturesPage() {
     <main className="overflow-hidden bg-tangerine/20 text-ink">
       <Scene className="isolate relative min-h-[88vh] overflow-hidden px-5 pb-12 pt-28 text-paper md:px-12">
         <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
-          <img src={landVentures} alt="" width={1920} height={1088} className="photo-bg cloud-drift object-[40%_center]" />
+          <img src={landVentures} alt="A monumental crocodile rests in an open Llanos wetland beneath impossible ochre and vermilion forms" width={1920} height={1088} className="photo-bg object-[80%_center] md:object-center" />
           <div className="absolute inset-0 bg-night/45" /><div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.14_0.03_260/70%),transparent_60%)]" />
         </div>
         <p className="eyebrow relative text-gold">Destination 03 · Ventures</p>
@@ -48,17 +48,21 @@ function VenturesPage() {
         <p className="relative mt-6 max-w-xl text-lg text-shadow-river">An economist's mind, and a habit of reading rooms the way I read the jungle.</p>
       </Scene>
       <Scene className="relative grid gap-6 bg-tangerine/20 px-5 py-16 md:grid-cols-4 md:px-12" aria-label="Ventures">
-        {ventures.map((v, i) => (
+        {ventures.map((v, i) => {
+          const photo = photos[i];
+          if (!photo) return null;
+          return (
           <article key={v} className={`reveal group flex aspect-[3/4] flex-col overflow-hidden shadow-[0_24px_50px_-20px_oklch(0_0_0/50%)] transition duration-300 hover:rotate-0 hover:scale-[1.03] ${tints[i]} ${tilts[i]}`} >
             <div className="relative min-h-0 flex-1 overflow-hidden">
-              <img src={photos[i]!.src} alt={photos[i]!.alt} loading="lazy" className={`h-full w-full object-cover transition duration-700 group-hover:scale-105 ${photos[i]!.pos}`} />
+              <img src={photo.src} alt={photo.alt} loading="lazy" className={`h-full w-full object-cover transition duration-700 group-hover:scale-105 ${photo.pos}`} />
             </div>
             <div className="p-5">
               <span className="eyebrow">Venture 0{i + 1}</span>
               <h2 className="display-lg mt-2 text-4xl md:text-4xl">{v}</h2>
             </div>
           </article>
-        ))}
+          );
+        })}
       </Scene>
       <Scene className="relative overflow-hidden border-t-2 border-ink bg-paper px-5 py-16 md:px-12">
         <p aria-hidden className="display-xl pointer-events-none absolute -right-4 -top-8 whitespace-nowrap text-[20vw] text-gold/40 swell">HQ</p>

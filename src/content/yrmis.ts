@@ -70,3 +70,17 @@ export const signals = {
   feature: "The Minds on a Mission slot puts your startup, invention or bold idea in front of exactly the right room — straight to inboxes that open it.",
   blueprint: "The system behind 1•1•1 Signals, built for you: a targeted, high-value email list — owned distribution, not rented reach.",
 };
+
+// Fictional in-scene cues, not additional biography or company claims.
+export const riverWildlife = {
+  crocodile: {
+    title: "Something stirs beneath the surface.",
+    cue: "Lift the long stick. Offer the food above the water.",
+    offer: "Offer food on the stick",
+    reacting: "A leap. A splash. The river settles.",
+    fed: "Satisfied, it slips back into the river.",
+    continue: "Continue downstream",
+    map: "Return to the map",
+  },
+  piranha: { watch: "Watch the shallows", dive: "The piranha slips underwater" },
+};
