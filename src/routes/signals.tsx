@@ -68,7 +68,7 @@ function SignalsPage() {
         </article>
         <img src={assetUrl(yrmisZebra)} alt="Yrmis Barroeta resting her head on her arms, in a black and white striped sweater" loading="lazy" width={1440} height={1800}
           className="reveal relative z-0 mt-8 aspect-[4/5] w-full max-w-sm rotate-[-1.5deg] border-2 border-scarlet object-cover shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:ml-[6%]" />
-        <article className="reveal reveal-3 relative z-10 mt-8 max-w-xl rotate-[-0.5deg] bg-gold p-6 text-ink shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:ml-[14%] md:p-10">
+        <article className="reveal reveal-3 relative z-10 mt-8 max-w-xl rotate-[-0.5deg] bg-yellow-surface p-6 text-yellow-foreground shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:ml-[14%] md:p-10">
           <p className="eyebrow">04 · Grow · Newsletter Acceleration Blueprint</p>
           <p className="font-display mt-6 text-2xl leading-snug md:text-3xl">{signals.blueprint}</p>
         </article>

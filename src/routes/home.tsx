@@ -43,7 +43,7 @@ function HomePage() {
             </h1>
             <p className="font-display mt-6 max-w-xl text-2xl italic leading-snug md:text-3xl">{reframe.rest}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/click" className="pill bg-gold text-ink">Experience CLICK — the river →</Link>
+              <Link to="/click" className="pill bg-yellow-surface text-yellow-foreground">Experience CLICK — the river →</Link>
               <Link to="/work" className="pill border-2 border-paper">Work with me</Link>
             </div>
           </div>
@@ -86,9 +86,9 @@ function HomePage() {
           <p className="eyebrow text-gold">The Studio</p>
           <p className="display-lg mt-4">Plan<br />and conspire.</p>
           <p className="mt-6 max-w-md text-lg">{studio.intro}</p>
-          <span className="pill mt-8 bg-paper text-ink transition group-hover:bg-gold">Into the Studio →</span>
+          <span className="pill mt-8 bg-paper text-ink transition group-hover:bg-yellow-surface group-hover:text-yellow-foreground">Into the Studio →</span>
         </Link>
-        <Link to="/signals" className="group relative block overflow-hidden bg-gold p-8 text-ink transition hover:bg-tangerine md:p-12">
+        <Link to="/signals" className="group relative block overflow-hidden bg-yellow-surface p-8 text-yellow-foreground transition hover:bg-yellow-surface/95 md:p-12">
           <p className="eyebrow">1•1•1 Signals</p>
           <p className="display-lg mt-4">Field notes<br />from the edge.</p>
           <p className="mt-6 max-w-md text-lg">{signals.cadence} Read by 250,000 executives and builders.</p>

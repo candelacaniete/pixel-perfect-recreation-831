@@ -41,6 +41,8 @@
   --color-tangerine: var(--tangerine);
   --color-cobalt: var(--cobalt);
   --color-gold: var(--gold);
+  --color-yellow-surface: var(--yellow-surface);
+  --color-yellow-foreground: var(--yellow-foreground);
   --color-crimson: var(--crimson);
   --color-moss: var(--moss);
   --color-river: var(--river);
@@ -56,6 +58,8 @@
   --tangerine: oklch(0.72 0.17 50);
   --cobalt: oklch(0.42 0.16 262);
   --gold: oklch(0.82 0.16 85);
+  --yellow-surface: oklch(0.55 0.11 85);
+  --yellow-foreground: oklch(1 0 0);
   --crimson: oklch(0.55 0.21 25);
   --moss: oklch(0.45 0.05 130);
   --river: oklch(0.62 0.07 230);
@@ -166,7 +170,7 @@
   transition: transform .2s ease, background-color .2s ease;
   &:hover { transform: translateY(-2px); background: oklch(0.17 0.04 265 / 80%); }
 }
-@utility row-btn-scarlet { background: var(--scarlet); color: var(--paper); border-color: transparent; &:hover { background: var(--gold); color: var(--ink); } }
+@utility row-btn-scarlet { background: var(--scarlet); color: var(--paper); border-color: transparent; &:hover { background: var(--yellow-surface); color: var(--yellow-foreground); } }
 @keyframes glint { 0%,100% { transform: scale(.7); opacity: .5 } 50% { transform: scale(1.15); opacity: 1 } }
 @utility glint { border-radius: 999px; background: radial-gradient(circle, var(--gold) 0 18%, oklch(0.82 0.16 85 / 40%) 30%, transparent 70%); animation: glint 1.6s ease-in-out infinite; }
 @keyframes driftbob { 0%,100% { transform: translateY(0) rotate(-2deg) } 50% { transform: translateY(-6px) rotate(2deg) } }
@@ -174,7 +178,7 @@
   border-radius: 40% 60% 55% 45% / 60% 40% 60% 40%; padding: .7rem 1.2rem; font-family: var(--font-display); font-style: italic;
   background: var(--bow-inner); color: var(--paper); box-shadow: inset 0 -4px 0 var(--bow); animation: driftbob 3s ease-in-out infinite;
 }
-@utility driftwood-on { background: var(--gold); color: var(--ink); }
+@utility driftwood-on { background: var(--yellow-surface); color: var(--yellow-foreground); }
 @keyframes storm { 0% { transform: translateX(-30px) rotate(-4deg) } 50% { transform: translateX(30px) rotate(3deg) } 100% { transform: translateX(-30px) rotate(-4deg) } }
 @utility storm-word { font-family: var(--font-display); font-style: italic; font-size: clamp(1rem, 2.4vw, 1.6rem); color: var(--paper); text-shadow: 0 2px 12px oklch(0.12 0.04 265 / 90%); animation: storm 5s ease-in-out infinite; transition: opacity .6s, filter .6s; }
 @utility storm-kept { color: var(--gold); animation: none; }
@@ -186,10 +190,10 @@
   font-family: var(--font-display); font-size: 1.35rem; line-height: 1.1; text-align: left; text-shadow: 0 2px 14px oklch(0.12 0.04 265 / 90%);
   & em { display: block; font-size: .8rem; font-family: var(--font-sans); font-style: normal; opacity: .85; }
 }
-@utility map-paper { background: radial-gradient(ellipse at 30% 20%, var(--dawn), oklch(0.85 0.06 75) 70%, oklch(0.72 0.07 60)); color: var(--ink); border-radius: 6px 14px 8px 18px; box-shadow: 0 30px 60px -20px oklch(0 0 0 / 60%); }
-@utility map-ink { font-family: var(--font-display); font-style: italic; font-size: 18px; fill: var(--ink); }
+@utility map-paper { background: var(--yellow-surface); color: var(--yellow-foreground); border-radius: 6px 14px 8px 18px; box-shadow: 0 30px 60px -20px oklch(0 0 0 / 60%); }
+@utility map-ink { font-family: var(--font-display); font-style: italic; font-size: 18px; fill: var(--yellow-foreground); }
 @utility map-stop { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: .4rem; text-align: left; }
-@utility map-dot { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; border: 2px dashed var(--ink); font-family: var(--font-display); font-weight: 700; background: oklch(0.96 0.02 85 / 60%); }
+@utility map-dot { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; border: 2px dashed var(--yellow-foreground); font-family: var(--font-display); font-weight: 700; background: var(--yellow-surface); color: var(--yellow-foreground); }
 @utility map-dot-seen { background: var(--crimson); color: var(--paper); border-style: solid; }
 @utility map-label { font-family: var(--font-display); font-size: .95rem; line-height: 1; & em { display: block; font-size: .7rem; opacity: .7; } }
 @media (prefers-reduced-motion: reduce) { .animate-bob, .glint, .driftwood, .storm-word, .landmark-orb { animation: none !important; } }

@@ -16,3 +16,4 @@
 - Resolve managed photo pointers through src/lib/asset-url.ts using the public Lovable asset origin so photos also load on external hosts without a /__l5e handler.
 - Map destinations reuse scenic page imagery in one responsive ordered grid; this keeps navigation aligned with each destination without detached creature stickers or overlapping labels.
 - River wildlife interludes are separate from the five guardian stops; sequence gating uses pure world helpers, while pointer/tap/reduced-motion behavior lives in RiverWildlife so the CLICK framework and global navigation stay independent.
+- Text-bearing yellow surfaces use the yellow-surface/yellow-foreground token pair, including hover and selected states; decorative gold stays independent so readable contrast does not change landscape lighting.

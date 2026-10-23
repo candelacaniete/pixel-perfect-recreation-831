@@ -2,8 +2,8 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useVisited } from "./visited";
 import worldmap from "@/assets/worldmap-flatlands.jpg";
 import homeLandscape from "@/assets/land-home.jpg";
-import studioLandscape from "@/assets/land-studio-inventor.jpg";
-import venturesLandscape from "@/assets/land-ventures-crocodile.jpg";
+import studioLandscape from "@/assets/land-studio-refined.jpg";
+import venturesLandscape from "@/assets/land-ventures-refined.jpg";
 import signalsLandscape from "@/assets/land-signals-observation.jpg";
 import workLandscape from "@/assets/work-threshold.jpg";
 

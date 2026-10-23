@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ventures, hqPillars } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
-import landVentures from "@/assets/land-ventures-crocodile.jpg";
+import landVentures from "@/assets/land-ventures-refined.jpg";
 import mhImg from "@/assets/mh-greenhouse.jpg.asset.json";
 import absImg from "@/assets/abs-family.jpg.asset.json";
 import hemImg from "@/assets/hem-todo.jpg.asset.json";
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/ventures")({
   component: VenturesPage,
 });
 
-const tints = ["bg-scarlet text-paper", "bg-ink text-paper", "bg-gold text-ink", "bg-crimson text-paper"];
+const tints = ["bg-scarlet text-paper", "bg-ink text-paper", "bg-yellow-surface text-yellow-foreground", "bg-crimson text-paper"];
 const photos = [
   { src: assetUrl(mhImg), alt: "Mission Heirloom greenhouse", pos: "object-center" },
   { src: assetUrl(absImg), alt: "A mother and her child — All Black Sheep", pos: "object-center" },
@@ -40,7 +40,7 @@ function VenturesPage() {
     <main className="overflow-hidden bg-tangerine/20 text-ink">
       <Scene className="isolate relative min-h-[88vh] overflow-hidden px-5 pb-12 pt-28 text-paper md:px-12">
         <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
-          <img src={landVentures} alt="A monumental crocodile rests in an open Llanos wetland beneath impossible ochre and vermilion forms" width={1920} height={1088} className="photo-bg object-[80%_center] md:object-center" />
+          <img src={landVentures} alt="A monumental crocodile rests in an open Llanos wetland beneath impossible ochre and vermilion forms" width={1376} height={768} className="photo-bg object-right" />
           <div className="absolute inset-0 bg-night/45" /><div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.14_0.03_260/70%),transparent_60%)]" />
         </div>
         <p className="eyebrow relative text-gold">Destination 03 · Ventures</p>

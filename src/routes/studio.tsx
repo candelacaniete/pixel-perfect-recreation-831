@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { studio } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
-import landStudio from "@/assets/land-studio-inventor.jpg";
+import landStudio from "@/assets/land-studio-refined.jpg";
 import { Scene } from "@/components/safari/motion";
 import spPalm from "@/assets/sp-palm.webp";
 import spTree from "@/assets/sp-tree.webp";
@@ -29,7 +29,7 @@ function StudioPage() {
     <main className="overflow-hidden bg-paper text-ink">
       <Scene className="isolate relative grid min-h-[92svh] content-end overflow-hidden px-5 pb-16 pt-28 md:grid-cols-12 md:content-center md:px-12">
         <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
-          <img src={landStudio} alt="The capybara inventor pulls a rope and repurposed jerrycan beside a truck in the flooded Llanos" width={1920} height={1088} className="photo-bg object-[23%_center] md:object-center" />
+          <img src={landStudio} alt="The capybara inventor pulls a rope and repurposed jerrycan beside a truck in the flooded Llanos" width={1376} height={768} className="photo-bg object-[23%_center] md:object-left" />
           <div className="absolute inset-0 bg-[linear-gradient(0deg,var(--paper)_6%,transparent_45%)] md:bg-[linear-gradient(270deg,oklch(0.96_0.02_85/85%)_18%,transparent_55%)]" />
         </div>
         <p aria-hidden className="display-xl pointer-events-none absolute -left-6 bottom-0 whitespace-nowrap text-[24vw] text-scarlet/15 swell">BUILD</p>
@@ -92,7 +92,7 @@ function StudioPage() {
           </ol>
         </div>
         <p className="relative mt-8 max-w-2xl">{studio.keynote.for}</p>
-        <Link to="/work" className="pill relative mt-8 bg-gold text-ink">Let's plan and conspire →</Link>
+        <Link to="/work" className="pill relative mt-8 bg-yellow-surface text-yellow-foreground">Let's plan and conspire →</Link>
       </Scene>
       <NextStops current="Studio" tone="paper" />
     </main>
