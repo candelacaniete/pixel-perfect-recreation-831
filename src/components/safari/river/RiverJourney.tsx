@@ -309,14 +309,23 @@ export function RiverJourney() {
         const p = project(cam, x, y, o.z); if (!p) continue;
         const im = imgs.current[o.k]; if (!im?.complete || !im.naturalWidth) continue;
         const isG = o.k in GUARD_H;
-        // Once passed, a guardian is a fixed point in the world: no framing help, it simply falls behind.
-        const left = isG && journey.get().passed.includes(o.seed - 500);
-        const hpx = isG && !left ? Math.min(Math.max(o.h * p.s, H * 0.4 * Math.min(1, Math.max(0, (14 - d) / 8))), H * 0.5, W * 0.72) : o.h * p.s;
-        const wpx = hpx * (im.naturalWidth / im.naturalHeight) * scaleX;
-        // Keep a bank-side guardian visible without steering the camera at it.
-        if (isG && !left && d < 18) {
-          p.x = Math.max(wpx / 2 + 8, Math.min(W - wpx / 2 - 8, p.x));
-          alpha *= Math.min(1, Math.max(0, (d - 0.5) / 2));
+        // A guardian is framed as it would look from the docking point; once the
+        // boat moves on, that framed spot stays fixed in the world and simply
+        // grows and slides past the edge, like something left behind.
+        const ar = im.naturalWidth / im.naturalHeight;
+        let hpx = o.h * p.s, wpx = hpx * ar * scaleX;
+        if (isG && d < 18) {
+          const left = journey.get().passed.includes(o.seed - 500);
+          const dd = left ? Math.max(d, GUARD_D) : d;
+          const k = dd / d; // natural scale at the framing distance
+          const frame = (h: number) => Math.min(Math.max(h, H * 0.4 * Math.min(1, Math.max(0, (14 - dd) / 8))), H * 0.5, W * 0.72);
+          const h0 = frame((o.h * p.s) / k);
+          const w0 = h0 * ar * scaleX;
+          const x0 = Math.max(w0 / 2 + 8, Math.min(W - w0 / 2 - 8, W / 2 + (p.x - W / 2) / k));
+          const grow = left ? GUARD_D / Math.max(d, 0.4) : 1;
+          hpx = h0 * grow; wpx = w0 * grow;
+          p.x = W / 2 + (x0 - W / 2) * grow;
+          p.y = cam.hy + (p.y - cam.hy) / k * grow;
         }
         if (wpx > W * 4 || p.x + wpx < -W || p.x - wpx > W * 2) continue;
         if (o.kind === "gum") {
