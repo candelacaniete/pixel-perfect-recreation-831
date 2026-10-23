@@ -8,3 +8,7 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Project rules
+- All narrative copy lives in src/content/yrmis.ts; only use facts confirmed on the Yrmis reference sites — never invent biography or claims.
+- Safari experience components live in src/components/safari; colors come from palette tokens in src/styles.css.
