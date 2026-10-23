@@ -60,7 +60,7 @@ export function WorldMap() {
 
       <div className="pointer-events-none relative z-10 px-5 pt-20 md:px-12 md:pt-24">
         <p className="eyebrow text-gold">A map of an impossible territory</p>
-        <h1 className="display-xl text-shadow-river mt-2 text-paper">Yrmis&rsquo;s<br />world</h1>
+        <h1 className="display-xl text-shadow-river mt-2 text-paper">Yrmis<br />World</h1>
         <p className="font-display text-shadow-river mt-3 max-w-md text-xl italic md:text-2xl">
           Six landmarks, one river running through all of them. Pick anywhere — you can never get lost.
         </p>
