@@ -8,11 +8,11 @@ const subs = new Set<() => void>();
 export const journey = {
   get: () => state,
   set(p: Partial<State>) { state = { ...state, ...p }; subs.forEach((f) => f()); },
-  subscribe(f: () => void) { subs.add(f); return () => subs.delete(f); },
-  /** Ask the boat to travel to stop i (or landing when i === stops.length). */
+  subscribe(f: () => void) { subs.add(f); return () => { subs.delete(f); }; },
+  /** Send the boat to stop i (i === stops.length means the landing shore). */
   requestJump(i: number) {
     const passed = Array.from({ length: Math.min(i, stops.length) }, (_, k) => k);
-    journey.set({ jump: i, passed: [...new Set([...state.passed, ...passed])], landed: false });
+    journey.set({ jump: i, passed, landed: false });
   },
 };
 
