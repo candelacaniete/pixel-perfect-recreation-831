@@ -309,10 +309,12 @@ export function RiverJourney() {
         const p = project(cam, x, y, o.z); if (!p) continue;
         const im = imgs.current[o.k]; if (!im?.complete || !im.naturalWidth) continue;
         const isG = o.k in GUARD_H;
-        const hpx = isG ? Math.min(Math.max(o.h * p.s, H * 0.4 * Math.min(1, Math.max(0, (14 - d) / 8))), H * 0.5, W * 0.72) : o.h * p.s;
+        // Once passed, a guardian is a fixed point in the world: no framing help, it simply falls behind.
+        const left = isG && journey.get().passed.includes(o.seed - 500);
+        const hpx = isG && !left ? Math.min(Math.max(o.h * p.s, H * 0.4 * Math.min(1, Math.max(0, (14 - d) / 8))), H * 0.5, W * 0.72) : o.h * p.s;
         const wpx = hpx * (im.naturalWidth / im.naturalHeight) * scaleX;
         // Keep a bank-side guardian visible without steering the camera at it.
-        if (isG && d < 18) {
+        if (isG && !left && d < 18) {
           p.x = Math.max(wpx / 2 + 8, Math.min(W - wpx / 2 - 8, p.x));
           alpha *= Math.min(1, Math.max(0, (d - 0.5) / 2));
         }
