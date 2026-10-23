@@ -21,7 +21,7 @@ import jabiruImg from "@/assets/g-jabiru.webp";
 const SRC = { capy: capyImg, bird: birdImg, tree: treeImg, palm: palmImg, grass: grassImg, flower: flowerImg, heron: heronImg, anaconda: anaImg, capymech: mechImg, macaw: macawImg, jabiru: jabiruImg };
 type Key = keyof typeof SRC;
 
-type Obj = { k: Key; x: number; z: number; h: number; y?: number; flip?: boolean; kind?: "capy" | "bird" | "gum" | "flower" | "tree"; side: number; seed: number };
+type Obj = { k: Key; x: number; z: number; h: number; y?: number; flip?: boolean; kind?: "capy" | "bird" | "gum" | "flower" | "tree" | undefined; side: number; seed: number };
 
 const GUARD_H: Record<string, number> = { heron: 3.4, anaconda: 3.6, capymech: 2.4, macaw: 2.6, jabiru: 3.8 };
 
@@ -312,7 +312,7 @@ export function RiverJourney() {
       if (look >= 0 && anchor.current) {
         const s = stops[look]!, gz = s.z + 6;
         const p = project(cam, curve(gz) + s.side * (width(gz) + 0.5), (GUARD_H[s.sprite] ?? 3) + 0.2, gz);
-        if (p) { anchor.current.style.left = `${Math.min(W - 40, Math.max(40, p.x))}px`; anchor.current.style.top = `${Math.max(90, p.y)}px`; anchor.current.dataset.side = String(s.side); }
+        if (p) { anchor.current.style.left = `${Math.min(W - 40, Math.max(40, p.x))}px`; anchor.current.style.top = `${Math.max(90, p.y)}px`;  }
       }
       const nl = S.encounter == null && look >= 0 ? stops[look]!.recognition : "";
       if (nl !== lastNear) { lastNear = nl; setNearLine(nl || null); }

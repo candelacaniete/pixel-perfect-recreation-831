@@ -80,7 +80,7 @@ function Clues({ onDone }: { onDone: () => void }) {
     { x: 78, y: 74, t: "Its eyes glow to see the shallows at night." },
   ];
   const [found, setFound] = useState<number[]>([]);
-  useEffect(() => { if (found.length === 3) { const t = setTimeout(onDone, 1400); return () => clearTimeout(t); } }, [found, onDone]);
+  useEffect(() => { if (found.length === 3) { const t = setTimeout(onDone, 1400); return () => clearTimeout(t); } return undefined; }, [found, onDone]);
   return (
     <div className="absolute inset-0">
       {clues.map((c, i) => (
@@ -148,7 +148,7 @@ function Signals({ onDone }: { onDone: () => void }) {
   const [kept, setKept] = useState<string[]>([]);
   const [hit, setHit] = useState<string | null>(null);
   const k = kept.length / 3;
-  useEffect(() => { if (kept.length === 3) { const t = setTimeout(onDone, 900); return () => clearTimeout(t); } }, [kept, onDone]);
+  useEffect(() => { if (kept.length === 3) { const t = setTimeout(onDone, 900); return () => clearTimeout(t); } return undefined; }, [kept, onDone]);
   return (
     <div className="absolute inset-0">
       {storm.map((w, i) => {
