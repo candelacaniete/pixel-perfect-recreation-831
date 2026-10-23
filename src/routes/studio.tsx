@@ -5,6 +5,10 @@ import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
 import landStudio from "@/assets/land-studio.jpg";
 import { Scene } from "@/components/safari/motion";
+import spGrass from "@/assets/sp-grass.webp";
+import spPalm from "@/assets/sp-palm.webp";
+import spTree from "@/assets/sp-tree.webp";
+import spCapy from "@/assets/sp-capybara.webp";
 import gCapymech from "@/assets/g-capymech.webp";
 
 export const Route = createFileRoute("/studio")({
@@ -45,9 +49,22 @@ function StudioPage() {
           <p className="mt-2 text-lg">{studio.for}</p>
         </div>
       </section>
-      <Scene className="relative grid border-y-2 border-ink md:grid-cols-3">
+      <Scene className="relative isolate grid overflow-hidden border-y-2 border-ink md:grid-cols-3">
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+          <div className="reveal absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(0deg,oklch(0.78_0.12_85/45%),transparent)]" style={{ transitionDelay: "0s" }} />
+          <span className="reveal absolute bottom-[30%] right-[12%] h-20 w-20 rounded-full bg-gold/70 md:h-28 md:w-28" style={{ transitionDelay: ".2s" }} />
+          {[
+            { src: spGrass, cls: "left-0 w-1/2 opacity-60", d: ".35s" },
+            { src: spGrass, cls: "right-0 w-1/2 opacity-60 -scale-x-100", d: ".45s" },
+            { src: spPalm, cls: "left-[30%] w-24 md:w-36 opacity-70", d: ".6s" },
+            { src: spTree, cls: "right-[4%] w-32 md:w-48 opacity-70", d: ".8s" },
+            { src: spCapy, cls: "left-[58%] w-20 md:w-28", d: "1.1s" },
+          ].map((l, i) => (
+            <img key={i} src={l.src} alt="" loading="lazy" className={`reveal absolute bottom-0 ${l.cls}`} style={{ transitionDelay: l.d }} />
+          ))}
+        </div>
         {studio.tracks.map((t, i) => (
-          <article key={t.name} className={`reveal ${i === 1 ? "reveal-2" : i === 2 ? "reveal-3" : ""} p-6 md:p-10 ${i < 2 ? "border-b-2 border-ink md:border-b-0 md:border-r-2" : ""} transition hover:bg-crimson hover:text-paper`}>
+          <article key={t.name} className={`reveal ${i === 1 ? "reveal-2" : i === 2 ? "reveal-3" : ""} bg-paper/75 p-6 backdrop-blur-[2px] md:p-10 md:pb-48 ${i < 2 ? "border-b-2 border-ink md:border-b-0 md:border-r-2" : ""} transition hover:bg-crimson hover:text-paper`}>
             <span className="eyebrow">0{i + 1}</span>
             <h2 className="display-lg mt-6 text-5xl md:text-6xl">{t.name}</h2>
             <p className="mt-4 text-lg">{t.body}</p>
