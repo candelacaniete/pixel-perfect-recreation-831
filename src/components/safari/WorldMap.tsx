@@ -34,8 +34,8 @@ function LandmarkLink({ l, visited, current }: { l: Landmark; visited: boolean; 
       aria-label={`${l.name} — ${l.kicker}${visited ? " (visited)" : ""}`}
       className="group flex min-w-0 items-center gap-4 text-left"
     >
-      <span className={`relative grid w-20 shrink-0 place-items-center overflow-hidden rounded-full border-2 lg:w-24 aspect-square ${visited ? "border-gold" : "border-paper/70"} bg-night/60 transition-colors group-hover:border-gold`}>
-        <img src={l.img} alt="" loading="lazy" width={560} height={560} className={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-110 ${l.position}`} />
+      <span className={`relative grid w-20 shrink-0 place-items-center overflow-hidden rounded-full border-2 lg:w-24 aspect-square ${visited ? "border-gold" : "border-paper/70"} bg-night/70 transition-colors group-hover:border-gold`}>
+        <img src={l.img} alt="" loading="lazy" className="h-full w-full object-contain p-1.5 transition-transform duration-300 group-hover:scale-110" />
         {visited && <span className="absolute right-1 top-1 h-3 w-3 rounded-full bg-gold" aria-hidden />}
       </span>
       <span className="min-w-0 text-shadow-river">
