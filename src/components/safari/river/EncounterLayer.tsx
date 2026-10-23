@@ -102,7 +102,7 @@ function LensStage({ onDone }: { onDone: () => void }) {
     <div className="absolute inset-0 animate-in fade-in duration-1000">
       <LensReveal fill onReveal={() => setRevealed(true)} />
       {revealed && (
-        <button onClick={onDone} className="row-btn absolute bottom-8 left-1/2 z-30 -translate-x-1/2 animate-in fade-in">Lower the lens</button>
+        <button onClick={onDone} className="row-btn absolute bottom-[calc(env(safe-area-inset-bottom)+5rem)] left-1/2 z-30 -translate-x-1/2 animate-in fade-in">Lower the lens</button>
       )}
     </div>
   );
