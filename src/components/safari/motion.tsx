@@ -40,7 +40,7 @@ export function useScrollP<T extends HTMLElement>() {
 
 /** A section whose children can react to its scroll progress. */
 export function Scene({ as: Tag = "section", className = "", style, children, ...rest }: {
-  as?: "section" | "div" | "header"; className?: string; style?: CSSProperties; children: ReactNode; "aria-label"?: string; "aria-labelledby"?: string; id?: string;
+  as?: "section" | "div" | "header"; className?: string; style?: CSSProperties; children: ReactNode; "aria-label"?: string; "aria-labelledby"?: string; id?: string; "data-guide"?: string;
 }) {
   const ref = useScrollP<HTMLElement>();
   return <Tag ref={ref as never} className={`scene ${className}`} style={style} {...rest}>{children}</Tag>;

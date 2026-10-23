@@ -5,7 +5,6 @@ import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
 import landHome from "@/assets/land-home.jpg";
 import { Scene, GuideBird, Lianas } from "@/components/safari/motion";
-import gAnaconda from "@/assets/g-anaconda.webp";
 import horses from "@/assets/horses.png";
 
 export const Route = createFileRoute("/home")({
@@ -53,8 +52,6 @@ function HomePage() {
 
       {/* Origin — the facts, in her words */}
       <Scene className="relative overflow-hidden border-y-2 border-ink bg-night px-5 py-24 text-paper md:px-12" data-guide="Origin">
-        <img src={gAnaconda} alt="" aria-hidden width={560} height={560} loading="lazy"
-          className="drift-up pointer-events-none absolute -right-10 top-6 w-40 rotate-12 rounded-full opacity-80 [--d:220px] md:w-64" />
         <div className="relative grid gap-10 md:grid-cols-12">
           <figure className="reveal md:col-span-7">
             <blockquote className="font-display text-3xl italic leading-snug md:text-5xl">&ldquo;{origin}&rdquo;</blockquote>
