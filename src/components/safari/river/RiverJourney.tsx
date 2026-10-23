@@ -309,23 +309,24 @@ export function RiverJourney() {
         const p = project(cam, x, y, o.z); if (!p) continue;
         const im = imgs.current[o.k]; if (!im?.complete || !im.naturalWidth) continue;
         const isG = o.k in GUARD_H;
-        // A guardian is framed as it would look from the docking point; once the
-        // boat moves on, that framed spot stays fixed in the world and simply
-        // grows and slides past the edge, like something left behind.
+        // Guardians keep true perspective (the boat comes to them), scaled so they
+        // fill ~40% of the frame at the dock. When the boat moves on, the guardian
+        // steps aside off the river so the bow never passes through it.
         const ar = im.naturalWidth / im.naturalHeight;
         let hpx = o.h * p.s, wpx = hpx * ar * scaleX;
-        if (isG && d < 18) {
+        if (isG) {
+          const boost = Math.max(1, (H * 0.4) / ((o.h * cam.F) / GUARD_D));
           const left = journey.get().passed.includes(o.seed - 500);
           const dd = left ? Math.max(d, GUARD_D) : d;
-          const k = dd / d; // natural scale at the framing distance
-          const frame = (h: number) => Math.min(Math.max(h, H * 0.4 * Math.min(1, Math.max(0, (14 - dd) / 8))), H * 0.5, W * 0.72);
-          const h0 = frame((o.h * p.s) / k);
-          const w0 = h0 * ar * scaleX;
-          const x0 = Math.max(w0 / 2 + 8, Math.min(W - w0 / 2 - 8, W / 2 + (p.x - W / 2) / k));
-          const grow = left ? GUARD_D / Math.max(d, 0.4) : 1;
-          hpx = h0 * grow; wpx = w0 * grow;
-          p.x = W / 2 + (x0 - W / 2) * grow;
-          p.y = cam.hy + (p.y - cam.hy) / k * grow;
+          hpx = Math.min((o.h * cam.F * boost) / dd, H * 0.5, W * 0.72); wpx = hpx * ar * scaleX;
+          const sx = left ? W / 2 + (p.x - W / 2) * (d / GUARD_D) : p.x;
+          p.x = Math.max(wpx / 2 + 8, Math.min(W - wpx / 2 - 8, sx));
+          p.y = cam.hy + (p.y - cam.hy) * (d / dd);
+          if (left) {
+            const out = Math.min(1, Math.max(0, (GUARD_D - d) / (GUARD_D - 0.5)));
+            p.x += o.side * out * out * (W / 2 + wpx);
+            alpha *= 1 - out * 0.6;
+          }
         }
         if (wpx > W * 4 || p.x + wpx < -W || p.x - wpx > W * 2) continue;
         if (o.kind === "gum") {
