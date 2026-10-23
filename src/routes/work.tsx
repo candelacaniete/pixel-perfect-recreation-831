@@ -91,7 +91,7 @@ function WorkPage() {
           </form>
         )}
       </Scene>
-      <NextStops />
+      <NextStops current="Work with me" tone="scarlet" />
     </main>
   );
 }

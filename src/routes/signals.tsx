@@ -78,7 +78,7 @@ function SignalsPage() {
           <Link to="/work" className="pill border-2 border-paper">Feature your idea →</Link>
         </div>
       </Scene>
-      <NextStops current="Signals" />
+      <NextStops current="Signals" tone="night" />
     </main>
   );
 }

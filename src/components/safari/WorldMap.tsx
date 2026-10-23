@@ -23,12 +23,12 @@ type Landmark = {
 };
 
 const LANDMARKS: Landmark[] = [
-  { id: "home", to: "/home", name: "Home", kicker: "The clearing", creature: "The Jabiru", img: gJabiru, x: 10, y: 46, size: "w-24 md:w-36", rotate: "-rotate-3" },
-  { id: "click", to: "/click", name: "Experience CLICK", kicker: "The river journey", creature: "The Night Heron", img: gHeron, x: 36, y: 58, size: "w-28 md:w-44", rotate: "rotate-2" },
-  { id: "studio", to: "/studio", name: "Studio", kicker: "Plan and conspire", creature: "The Capybara Mechanic", img: gCapymech, x: 60, y: 26, size: "w-24 md:w-36", rotate: "rotate-3" },
+  { id: "home", to: "/home", name: "Home", kicker: "The clearing", creature: "The Jabiru", img: gJabiru, x: 10, y: 46, size: "w-24 md:w-32", rotate: "-rotate-3" },
+  { id: "click", to: "/click", name: "Experience CLICK", kicker: "The river journey", creature: "The Night Heron", img: gHeron, x: 36, y: 58, size: "w-24 md:w-32", rotate: "rotate-2" },
+  { id: "studio", to: "/studio", name: "Studio", kicker: "Plan and conspire", creature: "The Capybara Mechanic", img: gCapymech, x: 60, y: 26, size: "w-24 md:w-32", rotate: "rotate-3" },
   { id: "ventures", to: "/ventures", name: "Ventures", kicker: "Four companies", creature: "The Capybara", img: spCapybara, x: 76, y: 52, size: "w-24 md:w-32", rotate: "-rotate-2" },
-  { id: "signals", to: "/signals", name: "Signals", kicker: "The observatory", creature: "The Macaw", img: gMacaw, x: 56, y: 80, size: "w-24 md:w-36", rotate: "rotate-6" },
-  { id: "work", to: "/work", name: "Work with me", kicker: "Start a conversation", creature: "The Anaconda", img: gAnaconda, x: 22, y: 84, size: "w-28 md:w-40", rotate: "-rotate-6" },
+  { id: "signals", to: "/signals", name: "Signals", kicker: "The observatory", creature: "The Macaw", img: gMacaw, x: 56, y: 80, size: "w-24 md:w-32", rotate: "rotate-6" },
+  { id: "work", to: "/work", name: "Work with me", kicker: "Start a conversation", creature: "The Anaconda", img: gAnaconda, x: 22, y: 84, size: "w-24 md:w-32", rotate: "-rotate-6" },
 ];
 
 function LandmarkLink({ l, visited, current }: { l: Landmark; visited: boolean; current: boolean }) {
@@ -37,7 +37,7 @@ function LandmarkLink({ l, visited, current }: { l: Landmark; visited: boolean; 
       to={l.to}
       aria-current={current ? "page" : undefined}
       aria-label={`${l.name} — ${l.kicker}${visited ? " (visited)" : ""}`}
-      className={`group flex items-center gap-3 text-left ${l.rotate} transition-transform duration-300 hover:rotate-0 hover:scale-105`}
+      className={`group flex items-center gap-3 text-left transition-transform duration-300 hover:scale-105`}
     >
       <span className={`relative grid shrink-0 place-items-center overflow-hidden rounded-full border-2 ${l.size} aspect-square ${visited ? "border-gold" : "border-paper/70"} bg-night/60 shadow-[0_18px_40px_-12px_oklch(0_0_0/70%)] backdrop-blur-sm transition-colors group-hover:border-gold`}>
         <img src={l.img} alt="" loading="lazy" width={560} height={560} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />
@@ -60,7 +60,8 @@ export function WorldMap() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-night text-paper">
       <img src={worldmap} alt="" width={1920} height={1280} className="absolute inset-0 h-full w-full object-cover" />
-      <div className="absolute inset-0 bg-night/25" aria-hidden />
+      <div className="absolute inset-0 bg-night/50" aria-hidden />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,oklch(0.14_0.03_260/55%)_100%)]" aria-hidden />
       <div className="grain absolute inset-0" aria-hidden />
 
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 px-5 pt-20 md:px-12 md:pt-24">
@@ -71,12 +72,10 @@ export function WorldMap() {
         </p>
       </div>
 
-      {/* Desktop: landmarks scattered across the territory */}
-      <nav aria-label="Destinations" className="absolute inset-0 z-10 hidden md:block">
+      {/* Desktop: landmarks in an ordered grid below the title */}
+      <nav aria-label="Destinations" className="relative z-10 hidden grid-cols-3 gap-x-10 gap-y-10 px-12 pb-20 pt-[min(52vh,30rem)] md:grid">
         {LANDMARKS.map((l) => (
-          <div key={l.id} className="absolute" style={{ left: `${l.x}%`, top: `${l.y}%` }}>
-            <LandmarkLink l={l} visited={visited.includes(l.id)} current={path === l.to} />
-          </div>
+          <LandmarkLink key={l.id} l={l} visited={visited.includes(l.id)} current={path === l.to} />
         ))}
       </nav>
 
@@ -87,7 +86,7 @@ export function WorldMap() {
         ))}
       </nav>
 
-      <p className="text-shadow-river absolute bottom-4 right-5 z-10 hidden max-w-xs text-right text-xs italic text-paper/80 md:block">
+      <p className="text-shadow-river absolute bottom-4 left-12 z-10 hidden max-w-xs text-right text-xs italic text-paper/80 md:block">
         The river is the way in: Experience CLICK is a first-person boat ride through the five instincts.
       </p>
     </main>

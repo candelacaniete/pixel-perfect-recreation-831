@@ -66,7 +66,7 @@ function StudioPage() {
         <p className="relative mt-8 max-w-2xl">{studio.keynote.for}</p>
         <Link to="/work" className="pill relative mt-8 bg-gold text-ink">Let's plan and conspire →</Link>
       </Scene>
-      <NextStops current="Studio" />
+      <NextStops current="Studio" tone="paper" />
     </main>
   );
 }
