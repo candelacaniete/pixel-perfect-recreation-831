@@ -4,7 +4,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { signals } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
-import landSignals from "@/assets/land-signals.jpg";
+import landSignals from "@/assets/land-signals-flatlands.jpg";
 import yrmisHand from "@/assets/yrmis-hand.jpg.asset.json";
 import yrmisZebra from "@/assets/yrmis-zebra.jpg.asset.json";
 import { Scene, Fireflies } from "@/components/safari/motion";

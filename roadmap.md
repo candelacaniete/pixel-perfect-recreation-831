@@ -1,5 +1,9 @@
 # Roadmap — Art direction unification + mobile CLICK
 
+- [x] Flatlands brief: refine map, Ventures and Signals into open Llanos; retain existing Llanos Home/Studio and Work puma video
+- [x] Flatlands brief: open river vegetation without changing boat or guardian mechanics
+- [x] Verify desktop/mobile pages, all six destinations, work option selection, five river arrivals/departures and return to map
+
 - [x] Unified world (map hub, /click, /home, global nav, real contact form)
 - [x] Fix mobile guardian cropping in CLICK (portrait + landscape camera turn)
 - [x] All five encounters completed by touch on 390×844 and 844×390
