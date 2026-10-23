@@ -17,7 +17,7 @@ const DESTINATIONS = [
 ] as const;
 
 /** Routes with dark artwork behind the fixed header. */
-const DARK_ROUTES = new Set(["/", "/click", "/signals"]);
+const DARK_ROUTES = new Set(["/", "/click", "/signals", "/home", "/ventures"]);
 
 /** An illustrated map artifact: discovered stops, your position, and free routes. */
 function JourneyMap({ onGo }: { onGo: () => void }) {

@@ -40,7 +40,7 @@ function VenturesPage() {
           className="drift-up pointer-events-none absolute right-[6%] top-16 w-24 rotate-12 [--d:200px] md:w-36" />
         <p className="eyebrow relative text-gold">Destination 03 · Ventures</p>
         <h1 className="display-xl relative mt-4 text-shadow-river">Four companies.<br /><span className="text-gold">Four industries.</span></h1>
-        <p className="relative mt-6 max-w-xl text-lg">An economist's mind, and a habit of reading rooms the way I read the jungle.</p>
+        <p className="relative mt-6 max-w-xl text-lg text-shadow-river">An economist's mind, and a habit of reading rooms the way I read the jungle.</p>
       </Scene>
       <Scene className="relative grid gap-6 px-5 pb-16 md:grid-cols-4 md:px-12" aria-label="Ventures">
         {ventures.map((v, i) => (
