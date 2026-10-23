@@ -10,3 +10,7 @@
 - [x] Lianas and flamingo-like bird removed everywhere; Yrmis photo fills the Home quote section
 - [x] Signals hero: lower-exposure background, live fireflies, nothing bursting from the branch, "OBSERVE" text removed
 - [x] Ventures hero: remove text box, dim the image instead
+- [x] Fix clipped river text and keep the boat in the channel past guardians
+- [x] Return to the world map when the river journey finishes
+- [x] Make Yrmis and Ventures photos use verified public addresses (Vercel redeployment still required)
+- [x] Show the Work with me puma on mobile

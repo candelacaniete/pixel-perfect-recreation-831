@@ -12,4 +12,5 @@
 ## Project rules
 - All narrative copy lives in src/content/yrmis.ts; only use facts confirmed on the Yrmis reference sites — never invent biography or claims.
 - Safari experience components live in src/components/safari; colors come from palette tokens in src/styles.css.
-- The homepage is one canvas-rendered first-person river journey (src/components/safari/river); scene math lives in world.ts, guardian script in src/content/journey.ts, shared boat position/progress in journeyStore.ts — keeps the experience one continuous world instead of page sections.
+- The world map is the homepage; /click is the continuous canvas river journey and returns to the map when finished. Scene math lives in world.ts, guardian script in src/content/journey.ts, and boat progress in journeyStore.ts.
+- Resolve managed photo pointers through src/lib/asset-url.ts using the public Lovable asset origin so photos also load on external hosts without a /__l5e handler.

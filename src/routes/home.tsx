@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { reframe, origin, capybaraLaw, studio, signals } from "@/content/yrmis";
@@ -58,7 +59,7 @@ function HomePage() {
             <figcaption className="eyebrow mt-6 text-gold">Yrmis · The Llanos, Venezuela</figcaption>
           </figure>
           <div className="reveal reveal-2 md:col-span-5">
-            <img src={yrmisPhoto.url} alt="Yrmis Barroeta in red tights and red heels, leaning toward the camera" loading="lazy" width={1440} height={1800}
+            <img src={assetUrl(yrmisPhoto)} alt="Yrmis Barroeta in red tights and red heels, leaning toward the camera" loading="lazy" width={1440} height={1800}
               className="mb-10 aspect-[4/5] w-full max-w-sm border-2 border-gold object-cover md:ml-auto" />
             <p className="border-l-4 border-scarlet pl-5 text-xl leading-snug">{capybaraLaw}</p>
             <p className="mt-6 text-paper/70">{reframe.body}</p>

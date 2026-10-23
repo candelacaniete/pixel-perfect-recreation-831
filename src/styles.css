@@ -155,12 +155,12 @@
 @utility text-shadow-river { text-shadow: 0 2px 18px oklch(0.12 0.04 265 / 85%), 0 1px 2px oklch(0.12 0.04 265 / 90%); }
 @utility speech {
   font-family: var(--font-display); font-style: italic; font-size: clamp(1.05rem, 2.2vw, 1.5rem); line-height: 1.3;
-  color: var(--paper); max-width: min(80vw, 26rem); width: max-content;
+  color: var(--paper); max-width: min(100%, 26rem); width: fit-content; overflow-wrap: anywhere;
   text-shadow: 0 2px 16px oklch(0.12 0.04 265 / 90%), 0 0 2px oklch(0.12 0.04 265);
 }
 @utility row-btn {
   display: inline-flex; align-items: center; gap: .4rem; border-radius: 999px; padding: .6rem 1.15rem;
-  font-weight: 600; font-size: .875rem; color: var(--paper);
+  font-weight: 600; font-size: .875rem; color: var(--paper); max-width: calc(100vw - 2rem); white-space: normal; text-align: center; justify-content: center;
   background: oklch(0.17 0.04 265 / 55%); border: 1px solid oklch(0.96 0.02 85 / 45%); backdrop-filter: blur(8px);
   transition: transform .2s ease, background-color .2s ease;
   &:hover { transform: translateY(-2px); background: oklch(0.17 0.04 265 / 80%); }

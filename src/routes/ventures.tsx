@@ -1,3 +1,4 @@
+import { assetUrl } from "@/lib/asset-url";
 import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ventures, hqPillars } from "@/content/yrmis";
@@ -26,10 +27,10 @@ export const Route = createFileRoute("/ventures")({
 
 const tints = ["bg-scarlet text-paper", "bg-ink text-paper", "bg-gold text-ink", "bg-crimson text-paper"];
 const photos = [
-  { src: mhImg.url, alt: "Mission Heirloom greenhouse", pos: "object-center" },
-  { src: absImg.url, alt: "A mother and her child — All Black Sheep", pos: "object-center" },
-  { src: hemImg.url, alt: "(hĕm)", pos: "object-center" },
-  { src: yrmisImg.url, alt: "Yrmis Barroeta wearing YRMIS trousers", pos: "object-top" },
+  { src: assetUrl(mhImg), alt: "Mission Heirloom greenhouse", pos: "object-center" },
+  { src: assetUrl(absImg), alt: "A mother and her child — All Black Sheep", pos: "object-center" },
+  { src: assetUrl(hemImg), alt: "(hĕm)", pos: "object-center" },
+  { src: assetUrl(yrmisImg), alt: "Yrmis Barroeta wearing YRMIS trousers", pos: "object-top" },
 ];
 const tilts = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2"];
 

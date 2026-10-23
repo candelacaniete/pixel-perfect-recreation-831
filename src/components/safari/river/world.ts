@@ -3,6 +3,16 @@ import { stops, LANDING_Z } from "@/content/journey";
 
 export const EYE = 1.25;
 
+/** Always dock at the next unvisited stop, without overshooting its bank. */
+export function riverTarget(passed: number[]) {
+  const index = stops.findIndex((_, i) => !passed.includes(i));
+  return { index, z: stops[index]?.z ?? LANDING_Z };
+}
+
+export function riverFrame(W: number, H: number) {
+  return { F: Math.min(H * 0.9, W * 0.6), hy: H * 0.46 };
+}
+
 export const curve = (z: number) => 7 * Math.sin(z * 0.03) + 4 * Math.sin(z * 0.071 + 1);
 export const curveD = (z: number) => 0.21 * Math.cos(z * 0.03) + 0.284 * Math.cos(z * 0.071 + 1);
 export const width = (z: number) => {
@@ -39,8 +49,10 @@ export const rgb = (c: RGB, a = 1) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},
 export function palette(t: number) {
   const tt = Math.min(1, Math.max(0, t));
   let i = 0;
-  while (i < keys.length - 2 && tt > keys[i + 1]!.t) i++;
-  const a = keys[i]!, b = keys[i + 1]!;
+  while (i < keys.length - 2 && tt > (keys[i + 1]?.t ?? 1)) i++;
+  const a = keys[i] ?? keys[0];
+  const b = keys[i + 1] ?? a;
+  if (!a || !b) throw new Error("River palette is empty");
   const k = (tt - a.t) / (b.t - a.t);
   return { top: mix(a.top, b.top, k), bot: mix(a.bot, b.bot, k), land: mix(a.land, b.land, k), wash: mix(a.wash, b.wash, k), night: 1 - Math.abs(tt - 0.4) * 2.2 };
 }

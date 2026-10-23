@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 import { stops, LANDING_Z, ambientLines } from "@/content/journey";
-import { curve, curveD, width, project, hash, palette, rgb, type Cam } from "./world";
+import { curve, curveD, width, project, hash, palette, rgb, riverTarget, riverFrame, type Cam } from "./world";
 import { journey, useJourney } from "../journeyStore";
 import { useReducedMotion } from "../visited";
 import { EncounterLayer, type Phase } from "./EncounterLayer";
-import { Landing } from "./Landing";
 
 import capyImg from "@/assets/sp-capybara.webp";
 import birdImg from "@/assets/sp-bird.webp";
@@ -47,12 +48,13 @@ function buildWorld(): Obj[] {
   o.push({ k: "capy", x: curve(28) - (width(28) + 0.4), z: 28, h: 1.1, side: -1, seed: 99, kind: "gum" });
   stops.forEach((s, i) => {
     const gz = s.z + 9;
-    o.push({ k: s.sprite, x: curve(gz) + s.side * (width(gz) + 0.5), z: gz, h: GUARD_H[s.sprite] ?? 3, side: s.side, seed: 500 + i, flip: s.side > 0 });
+    o.push({ k: s.sprite, x: curve(gz) + s.side * (width(gz) + (GUARD_H[s.sprite] ?? 3) / 2 + 0.5), z: gz, h: GUARD_H[s.sprite] ?? 3, side: s.side, seed: 500 + i, flip: s.side > 0 });
   });
   return o;
 }
 
 export function RiverJourney() {
+  const navigate = useNavigate();
   const canvas = useRef<HTMLCanvasElement>(null);
   const reduced = useReducedMotion();
   const j = useJourney();
@@ -62,6 +64,12 @@ export function RiverJourney() {
   const [nearLine, setNearLine] = useState<string | null>(null);
   const [hint, setHint] = useState(true);
   const [fade, setFade] = useState(false);
+
+  useEffect(() => {
+    if (!j.landed) return;
+    journey.set({ cam: 0, passed: [], landed: false, jump: null });
+    void navigate({ to: "/", replace: true });
+  }, [j.landed, navigate]);
 
   // mutable sim state
   const sim = useRef({ cam: j.cam, vel: 0, push: 0, logCleared: 0, fogSteps: 0, encounter: null as number | null, t: 0, world: [] as Obj[], pan: 0, flow: 0, splashes: [] as { z: number; x: number; t0: number }[] });
@@ -75,7 +83,7 @@ export function RiverJourney() {
   // jumps from the map
   useEffect(() => {
     if (j.jump == null) return;
-    const target = j.jump >= stops.length ? LANDING_Z : stops[j.jump]!.z;
+    const target = stops[j.jump]?.z ?? LANDING_Z;
     setFade(true);
     const id = setTimeout(() => {
       sim.current.cam = Math.max(0, target - 0.02);
@@ -118,7 +126,9 @@ export function RiverJourney() {
 
   // main loop
   useEffect(() => {
-    const cv = canvas.current!; const ctx = cv.getContext("2d")!;
+    const cv = canvas.current;
+    const ctx = cv?.getContext("2d");
+    if (!cv || !ctx) return;
     let raf = 0, last = performance.now();
     let lastCaption = "", lastNear = "";
 
@@ -127,22 +137,21 @@ export function RiverJourney() {
       const S = sim.current; S.t += dt;
       const dpr = Math.min(1.5, window.devicePixelRatio || 1);
       const W = cv.clientWidth, H = cv.clientHeight;
-      if (cv.width !== Math.round(W * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+      if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       // --- movement ---
       const st = journey.get();
       if (S.encounter == null && !st.landed) {
         const base = reduced ? 0 : 1.5;
-        const next = stops.findIndex((s, i) => !st.passed.includes(i) && s.z >= S.cam - 0.01);
-        const targetZ = next >= 0 ? stops[next]!.z : LANDING_Z;
+        const { index: next, z: targetZ } = riverTarget(st.passed);
         const D = targetZ - S.cam;
         S.vel += S.push; S.push = 0;
         S.vel += (base - S.vel) * Math.min(1, dt * 0.9);
         let maxV = D < 22 ? Math.max(0.35, (D / 22) * 6) : 40;
         if (S.vel > maxV) S.vel = maxV;
         S.vel = Math.max(-8, S.vel);
-        S.cam = Math.max(0, S.cam + S.vel * dt);
+        S.cam = Math.max(0, Math.min(targetZ, S.cam + S.vel * dt));
         if (S.cam >= targetZ - 0.05) {
           S.cam = targetZ; S.vel = 0;
           if (next >= 0) { S.encounter = next; setActive(next); setPhase("dialogue"); }
@@ -154,27 +163,9 @@ export function RiverJourney() {
       const t = S.cam / LANDING_Z;
       const pal = palette(t);
       const sway = reduced ? 0 : Math.sin(S.t * 0.6) * 0.12;
-      const F = Math.max(H * 0.9, W * 0.55);
-      // portrait framing: the horizon sits lower and the camera turns toward the
-      // guardian so its face and body stay in the safe area on narrow screens
-      const narrow = Math.max(0, Math.min(1, (1.25 - W / H) / 0.7), H < 520 ? 0.7 : 0);
-      const hyK = 0.42 + 0.08 * narrow;
-      const cam: Cam = { z: S.cam, W, H, F, hy: H * hyK + (reduced ? 0 : Math.sin(S.t * 1.3) * 2), c0: curve(S.cam), d0: curveD(S.cam), sway, pan: 0 };
-      let panTarget = 0;
-      if (narrow > 0) {
-        const gi = S.encounter ?? stops.findIndex((s) => s.z + 9 - S.cam > 0 && s.z + 9 - S.cam < 26);
-        const gs = gi >= 0 ? stops[gi] : undefined;
-        if (gs) {
-          const gz = gs.z + 9, d = gz - S.cam;
-          const gx = curve(gz) + gs.side * (width(gz) + 0.5);
-          const lx = gx - (cam.c0 + cam.d0 * d * 0.92);
-          const want = (gs.side * W * 0.2) / (F / d);
-          const close = Math.min(1, Math.max(0, (26 - d) / 12));
-          panTarget = (lx - want) * close * narrow;
-        }
-      }
-      S.pan += (panTarget - S.pan) * Math.min(1, dt * 2.5);
-      cam.pan = S.pan;
+      // Keep the camera in the river: widen the view, never pan onto a bank.
+      const { F, hy } = riverFrame(W, H);
+      const cam: Cam = { z: S.cam, W, H, F, hy: hy + (reduced ? 0 : Math.sin(S.t * 1.3) * 2), c0: curve(S.cam), d0: curveD(S.cam), sway, pan: 0 };
 
       // --- sky ---
       const sky = ctx.createLinearGradient(0, 0, 0, cam.hy);
@@ -315,7 +306,14 @@ export function RiverJourney() {
         if (o.k in GUARD_H) { const close = Math.max(0, (16 - d) / 16); y += reduced ? 0 : Math.abs(Math.sin(S.t * 2.4)) * 0.12 * close; }
         const p = project(cam, x, y, o.z); if (!p) continue;
         const im = imgs.current[o.k]; if (!im?.complete || !im.naturalWidth) continue;
-        const hpx = o.h * p.s, wpx = hpx * (im.naturalWidth / im.naturalHeight) * scaleX;
+        const isG = o.k in GUARD_H;
+        const hpx = isG ? Math.min(o.h * p.s, H * 0.42, W * 0.58) : o.h * p.s;
+        const wpx = hpx * (im.naturalWidth / im.naturalHeight) * scaleX;
+        // Keep a bank-side guardian visible without steering the camera at it.
+        if (isG && d < 18) {
+          p.x = Math.max(wpx / 2 + 8, Math.min(W - wpx / 2 - 8, p.x));
+          alpha *= Math.min(1, Math.max(0, (d - 1) / 8));
+        }
         if (wpx > W * 4 || p.x + wpx < -W || p.x - wpx > W * 2) continue;
         if (o.kind === "gum") {
           const g = Math.max(0, 14 - d) / 14, rr = (0.35 + 0.25 * Math.sin(S.t * 1.6) + g * 0.6) * p.s;
@@ -325,7 +323,6 @@ export function RiverJourney() {
             else { const gg = ctx.createRadialGradient(bx - rr * 0.3, by - rr * 0.3, rr * 0.1, bx, by, rr); gg.addColorStop(0, "rgba(255,232,160,0.95)"); gg.addColorStop(1, "rgba(244,176,60,0.85)"); ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(bx, by, rr, 0, 7); ctx.fill(); }
           };
         }
-        const isG = o.k in GUARD_H;
         draw.push({ d, guardian: isG, fn: () => {
           if (isG && d < 18) { const gl = ctx.createRadialGradient(p.x, p.y - hpx * 0.5, 0, p.x, p.y - hpx * 0.5, hpx * 0.8); gl.addColorStop(0, "rgba(255,220,150,0.35)"); gl.addColorStop(1, "rgba(255,220,150,0)"); ctx.fillStyle = gl; ctx.fillRect(p.x - hpx, p.y - hpx * 1.3, hpx * 2, hpx * 1.6); }
           ctx.globalAlpha = Math.max(0, alpha);
@@ -411,7 +408,7 @@ export function RiverJourney() {
       vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,0.45)");
       ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
 
-      const look = S.encounter ?? stops.findIndex((s) => s.z + 9 - S.cam > 0 && s.z + 9 - S.cam < 18);
+      const look = S.encounter ?? stops.findIndex((s, i) => !journey.get().passed.includes(i) && s.z + 9 - S.cam > 0 && s.z + 9 - S.cam < 18);
       const nl = look >= 0 ? String(look) : "";
       if (nl !== lastNear) { lastNear = nl; setNearLine(nl || null); }
       const amb = ambientLines.find((a) => S.cam >= a.z && S.cam < a.z + 13);
@@ -424,7 +421,7 @@ export function RiverJourney() {
     return () => cancelAnimationFrame(raf);
   }, [reduced]);
 
-  const stop = active != null ? stops[active]! : null;
+  const stop = active != null ? stops[active] : null;
   const side = (stop ?? (nearLine ? stops[Number(nearLine)] : null))?.side ?? -1;
 
   return (
@@ -440,9 +437,9 @@ export function RiverJourney() {
       </svg>
 
       {/* floating text anchored to the nearest guardian */}
-      <div className={`pointer-events-none absolute top-[calc(env(safe-area-inset-top)+5.5rem)] z-10 max-w-[min(88vw,26rem)] md:top-[20%] ${side > 0 ? "right-[6%] text-right [&_.speech]:ml-auto" : "left-[6%]"}`}>
+      <div className={`pointer-events-none absolute inset-x-5 top-[calc(env(safe-area-inset-top)+5.5rem)] z-10 md:inset-x-auto md:top-[20%] md:w-[26rem] ${side > 0 ? "md:right-[6%]" : "md:left-[6%]"}`}>
         {nearLine && !stop && (
-          <p className="speech animate-in fade-in duration-700">{stops[Number(nearLine)]!.recognition}</p>
+          <p className="speech animate-in fade-in duration-700">{stops[Number(nearLine)]?.recognition}</p>
         )}
         {stop && (
           <EncounterLayer
@@ -469,12 +466,11 @@ export function RiverJourney() {
       )}
 
       {!stop && !j.landed && (
-        <button data-ui onPointerDown={() => { sim.current.push += 3; setHint(false); }} className="row-btn absolute bottom-6 right-5 z-20" aria-label="Row forward">
+        <Button data-ui variant="ghost" onPointerDown={() => { sim.current.push += 3; setHint(false); }} className="row-btn h-auto absolute bottom-6 right-5 z-20" aria-label="Row forward">
           Row ↑
-        </button>
+        </Button>
       )}
 
-      {j.landed && <Landing />}
       <div aria-hidden className={`pointer-events-none absolute inset-0 bg-night transition-opacity duration-300 ${fade ? "opacity-100" : "opacity-0"}`} />
     </div>
   );
