@@ -50,7 +50,7 @@ function VenturesPage() {
         {ventures.map((v, i) => (
           <article key={v} className={`reveal group flex aspect-[3/4] flex-col overflow-hidden shadow-[0_24px_50px_-20px_oklch(0_0_0/50%)] transition duration-300 hover:rotate-0 hover:scale-[1.03] ${tints[i]} ${tilts[i]}`} >
             <div className="relative min-h-0 flex-1 overflow-hidden">
-              <img src={photos[i].src} alt={photos[i].alt} loading="lazy" className={`h-full w-full object-cover transition duration-700 group-hover:scale-105 ${photos[i].pos}`} />
+              <img src={photos[i]!.src} alt={photos[i]!.alt} loading="lazy" className={`h-full w-full object-cover transition duration-700 group-hover:scale-105 ${photos[i]!.pos}`} />
             </div>
             <div className="p-5">
               <span className="eyebrow">Venture 0{i + 1}</span>
