@@ -161,7 +161,7 @@ export function RiverJourney() {
       const F = Math.max(H * 0.9, W * 0.55);
       // portrait framing: the horizon sits lower and the camera turns toward the
       // guardian so its face and body stay in the safe area on narrow screens
-      const narrow = Math.max(0, Math.min(1, (1.25 - W / H) / 0.7));
+      const narrow = Math.max(0, Math.min(1, (1.25 - W / H) / 0.7), H < 520 ? 0.7 : 0);
       const hyK = 0.42 + 0.08 * narrow;
       const cam: Cam = { z: S.cam, W, H, F, hy: H * hyK + (reduced ? 0 : Math.sin(S.t * 1.3) * 2), c0: curve(S.cam), d0: curveD(S.cam), sway, pan: 0 };
       let panTarget = 0;
@@ -436,7 +436,7 @@ export function RiverJourney() {
       <canvas ref={canvas} className="absolute inset-0 h-full w-full" aria-hidden />
 
       {/* bow of the boat */}
-      <svg aria-hidden viewBox="0 0 400 160" className={`pointer-events-none absolute bottom-[-8px] left-1/2 w-[min(90vw,560px)] ${reduced ? "-translate-x-1/2" : "animate-bob"}`}>
+      <svg aria-hidden viewBox="0 0 400 160" className={`pointer-events-none absolute bottom-[-8px] left-1/2 w-[min(90vw,560px,95vh)] ${reduced ? "-translate-x-1/2" : "animate-bob"}`}>
         <path d="M200 6 C 260 40, 330 110, 400 160 L 0 160 C 70 110, 140 40, 200 6 Z" fill="var(--bow)" />
         <path d="M200 6 C 240 50, 290 110, 340 160 L 60 160 C 110 110, 160 50, 200 6 Z" fill="var(--bow-inner)" />
         <path d="M200 6 L 200 160" stroke="var(--bow)" strokeWidth="6" />

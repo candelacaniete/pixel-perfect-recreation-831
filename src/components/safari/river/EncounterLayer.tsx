@@ -157,7 +157,7 @@ function Signals({ onDone }: { onDone: () => void }) {
         return (
           <button key={w.w} onClick={() => (w.s ? setKept((x) => [...new Set([...x, w.w])]) : setHit(w.w))}
             className={`storm-word absolute max-w-[42vw] min-h-11 px-1 text-left md:max-w-none ${on ? "storm-kept" : ""}`}
-            style={{ top: `${16 + i * 6}%`, left: `${STORM_X[i] ?? 10}%`, animationDelay: `${-i * 1.3}s`, opacity: w.s || on ? 1 : 1 - k * 0.75, filter: w.s || on ? "none" : `blur(${k * 4}px)` }}>
+            style={{ top: `calc(6.5rem + ${i} * (100% - 12rem) / 10)`, left: `${STORM_X[i] ?? 10}%`, animationDelay: `${-i * 1.3}s`, opacity: w.s || on ? 1 : 1 - k * 0.75, filter: w.s || on ? "none" : `blur(${k * 4}px)` }}>
             {w.w}
           </button>
         );
