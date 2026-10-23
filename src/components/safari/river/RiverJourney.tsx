@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { stops, LANDING_Z, ambientLines } from "@/content/journey";
-import { curve, curveD, width, project, hash, palette, rgb, EYE, type Cam } from "./world";
+import { curve, curveD, width, project, hash, palette, rgb, type Cam } from "./world";
 import { journey, useJourney } from "../journeyStore";
 import { useReducedMotion } from "../visited";
 import { EncounterLayer, type Phase } from "./EncounterLayer";
@@ -382,4 +382,4 @@ export function RiverJourney() {
 }
 
 const w2 = (z: number) => width(z);
-void EYE;
+
