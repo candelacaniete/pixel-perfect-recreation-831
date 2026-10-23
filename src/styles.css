@@ -234,3 +234,8 @@
 @keyframes liana { 0%,100% { transform: rotate(-2.5deg) } 50% { transform: rotate(2.5deg) } }
 .liana { transform-origin: 50% 0; animation: liana 6s ease-in-out infinite; translate: calc(var(--side, 0) * var(--p, 0) * 6vw) 0; }
 @media (prefers-reduced-motion: reduce) { .liana, .guide-bird img { animation: none !important; } .liana { translate: none; } }
+
+.firefly { position: absolute; border-radius: 9999px; background: var(--gold); box-shadow: 0 0 8px 2px color-mix(in oklab, var(--gold) 70%, transparent), 0 0 22px 6px color-mix(in oklab, var(--gold) 30%, transparent); animation-name: firefly-drift, firefly-blink; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; }
+@keyframes firefly-drift { to { transform: translate(var(--fx), var(--fy)); } }
+@keyframes firefly-blink { 0%, 30% { opacity: 0.1; } 60%, 100% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .firefly { animation: none; opacity: 0.7; } }

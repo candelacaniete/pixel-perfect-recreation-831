@@ -45,10 +45,6 @@ function buildWorld(): Obj[] {
     o.push({ k: "capy", x: curve(z) + side * (width(z) + 0.1), z, h: 0.95, side, seed: i, kind: "capy", flip: side > 0 });
   }
   o.push({ k: "capy", x: curve(28) - (width(28) + 0.4), z: 28, h: 1.1, side: -1, seed: 99, kind: "gum" });
-  for (const [i, z] of [12, 40, 74, 112, 164, 214, 258, 280].entries()) {
-    const side = i % 2 ? 1 : -1;
-    o.push({ k: "bird", x: curve(z) - side * width(z), z, h: 0.9, y: 0.4, side, seed: i, kind: "bird", flip: side < 0 });
-  }
   stops.forEach((s, i) => {
     const gz = s.z + 9;
     o.push({ k: s.sprite, x: curve(gz) + s.side * (width(gz) + 0.5), z: gz, h: GUARD_H[s.sprite] ?? 3, side: s.side, seed: 500 + i, flip: s.side > 0 });

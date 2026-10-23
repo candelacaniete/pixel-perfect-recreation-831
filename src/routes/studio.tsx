@@ -4,7 +4,7 @@ import { studio } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
 import landStudio from "@/assets/land-studio.jpg";
-import { Scene, Lianas } from "@/components/safari/motion";
+import { Scene } from "@/components/safari/motion";
 import gCapymech from "@/assets/g-capymech.webp";
 
 export const Route = createFileRoute("/studio")({
@@ -26,7 +26,6 @@ function StudioPage() {
   return (
     <main className="overflow-hidden bg-paper text-ink">
       <Scene className="isolate relative grid min-h-[92svh] content-end overflow-hidden px-5 pb-16 pt-28 md:grid-cols-12 md:content-center md:px-12">
-        <Lianas />
         <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
           <img src={landStudio} alt="" width={1920} height={1088} className="photo-bg object-[30%_center]" />
           <div className="absolute inset-0 bg-[linear-gradient(0deg,var(--paper)_6%,transparent_45%)] md:bg-[linear-gradient(270deg,oklch(0.96_0.02_85/85%)_18%,transparent_55%)]" />
