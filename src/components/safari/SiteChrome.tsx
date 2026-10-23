@@ -81,8 +81,8 @@ function DestinationMenu({ dark }: { dark: boolean }) {
 
   return (
     <div ref={ref} className="relative">
-      <button onClick={() => setOpen((o) => !o)} className="row-btn" aria-haspopup="menu" aria-expanded={open}>
-        Destinations {open ? "▴" : "▾"}
+      <button onClick={() => setOpen((o) => !o)} className="row-btn whitespace-nowrap max-sm:px-3" aria-haspopup="menu" aria-expanded={open}>
+        <span className="max-sm:hidden">Destinations</span><span className="sm:hidden">Go</span> {open ? "▴" : "▾"}
       </button>
       {open && (
         <div role="menu" aria-label="Jump to a destination"
@@ -117,16 +117,16 @@ export function SiteChrome() {
 
   return (
     <>
-      <header data-ui className="pointer-events-none fixed inset-x-0 top-0 z-40 flex items-center justify-between p-3 md:p-5">
+      <header data-ui className="pointer-events-none fixed inset-x-0 top-0 z-40 flex items-center justify-between p-3 pt-[max(0.75rem,env(safe-area-inset-top))] md:p-5">
         <Link to="/" aria-label="Yrmis — back to the world map"
           className={`pointer-events-auto font-display text-2xl italic md:text-3xl ${dark ? "text-paper text-shadow-river" : "text-ink"}`}>
           Yrmis
         </Link>
         <div className="pointer-events-auto flex items-center gap-2">
           {onRiver && (
-            <button onClick={() => setMapOpen(true)} className="row-btn" aria-haspopup="dialog" aria-expanded={mapOpen}>River map</button>
+            <button onClick={() => setMapOpen(true)} className="row-btn whitespace-nowrap max-sm:px-3" aria-haspopup="dialog" aria-expanded={mapOpen}><span className="max-sm:hidden">River map</span><span className="sm:hidden">River</span></button>
           )}
-          <Link to="/" aria-current={path === "/" ? "page" : undefined} className={`row-btn ${path === "/" ? "row-btn-scarlet" : ""}`}>Map</Link>
+          <Link to="/" aria-current={path === "/" ? "page" : undefined} className={`row-btn whitespace-nowrap max-sm:px-3 ${path === "/" ? "row-btn-scarlet" : ""}`}>Map</Link>
           <DestinationMenu dark={dark} />
           <Link to="/work" className="row-btn row-btn-scarlet hidden sm:inline-flex">Work with me</Link>
         </div>
