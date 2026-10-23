@@ -73,7 +73,7 @@ export function WorldMap() {
       </div>
 
       {/* Desktop: landmarks in an ordered grid below the title */}
-      <nav aria-label="Destinations" className="relative z-10 hidden grid-cols-3 gap-x-10 gap-y-10 px-12 pb-20 pt-[min(52vh,30rem)] md:grid">
+      <nav aria-label="Destinations" className="relative z-10 hidden grid-cols-3 gap-x-10 gap-y-10 px-12 pb-20 pt-[max(58vh,33rem)] md:grid">
         {LANDMARKS.map((l) => (
           <LandmarkLink key={l.id} l={l} visited={visited.includes(l.id)} current={path === l.to} />
         ))}
