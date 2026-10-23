@@ -58,10 +58,10 @@ function WorkPage() {
     <main className="bg-scarlet text-paper">
       <Scene className="relative overflow-hidden px-5 pb-10 pt-28 md:px-12">
         <p aria-hidden className="display-xl swell pointer-events-none absolute -right-6 bottom-0 whitespace-nowrap text-[24vw] text-ink/15">CLICK</p>
-        <img src={puma} alt="" aria-hidden width={1024} height={1024} className="emerge pointer-events-none absolute -bottom-16 right-[-8%] hidden w-[30rem] md:block" />
         <p className="eyebrow">Work with me</p>
         <h1 className="display-xl relative mt-4">Five ways to<br /><em>click into your wild.</em></h1>
         <p className="mt-6 max-w-2xl text-lg">One room turned around in ninety minutes, a newsletter that reaches the right 250,000 people, or a company built from inception to scale — underneath, the work is the same.</p>
+        <img src={puma} alt="Venezuelan Llanos puma" width={1024} height={1024} className="emerge pointer-events-none relative ml-auto mt-4 block w-60 md:absolute md:-bottom-16 md:right-[-8%] md:mt-0 md:w-[30rem]" />
       </Scene>
       <section className="grid gap-px bg-ink md:grid-cols-3" aria-label="Ways to work together">
         {[...workOptions, { n: "∞", verb: "Custom", title: "Something we haven't named yet", body: "Not seeing exactly what you need? Good — that's usually where the interesting work is." }].map((o) => (
