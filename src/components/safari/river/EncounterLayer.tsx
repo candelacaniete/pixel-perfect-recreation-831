@@ -144,6 +144,7 @@ const storm = [
   { w: "hate the colour", s: false }, { w: "the price is unclear", s: true }, { w: "meh", s: false },
   { w: "nobody reads this", s: false }, { w: "onboarding took forty minutes", s: true }, { w: "lol", s: false }, { w: "boring", s: false },
 ];
+const STORM_X = [6, 46, 14, 52, 4, 40, 10, 48, 2, 34];
 function Signals({ onDone }: { onDone: () => void }) {
   const [kept, setKept] = useState<string[]>([]);
   const [hit, setHit] = useState<string | null>(null);
@@ -156,7 +157,7 @@ function Signals({ onDone }: { onDone: () => void }) {
         return (
           <button key={w.w} onClick={() => (w.s ? setKept((x) => [...new Set([...x, w.w])]) : setHit(w.w))}
             className={`storm-word absolute max-w-[42vw] min-h-11 px-1 text-left md:max-w-none ${on ? "storm-kept" : ""}`}
-            style={{ top: `${18 + ((i * 37) % 52)}%`, left: `${4 + ((i * 53) % 50)}%`, animationDelay: `${-i * 1.3}s`, opacity: w.s || on ? 1 : 1 - k * 0.75, filter: w.s || on ? "none" : `blur(${k * 4}px)` }}>
+            style={{ top: `${16 + i * 6}%`, left: `${STORM_X[i] ?? 10}%`, animationDelay: `${-i * 1.3}s`, opacity: w.s || on ? 1 : 1 - k * 0.75, filter: w.s || on ? "none" : `blur(${k * 4}px)` }}>
             {w.w}
           </button>
         );
