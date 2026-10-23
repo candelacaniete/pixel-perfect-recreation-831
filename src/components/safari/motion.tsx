@@ -77,7 +77,7 @@ export function GuideBird({ stops }: { stops: string[] }) {
       f = 0;
       const vh = window.innerHeight;
       let label = stops[0] ?? "";
-      document.querySelectorAll<HTMLElement>("[data-guide]").forEach((s) => { if (s.getBoundingClientRect().top < vh * 0.55) label = s.dataset.guide ?? label; });
+      document.querySelectorAll<HTMLElement>("[data-guide]").forEach((s) => { if (s.getBoundingClientRect().top < vh * 0.55) label = s.dataset["guide"] ?? label; });
       const max = document.documentElement.scrollHeight - vh;
       const k = max > 0 ? window.scrollY / max : 0;
       el.style.setProperty("--k", reduced ? "0" : k.toFixed(4));
