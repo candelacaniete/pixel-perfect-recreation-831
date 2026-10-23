@@ -359,7 +359,6 @@ export function RiverJourney() {
       if (pal.night > 0.05) {
         const night = pal.night;
         const count = reduced ? 45 : 110;
-        const near = stops.find((s, i) => Math.abs(s.z - S.cam) < 24 && !journey.get().completed.includes(i));
         for (let i = 0; i < count; i++) {
           const band = hash(i + 41); // 0 = close to the camera, 1 = deep in the trees
           const spd = 0.35 + hash(i + 7) * 0.9;
@@ -371,10 +370,6 @@ export function RiverJourney() {
             x += Math.sin(S.t * spd + ph) * 0.7 + Math.sin(S.t * 0.23 + i) * 0.5;
             y += Math.sin(S.t * spd * 0.7 + ph * 1.3) * 0.28;
             z += Math.sin(S.t * 0.31 + i * 0.7) * 1.4;
-          }
-          if (near) {
-            const gk = (1 - Math.abs(near.z - S.cam) / 24) * 0.55;
-            x = x * (1 - gk) + (curve(near.z + GUARD_D) + near.side * width(near.z + GUARD_D) * 0.9 + (hash(i + 5) * 2 - 1) * 2.2) * gk;
           }
           const p = project(cam, x, y, z); if (!p) continue;
           const pulse = reduced ? 0.75 : 0.3 + 0.7 * Math.abs(Math.sin(S.t * (0.9 + hash(i + 3) * 1.6) + ph));
@@ -389,23 +384,6 @@ export function RiverJourney() {
           if (y < 0.9 && Math.abs(x - curve(z)) < width(z)) {
             const rp = project(cam, x, 0, z);
             if (rp) { ctx.fillStyle = `rgba(255,236,140,${a * 0.25})`; ctx.beginPath(); ctx.ellipse(rp.x, rp.y + r, r * 0.8, r * 2.2, 0, 0, 7); ctx.fill(); }
-          }
-        }
-        // a small swarm spirals around the boat, then disperses
-        const cyc = reduced ? 0 : S.t % 24;
-        if (cyc > 16 && cyc < 20.5 && night > 0.4) {
-          const k = (cyc - 16) / 4.5;
-          for (let i = 0; i < 14; i++) {
-            const ang = k * 7 + i * 0.45;
-            const rad = (1 - Math.abs(k - 0.5) * 2) * 2.2 + 0.8;
-            const z = S.cam + 3 + Math.sin(ang * 0.5) * 0.8;
-            const p = project(cam, curve(z) + Math.cos(ang) * rad * 0.55, 1.1 + Math.sin(ang) * rad * 0.28 + k * 0.6, z);
-            if (!p) continue;
-            const a = night * 0.9 * (k < 0.85 ? 1 : (1 - k) / 0.15);
-            const r = Math.max(1.2, 0.05 * p.s);
-            const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4);
-            g.addColorStop(0, `rgba(255,240,160,${a})`); g.addColorStop(1, "rgba(255,240,160,0)");
-            ctx.fillStyle = g; ctx.fillRect(p.x - r * 4, p.y - r * 4, r * 8, r * 8);
           }
         }
       }

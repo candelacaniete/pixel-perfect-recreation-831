@@ -71,9 +71,9 @@ function WorkPage() {
         </video>
       </Scene>
       <section className="grid gap-px bg-ink md:grid-cols-3" aria-label="Ways to work together">
-        {[...workOptions, { n: "∞", verb: "Custom", title: "Something we haven't named yet", body: "Not seeing exactly what you need? Good — that's usually where the interesting work is." }].map((o) => (
+        {[...workOptions, { n: "∞", verb: "Custom", title: "Something we haven't named yet", body: "Not seeing exactly what you need? Good — that's usually where the interesting work is." }].map((o, i) => (
           <button key={o.n} onClick={() => { setPick(o.title); document.getElementById("form")?.scrollIntoView({ behavior: "smooth" }); }} aria-pressed={pick === o.title}
-            className={`p-6 text-left transition md:p-8 ${pick === o.title ? "bg-ink text-paper" : "bg-scarlet hover:bg-paper hover:text-ink"}`}>
+            className={`p-6 text-left transition md:p-8 ${pick === o.title ? "bg-ink text-paper" : `${i % 2 ? "bg-crimson" : "bg-scarlet"} hover:bg-paper hover:text-ink`}`}>
             <span className="eyebrow">{o.n} · {o.verb}</span>
             <span className="font-display mt-4 block text-3xl">{o.title}</span>
             <span className="mt-3 block">{o.body}</span>
