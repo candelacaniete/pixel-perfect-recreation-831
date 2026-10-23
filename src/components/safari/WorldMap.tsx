@@ -64,7 +64,7 @@ export function WorldMap() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,oklch(0.14_0.03_260/55%)_100%)]" aria-hidden />
       <div className="grain absolute inset-0" aria-hidden />
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 px-5 pt-20 md:px-12 md:pt-24">
+      <div className="pointer-events-none relative z-10 px-5 pt-20 md:px-12 md:pt-24">
         <p className="eyebrow text-gold">A map of an impossible territory</p>
         <h1 className="display-xl text-shadow-river mt-2 text-paper">Yrmis&rsquo;s<br />world</h1>
         <p className="font-display text-shadow-river mt-3 max-w-md text-xl italic md:text-2xl">
@@ -73,14 +73,14 @@ export function WorldMap() {
       </div>
 
       {/* Desktop: landmarks in an ordered grid below the title */}
-      <nav aria-label="Destinations" className="relative z-10 hidden grid-cols-3 gap-x-10 gap-y-10 px-12 pb-20 pt-[max(58vh,33rem)] md:grid">
+      <nav aria-label="Destinations" className="relative z-10 hidden grid-cols-3 gap-x-10 gap-y-10 px-12 pb-20 pt-14 md:grid">
         {LANDMARKS.map((l) => (
           <LandmarkLink key={l.id} l={l} visited={visited.includes(l.id)} current={path === l.to} />
         ))}
       </nav>
 
       {/* Mobile: the same landmarks as a scrollable expedition list */}
-      <nav aria-label="Destinations" className="relative z-10 mt-[62vh] grid gap-5 bg-gradient-to-t from-night via-night/85 to-transparent px-5 pb-16 pt-10 md:hidden">
+      <nav aria-label="Destinations" className="relative z-10 mt-[30vh] grid gap-5 bg-gradient-to-t from-night via-night/85 to-transparent px-5 pb-16 pt-10 md:hidden">
         {LANDMARKS.map((l) => (
           <LandmarkLink key={l.id} l={l} visited={visited.includes(l.id)} current={path === l.to} />
         ))}
