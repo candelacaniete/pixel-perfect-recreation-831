@@ -10,7 +10,7 @@ export function riverTarget(passed: number[]) {
 }
 
 export function riverFrame(W: number, H: number) {
-  return { F: Math.min(H * 0.9, W * 0.85), hy: H * 0.46 };
+  return { F: Math.min(H * 0.9, W * 0.6), hy: H * 0.46 };
 }
 
 export const curve = (z: number) => 7 * Math.sin(z * 0.03) + 4 * Math.sin(z * 0.071 + 1);
