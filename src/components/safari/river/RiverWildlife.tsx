@@ -22,7 +22,7 @@ export function CrocodileEncounter({ reduced, onContinue }: { reduced: boolean; 
 
   return (
     <section data-ui aria-label="Crocodile encounter" className="absolute inset-0 z-20" data-phase={phase}>
-      <div className="crocodile-caption absolute inset-x-5 top-[calc(env(safe-area-inset-top)+6rem)] mx-auto max-w-xl text-center">
+      <div className="crocodile-caption">
         <h2 className="font-display text-2xl italic text-shadow-river md:text-4xl">{copy.title}</h2>
         <p aria-live="polite" className="speech mx-auto mt-3">{phase === "waiting" ? copy.cue : phase === "feeding" ? copy.reacting : copy.fed}</p>
       </div>
@@ -71,15 +71,15 @@ export function PiranhaSightings({ enabled, reduced }: { enabled: boolean; reduc
   }, [enabled, reduced]);
   useEffect(() => {
     if (!visible) return;
-    const timer = setTimeout(() => setVisible(false), reduced ? 6000 : 4300);
+    const timer = setTimeout(() => setVisible(false), reduced ? 6000 : 2400);
     return () => clearTimeout(timer);
   }, [visible, sighting, reduced]);
   if (!enabled) return null;
   return (
-    <div data-ui className="pointer-events-none absolute inset-0 z-10">
+    <div data-ui className="piranha-layer pointer-events-none absolute inset-0 z-10 overflow-hidden">
       {visible && <Button key={sighting} variant="ghost" aria-label={riverWildlife.piranha.dive} onClick={() => setVisible(false)}
-        className={`piranha-sighting pointer-events-auto ${sighting % 2 ? "piranha-right" : "piranha-left"}`}>
-        <img src={piranha} alt="An expressive crimson and teal piranha with elegant golden fins surfaces beside the boat" width={1024} height={768} className="h-full w-full object-contain" />
+        className={`piranha-sighting pointer-events-auto ${sighting % 2 ? "piranha-high" : "piranha-low"} ${reduced ? "piranha-reduced" : ""}`}>
+        <img src={piranha} alt="An expressive crimson and teal piranha with golden fins leaps right to left in front of the boat" width={1024} height={768} className="h-full w-full object-contain" />
       </Button>}
       <Button variant="ghost" onClick={show} className="row-btn pointer-events-auto absolute bottom-6 left-5 h-auto min-h-11" aria-label={riverWildlife.piranha.watch}>
         <Droplets aria-hidden /><span className="hidden md:inline">{riverWildlife.piranha.watch}</span>
