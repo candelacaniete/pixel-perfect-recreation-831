@@ -306,7 +306,14 @@ export function RiverJourney() {
         if (o.k in GUARD_H) { const close = Math.max(0, (16 - d) / 16); y += reduced ? 0 : Math.abs(Math.sin(S.t * 2.4)) * 0.12 * close; }
         const p = project(cam, x, y, o.z); if (!p) continue;
         const im = imgs.current[o.k]; if (!im?.complete || !im.naturalWidth) continue;
-        const hpx = o.h * p.s, wpx = hpx * (im.naturalWidth / im.naturalHeight) * scaleX;
+        const isG = o.k in GUARD_H;
+        const hpx = isG ? Math.min(o.h * p.s, H * 0.42, W * 0.58) : o.h * p.s;
+        const wpx = hpx * (im.naturalWidth / im.naturalHeight) * scaleX;
+        // Keep a bank-side guardian visible without steering the camera at it.
+        if (isG && d < 18) {
+          p.x = Math.max(wpx / 2 + 8, Math.min(W - wpx / 2 - 8, p.x));
+          alpha *= Math.min(1, Math.max(0, (d - 1) / 8));
+        }
         if (wpx > W * 4 || p.x + wpx < -W || p.x - wpx > W * 2) continue;
         if (o.kind === "gum") {
           const g = Math.max(0, 14 - d) / 14, rr = (0.35 + 0.25 * Math.sin(S.t * 1.6) + g * 0.6) * p.s;
@@ -316,7 +323,6 @@ export function RiverJourney() {
             else { const gg = ctx.createRadialGradient(bx - rr * 0.3, by - rr * 0.3, rr * 0.1, bx, by, rr); gg.addColorStop(0, "rgba(255,232,160,0.95)"); gg.addColorStop(1, "rgba(244,176,60,0.85)"); ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(bx, by, rr, 0, 7); ctx.fill(); }
           };
         }
-        const isG = o.k in GUARD_H;
         draw.push({ d, guardian: isG, fn: () => {
           if (isG && d < 18) { const gl = ctx.createRadialGradient(p.x, p.y - hpx * 0.5, 0, p.x, p.y - hpx * 0.5, hpx * 0.8); gl.addColorStop(0, "rgba(255,220,150,0.35)"); gl.addColorStop(1, "rgba(255,220,150,0)"); ctx.fillStyle = gl; ctx.fillRect(p.x - hpx, p.y - hpx * 1.3, hpx * 2, hpx * 1.6); }
           ctx.globalAlpha = Math.max(0, alpha);
@@ -402,7 +408,7 @@ export function RiverJourney() {
       vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,0.45)");
       ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
 
-      const look = S.encounter ?? stops.findIndex((s) => s.z + 9 - S.cam > 0 && s.z + 9 - S.cam < 18);
+      const look = S.encounter ?? stops.findIndex((s, i) => !journey.get().passed.includes(i) && s.z + 9 - S.cam > 0 && s.z + 9 - S.cam < 18);
       const nl = look >= 0 ? String(look) : "";
       if (nl !== lastNear) { lastNear = nl; setNearLine(nl || null); }
       const amb = ambientLines.find((a) => S.cam >= a.z && S.cam < a.z + 13);
