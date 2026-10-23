@@ -190,10 +190,10 @@
   font-family: var(--font-display); font-size: 1.35rem; line-height: 1.1; text-align: left; text-shadow: 0 2px 14px oklch(0.12 0.04 265 / 90%);
   & em { display: block; font-size: .8rem; font-family: var(--font-sans); font-style: normal; opacity: .85; }
 }
-@utility map-paper { background: radial-gradient(ellipse at 30% 20%, var(--dawn), oklch(0.85 0.06 75) 70%, oklch(0.72 0.07 60)); color: var(--ink); border-radius: 6px 14px 8px 18px; box-shadow: 0 30px 60px -20px oklch(0 0 0 / 60%); }
-@utility map-ink { font-family: var(--font-display); font-style: italic; font-size: 18px; fill: var(--ink); }
+@utility map-paper { background: var(--yellow-surface); color: var(--yellow-foreground); border-radius: 6px 14px 8px 18px; box-shadow: 0 30px 60px -20px oklch(0 0 0 / 60%); }
+@utility map-ink { font-family: var(--font-display); font-style: italic; font-size: 18px; fill: var(--yellow-foreground); }
 @utility map-stop { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: .4rem; text-align: left; }
-@utility map-dot { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; border: 2px dashed var(--ink); font-family: var(--font-display); font-weight: 700; background: oklch(0.96 0.02 85 / 60%); }
+@utility map-dot { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; border: 2px dashed var(--yellow-foreground); font-family: var(--font-display); font-weight: 700; background: var(--yellow-surface); color: var(--yellow-foreground); }
 @utility map-dot-seen { background: var(--crimson); color: var(--paper); border-style: solid; }
 @utility map-label { font-family: var(--font-display); font-size: .95rem; line-height: 1; & em { display: block; font-size: .7rem; opacity: .7; } }
 @media (prefers-reduced-motion: reduce) { .animate-bob, .glint, .driftwood, .storm-word, .landmark-orb { animation: none !important; } }
