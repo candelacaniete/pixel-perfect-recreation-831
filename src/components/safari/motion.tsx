@@ -113,3 +113,22 @@ export function Lianas({ className = "", count = 7 }: { className?: string; coun
     </div>
   );
 }
+
+/** Living fireflies drifting and blinking across a night background. */
+export function Fireflies({ count = 34 }: { count?: number }) {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+      {Array.from({ length: count }, (_, i) => {
+        const r = (n: number) => ((Math.sin(i * 12.9898 + n * 78.233) * 43758.5453) % 1 + 1) % 1;
+        const size = 2 + r(1) * 4;
+        return (
+          <span key={i} className="firefly" style={{
+            left: `${r(2) * 100}%`, top: `${r(3) * 100}%`, width: size, height: size,
+            animationDuration: `${7 + r(4) * 9}s, ${1.6 + r(5) * 2.8}s`, animationDelay: `-${r(6) * 10}s, -${r(7) * 3}s`,
+            ["--fx" as string]: `${(r(8) - 0.5) * 140}px`, ["--fy" as string]: `${(r(9) - 0.5) * 120}px`,
+          }} />
+        );
+      })}
+    </div>
+  );
+}

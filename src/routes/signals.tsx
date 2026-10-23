@@ -4,7 +4,7 @@ import { signals } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
 import landSignals from "@/assets/land-signals.jpg";
-import { Scene } from "@/components/safari/motion";
+import { Scene, Fireflies } from "@/components/safari/motion";
 import puma from "@/assets/puma.png";
 
 export const Route = createFileRoute("/signals")({
@@ -29,7 +29,9 @@ function SignalsPage() {
       <Scene className="isolate relative overflow-hidden px-5 pb-20 pt-28 md:px-12">
         <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
           <img src={landSignals} alt="" width={1920} height={1088} className="photo-bg object-[75%_center]" />
+          <div className="absolute inset-0 bg-night/45" />
           <div className="scrim-l absolute inset-0" />
+          <Fireflies />
         </div>
         <p aria-hidden className="display-xl drift-down pointer-events-none absolute -right-8 top-16 rotate-90 whitespace-nowrap text-[18vw] text-scarlet/20 [--d:300px]">OBSERVE</p>
         <p className="eyebrow text-gold">Destination · The observatory</p>

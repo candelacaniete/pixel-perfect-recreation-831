@@ -4,7 +4,8 @@ import { reframe, origin, capybaraLaw, studio, signals } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
 import landHome from "@/assets/land-home.jpg";
-import { Scene, Lianas } from "@/components/safari/motion";
+import { Scene } from "@/components/safari/motion";
+import yrmisPhoto from "@/assets/yrmis.jpg.asset.json";
 import horses from "@/assets/horses.png";
 
 export const Route = createFileRoute("/home")({
@@ -27,7 +28,6 @@ function HomePage() {
     <main className="bg-paper text-ink">
       {/* Hero — the storm over the savanna */}
       <Scene className="isolate relative overflow-hidden bg-night text-paper" data-guide="Start">
-        <Lianas className="opacity-90" />
         <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
           <img src={landHome} alt="" width={1920} height={1088} className="photo-bg cloud-drift object-[70%_center]" />
           <div className="lightning" />
@@ -57,7 +57,9 @@ function HomePage() {
             <blockquote className="font-display text-3xl italic leading-snug md:text-5xl">&ldquo;{origin}&rdquo;</blockquote>
             <figcaption className="eyebrow mt-6 text-gold">Yrmis · The Llanos, Venezuela</figcaption>
           </figure>
-          <div className="reveal reveal-2 self-end md:col-span-5">
+          <div className="reveal reveal-2 md:col-span-5">
+            <img src={yrmisPhoto.url} alt="Yrmis Barroeta in red tights and red heels, leaning toward the camera" loading="lazy" width={1440} height={1800}
+              className="mb-10 aspect-[4/5] w-full max-w-sm border-2 border-gold object-cover md:ml-auto" />
             <p className="border-l-4 border-scarlet pl-5 text-xl leading-snug">{capybaraLaw}</p>
             <p className="mt-6 text-paper/70">{reframe.body}</p>
           </div>
