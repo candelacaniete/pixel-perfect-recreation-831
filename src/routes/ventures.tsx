@@ -18,7 +18,7 @@ export const Route = createFileRoute("/ventures")({
   component: VenturesPage,
 });
 
-const tints = ["bg-tangerine", "bg-ink text-paper", "bg-gum", "bg-moss text-paper"];
+const tints = ["bg-tangerine", "bg-ink text-paper", "bg-scarlet text-paper", "bg-moss text-paper"];
 
 function VenturesPage() {
   useEffect(() => markVisited("ventures"), []);

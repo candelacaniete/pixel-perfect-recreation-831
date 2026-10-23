@@ -68,7 +68,7 @@ export function RiverJourney() {
   const [fade, setFade] = useState(false);
 
   // mutable sim state
-  const sim = useRef({ cam: j.cam, vel: 0, push: 0, logCleared: 0, fogSteps: 0, encounter: null as number | null, t: 0, world: [] as Obj[] });
+  const sim = useRef({ cam: j.cam, vel: 0, push: 0, logCleared: 0, fogSteps: 0, encounter: null as number | null, t: 0, world: [] as Obj[], flow: 0, splashes: [] as { z: number; x: number; t0: number }[] });
   const imgs = useRef<Partial<Record<Key, HTMLImageElement>>>({});
 
   useEffect(() => {
@@ -213,8 +213,10 @@ export function RiverJourney() {
       ctx.fillStyle = t > 0.75 ? "rgba(255,210,150,0.25)" : "rgba(230,230,255,0.12)";
       for (let i = 0; i < 6; i++) ctx.fillRect(W * 0.62 - 30 + Math.sin(S.t * 2 + i) * 8, cam.hy + 6 + i * 9, 60 - i * 6, 2);
 
-      // water streaks + floating leaves flowing toward the viewer
-      const flow = reduced ? 0 : S.t * 0.8;
+      // water streaks + floating leaves flowing toward the viewer; the current
+      // never stops, and the boat's speed feeds straight into the perceived flow
+      S.flow += (reduced ? 0.3 : 0.55 + Math.abs(S.vel) * 0.9) * dt;
+      const flow = S.flow;
       for (let k = 0; k < 160; k++) {
         const step = 0.45;
         const zz = Math.floor(S.cam / step) * step + k * step - (flow % step);
@@ -225,13 +227,56 @@ export function RiverJourney() {
         const leaf = hash(idx + 33) < 0.07;
         if (leaf) {
           ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(hash(idx) * 6 + S.t * 0.3);
-          ctx.fillStyle = hash(idx + 1) > 0.5 ? "rgba(240,190,70,0.9)" : "rgba(240,130,170,0.9)";
+          ctx.fillStyle = hash(idx + 1) > 0.5 ? "rgba(240,190,70,0.9)" : "rgba(232,64,42,0.9)";
           ctx.beginPath(); ctx.ellipse(0, 0, 0.16 * p.s, 0.07 * p.s, 0, 0, 7); ctx.fill(); ctx.restore();
         } else {
           ctx.strokeStyle = `rgba(255,255,255,${Math.min(0.35, 4 / d) * (0.5 + 0.5 * Math.sin(S.t * 2 + idx))})`;
           ctx.lineWidth = Math.max(0.5, 0.025 * p.s);
           ctx.beginPath(); ctx.ellipse(p.x, p.y, 0.4 * p.s, 0.04 * p.s, 0, Math.PI, 0); ctx.stroke();
         }
+      }
+
+      // wake spreading from the bow; grows with speed, never fully still
+      const wake = Math.min(1, 0.15 + Math.abs(S.vel) / 4) * (reduced ? 0.35 : 1);
+      for (let i = 0; i < 5; i++) {
+        const age = (S.t * 0.9 + i / 5) % 1;
+        const rx = W * (0.05 + age * 0.3), ry = rx * 0.14;
+        ctx.strokeStyle = `rgba(255,255,255,${(1 - age) * 0.22 * wake})`;
+        ctx.lineWidth = 1.5;
+        for (const sx of [-1, 1]) { ctx.beginPath(); ctx.ellipse(W / 2 + sx * W * 0.08, H - 6 - age * H * 0.14, rx, ry, 0, Math.PI * 1.08, Math.PI * 1.92); ctx.stroke(); }
+      }
+
+      // fish jump: a silver flash, then rings spreading across the surface
+      if (!reduced) {
+        const slot = Math.floor(S.t / 6);
+        if (hash(slot + 500) < 0.8 && !S.splashes.some((sp) => sp.t0 > slot * 6 - 6))
+          S.splashes.push({ z: S.cam + 6 + hash(slot) * 18, x: (hash(slot + 2) * 2 - 1) * 0.6, t0: slot * 6 + hash(slot + 4) * 3 });
+        S.splashes = S.splashes.filter((sp) => S.t - sp.t0 < 1.8);
+        for (const sp of S.splashes) {
+          const age = S.t - sp.t0; if (age < 0) continue;
+          const x = curve(sp.z) + sp.x * width(sp.z) * 0.7;
+          const p = project(cam, x, 0, sp.z); if (!p) continue;
+          if (age < 0.45) {
+            ctx.fillStyle = `rgba(255,240,200,${0.85 - age * 1.6})`;
+            ctx.beginPath(); ctx.ellipse(p.x, p.y - Math.sin((age / 0.45) * Math.PI) * 0.5 * p.s, 0.12 * p.s, 0.05 * p.s, age * 9, 0, 7); ctx.fill();
+          }
+          for (let rI = 0; rI < 3; rI++) {
+            const ra = age - rI * 0.18; if (ra < 0) continue;
+            ctx.strokeStyle = `rgba(255,255,255,${Math.max(0, 0.45 - ra * 0.28)})`;
+            ctx.lineWidth = Math.max(0.6, 0.02 * p.s);
+            ctx.beginPath(); ctx.ellipse(p.x, p.y, ra * 0.9 * p.s, ra * 0.18 * p.s, 0, 0, 7); ctx.stroke();
+          }
+        }
+      }
+
+      // bubbles rising from unseen life below
+      for (let k = 0; k < 14; k++) {
+        const zz = S.cam + 1 + hash(k + 77) * 14;
+        const rise = reduced ? hash(k + 9) : (S.t * (0.2 + hash(k) * 0.25) + hash(k + 3)) % 1;
+        const x = curve(zz) + (hash(k + 5) * 2 - 1) * width(zz) * 0.6;
+        const p = project(cam, x, rise * 0.06, zz); if (!p) continue;
+        ctx.fillStyle = `rgba(255,255,255,${0.22 * (1 - rise)})`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, Math.max(0.6, 0.015 * p.s), 0, 7); ctx.fill();
       }
 
       // fallen trunk (Ingenuity)
@@ -262,7 +307,7 @@ export function RiverJourney() {
           const by = p.y - hpx * 0.6 - g * g * 4 * p.s, bx = p.x + (o.side < 0 ? 1 : -1) * hpx * 0.55;
           extra = () => {
             if (g > 0.75) { const fim = imgs.current.flower; if (fim?.complete) { ctx.globalAlpha = (g - 0.75) * 4; ctx.drawImage(fim, bx - rr, by - rr, rr * 2, rr * 2); ctx.globalAlpha = 1; } }
-            else { const gg = ctx.createRadialGradient(bx - rr * 0.3, by - rr * 0.3, rr * 0.1, bx, by, rr); gg.addColorStop(0, "rgba(255,220,235,0.95)"); gg.addColorStop(1, "rgba(245,120,170,0.85)"); ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(bx, by, rr, 0, 7); ctx.fill(); }
+            else { const gg = ctx.createRadialGradient(bx - rr * 0.3, by - rr * 0.3, rr * 0.1, bx, by, rr); gg.addColorStop(0, "rgba(255,232,160,0.95)"); gg.addColorStop(1, "rgba(244,176,60,0.85)"); ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(bx, by, rr, 0, 7); ctx.fill(); }
           };
         }
         const isG = o.k in GUARD_H;
@@ -282,15 +327,60 @@ export function RiverJourney() {
       ctx.globalCompositeOperation = "multiply"; ctx.fillStyle = rgb(pal.wash); ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
       draw.filter((x) => x.guardian).forEach((x) => x.fn());
 
-      // fireflies
-      if (pal.night > 0.1) {
-        for (let i = 0; i < 70; i++) {
-          const z = S.cam + 2 + hash(i) * 30, x = curve(z) + (hash(i + 1) * 2 - 1) * 9 + Math.sin(S.t * 0.7 + i) * 0.4, y = 0.4 + hash(i + 2) * 2.6 + Math.sin(S.t + i) * 0.2;
+      // fireflies — each with its own drift, speed and pulse, in three depth
+      // bands; they gather by a waiting guardian, shimmer on the water, and
+      // fade out as dawn takes the sky
+      if (pal.night > 0.05) {
+        const night = pal.night;
+        const count = reduced ? 45 : 110;
+        const near = stops.find((s, i) => Math.abs(s.z - S.cam) < 24 && !journey.get().completed.includes(i));
+        for (let i = 0; i < count; i++) {
+          const band = hash(i + 41); // 0 = close to the camera, 1 = deep in the trees
+          const spd = 0.35 + hash(i + 7) * 0.9;
+          const ph = i * 1.71;
+          let z = S.cam + 1.5 + hash(i) * 38;
+          let x = curve(z) + (hash(i + 1) * 2 - 1) * (4 + band * 9);
+          let y = 0.25 + hash(i + 2) * (1.2 + band * 2.4);
+          if (!reduced) {
+            x += Math.sin(S.t * spd + ph) * 0.7 + Math.sin(S.t * 0.23 + i) * 0.5;
+            y += Math.sin(S.t * spd * 0.7 + ph * 1.3) * 0.28;
+            z += Math.sin(S.t * 0.31 + i * 0.7) * 1.4;
+          }
+          if (near) {
+            const gk = (1 - Math.abs(near.z - S.cam) / 24) * 0.55;
+            x = x * (1 - gk) + (curve(near.z + 9) + near.side * width(near.z + 9) * 0.9 + (hash(i + 5) * 2 - 1) * 2.2) * gk;
+          }
           const p = project(cam, x, y, z); if (!p) continue;
-          const a = pal.night * (0.3 + 0.7 * Math.abs(Math.sin(S.t * 1.5 + i * 1.7)));
-          const r = Math.max(1.5, 0.05 * p.s);
-          const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4); g.addColorStop(0, `rgba(255,236,140,${a})`); g.addColorStop(1, "rgba(255,236,140,0)");
+          const pulse = reduced ? 0.75 : 0.3 + 0.7 * Math.abs(Math.sin(S.t * (0.9 + hash(i + 3) * 1.6) + ph));
+          const a = night * pulse * (1 - band * 0.55);
+          if (a < 0.03) continue;
+          const r = Math.max(1, 0.05 * p.s * (1.5 - band));
+          const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4);
+          g.addColorStop(0, `rgba(255,238,150,${a})`);
+          g.addColorStop(0.4, `rgba(214,232,120,${a * 0.5})`);
+          g.addColorStop(1, "rgba(214,232,120,0)");
           ctx.fillStyle = g; ctx.fillRect(p.x - r * 4, p.y - r * 4, r * 8, r * 8);
+          if (y < 0.9 && Math.abs(x - curve(z)) < width(z)) {
+            const rp = project(cam, x, 0, z);
+            if (rp) { ctx.fillStyle = `rgba(255,236,140,${a * 0.25})`; ctx.beginPath(); ctx.ellipse(rp.x, rp.y + r, r * 0.8, r * 2.2, 0, 0, 7); ctx.fill(); }
+          }
+        }
+        // a small swarm spirals around the boat, then disperses
+        const cyc = reduced ? 0 : S.t % 24;
+        if (cyc > 16 && cyc < 20.5 && night > 0.4) {
+          const k = (cyc - 16) / 4.5;
+          for (let i = 0; i < 14; i++) {
+            const ang = k * 7 + i * 0.45;
+            const rad = (1 - Math.abs(k - 0.5) * 2) * 2.2 + 0.8;
+            const z = S.cam + 3 + Math.sin(ang * 0.5) * 0.8;
+            const p = project(cam, curve(z) + Math.cos(ang) * rad * 0.55, 1.1 + Math.sin(ang) * rad * 0.28 + k * 0.6, z);
+            if (!p) continue;
+            const a = night * 0.9 * (k < 0.85 ? 1 : (1 - k) / 0.15);
+            const r = Math.max(1.2, 0.05 * p.s);
+            const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4);
+            g.addColorStop(0, `rgba(255,240,160,${a})`); g.addColorStop(1, "rgba(255,240,160,0)");
+            ctx.fillStyle = g; ctx.fillRect(p.x - r * 4, p.y - r * 4, r * 8, r * 8);
+          }
         }
       }
 

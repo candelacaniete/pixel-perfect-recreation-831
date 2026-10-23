@@ -25,7 +25,7 @@ function StudioPage() {
       <section className="grid min-h-[90vh] gap-8 px-5 pb-16 pt-28 md:grid-cols-12 md:px-12">
         <div className="md:col-span-8">
           <p className="eyebrow">Destination 02 · Build · The Studio</p>
-          <h1 className="display-xl mt-4">Plan<br /><em className="ml-[12vw] text-cobalt">and conspire.</em></h1>
+          <h1 className="display-xl mt-4">Plan<br /><em className="ml-[12vw] text-crimson">and conspire.</em></h1>
         </div>
         <div className="self-end md:col-span-4">
           <p className="text-xl leading-snug">{studio.intro}</p>
@@ -35,14 +35,14 @@ function StudioPage() {
       </section>
       <section className="grid border-y-2 border-ink md:grid-cols-3">
         {studio.tracks.map((t, i) => (
-          <article key={t.name} className={`p-6 md:p-10 ${i < 2 ? "border-b-2 border-ink md:border-b-0 md:border-r-2" : ""} transition hover:bg-cobalt hover:text-paper`}>
+          <article key={t.name} className={`p-6 md:p-10 ${i < 2 ? "border-b-2 border-ink md:border-b-0 md:border-r-2" : ""} transition hover:bg-crimson hover:text-paper`}>
             <span className="eyebrow">0{i + 1}</span>
             <h2 className="display-lg mt-6 text-5xl md:text-6xl">{t.name}</h2>
             <p className="mt-4 text-lg">{t.body}</p>
           </article>
         ))}
       </section>
-      <section className="bg-cobalt px-5 py-20 text-paper md:px-12" aria-labelledby="keynote">
+      <section className="bg-crimson px-5 py-20 text-paper md:px-12" aria-labelledby="keynote">
         <p className="eyebrow text-gold">01 · Speak · The signature keynote</p>
         <h2 id="keynote" className="display-lg mt-3">{studio.keynote.title}</h2>
         <div className="mt-10 grid gap-8 md:grid-cols-2">

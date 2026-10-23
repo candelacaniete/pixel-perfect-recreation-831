@@ -63,7 +63,7 @@ export function SiteChrome() {
         <Link to="/" className="pointer-events-auto font-display text-2xl italic text-paper text-shadow-river md:text-3xl" aria-label="Yrmis — back to the river">Yrmis</Link>
         <div className="pointer-events-auto flex gap-2">
           <button onClick={() => setOpen(true)} className="row-btn" aria-haspopup="dialog" aria-expanded={open}>Map</button>
-          <Link to="/work" className="row-btn row-btn-gum">Work with me</Link>
+          <Link to="/work" className="row-btn row-btn-scarlet">Work with me</Link>
         </div>
       </header>
       {open && (
@@ -88,7 +88,7 @@ export function NextStops({ current }: { current?: string }) {
         {all.filter((a) => a.n !== current).map((a) => (
           <Link key={a.to} to={a.to} className="pill border-2 border-ink hover:bg-gold">{a.n}</Link>
         ))}
-        <Link to="/work" className="pill bg-gum">Work with me →</Link>
+        <Link to="/work" className="pill bg-scarlet text-paper">Work with me →</Link>
       </div>
     </nav>
   );
