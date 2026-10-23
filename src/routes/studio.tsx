@@ -49,7 +49,7 @@ function StudioPage() {
         </div>
       </section>
       <Scene className="relative isolate grid overflow-hidden border-y-2 border-ink md:grid-cols-3">
-        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden md:block">
           <div className="reveal absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(0deg,oklch(0.78_0.12_85/45%),transparent)]" style={{ transitionDelay: "0s" }} />
           <span className="reveal absolute bottom-[8%] right-[20%] h-20 w-20 rounded-full bg-gold/70 md:h-28 md:w-28" style={{ transitionDelay: ".2s" }} />
           {[
@@ -62,10 +62,16 @@ function StudioPage() {
           ))}
         </div>
         {studio.tracks.map((t, i) => (
-          <article key={t.name} className={`reveal ${i === 1 ? "reveal-2" : i === 2 ? "reveal-3" : ""} p-6 md:p-10 md:pb-48 ${i < 2 ? "border-b-2 border-ink md:border-b-0 md:border-r-2" : ""} transition hover:bg-crimson hover:text-paper`}>
+          <article key={t.name} className={`relative isolate overflow-hidden reveal ${i === 1 ? "reveal-2" : i === 2 ? "reveal-3" : ""} p-6 pb-40 md:p-10 md:pb-48 ${i < 2 ? "border-b-2 border-ink md:border-b-0 md:border-r-2" : ""} transition hover:bg-crimson hover:text-paper`}>
             <span className="eyebrow">0{i + 1}</span>
             <h2 className="display-lg mt-6 text-5xl md:text-6xl">{t.name}</h2>
             <p className="mt-4 text-lg">{t.body}</p>
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-36 md:hidden">
+              <div className="absolute inset-0 bg-[linear-gradient(0deg,oklch(0.78_0.12_85/45%),transparent)]" />
+              {i === 0 && <img src={spPalm} alt="" loading="lazy" className="reveal absolute bottom-0 left-[10%] w-24" style={{ transitionDelay: ".3s" }} />}
+              {i === 1 && <><img src={spPalm} alt="" loading="lazy" className="reveal absolute bottom-0 left-[12%] w-20 -scale-x-100" style={{ transitionDelay: ".3s" }} /><img src={spCapy} alt="" loading="lazy" className="reveal absolute bottom-1 right-[10%] w-24" style={{ transitionDelay: ".6s" }} /></>}
+              {i === 2 && <><span className="reveal absolute bottom-6 right-[38%] h-16 w-16 rounded-full bg-gold/70" style={{ transitionDelay: ".2s" }} /><img src={spTree} alt="" loading="lazy" className="reveal absolute bottom-0 right-[6%] w-32" style={{ transitionDelay: ".5s" }} /></>}
+            </div>
           </article>
         ))}
       </Scene>
@@ -76,7 +82,7 @@ function StudioPage() {
           <div><p className="eyebrow opacity-70">Walking in</p><p className="font-display mt-2 text-3xl italic">{studio.keynote.in}</p></div>
           <div><p className="eyebrow text-gold">Walking out</p><p className="font-display mt-2 text-3xl italic">{studio.keynote.out}</p></div>
         </div>
-        <ul className="relative mt-10 flex flex-wrap gap-2">{studio.keynote.formats.map((f) => <li key={f} className="rounded-full border-2 border-paper/40 px-4 py-2 text-sm">{f}</li>)}</ul>
+        <ul className="relative mt-10 flex flex-wrap gap-2">{studio.keynote.formats.map((f) => <li key={f} className="cursor-default rounded-full border-2 border-ink bg-gold px-4 py-2 text-sm font-medium text-ink transition duration-300 hover:-translate-y-0.5 hover:bg-paper hover:shadow-[0_8px_20px_-8px_oklch(0_0_0/60%)]">{f}</li>)}</ul>
         <p className="relative mt-8 max-w-2xl">{studio.keynote.for}</p>
         <Link to="/work" className="pill relative mt-8 bg-gold text-ink">Let's plan and conspire →</Link>
       </Scene>
