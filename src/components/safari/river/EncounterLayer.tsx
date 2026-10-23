@@ -31,7 +31,7 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
             {stop.interaction === "truck" && <Truck onDone={() => { onClearLog(); solved(); }} />}
             {stop.interaction === "signals" && <Signals onDone={solved} />}
             {stop.interaction === "fog" && <Fog onStep={onFog} onDone={solved} />}
-            <button data-ui onClick={solved} className="eyebrow absolute bottom-6 left-5 z-30 text-paper/70 underline">Skip — just tell me</button>
+            <button data-ui onClick={solved} className="eyebrow absolute bottom-[calc(env(safe-area-inset-bottom)+1.25rem)] left-5 p-2 z-30 text-paper/70 underline">Skip — just tell me</button>
           </ScreenPortal>
         </div>
       )}
@@ -61,7 +61,7 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
 
       {phase !== "departure" && phase !== "revelation" && (
         <ScreenPortal>
-          <button data-ui onClick={() => onDepart(false)} className="eyebrow absolute bottom-6 right-5 z-30 text-paper/70 underline">Row past</button>
+          <button data-ui onClick={() => onDepart(false)} className="eyebrow absolute bottom-[calc(env(safe-area-inset-bottom)+1.25rem)] right-5 p-2 z-30 text-paper/70 underline">Row past</button>
         </ScreenPortal>
       )}
     </>
@@ -86,9 +86,9 @@ function Clues({ onDone }: { onDone: () => void }) {
       {clues.map((c, i) => (
         <button key={i} onClick={() => setFound((f) => [...new Set([...f, i])])} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${c.x}%`, top: `${c.y}%` }} aria-label={`Look closer at glint ${i + 1}`}>
           {found.includes(i) ? (
-            <span className="speech block w-52 animate-in fade-in duration-500 text-sm">{c.t}</span>
+            <span className="speech block w-[min(13rem,40vw)] animate-in fade-in duration-500 text-sm">{c.t}</span>
           ) : (
-            <span className="glint block h-10 w-10" />
+            <span className="glint block h-14 w-14" />
           )}
         </button>
       ))}
@@ -155,8 +155,8 @@ function Signals({ onDone }: { onDone: () => void }) {
         const on = kept.includes(w.w);
         return (
           <button key={w.w} onClick={() => (w.s ? setKept((x) => [...new Set([...x, w.w])]) : setHit(w.w))}
-            className={`storm-word absolute ${on ? "storm-kept" : ""}`}
-            style={{ top: `${14 + ((i * 37) % 55)}%`, left: `${5 + ((i * 53) % 75)}%`, animationDelay: `${-i * 1.3}s`, opacity: w.s || on ? 1 : 1 - k * 0.75, filter: w.s || on ? "none" : `blur(${k * 4}px)` }}>
+            className={`storm-word absolute max-w-[42vw] min-h-11 px-1 text-left md:max-w-none ${on ? "storm-kept" : ""}`}
+            style={{ top: `${18 + ((i * 37) % 52)}%`, left: `${4 + ((i * 53) % 58)}%`, animationDelay: `${-i * 1.3}s`, opacity: w.s || on ? 1 : 1 - k * 0.75, filter: w.s || on ? "none" : `blur(${k * 4}px)` }}>
             {w.w}
           </button>
         );

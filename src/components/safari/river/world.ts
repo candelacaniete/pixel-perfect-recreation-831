@@ -12,12 +12,12 @@ export const width = (z: number) => {
   return Math.max(2.6, w);
 };
 
-export type Cam = { z: number; W: number; H: number; F: number; hy: number; c0: number; d0: number; sway: number };
+export type Cam = { z: number; W: number; H: number; F: number; hy: number; c0: number; d0: number; sway: number; pan?: number };
 
 export function project(cam: Cam, x: number, y: number, z: number) {
   const d = z - cam.z;
   if (d < 0.25) return null;
-  const lx = x - (cam.c0 + cam.d0 * d * 0.92) + cam.sway;
+  const lx = x - (cam.c0 + cam.d0 * d * 0.92) + cam.sway - (cam.pan ?? 0);
   const s = cam.F / d;
   return { x: cam.W / 2 + lx * s, y: cam.hy + (EYE - y) * s, s, d };
 }
