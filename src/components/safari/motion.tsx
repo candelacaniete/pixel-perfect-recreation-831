@@ -60,7 +60,7 @@ export function SerpentPath({ className = "", tone = "var(--gold)" }: { classNam
     <svg aria-hidden viewBox="0 0 1200 400" preserveAspectRatio="none" className={`pointer-events-none absolute ${className}`}>
       <path className="serpent" pathLength={1} d="M-20 300 C 160 80, 320 380, 520 210 S 860 40, 980 220 S 1160 360, 1240 120"
         fill="none" stroke={tone} strokeWidth="26" strokeLinecap="round" />
-      <path className="serpent" pathLength={1} d="M-20 300 C 160 80, 320 380, 520 210 S 860 40, 980 220 S 1160 360, 1240 120"
+      <path pathLength={1} d="M-20 300 C 160 80, 320 380, 520 210 S 860 40, 980 220 S 1160 360, 1240 120"
         fill="none" stroke="var(--ink)" strokeWidth="4" strokeDasharray="0.012 0.03" strokeLinecap="round" opacity="0.5" />
     </svg>
   );
