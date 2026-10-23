@@ -1,0 +1,184 @@
+import { useEffect, useState } from "react";
+import type { Stop } from "@/content/journey";
+import { LensReveal } from "../LensReveal";
+
+export type Phase = "dialogue" | "interaction" | "revelation" | "departure";
+
+/** Arrival → Recognition happen in-world; this layer runs Dialogue → Interaction → Revelation → Departure. */
+export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, onFog }: {
+  stop: Stop; phase: Phase; setPhase: (p: Phase) => void; onDepart: (completed: boolean) => void; onClearLog: () => void; onFog: (n: number) => void;
+}) {
+  const [line, setLine] = useState(0);
+  useEffect(() => { setLine(0); }, [stop]);
+  const solved = () => setPhase("revelation");
+
+  return (
+    <>
+      {phase === "dialogue" && (
+        <button data-ui className="pointer-events-auto block text-left" onClick={() => (line + 1 < stop.dialogue.length ? setLine(line + 1) : setPhase("interaction"))}>
+          <span className="eyebrow block text-gold">{stop.guardian}</span>
+          <span key={line} className="speech mt-1 block animate-in fade-in slide-in-from-bottom-1 duration-700">{stop.dialogue[line]}</span>
+          <span className="eyebrow mt-2 block text-paper/70">tap to listen ›</span>
+        </button>
+      )}
+
+      {phase === "interaction" && (
+        <div data-ui className="pointer-events-auto">
+          <p className="speech">{stop.prompt}</p>
+          <ScreenPortal>
+            {stop.interaction === "clues" && <Clues onDone={solved} />}
+            {stop.interaction === "lens" && <LensStage onDone={solved} />}
+            {stop.interaction === "truck" && <Truck onDone={() => { onClearLog(); solved(); }} />}
+            {stop.interaction === "signals" && <Signals onDone={solved} />}
+            {stop.interaction === "fog" && <Fog onStep={onFog} onDone={solved} />}
+            <button data-ui onClick={solved} className="eyebrow absolute bottom-6 left-5 z-30 text-paper/70 underline">Skip — just tell me</button>
+          </ScreenPortal>
+        </div>
+      )}
+
+      {phase === "revelation" && (
+        <ScreenPortal>
+          <div className="pointer-events-none absolute inset-0 grid place-items-center px-6 text-center">
+            <div className="animate-in fade-in zoom-in-95 duration-1000">
+              <p className="speech mx-auto mb-6 max-w-md">{stop.revelation}</p>
+              <span className="font-display block text-[28vw] leading-[0.8] text-gold text-shadow-river md:text-[14rem]">{stop.letter}</span>
+              <span className="eyebrow mt-2 block">{stop.name}</span>
+              <span className="font-display mt-3 block text-3xl italic text-shadow-river md:text-5xl">“{stop.tagline}”</span>
+            </div>
+          </div>
+          <button data-ui autoFocus onClick={() => setPhase("departure")} className="row-btn absolute bottom-8 left-1/2 z-30 -translate-x-1/2">Thank the {stop.guardian.replace("The ", "")}</button>
+        </ScreenPortal>
+      )}
+
+      {phase === "departure" && (
+        <div data-ui className="pointer-events-auto">
+          <p className="speech animate-in fade-in duration-700">{stop.departure}</p>
+          <ScreenPortal>
+            <button data-ui autoFocus onClick={() => onDepart(true)} className="row-btn absolute bottom-8 left-1/2 z-30 -translate-x-1/2">Push off downstream ↓</button>
+          </ScreenPortal>
+        </div>
+      )}
+
+      {phase !== "departure" && phase !== "revelation" && (
+        <ScreenPortal>
+          <button data-ui onClick={() => onDepart(false)} className="eyebrow absolute bottom-6 right-5 z-30 text-paper/70 underline">Row past</button>
+        </ScreenPortal>
+      )}
+    </>
+  );
+}
+
+/** Renders children in viewport space rather than at the guardian anchor. */
+function ScreenPortal({ children }: { children: React.ReactNode }) {
+  return <div className="pointer-events-none fixed inset-0 z-20 [&>*]:pointer-events-auto">{children}</div>;
+}
+
+function Clues({ onDone }: { onDone: () => void }) {
+  const clues = [
+    { x: 22, y: 70, t: "Fish scales on the bank. It eats fish, not travellers." },
+    { x: 50, y: 58, t: "A nest of eggs tucked behind its legs." },
+    { x: 78, y: 74, t: "Its eyes glow to see the shallows at night." },
+  ];
+  const [found, setFound] = useState<number[]>([]);
+  useEffect(() => { if (found.length === 3) { const t = setTimeout(onDone, 1400); return () => clearTimeout(t); } return undefined; }, [found, onDone]);
+  return (
+    <div className="absolute inset-0">
+      {clues.map((c, i) => (
+        <button key={i} onClick={() => setFound((f) => [...new Set([...f, i])])} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${c.x}%`, top: `${c.y}%` }} aria-label={`Look closer at glint ${i + 1}`}>
+          {found.includes(i) ? (
+            <span className="speech block w-52 animate-in fade-in duration-500 text-sm">{c.t}</span>
+          ) : (
+            <span className="glint block h-10 w-10" />
+          )}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function LensStage({ onDone }: { onDone: () => void }) {
+  const [revealed, setRevealed] = useState(false);
+  return (
+    <div className="absolute inset-0 animate-in fade-in duration-1000">
+      <LensReveal fill onReveal={() => setRevealed(true)} />
+      {revealed && (
+        <button onClick={onDone} className="row-btn absolute bottom-8 left-1/2 z-30 -translate-x-1/2 animate-in fade-in">Lower the lens</button>
+      )}
+    </div>
+  );
+}
+
+const kit = ["Rope", "Tarp", "Jerrycan", "Machete", "Flashlight", "Old map"];
+const quips: Record<string, string> = {
+  "Machete+Tarp": "A very sharp sail. The trunk is unimpressed.",
+  "Flashlight+Old map": "Now you can see exactly how stuck you are.",
+  "Jerrycan+Tarp": "A rain catcher. Useful — just not here.",
+  "Machete+Rope": "You could hack at it until dusk. The capybara yawns.",
+};
+function Truck({ onDone }: { onDone: () => void }) {
+  const [pick, setPick] = useState<string[]>([]);
+  const [msg, setMsg] = useState("");
+  const tap = (k: string) => {
+    const n = pick.includes(k) ? pick.filter((p) => p !== k) : [...pick, k].slice(-2);
+    setPick(n);
+    if (n.length === 2) {
+      const key = [...n].sort().join("+");
+      if (key === "Jerrycan+Rope") { setMsg("Tie the empty jerrycan to the trunk…"); setTimeout(onDone, 1100); }
+      else { setMsg(quips[key] ?? `${n[0]} and ${n[1]}? Bold. Try something that floats.`); setTimeout(() => setPick([]), 900); }
+    }
+  };
+  return (
+    <div className="absolute inset-x-0 bottom-24 flex flex-col items-center gap-4 px-4">
+      <p aria-live="polite" className="speech min-h-6 text-center">{msg}</p>
+      <div className="flex max-w-xl flex-wrap justify-center gap-3">
+        {kit.map((k, i) => (
+          <button key={k} onClick={() => tap(k)} aria-pressed={pick.includes(k)} className={`driftwood ${pick.includes(k) ? "driftwood-on" : ""}`} style={{ animationDelay: `${i * 0.4}s` }}>{k}</button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const storm = [
+  { w: "too loud", s: false }, { w: "people stalled at step two", s: true }, { w: "who asked?", s: false },
+  { w: "hate the colour", s: false }, { w: "the price is unclear", s: true }, { w: "meh", s: false },
+  { w: "nobody reads this", s: false }, { w: "onboarding took forty minutes", s: true }, { w: "lol", s: false }, { w: "boring", s: false },
+];
+function Signals({ onDone }: { onDone: () => void }) {
+  const [kept, setKept] = useState<string[]>([]);
+  const [hit, setHit] = useState<string | null>(null);
+  const k = kept.length / 3;
+  useEffect(() => { if (kept.length === 3) { const t = setTimeout(onDone, 900); return () => clearTimeout(t); } return undefined; }, [kept, onDone]);
+  return (
+    <div className="absolute inset-0">
+      {storm.map((w, i) => {
+        const on = kept.includes(w.w);
+        return (
+          <button key={w.w} onClick={() => (w.s ? setKept((x) => [...new Set([...x, w.w])]) : setHit(w.w))}
+            className={`storm-word absolute ${on ? "storm-kept" : ""}`}
+            style={{ top: `${14 + ((i * 37) % 55)}%`, left: `${5 + ((i * 53) % 75)}%`, animationDelay: `${-i * 1.3}s`, opacity: w.s || on ? 1 : 1 - k * 0.75, filter: w.s || on ? "none" : `blur(${k * 4}px)` }}>
+            {w.w}
+          </button>
+        );
+      })}
+      <p aria-live="polite" className="speech absolute inset-x-0 bottom-24 mx-auto w-fit max-w-sm text-center">{hit ? `“${hit}” — ouch. Take the hit, let it blow past.` : `${kept.length}/3 signals kept`}</p>
+    </div>
+  );
+}
+
+function Fog({ onStep, onDone }: { onStep: (n: number) => void; onDone: () => void }) {
+  const [n, setN] = useState(0);
+  const notes = ["The fog draws back a little.", "A channel opens — not the one you planned. A real one.", "Light, ahead. It arrived because you moved."];
+  const go = () => { const m = n + 1; setN(m); onStep(m); if (m === 3) setTimeout(onDone, 1200); };
+  return (
+    <div className="absolute inset-x-0 bottom-28 flex flex-col items-center gap-4">
+      <p aria-live="polite" className="speech text-center">{n ? notes[n - 1] : "Two channels. No map. Pick one."}</p>
+      {n < 3 && (
+        <div className="flex gap-6">
+          <button onClick={go} className="row-btn">← Left channel</button>
+          <button onClick={go} className="row-btn">Right channel →</button>
+        </div>
+      )}
+    </div>
+  );
+}
