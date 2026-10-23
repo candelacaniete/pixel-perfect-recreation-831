@@ -39,7 +39,7 @@ function VenturesPage() {
       <Scene className="relative grid gap-6 bg-tangerine/20 px-5 py-16 md:grid-cols-4 md:px-12" aria-label="Ventures">
         {ventures.map((v, i) => (
           <article key={v} className={`reveal flex aspect-[3/4] flex-col justify-between p-5 shadow-[0_24px_50px_-20px_oklch(0_0_0/50%)] transition duration-300 hover:rotate-0 hover:scale-[1.03] ${tints[i]} ${tilts[i]}`} >
-            <span className="eyebrow">Venture 0{i + 1}</span> height={560} loading="lazy" className="w-3/4 self-center rounded-full border-2 border-paper/40" aria-hidden />}
+            <span className="eyebrow">Venture 0{i + 1}</span>
             <h2 className="display-lg text-4xl md:text-5xl">{v}</h2>
           </article>
         ))}
