@@ -3,8 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { workOptions } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
-import { Scene, CrossingBird } from "@/components/safari/motion";
-import tiger from "@/assets/tiger.png";
+import { Scene } from "@/components/safari/motion";
+import puma from "@/assets/puma.png";
 import gJabiru from "@/assets/g-jabiru.webp";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -53,7 +53,7 @@ function WorkPage() {
     <main className="bg-scarlet text-paper">
       <Scene className="relative overflow-hidden px-5 pb-10 pt-28 md:px-12">
         <p aria-hidden className="display-xl swell pointer-events-none absolute -right-6 bottom-0 whitespace-nowrap text-[24vw] text-ink/15">CLICK</p>
-        <img src={tiger} alt="" aria-hidden width={1024} height={1024} className="emerge pointer-events-none absolute -bottom-16 right-[-8%] hidden w-[30rem] md:block" />
+        <img src={puma} alt="" aria-hidden width={1024} height={1024} className="emerge pointer-events-none absolute -bottom-16 right-[-8%] hidden w-[30rem] md:block" />
         <p className="eyebrow">Work with me</p>
         <h1 className="display-xl relative mt-4">Five ways to<br /><em>click into your wild.</em></h1>
         <p className="mt-6 max-w-2xl text-lg">One room turned around in ninety minutes, a newsletter that reaches the right 250,000 people, or a company built from inception to scale — underneath, the work is the same.</p>
@@ -69,7 +69,6 @@ function WorkPage() {
         ))}
       </section>
       <Scene id="form" className="relative overflow-hidden bg-paper px-5 py-16 text-ink md:px-12">
-        <CrossingBird className="top-4" />
         <img src={gJabiru} alt="" aria-hidden width={560} height={560} loading="lazy" className="drift-up pointer-events-none absolute -right-10 top-24 hidden w-56 -rotate-6 rounded-full border-2 border-ink [--d:180px] lg:block" />
         <h2 className="display-lg">Start a conversation</h2>
         <p className="mt-3 max-w-xl text-muted-foreground">Tell me about the room, the company, or the goal. We'll build the approach around where you actually are.</p>
