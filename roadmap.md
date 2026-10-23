@@ -14,4 +14,4 @@
 - [x] Return to the world map when the river journey finishes
 - [x] Make Yrmis and Ventures photos use verified public addresses (Vercel redeployment still required)
 - [x] Show the Work with me puma on mobile
-- [ ] River: guardian stays in place and recedes naturally when the boat leaves (no jump, no vanish)
+- [x] River: guardian stays in place and recedes naturally when the boat leaves (no jump, no vanish)
