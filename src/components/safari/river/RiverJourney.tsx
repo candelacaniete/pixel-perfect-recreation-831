@@ -50,7 +50,7 @@ function buildWorld(): Obj[] {
     o.push({ k: "bird", x: curve(z) - side * width(z), z, h: 0.9, y: 0.4, side, seed: i, kind: "bird", flip: side < 0 });
   }
   stops.forEach((s, i) => {
-    const gz = s.z + 6;
+    const gz = s.z + 9;
     o.push({ k: s.sprite, x: curve(gz) + s.side * (width(gz) + 0.5), z: gz, h: GUARD_H[s.sprite] ?? 3, side: s.side, seed: 500 + i, flip: s.side > 0 });
   });
   return o;
@@ -308,11 +308,11 @@ export function RiverJourney() {
       ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
 
       // guardian anchor for floating speech
-      const look = S.encounter ?? stops.findIndex((s) => s.z + 6 - S.cam > 0 && s.z + 6 - S.cam < 18);
+      const look = S.encounter ?? stops.findIndex((s) => s.z + 9 - S.cam > 0 && s.z + 9 - S.cam < 18);
       if (look >= 0 && anchor.current) {
-        const s = stops[look]!, gz = s.z + 6;
+        const s = stops[look]!, gz = s.z + 9;
         const p = project(cam, curve(gz) + s.side * (width(gz) + 0.5), (GUARD_H[s.sprite] ?? 3) + 0.2, gz);
-        if (p) { anchor.current.style.left = `${Math.min(W - 40, Math.max(40, p.x))}px`; anchor.current.style.top = `${Math.max(90, p.y)}px`;  }
+        if (p) { anchor.current.style.left = `${Math.min(W - Math.min(220, W * 0.45), Math.max(Math.min(220, W * 0.45), p.x))}px`; anchor.current.style.top = `${Math.min(H * 0.6, Math.max(170, p.y))}px`;  }
       }
       const nl = S.encounter == null && look >= 0 ? stops[look]!.recognition : "";
       if (nl !== lastNear) { lastNear = nl; setNearLine(nl || null); }
