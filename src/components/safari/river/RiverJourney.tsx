@@ -14,11 +14,11 @@ import treeImg from "@/assets/sp-tree.webp";
 import palmImg from "@/assets/sp-palm.webp";
 import grassImg from "@/assets/sp-grass.webp";
 import flowerImg from "@/assets/sp-flower.webp";
-import heronImg from "@/assets/g-heron.webp";
-import anaImg from "@/assets/g-anaconda.webp";
-import mechImg from "@/assets/g-capymech.webp";
-import macawImg from "@/assets/g-macaw.webp";
-import jabiruImg from "@/assets/g-jabiru.webp";
+import heronImg from "@/assets/g-heron-authored.png";
+import anaImg from "@/assets/g-anaconda-authored.png";
+import mechImg from "@/assets/g-capymech-authored.png";
+import macawImg from "@/assets/g-macaw-authored.png";
+import jabiruImg from "@/assets/g-jabiru-authored.png";
 
 const SRC = { capy: capyImg, bird: birdImg, tree: treeImg, palm: palmImg, grass: grassImg, flower: flowerImg, heron: heronImg, anaconda: anaImg, capymech: mechImg, macaw: macawImg, jabiru: jabiruImg };
 type Key = keyof typeof SRC;

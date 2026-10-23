@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { studio } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
-import landStudio from "@/assets/land-studio-refined.jpg";
+import landStudio from "@/assets/land-studio-authored.jpg";
 import { Scene } from "@/components/safari/motion";
 import spPalm from "@/assets/sp-palm.webp";
 import spTree from "@/assets/sp-tree.webp";
