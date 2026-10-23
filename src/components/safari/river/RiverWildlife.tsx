@@ -3,8 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowUp, Droplets } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { riverWildlife } from "@/content/yrmis";
-import crocodile from "@/assets/river-crocodile-refined.png";
-import piranha from "@/assets/river-piranha-refined.png";
+import crocodile from "@/assets/river-crocodile-authored.png";
+import piranha from "@/assets/river-piranha-authored.png";
 import { canLeaveCrocodile, type CrocodilePhase } from "./world";
 
 export function CrocodileEncounter({ reduced, onContinue }: { reduced: boolean; onContinue: () => void }) {
