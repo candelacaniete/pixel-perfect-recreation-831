@@ -78,7 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "Yrmis — An editorial safari" },
       { name: "description", content: "Yrmis Barroeta: keynotes, the Studio, ventures and 1•1•1 Signals." },
       { property: "og:type", content: "website" },

@@ -192,3 +192,39 @@
 @utility map-dot-seen { background: var(--crimson); color: var(--paper); border-style: solid; }
 @utility map-label { font-family: var(--font-display); font-size: .95rem; line-height: 1; & em { display: block; font-size: .7rem; opacity: .7; } }
 @media (prefers-reduced-motion: reduce) { .animate-bob, .glint, .driftwood, .storm-word, .landmark-orb { animation: none !important; } }
+
+/* ---- editorial motion system (driven by --p from motion.tsx) ---- */
+.scene { --p: 0.5; }
+@utility drift-up { transform: translate3d(0, calc((0.5 - var(--p, .5)) * var(--d, 120px)), 0); will-change: transform; }
+@utility drift-down { transform: translate3d(0, calc((var(--p, .5) - 0.5) * var(--d, 120px)), 0); will-change: transform; }
+@utility cross-x { transform: translate3d(calc((var(--p, .5) - 0.5) * var(--d, 60vw)), 0, 0); will-change: transform; }
+@utility cross-x-rtl { transform: translate3d(calc((0.5 - var(--p, .5)) * var(--d, 60vw)), 0, 0); will-change: transform; }
+@utility swell { transform: scale(calc(0.82 + var(--p, .5) * 0.36)) rotate(calc((var(--p, .5) - 0.5) * -8deg)); transform-origin: center; will-change: transform; }
+@utility emerge { transform: translate3d(0, calc((0.6 - min(var(--p, .5), 0.6)) * 70%), 0) scale(calc(0.88 + min(var(--p, .5), .6) * 0.2)); will-change: transform; }
+@utility hue-shift { background-color: color-mix(in oklab, var(--scarlet) calc(100% - var(--p, .5) * 60%), var(--crimson)); }
+.cross-bird { left: 0; top: 30%; transform: translate3d(calc(-20vw + var(--p, .5) * 130vw), calc(sin(var(--p, .5) * 6.28rad) * 40px), 0) rotate(-8deg); }
+.cross-bird-rtl { transform: translate3d(calc(110vw - var(--p, .5) * 130vw), calc(cos(var(--p, .5) * 6.28rad) * 40px), 0) scaleX(-1) rotate(-8deg); }
+.serpent { stroke-dasharray: 1; stroke-dashoffset: calc(1 - min(1, var(--p, .5) * 1.6)); }
+.reveal { opacity: 0; transform: translateY(40px) rotate(-1deg); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
+.is-in .reveal, .reveal.is-in { opacity: 1; transform: none; }
+.is-in .reveal-2 { transition-delay: .15s; } .is-in .reveal-3 { transition-delay: .3s; }
+.mask-word { clip-path: inset(0 calc((1 - min(1, var(--p, .5) * 1.8)) * 100%) 0 0); }
+@media (prefers-reduced-motion: reduce) {
+  .drift-up, .drift-down, .cross-x, .cross-x-rtl, .swell, .emerge { transform: none !important; }
+  .cross-bird, .cross-bird-rtl { display: none; }
+  .reveal { opacity: 1; transform: none; }
+  .mask-word { clip-path: none; }
+  .serpent { stroke-dashoffset: 0; }
+}
+
+/* ---- photographic landscapes ---- */
+@utility photo-bg { position: absolute; left: 0; right: 0; top: -8%; height: 116%; width: 100%; object-fit: cover; transform: translate3d(0, calc((var(--p, .5) - .5) * 14%), 0) scale(calc(1.04 + var(--p, .5) * .06)); will-change: transform; }
+@keyframes clouds { 0%,100% { transform: translateX(0) } 50% { transform: translateX(-2.5%) } }
+@utility cloud-drift { animation: clouds 28s ease-in-out infinite; }
+@keyframes lightning { 0%, 88%, 100% { opacity: 0 } 89% { opacity: .55 } 90% { opacity: .1 } 91.5% { opacity: .7 } 94% { opacity: 0 } }
+@utility lightning { pointer-events: none; position: absolute; inset: 0; background: radial-gradient(ellipse at 82% 30%, oklch(0.95 0.15 95 / 70%), transparent 55%); mix-blend-mode: screen; animation: lightning 9s linear infinite; }
+@keyframes sway { 0%,100% { transform: rotate(-.6deg) } 50% { transform: rotate(.6deg) } }
+@utility palm-sway { transform-origin: 50% 100%; animation: sway 7s ease-in-out infinite; }
+@utility scrim-l { background: linear-gradient(90deg, oklch(0.12 0.03 265 / 78%), oklch(0.12 0.03 265 / 25%) 60%, transparent); }
+@utility scrim-b { background: linear-gradient(0deg, oklch(0.12 0.03 265 / 80%), transparent 55%); }
+@media (prefers-reduced-motion: reduce) { .photo-bg { transform: none !important; } .cloud-drift, .lightning, .palm-sway { animation: none !important; } .lightning { opacity: 0; } }
