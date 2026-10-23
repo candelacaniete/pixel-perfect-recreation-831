@@ -37,7 +37,7 @@
   --color-ink: var(--ink);
   --color-night: var(--night);
   --color-paper: var(--paper);
-  --color-gum: var(--gum);
+  --color-scarlet: var(--scarlet);
   --color-tangerine: var(--tangerine);
   --color-cobalt: var(--cobalt);
   --color-gold: var(--gold);
@@ -52,7 +52,7 @@
   --ink: oklch(0.2 0.03 265);
   --night: oklch(0.17 0.04 265);
   --paper: oklch(0.96 0.02 85);
-  --gum: oklch(0.8 0.12 355);
+  --scarlet: oklch(0.58 0.22 27);
   --tangerine: oklch(0.72 0.17 50);
   --cobalt: oklch(0.42 0.16 262);
   --gold: oklch(0.82 0.16 85);
@@ -71,7 +71,7 @@
   --popover-foreground: var(--ink);
   --primary: var(--ink);
   --primary-foreground: var(--paper);
-  --secondary: var(--gum);
+  --secondary: var(--scarlet);
   --secondary-foreground: var(--ink);
   --muted: oklch(0.91 0.02 85);
   --muted-foreground: oklch(0.45 0.03 265);
@@ -165,7 +165,7 @@
   transition: transform .2s ease, background-color .2s ease;
   &:hover { transform: translateY(-2px); background: oklch(0.17 0.04 265 / 80%); }
 }
-@utility row-btn-gum { background: var(--gum); color: var(--ink); border-color: transparent; &:hover { background: var(--gold); } }
+@utility row-btn-scarlet { background: var(--scarlet); color: var(--paper); border-color: transparent; &:hover { background: var(--gold); color: var(--ink); } }
 @keyframes glint { 0%,100% { transform: scale(.7); opacity: .5 } 50% { transform: scale(1.15); opacity: 1 } }
 @utility glint { border-radius: 999px; background: radial-gradient(circle, var(--gold) 0 18%, oklch(0.82 0.16 85 / 40%) 30%, transparent 70%); animation: glint 1.6s ease-in-out infinite; }
 @keyframes driftbob { 0%,100% { transform: translateY(0) rotate(-2deg) } 50% { transform: translateY(-6px) rotate(2deg) } }

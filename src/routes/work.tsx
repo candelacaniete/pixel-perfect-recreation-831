@@ -21,7 +21,7 @@ function WorkPage() {
   const [pick, setPick] = useState<string>("");
   const [sent, setSent] = useState(false);
   return (
-    <main className="bg-gum text-ink">
+    <main className="bg-scarlet text-paper">
       <section className="px-5 pb-10 pt-28 md:px-12">
         <p className="eyebrow">Work with me</p>
         <h1 className="display-xl mt-4">Five ways to<br /><em>click into your wild.</em></h1>
@@ -30,7 +30,7 @@ function WorkPage() {
       <section className="grid gap-px bg-ink md:grid-cols-3" aria-label="Ways to work together">
         {[...workOptions, { n: "∞", verb: "Custom", title: "Something we haven't named yet", body: "Not seeing exactly what you need? Good — that's usually where the interesting work is." }].map((o) => (
           <button key={o.n} onClick={() => { setPick(o.title); document.getElementById("form")?.scrollIntoView({ behavior: "smooth" }); }} aria-pressed={pick === o.title}
-            className={`p-6 text-left transition md:p-8 ${pick === o.title ? "bg-ink text-paper" : "bg-gum hover:bg-paper"}`}>
+            className={`p-6 text-left transition md:p-8 ${pick === o.title ? "bg-ink text-paper" : "bg-scarlet hover:bg-paper hover:text-ink"}`}>
             <span className="eyebrow">{o.n} · {o.verb}</span>
             <span className="font-display mt-4 block text-3xl">{o.title}</span>
             <span className="mt-3 block">{o.body}</span>

@@ -19,9 +19,9 @@ export function Landing() {
     const el = scroller.current; if (el) el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
   }, []);
   return (
-    <div data-ui ref={scroller} className="absolute inset-0 z-30 touch-pan-x overflow-x-auto overflow-y-hidden bg-gum animate-in fade-in duration-[1500ms]">
+    <div data-ui ref={scroller} className="absolute inset-0 z-30 touch-pan-x overflow-x-auto overflow-y-hidden bg-scarlet animate-in fade-in duration-[1500ms]">
       <div className="relative h-full" style={{ width: "max(100vw, 177.8vh)" }}>
-        <img src={territory} alt="A surreal pink shore: a giant flower, floating stone spheres, pink arches, and a capybara blowing a bubble of gum" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover" />
+        <img src={territory} alt="A surreal scarlet shore: a giant red flower, floating stone spheres, vermilion arches, and a capybara blowing a golden bubble" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover" />
         <button onClick={() => journey.requestJump(0)} className="landmark" style={{ left: "15%", top: "22%" }}>
           <span className="landmark-orb" /><span className="landmark-label">CLICK<em>Meet the five guardians again</em></span>
         </button>
