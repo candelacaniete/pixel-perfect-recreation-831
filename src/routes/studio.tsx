@@ -26,8 +26,8 @@ function StudioPage() {
   useEffect(() => markVisited("studio"), []);
   return (
     <main className="overflow-hidden bg-paper text-ink">
-      <Scene className="relative grid min-h-[90vh] gap-8 overflow-hidden px-5 pb-16 pt-28 md:grid-cols-12 md:px-12">
-        <div aria-hidden className="absolute inset-0 overflow-hidden">
+      <Scene className="isolate relative grid min-h-[90vh] gap-8 overflow-hidden px-5 pb-16 pt-28 md:grid-cols-12 md:px-12">
+        <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
           <img src={landStudio} alt="" width={1920} height={1088} className="photo-bg object-[30%_center]" />
           <div className="absolute inset-0 bg-[linear-gradient(0deg,var(--paper)_8%,transparent_55%)] md:bg-[linear-gradient(270deg,var(--paper)_22%,transparent_60%)]" />
         </div>

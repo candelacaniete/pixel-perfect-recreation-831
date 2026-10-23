@@ -27,8 +27,8 @@ function SignalsPage() {
   return (
     <main className="overflow-hidden bg-night text-paper">
       {/* Hero — the observatory, the macaw interrupting the masthead */}
-      <Scene className="relative overflow-hidden px-5 pb-20 pt-28 md:px-12">
-        <div aria-hidden className="absolute inset-0 overflow-hidden">
+      <Scene className="isolate relative overflow-hidden px-5 pb-20 pt-28 md:px-12">
+        <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
           <img src={landSignals} alt="" width={1920} height={1088} className="photo-bg object-[75%_center]" />
           <div className="scrim-l absolute inset-0" />
         </div>

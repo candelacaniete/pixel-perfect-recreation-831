@@ -29,8 +29,8 @@ function HomePage() {
   return (
     <main className="bg-paper text-ink">
       {/* Hero — the tiger steps out of the red */}
-      <Scene className="relative overflow-hidden bg-night text-paper">
-        <div aria-hidden className="absolute inset-0 overflow-hidden">
+      <Scene className="isolate relative overflow-hidden bg-night text-paper">
+        <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
           <img src={landHome} alt="" width={1920} height={1088} className="photo-bg cloud-drift object-[70%_center]" />
           <div className="lightning" />
           <div className="scrim-l absolute inset-0" />

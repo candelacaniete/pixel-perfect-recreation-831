@@ -30,8 +30,8 @@ function VenturesPage() {
   useEffect(() => markVisited("ventures"), []);
   return (
     <main className="overflow-hidden bg-tangerine/20 text-ink">
-      <Scene className="relative min-h-[88vh] overflow-hidden px-5 pb-12 pt-28 text-paper md:px-12">
-        <div aria-hidden className="absolute inset-0 overflow-hidden">
+      <Scene className="isolate relative min-h-[88vh] overflow-hidden px-5 pb-12 pt-28 text-paper md:px-12">
+        <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
           <img src={landVentures} alt="" width={1920} height={1088} className="photo-bg cloud-drift object-[40%_center]" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.25_0.1_262/70%),transparent_50%)]" />
         </div>
