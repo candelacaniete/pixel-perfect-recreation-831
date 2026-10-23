@@ -16,7 +16,7 @@ export function LensReveal({ onReveal, fill = false }: { onReveal?: () => void; 
     reveal();
     setPos({ x, y });
   };
-  const r = fill ? "min(22vmin, 180px)" : "22%";
+  const r = fill ? "min(30vmin, 180px)" : "22%";
 
   return (
     <div
