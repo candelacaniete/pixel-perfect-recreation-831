@@ -1,7 +1,7 @@
 # Roadmap — Art direction unification + mobile CLICK
 
-- [ ] Give the piranha a continuous right-to-left jump in front of the boat
-- [ ] Keep crocodile text separate from its image and verify both on desktop/mobile
+- [x] Give the piranha a continuous right-to-left jump in front of the boat
+- [x] Keep crocodile text separate from its image and verify both on desktop/mobile
 
 - [x] Add separate crocodile feeding stop with touch, pointer and reduced-motion fallback; keep map accessible
 - [x] Add brief feminine piranha appearances in the river without replacing guardians
