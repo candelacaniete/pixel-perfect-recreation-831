@@ -269,3 +269,14 @@
   .crocodile-feeds { opacity: .6; }
   .crocodile-dives { transition: none; }
 }
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .crocodile-caption { top: 5rem; }
+  .crocodile-caption h2 { font-size: 1.25rem; }
+  .crocodile-caption .speech { margin-top: .35rem; font-size: 1rem; }
+  .crocodile-character { left: 28%; top: 45%; height: 25vh; width: 22vh; }
+  .crocodile-waterline { left: 28%; top: 70%; width: 23vw; height: 1rem; }
+  .feeding-stick { width: 40vw; bottom: 14%; height: 4rem; }
+  .crocodile-actions { justify-content: flex-start; bottom: 1rem; }
+  .crocodile-actions a { font-size: .75rem; }
+}

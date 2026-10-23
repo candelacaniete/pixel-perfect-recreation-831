@@ -22,7 +22,7 @@ export function CrocodileEncounter({ reduced, onContinue }: { reduced: boolean; 
 
   return (
     <section data-ui aria-label="Crocodile encounter" className="absolute inset-0 z-20" data-phase={phase}>
-      <div className="absolute inset-x-5 top-[calc(env(safe-area-inset-top)+6rem)] mx-auto max-w-xl text-center">
+      <div className="crocodile-caption absolute inset-x-5 top-[calc(env(safe-area-inset-top)+6rem)] mx-auto max-w-xl text-center">
         <h2 className="font-display text-2xl italic text-shadow-river md:text-4xl">{copy.title}</h2>
         <p aria-live="polite" className="speech mx-auto mt-3">{phase === "waiting" ? copy.cue : phase === "feeding" ? copy.reacting : copy.fed}</p>
       </div>
@@ -44,7 +44,7 @@ export function CrocodileEncounter({ reduced, onContinue }: { reduced: boolean; 
           <span className="stick-grip"><ArrowUp aria-hidden />{copy.offer}</span>
         </Button>
       )}
-      <div className="absolute inset-x-5 bottom-[calc(env(safe-area-inset-bottom)+1.5rem)] flex flex-wrap items-center justify-center gap-3">
+      <div className="crocodile-actions absolute inset-x-5 bottom-[calc(env(safe-area-inset-bottom)+1.5rem)] flex flex-wrap items-center justify-center gap-3">
         {canLeaveCrocodile(phase) && <Button variant="ghost" onClick={onContinue} className="row-btn h-auto min-h-11"><ArrowDown />{copy.continue}</Button>}
         <Button asChild variant="ghost" className="row-btn h-auto min-h-11"><Link to="/">{copy.map}</Link></Button>
       </div>

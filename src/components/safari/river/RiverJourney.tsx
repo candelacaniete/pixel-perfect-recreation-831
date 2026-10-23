@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { stops, LANDING_Z, ambientLines } from "@/content/journey";
-import { curve, curveD, width, project, hash, palette, rgb, riverSequenceTarget, riverFrame, type Cam } from "./world";
+import { curve, curveD, width, project, hash, palette, rgb, riverSequenceTarget, riverFrame, CROCODILE_Z, type Cam } from "./world";
 import { journey, useJourney } from "../journeyStore";
 import { useReducedMotion } from "../visited";
 import { EncounterLayer, type Phase } from "./EncounterLayer";
@@ -77,7 +77,7 @@ export function RiverJourney() {
   }, [j.landed, navigate]);
 
   // mutable sim state
-  const sim = useRef({ cam: j.cam, vel: 0, push: 0, logCleared: 0, fogSteps: 0, crocodileFed: j.cam > 72, crocodileActive: false, encounter: null as number | null, t: 0, world: [] as Obj[], pan: 0, flow: 0, splashes: [] as { z: number; x: number; t0: number }[] });
+  const sim = useRef({ cam: j.cam, vel: 0, push: 0, logCleared: 0, fogSteps: 0, crocodileFed: j.cam > CROCODILE_Z, crocodileActive: false, encounter: null as number | null, t: 0, world: [] as Obj[], pan: 0, flow: 0, splashes: [] as { z: number; x: number; t0: number }[] });
   const imgs = useRef<Partial<Record<Key, HTMLImageElement>>>({});
 
   useEffect(() => {
@@ -359,9 +359,7 @@ export function RiverJourney() {
       ctx.globalCompositeOperation = "multiply"; ctx.fillStyle = rgb(pal.wash); ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
       draw.filter((x) => x.guardian).forEach((x) => x.fn());
 
-      // fireflies — each with its own drift, speed and pulse, in three depth
-      // bands; they gather by a waiting guardian, shimmer on the water, and
-      // fade out as dawn takes the sky
+      // Fireflies remain in the landscape on the banks, never a swarm by the bow.
       if (pal.night > 0.05) {
         const night = pal.night;
         const count = reduced ? 45 : 110;
@@ -369,8 +367,9 @@ export function RiverJourney() {
           const band = hash(i + 41); // 0 = close to the camera, 1 = deep in the trees
           const spd = 0.35 + hash(i + 7) * 0.9;
           const ph = i * 1.71;
-          let z = S.cam + 1.5 + hash(i) * 38;
-          let x = curve(z) + (hash(i + 1) * 2 - 1) * (4 + band * 9);
+          let z = S.cam + 10 + hash(i) * 32;
+          const bank = hash(i + 1) > 0.5 ? 1 : -1;
+          let x = curve(z) + bank * (width(z) + 1.5 + band * 7);
           let y = 0.25 + hash(i + 2) * (1.2 + band * 2.4);
           if (!reduced) {
             x += Math.sin(S.t * spd + ph) * 0.7 + Math.sin(S.t * 0.23 + i) * 0.5;
@@ -381,7 +380,7 @@ export function RiverJourney() {
           const pulse = reduced ? 0.75 : 0.3 + 0.7 * Math.abs(Math.sin(S.t * (0.9 + hash(i + 3) * 1.6) + ph));
           const a = night * pulse * (1 - band * 0.55);
           if (a < 0.03) continue;
-          const r = Math.max(1, 0.05 * p.s * (1.5 - band));
+          const r = Math.min(1.8, Math.max(0.7, 0.02 * p.s));
           const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4);
           g.addColorStop(0, `rgba(255,238,150,${a})`);
           g.addColorStop(0.4, `rgba(214,232,120,${a * 0.5})`);
