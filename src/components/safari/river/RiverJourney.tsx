@@ -25,6 +25,8 @@ type Key = keyof typeof SRC;
 type Obj = { k: Key; x: number; z: number; h: number; y?: number; flip?: boolean; kind?: "capy" | "bird" | "gum" | "flower" | "tree" | undefined; side: number; seed: number };
 
 const GUARD_H: Record<string, number> = { heron: 3.4, anaconda: 3.6, capymech: 2.4, macaw: 2.6, jabiru: 3.8 };
+/** Guardians wait this close to the docking point so they fill the frame beside the bow. */
+const GUARD_D = 4.5;
 
 function buildWorld(): Obj[] {
   const o: Obj[] = [];
@@ -408,7 +410,7 @@ export function RiverJourney() {
       vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,0.45)");
       ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
 
-      const look = S.encounter ?? stops.findIndex((s, i) => !journey.get().passed.includes(i) && s.z + GUARD_D - S.cam > 0 && s.z + 18 - S.cam > 0 && s.z - S.cam < 14);
+      const look = S.encounter ?? stops.findIndex((s, i) => !journey.get().passed.includes(i) && s.z - S.cam >= 0 && s.z - S.cam < 14);
       const nl = look >= 0 ? String(look) : "";
       if (nl !== lastNear) { lastNear = nl; setNearLine(nl || null); }
       const amb = ambientLines.find((a) => S.cam >= a.z && S.cam < a.z + 13);
