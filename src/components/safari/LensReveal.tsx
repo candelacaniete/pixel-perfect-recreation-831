@@ -2,53 +2,40 @@ import { useRef, useState } from "react";
 import base from "@/assets/lens-base.jpg";
 import vivid from "@/assets/lens-vivid.jpg";
 
-/** Circular lens that follows pointer (desktop) or drag (touch) to reveal a second image layer. */
-export function LensReveal({ onReveal }: { onReveal?: () => void }) {
+/** Two synchronized layers; a circular lens follows pointer / touch and reveals the transformed world. */
+export function LensReveal({ onReveal, fill = false }: { onReveal?: () => void; fill?: boolean }) {
   const box = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState({ x: 50, y: 50 });
-  const [active, setActive] = useState(false);
-  const [full, setFull] = useState(false);
+  const [pos, setPos] = useState({ x: 50, y: 55 });
   const travelled = useRef(0);
+  const reveal = () => { if (travelled.current > 90) onReveal?.(); };
 
   const move = (cx: number, cy: number) => {
     const r = box.current?.getBoundingClientRect(); if (!r) return;
     const x = ((cx - r.left) / r.width) * 100, y = ((cy - r.top) / r.height) * 100;
     travelled.current += Math.abs(x - pos.x) + Math.abs(y - pos.y);
-    if (travelled.current > 120) onReveal?.();
-    setPos({ x, y }); setActive(true);
+    reveal();
+    setPos({ x, y });
   };
-
-  const radius = full ? 150 : active ? 22 : 14;
+  const r = fill ? "min(22vmin, 180px)" : "22%";
 
   return (
-    <div className="space-y-3">
-      <div
-        ref={box}
-        className="relative aspect-square w-full cursor-none touch-none select-none overflow-hidden rounded-sm border-2 border-paper/30"
-        onPointerMove={(e) => move(e.clientX, e.clientY)}
-        onPointerDown={(e) => { (e.target as HTMLElement).setPointerCapture?.(e.pointerId); move(e.clientX, e.clientY); }}
-        onPointerLeave={() => setActive(false)}
-        tabIndex={0}
-        role="slider"
-        aria-label="Lens position. Use arrow keys to move the lens."
-        aria-valuenow={Math.round(pos.x)}
-        onKeyDown={(e) => {
-          const d = 6; const m: Record<string, [number, number]> = { ArrowLeft: [-d, 0], ArrowRight: [d, 0], ArrowUp: [0, -d], ArrowDown: [0, d] };
-          const v = m[e.key]; if (v) { e.preventDefault(); setActive(true); onReveal?.(); setPos((p) => ({ x: Math.min(100, Math.max(0, p.x + v[0])), y: Math.min(100, Math.max(0, p.y + v[1])) })); }
-        }}
-      >
-        <img src={base} alt="A muted, camouflaged snake coiled in dry grass" width={1200} height={1200} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
-        <img
-          src={vivid} alt="" aria-hidden width={1024} height={1024} loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover transition-[clip-path] duration-500 ease-out"
-          style={{ clipPath: `circle(${radius}% at ${pos.x}% ${pos.y}%)` }}
-        />
-        <span aria-hidden className="pointer-events-none absolute rounded-full border-4 border-paper shadow-[0_0_0_2px_var(--ink),0_20px_40px_-10px_oklch(0_0_0/50%)] transition-[width,height] duration-500"
-          style={{ left: `${pos.x}%`, top: `${pos.y}%`, width: full ? 0 : `${radius * 2}%`, height: full ? 0 : `${radius * 2}%`, transform: "translate(-50%,-50%)" }} />
-      </div>
-      <button onClick={() => { setFull((f) => !f); onReveal?.(); }} className="pill border-2 border-paper text-paper">
-        {full ? "Back to the label" : "Drop the label entirely"}
-      </button>
+    <div
+      ref={box}
+      className={`relative cursor-none touch-none select-none overflow-hidden ${fill ? "h-full w-full" : "aspect-square w-full"}`}
+      onPointerMove={(e) => move(e.clientX, e.clientY)}
+      onPointerDown={(e) => move(e.clientX, e.clientY)}
+      tabIndex={0}
+      role="application"
+      aria-label="Magic lens. Move the pointer, drag, or use arrow keys to look through it."
+      onKeyDown={(e) => {
+        const d = 5; const m: Record<string, [number, number]> = { ArrowLeft: [-d, 0], ArrowRight: [d, 0], ArrowUp: [0, -d], ArrowDown: [0, d] };
+        const v = m[e.key];
+        if (v) { e.preventDefault(); travelled.current += 20; reveal(); setPos((p) => ({ x: Math.min(100, Math.max(0, p.x + v[0])), y: Math.min(100, Math.max(0, p.y + v[1])) })); }
+      }}
+    >
+      <img src={base} alt="A muted, camouflaged anaconda coiled among roots and dry grass" width={1200} height={1200} className="absolute inset-0 h-full w-full object-cover" />
+      <img src={vivid} alt="" aria-hidden width={1024} height={1024} className="absolute inset-0 h-full w-full object-cover" style={{ clipPath: `circle(${r} at ${pos.x}% ${pos.y}%)` }} />
+      <span aria-hidden className="lens-ring pointer-events-none absolute" style={{ left: `${pos.x}%`, top: `${pos.y}%`, width: `calc(${r} * 2)`, height: `calc(${r} * 2)` }} />
     </div>
   );
 }
