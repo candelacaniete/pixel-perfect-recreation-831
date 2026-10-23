@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Stop } from "@/content/journey";
 import { LensReveal } from "../LensReveal";
+import { Button } from "@/components/ui/button";
 
 export type Phase = "dialogue" | "interaction" | "revelation" | "departure";
 
@@ -15,11 +16,11 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
   return (
     <>
       {phase === "dialogue" && (
-        <button data-ui className="pointer-events-auto block text-left" onClick={() => (line + 1 < stop.dialogue.length ? setLine(line + 1) : setPhase("interaction"))}>
+        <Button variant="ghost" data-ui className="pointer-events-auto block h-auto w-full whitespace-normal p-0 text-left hover:bg-transparent" onClick={() => (line + 1 < stop.dialogue.length ? setLine(line + 1) : setPhase("interaction"))}>
           <span className="eyebrow block text-gold">{stop.guardian}</span>
           <span key={line} className="speech mt-1 block animate-in fade-in slide-in-from-bottom-1 duration-700">{stop.dialogue[line]}</span>
           <span className="eyebrow mt-2 block text-paper/70">tap to listen ›</span>
-        </button>
+        </Button>
       )}
 
       {phase === "interaction" && (
@@ -38,15 +39,15 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
 
       {phase === "revelation" && (
         <ScreenPortal>
-          <div className="pointer-events-none absolute inset-0 grid place-items-center px-6 text-center">
-            <div className="animate-in fade-in zoom-in-95 duration-1000">
+          <div data-ui className="absolute inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+6rem)] top-[calc(env(safe-area-inset-top)+5rem)] flex items-center justify-center overflow-y-auto px-6 py-4 text-center">
+            <div className="my-auto w-full max-w-2xl animate-in fade-in zoom-in-95 duration-1000">
               <p className="speech mx-auto mb-6 max-w-md">{stop.revelation}</p>
-              <span className="font-display block text-[28vw] leading-[0.8] text-gold text-shadow-river md:text-[14rem]">{stop.letter}</span>
+              <span className="font-display block text-7xl leading-none text-gold text-shadow-river md:text-9xl">{stop.letter}</span>
               <span className="eyebrow mt-2 block">{stop.name}</span>
-              <span className="font-display mt-3 block text-3xl italic text-shadow-river md:text-5xl">“{stop.tagline}”</span>
+              <span className="font-display mt-3 block break-words text-2xl italic text-shadow-river md:text-4xl">“{stop.tagline}”</span>
             </div>
           </div>
-          <button data-ui autoFocus onClick={() => setPhase("departure")} className="row-btn absolute bottom-8 left-1/2 z-30 -translate-x-1/2">Thank the {stop.guardian.replace("The ", "")}</button>
+          <Button variant="ghost" data-ui autoFocus onClick={() => setPhase("departure")} className="row-btn absolute bottom-8 left-1/2 z-30 h-auto w-max max-w-[calc(100vw-2rem)] -translate-x-1/2 whitespace-normal">Thank the {stop.guardian.replace("The ", "")}</Button>
         </ScreenPortal>
       )}
 
@@ -54,7 +55,7 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
         <div data-ui className="pointer-events-auto">
           <p className="speech animate-in fade-in duration-700">{stop.departure}</p>
           <ScreenPortal>
-            <button data-ui autoFocus onClick={() => onDepart(true)} className="row-btn absolute bottom-8 left-1/2 z-30 -translate-x-1/2">Push off downstream ↓</button>
+            <Button variant="ghost" data-ui autoFocus onClick={() => onDepart(true)} className="row-btn absolute bottom-8 left-1/2 z-30 h-auto w-max -translate-x-1/2 whitespace-normal">Push off downstream ↓</Button>
           </ScreenPortal>
         </div>
       )}
@@ -86,7 +87,7 @@ function Clues({ onDone }: { onDone: () => void }) {
       {clues.map((c, i) => (
         <button key={i} onClick={() => setFound((f) => [...new Set([...f, i])])} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${c.x}%`, top: `${c.y}%` }} aria-label={`Look closer at glint ${i + 1}`}>
           {found.includes(i) ? (
-            <span className="speech block w-[min(13rem,40vw)] animate-in fade-in duration-500 text-sm">{c.t}</span>
+            <span className="speech block w-[min(13rem,36vw)] animate-in fade-in duration-500 text-sm">{c.t}</span>
           ) : (
             <span className="glint block h-14 w-14" />
           )}
