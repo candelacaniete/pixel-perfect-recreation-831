@@ -6,7 +6,6 @@ import { markVisited } from "@/components/safari/visited";
 import landStudio from "@/assets/land-studio.jpg";
 import { Scene, Lianas } from "@/components/safari/motion";
 import gCapymech from "@/assets/g-capymech.webp";
-import gAnaconda from "@/assets/g-anaconda.webp";
 
 export const Route = createFileRoute("/studio")({
   head: () => ({
@@ -57,8 +56,6 @@ function StudioPage() {
         ))}
       </Scene>
       <Scene className="relative overflow-hidden bg-crimson px-5 py-20 text-paper md:px-12" aria-labelledby="keynote">
-        <img src={gAnaconda} alt="" width={560} height={560} loading="lazy"
-          className="drift-down pointer-events-none absolute -right-16 -top-16 w-72 rotate-12 rounded-full opacity-40 [--d:260px] md:w-96" aria-hidden />
         <p className="eyebrow text-gold">01 · Speak · The signature keynote</p>
         <h2 id="keynote" className="display-lg relative mt-3">{studio.keynote.title}</h2>
         <div className="relative mt-10 grid gap-8 md:grid-cols-2">
