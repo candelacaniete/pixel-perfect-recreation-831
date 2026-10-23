@@ -3,12 +3,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { studio } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
-import landStudio from "@/assets/land-studio.jpg";
+import landStudio from "@/assets/land-studio-inventor.jpg";
 import { Scene } from "@/components/safari/motion";
 import spPalm from "@/assets/sp-palm.webp";
 import spTree from "@/assets/sp-tree.webp";
 import spCapy from "@/assets/sp-capybara.webp";
-import gCapymech from "@/assets/g-capymech.webp";
 
 export const Route = createFileRoute("/studio")({
   head: () => ({
@@ -30,15 +29,13 @@ function StudioPage() {
     <main className="overflow-hidden bg-paper text-ink">
       <Scene className="isolate relative grid min-h-[92svh] content-end overflow-hidden px-5 pb-16 pt-28 md:grid-cols-12 md:content-center md:px-12">
         <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
-          <img src={landStudio} alt="" width={1920} height={1088} className="photo-bg object-[30%_center]" />
+          <img src={landStudio} alt="The capybara inventor pulls a rope and repurposed jerrycan beside a truck in the flooded Llanos" width={1920} height={1088} className="photo-bg object-[23%_center] md:object-center" />
           <div className="absolute inset-0 bg-[linear-gradient(0deg,var(--paper)_6%,transparent_45%)] md:bg-[linear-gradient(270deg,oklch(0.96_0.02_85/85%)_18%,transparent_55%)]" />
         </div>
         <p aria-hidden className="display-xl pointer-events-none absolute -left-6 bottom-0 whitespace-nowrap text-[24vw] text-scarlet/15 swell">BUILD</p>
         <div className="relative md:col-span-7 md:col-start-6 md:text-right">
           <p className="eyebrow">Destination 02 · Build · The Studio</p>
           <h1 className="display-xl mt-4">Plan<br /><em className="text-crimson">and conspire.</em></h1>
-          <img src={gCapymech} alt="The Capybara Mechanic, the Studio's unlikely foreman" width={560} height={560}
-            className="drift-up mt-8 hidden w-36 -rotate-3 rounded-full [--d:200px] border-2 border-ink shadow-[0_24px_50px_-18px_oklch(0_0_0/60%)] transition-transform duration-500 hover:rotate-0 md:absolute md:-right-4 md:top-24 md:mt-0 md:w-56" />
         </div>
       </Scene>
       <section className="grid gap-8 px-5 py-16 md:grid-cols-12 md:px-12">

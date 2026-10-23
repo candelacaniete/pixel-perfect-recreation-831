@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import pumaWalk from "@/assets/videos/puma-walk.mp4.asset.json";
 import pumaWalkWebm from "@/assets/videos/puma-walk.webm.asset.json";
 import { assetUrl } from "@/lib/asset-url";
+import threshold from "@/assets/work-threshold.jpg";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
@@ -69,6 +70,9 @@ function WorkPage() {
           <source src={assetUrl(pumaWalkWebm)} type="video/webm" />
           <source src={assetUrl(pumaWalk)} type="video/mp4" />
         </video>
+      </Scene>
+      <Scene className="relative h-48 overflow-hidden bg-night md:h-80" aria-label="The river opens into the Llanos">
+        <img src={threshold} alt="A river passage opens between vermilion banks toward the wide golden Llanos horizon" loading="lazy" width={1536} height={1024} className="photo-bg object-center" />
       </Scene>
       <section className="grid gap-px bg-ink md:grid-cols-3" aria-label="Ways to work together">
         {[...workOptions, { n: "∞", verb: "Custom", title: "Something we haven't named yet", body: "Not seeing exactly what you need? Good — that's usually where the interesting work is." }].map((o, i) => (

@@ -2,9 +2,10 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useVisited } from "./visited";
 import worldmap from "@/assets/worldmap-flatlands.jpg";
 import homeLandscape from "@/assets/land-home.jpg";
-import studioLandscape from "@/assets/land-studio.jpg";
-import venturesLandscape from "@/assets/land-ventures-flatlands.jpg";
-import signalsLandscape from "@/assets/land-signals-flatlands.jpg";
+import studioLandscape from "@/assets/land-studio-inventor.jpg";
+import venturesLandscape from "@/assets/land-ventures-crocodile.jpg";
+import signalsLandscape from "@/assets/land-signals-observation.jpg";
+import workLandscape from "@/assets/work-threshold.jpg";
 
 type Landmark = {
   id: string;
@@ -20,9 +21,9 @@ const LANDMARKS: Landmark[] = [
   { id: "home", to: "/home", name: "Home", kicker: "The clearing", creature: "The Jabiru", img: homeLandscape, position: "object-[75%_center]" },
   { id: "click", to: "/click", name: "Experience CLICK", kicker: "The river journey", creature: "The Night Heron", img: worldmap, position: "object-[45%_70%]" },
   { id: "studio", to: "/studio", name: "Studio", kicker: "Plan and conspire", creature: "The Capybara Mechanic", img: studioLandscape, position: "object-left" },
-  { id: "ventures", to: "/ventures", name: "Ventures", kicker: "Four companies", creature: "The Capybara", img: venturesLandscape, position: "object-[65%_center]" },
+  { id: "ventures", to: "/ventures", name: "Ventures", kicker: "Four companies", creature: "The Crocodile", img: venturesLandscape, position: "object-[85%_center]" },
   { id: "signals", to: "/signals", name: "Signals", kicker: "The observatory", creature: "The Macaw", img: signalsLandscape, position: "object-right" },
-  { id: "work", to: "/work", name: "Work with me", kicker: "Start a conversation", creature: "The Anaconda", img: worldmap, position: "object-[80%_70%]" },
+  { id: "work", to: "/work", name: "Work with me", kicker: "Start a conversation", creature: "The Anaconda", img: workLandscape, position: "object-center" },
 ];
 
 function LandmarkLink({ l, visited, current }: { l: Landmark; visited: boolean; current: boolean }) {
