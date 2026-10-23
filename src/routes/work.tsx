@@ -29,6 +29,13 @@ function WorkPage() {
   const [pick, setPick] = useState<string>("");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [filled, setFilled] = useState(0);
+  function onFormInput(e: React.FormEvent<HTMLFormElement>) {
+    const f = new FormData(e.currentTarget);
+    setFilled(["name", "email", "interest", "message"].filter((k) => String(f.get(k) || "").trim()).length);
+  }
+  useEffect(() => { setFilled((n) => Math.max(n, pick ? 1 : 0)); }, [pick]);
+
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -69,17 +76,17 @@ function WorkPage() {
         ))}
       </section>
       <Scene id="form" className="relative overflow-hidden bg-paper px-5 py-16 text-ink md:px-12">
-        <img src={gJabiru} alt="" aria-hidden width={560} height={560} loading="lazy" className="drift-up pointer-events-none absolute -right-10 top-24 hidden w-56 -rotate-6 rounded-full border-2 border-ink [--d:180px] lg:block" />
         <h2 className="display-lg">Start a conversation</h2>
         <p className="mt-3 max-w-xl text-muted-foreground">Tell me about the room, the company, or the goal. We'll build the approach around where you actually are.</p>
+        <PumaTrail progress={status === "sent" ? 1 : filled / 4} />
         {status === "sent" ? (
           <div role="status" className="mt-10 max-w-xl border-l-4 border-scarlet pl-5">
             <p className="font-display text-3xl italic">Sent — thank you.</p>
             <p className="mt-3 text-muted-foreground">Your message landed. Expect a reply from Yrmis, not an autoresponder.</p>
-            <button onClick={() => setStatus("idle")} className="pill mt-6 border-2 border-ink">Send another message</button>
+            <button onClick={() => { setStatus("idle"); setFilled(0); }} className="pill mt-6 border-2 border-ink">Send another message</button>
           </div>
         ) : (
-          <form onSubmit={onSubmit} className="mt-10 grid max-w-3xl gap-5 md:grid-cols-2">
+          <form onSubmit={onSubmit} onInput={onFormInput} className="mt-10 grid max-w-3xl gap-5 md:grid-cols-2">
             <label className="block"><span className="eyebrow">Name</span><input name="name" required autoComplete="name" className="mt-2 w-full border-b-2 border-ink bg-transparent py-2 text-lg outline-none focus:border-tangerine" /></label>
             <label className="block"><span className="eyebrow">Email</span><input name="email" required type="email" autoComplete="email" className="mt-2 w-full border-b-2 border-ink bg-transparent py-2 text-lg outline-none focus:border-tangerine" /></label>
             <label className="block md:col-span-2"><span className="eyebrow">Interested in</span><input name="interest" value={pick} onChange={(e) => setPick(e.target.value)} placeholder="Keynote, Studio, Signals…" className="mt-2 w-full border-b-2 border-ink bg-transparent py-2 text-lg outline-none focus:border-tangerine" /></label>
