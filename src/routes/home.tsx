@@ -4,7 +4,7 @@ import { reframe, origin, capybaraLaw, studio, signals } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
 import landHome from "@/assets/land-home.jpg";
-import { Scene, GuideBird, Lianas } from "@/components/safari/motion";
+import { Scene, Lianas } from "@/components/safari/motion";
 import horses from "@/assets/horses.png";
 
 export const Route = createFileRoute("/home")({
@@ -93,8 +93,7 @@ function HomePage() {
         </Link>
       </section>
 
-      <GuideBird stops={["Start"]} />
-      <NextStops current="Home" />
+      <NextStops current="Home" tone="night" />
     </main>
   );
 }

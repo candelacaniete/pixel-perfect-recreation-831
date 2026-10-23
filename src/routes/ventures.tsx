@@ -51,7 +51,7 @@ function VenturesPage() {
           {hqPillars.map((p) => <li key={p} className="font-display text-3xl italic md:text-5xl">{p}.</li>)}
         </ul>
       </Scene>
-      <NextStops current="Ventures" />
+      <NextStops current="Ventures" tone="night" />
     </main>
   );
 }
