@@ -35,9 +35,10 @@ function buildWorld(): Obj[] {
     for (const side of [-1, 1]) {
       n++;
       const r = hash(n), w = width(z), c = curve(z);
-      if (r < 0.62) o.push({ k: "grass", x: c + side * (w + 0.2 + hash(n + 5) * 1.2), z: z + hash(n + 9), h: 1.4 + hash(n + 2) * 1.2, side, seed: n, flip: hash(n + 3) > 0.5 });
-      if (hash(n + 11) < 0.3) {
-        const tree = hash(n + 13) < 0.45 ? "tree" : "palm";
+      if (r < 0.78) o.push({ k: "grass", x: c + side * (w + 0.2 + hash(n + 5) * 1.2), z: z + hash(n + 9), h: 0.65 + hash(n + 2) * 0.8, side, seed: n, flip: hash(n + 3) > 0.5 });
+      // Scattered morichales, not a continuous rainforest wall.
+      if (hash(n + 11) < 0.12) {
+        const tree = hash(n + 13) < 0.15 ? "tree" : "palm";
         o.push({ k: tree, x: c + side * (w + 2.5 + hash(n + 7) * 10), z: z + hash(n + 17) * 1.5, h: tree === "tree" ? 6 + hash(n) * 4 : 8 + hash(n + 1) * 4, side, seed: n, kind: tree === "tree" ? "tree" : undefined, flip: hash(n + 4) > 0.5 });
       }
       if (hash(n + 21) < 0.035 && z > 60) o.push({ k: "flower", x: c + side * (w + 1.2), z, h: 3.4, side, seed: n, kind: "flower" });
@@ -185,13 +186,13 @@ export function RiverJourney() {
       const orb = ctx.createRadialGradient(W * 0.62, orbY, 0, W * 0.62, orbY, 90);
       orb.addColorStop(0, t > 0.75 ? "rgba(255,214,140,0.95)" : "rgba(240,236,255,0.55)"); orb.addColorStop(1, "rgba(255,255,255,0)");
       ctx.fillStyle = orb; ctx.fillRect(W * 0.62 - 90, orbY - 90, 180, 180);
-      // distant tree line
+      // Long, low grassland horizon, uninterrupted by a dense canopy.
       ctx.fillStyle = rgb(pal.land.map((v) => v * 0.8) as never, 1);
       ctx.beginPath(); ctx.moveTo(0, cam.hy);
       const off = cam.c0 * 30 + cam.d0 * F * 0.6 + S.cam * 2;
       for (let x = 0; x <= W; x += 8) {
         const u = (x + off) * 0.01;
-        const hgt = 6 + 5 * Math.sin(u) + 4 * Math.sin(u * 2.7 + 1) + (Math.sin(u * 0.37) > 0.7 ? 18 * (Math.sin(u * 0.37) - 0.7) * 3 : 0);
+        const hgt = 2 + 1.5 * Math.sin(u) + Math.sin(u * 2.7 + 1);
         ctx.lineTo(x, cam.hy - hgt);
       }
       ctx.lineTo(W, cam.hy); ctx.fill();

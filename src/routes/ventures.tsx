@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ventures, hqPillars } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
-import landVentures from "@/assets/land-ventures.jpg";
+import landVentures from "@/assets/land-ventures-flatlands.jpg";
 import mhImg from "@/assets/mh-greenhouse.jpg.asset.json";
 import absImg from "@/assets/abs-family.jpg.asset.json";
 import hemImg from "@/assets/hem-todo.jpg.asset.json";
