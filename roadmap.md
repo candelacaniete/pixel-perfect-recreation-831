@@ -1,5 +1,10 @@
 # Roadmap — Art direction unification + mobile CLICK
 
+- [ ] Add separate crocodile feeding stop with touch, pointer and reduced-motion fallback; keep map accessible
+- [ ] Add brief feminine piranha appearances in the river without replacing guardians
+- [ ] Ventures crocodile landscape, active Studio inventor, quieter Signals and Work landscape threshold
+- [ ] Verify six destinations, preserved content, crocodile and piranha on desktop/mobile
+
 - [x] Flatlands brief: refine map, Ventures and Signals into open Llanos; retain existing Llanos Home/Studio and Work puma video
 - [x] Flatlands brief: open river vegetation without changing boat or guardian mechanics
 - [x] Verify desktop/mobile pages, all six destinations, work option selection, five river arrivals/departures and return to map
