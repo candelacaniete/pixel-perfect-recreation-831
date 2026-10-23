@@ -82,8 +82,8 @@ export function RiverJourney() {
     const target = j.jump >= stops.length ? LANDING_Z : stops[j.jump]!.z;
     setFade(true);
     const id = setTimeout(() => {
-      sim.current.cam = Math.max(0, target - 26);
-      sim.current.vel = 6; sim.current.encounter = null;
+      sim.current.cam = Math.max(0, target - 0.02);
+      sim.current.vel = 2; sim.current.encounter = null;
       setActive(null);
       journey.set({ jump: null, landed: false });
       setFade(false);
