@@ -34,7 +34,7 @@ function VenturesPage() {
         </div>
         <p className="eyebrow relative text-gold">Destination 03 · Ventures</p>
         <h1 className="display-xl relative mt-4 text-shadow-river">Four companies.<br /><span className="text-gold">Four industries.</span></h1>
-        <p className="relative mt-6 max-w-xl text-lg text-shadow-river">An economist's mind, and a habit of reading rooms the way I read the jungle.</p>
+        <p className="relative mt-6 w-fit max-w-xl bg-night/55 px-3 py-2 text-lg">An economist's mind, and a habit of reading rooms the way I read the jungle.</p>
       </Scene>
       <Scene className="relative grid gap-6 bg-tangerine/20 px-5 py-16 md:grid-cols-4 md:px-12" aria-label="Ventures">
         {ventures.map((v, i) => (
