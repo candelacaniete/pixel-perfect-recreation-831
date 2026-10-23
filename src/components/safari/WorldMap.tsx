@@ -1,11 +1,12 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useVisited } from "./visited";
 import worldmap from "@/assets/worldmap-flatlands.jpg";
-import homeLandscape from "@/assets/land-home.jpg";
-import studioLandscape from "@/assets/land-studio-authored.jpg";
-import venturesLandscape from "@/assets/land-ventures-authored.jpg";
-import signalsLandscape from "@/assets/land-signals-observation.jpg";
-import workLandscape from "@/assets/work-threshold.jpg";
+import jabiruSprite from "@/assets/g-jabiru-authored.png";
+import heronSprite from "@/assets/g-heron-authored.png";
+import capybaraSprite from "@/assets/g-capymech-authored.png";
+import crocodileSprite from "@/assets/river-crocodile-authored.png";
+import macawSprite from "@/assets/g-macaw-authored.png";
+import anacondaSprite from "@/assets/g-anaconda-authored.png";
 
 type Landmark = {
   id: string;
@@ -14,16 +15,15 @@ type Landmark = {
   kicker: string;
   creature: string;
   img: string;
-  position: string;
 };
 
 const LANDMARKS: Landmark[] = [
-  { id: "home", to: "/home", name: "Home", kicker: "The clearing", creature: "The Jabiru", img: homeLandscape, position: "object-[75%_center]" },
-  { id: "click", to: "/click", name: "Experience CLICK", kicker: "The river journey", creature: "The Night Heron", img: worldmap, position: "object-[45%_70%]" },
-  { id: "studio", to: "/studio", name: "Studio", kicker: "Plan and conspire", creature: "The Capybara Mechanic", img: studioLandscape, position: "object-left" },
-  { id: "ventures", to: "/ventures", name: "Ventures", kicker: "Four companies", creature: "The Crocodile", img: venturesLandscape, position: "object-[85%_center]" },
-  { id: "signals", to: "/signals", name: "Signals", kicker: "The observatory", creature: "The Macaw", img: signalsLandscape, position: "object-right" },
-  { id: "work", to: "/work", name: "Work with me", kicker: "Start a conversation", creature: "The Anaconda", img: workLandscape, position: "object-center" },
+  { id: "home", to: "/home", name: "Home", kicker: "The clearing", creature: "The Jabiru", img: jabiruSprite },
+  { id: "click", to: "/click", name: "Experience CLICK", kicker: "The river journey", creature: "The Night Heron", img: heronSprite },
+  { id: "studio", to: "/studio", name: "Studio", kicker: "Plan and conspire", creature: "The Capybara Mechanic", img: capybaraSprite },
+  { id: "ventures", to: "/ventures", name: "Ventures", kicker: "Four companies", creature: "The Crocodile", img: crocodileSprite },
+  { id: "signals", to: "/signals", name: "Signals", kicker: "The observatory", creature: "The Macaw", img: macawSprite },
+  { id: "work", to: "/work", name: "Work with me", kicker: "Start a conversation", creature: "The Anaconda", img: anacondaSprite },
 ];
 
 function LandmarkLink({ l, visited, current }: { l: Landmark; visited: boolean; current: boolean }) {
@@ -34,8 +34,8 @@ function LandmarkLink({ l, visited, current }: { l: Landmark; visited: boolean; 
       aria-label={`${l.name} — ${l.kicker}${visited ? " (visited)" : ""}`}
       className="group flex min-w-0 items-center gap-4 text-left"
     >
-      <span className={`relative grid w-20 shrink-0 place-items-center overflow-hidden rounded-full border-2 lg:w-24 aspect-square ${visited ? "border-gold" : "border-paper/70"} bg-night/60 transition-colors group-hover:border-gold`}>
-        <img src={l.img} alt="" loading="lazy" width={560} height={560} className={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-110 ${l.position}`} />
+      <span className={`relative grid w-20 shrink-0 place-items-center overflow-hidden rounded-full border-2 lg:w-24 aspect-square ${visited ? "border-gold" : "border-paper/70"} bg-night/70 transition-colors group-hover:border-gold`}>
+        <img src={l.img} alt="" loading="lazy" className="h-full w-full object-contain p-1.5 transition-transform duration-300 group-hover:scale-110" />
         {visited && <span className="absolute right-1 top-1 h-3 w-3 rounded-full bg-gold" aria-hidden />}
       </span>
       <span className="min-w-0 text-shadow-river">
