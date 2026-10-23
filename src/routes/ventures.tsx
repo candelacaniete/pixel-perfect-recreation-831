@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ventures, hqPillars } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
-import landVentures from "@/assets/land-ventures-crocodile.jpg";
+import landVentures from "@/assets/land-ventures-refined.jpg";
 import mhImg from "@/assets/mh-greenhouse.jpg.asset.json";
 import absImg from "@/assets/abs-family.jpg.asset.json";
 import hemImg from "@/assets/hem-todo.jpg.asset.json";
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/ventures")({
   component: VenturesPage,
 });
 
-const tints = ["bg-scarlet text-paper", "bg-ink text-paper", "bg-gold text-ink", "bg-crimson text-paper"];
+const tints = ["bg-scarlet text-paper", "bg-ink text-paper", "bg-yellow-surface text-yellow-foreground", "bg-crimson text-paper"];
 const photos = [
   { src: assetUrl(mhImg), alt: "Mission Heirloom greenhouse", pos: "object-center" },
   { src: assetUrl(absImg), alt: "A mother and her child — All Black Sheep", pos: "object-center" },

@@ -41,6 +41,8 @@
   --color-tangerine: var(--tangerine);
   --color-cobalt: var(--cobalt);
   --color-gold: var(--gold);
+  --color-yellow-surface: var(--yellow-surface);
+  --color-yellow-foreground: var(--yellow-foreground);
   --color-crimson: var(--crimson);
   --color-moss: var(--moss);
   --color-river: var(--river);
@@ -56,6 +58,8 @@
   --tangerine: oklch(0.72 0.17 50);
   --cobalt: oklch(0.42 0.16 262);
   --gold: oklch(0.82 0.16 85);
+  --yellow-surface: oklch(0.55 0.11 85);
+  --yellow-foreground: oklch(1 0 0);
   --crimson: oklch(0.55 0.21 25);
   --moss: oklch(0.45 0.05 130);
   --river: oklch(0.62 0.07 230);
@@ -166,7 +170,7 @@
   transition: transform .2s ease, background-color .2s ease;
   &:hover { transform: translateY(-2px); background: oklch(0.17 0.04 265 / 80%); }
 }
-@utility row-btn-scarlet { background: var(--scarlet); color: var(--paper); border-color: transparent; &:hover { background: var(--gold); color: var(--ink); } }
+@utility row-btn-scarlet { background: var(--scarlet); color: var(--paper); border-color: transparent; &:hover { background: var(--yellow-surface); color: var(--yellow-foreground); } }
 @keyframes glint { 0%,100% { transform: scale(.7); opacity: .5 } 50% { transform: scale(1.15); opacity: 1 } }
 @utility glint { border-radius: 999px; background: radial-gradient(circle, var(--gold) 0 18%, oklch(0.82 0.16 85 / 40%) 30%, transparent 70%); animation: glint 1.6s ease-in-out infinite; }
 @keyframes driftbob { 0%,100% { transform: translateY(0) rotate(-2deg) } 50% { transform: translateY(-6px) rotate(2deg) } }
@@ -174,7 +178,7 @@
   border-radius: 40% 60% 55% 45% / 60% 40% 60% 40%; padding: .7rem 1.2rem; font-family: var(--font-display); font-style: italic;
   background: var(--bow-inner); color: var(--paper); box-shadow: inset 0 -4px 0 var(--bow); animation: driftbob 3s ease-in-out infinite;
 }
-@utility driftwood-on { background: var(--gold); color: var(--ink); }
+@utility driftwood-on { background: var(--yellow-surface); color: var(--yellow-foreground); }
 @keyframes storm { 0% { transform: translateX(-30px) rotate(-4deg) } 50% { transform: translateX(30px) rotate(3deg) } 100% { transform: translateX(-30px) rotate(-4deg) } }
 @utility storm-word { font-family: var(--font-display); font-style: italic; font-size: clamp(1rem, 2.4vw, 1.6rem); color: var(--paper); text-shadow: 0 2px 12px oklch(0.12 0.04 265 / 90%); animation: storm 5s ease-in-out infinite; transition: opacity .6s, filter .6s; }
 @utility storm-kept { color: var(--gold); animation: none; }

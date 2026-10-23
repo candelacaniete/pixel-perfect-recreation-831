@@ -163,7 +163,7 @@ export function NextStops({ current, tone = "night" }: { current?: string; tone?
         <div className="md:col-span-5">
           <Link to="/" className="font-display text-4xl italic md:text-5xl">Yrmis</Link>
           <p className="mt-3 max-w-sm opacity-80">Permission to use the wild, resourceful one you already have.</p>
-          <Link to="/work" className="pill mt-6 inline-flex bg-gold text-ink">Work with me →</Link>
+          <Link to="/work" className="pill mt-6 inline-flex bg-yellow-surface text-yellow-foreground">Work with me →</Link>
         </div>
         <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-3 md:col-span-4 md:col-start-7">
           <p className="eyebrow col-span-2 opacity-70">Destinations</p>

@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { studio } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
-import landStudio from "@/assets/land-studio-inventor.jpg";
+import landStudio from "@/assets/land-studio-refined.jpg";
 import { Scene } from "@/components/safari/motion";
 import spPalm from "@/assets/sp-palm.webp";
 import spTree from "@/assets/sp-tree.webp";
@@ -92,7 +92,7 @@ function StudioPage() {
           </ol>
         </div>
         <p className="relative mt-8 max-w-2xl">{studio.keynote.for}</p>
-        <Link to="/work" className="pill relative mt-8 bg-gold text-ink">Let's plan and conspire →</Link>
+        <Link to="/work" className="pill relative mt-8 bg-yellow-surface text-yellow-foreground">Let's plan and conspire →</Link>
       </Scene>
       <NextStops current="Studio" tone="paper" />
     </main>
