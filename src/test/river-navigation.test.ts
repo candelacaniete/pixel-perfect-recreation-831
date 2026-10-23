@@ -26,3 +26,9 @@ it("resolves photos to a public image address on hosts without Lovable's asset h
   expect(assetUrl({ url: "/__l5e/assets-v1/8db4a633-5a6d-4ce5-8fc9-c4b950531d63/yrmis.jpg" })).toBe("https://pixel-perfect-recreation-831.lovable.app/__l5e/assets-v1/8db4a633-5a6d-4ce5-8fc9-c4b950531d63/yrmis.jpg");
   expect(assetUrl({ url: "/assets/puma.png" })).toBe("/assets/puma.png");
 });
+import { truckOutcome } from "@/components/safari/river/EncounterLayer";
+it("capybara lets the traveller through on the attempt after one wrong guess", () => {
+  expect(truckOutcome("Machete+Tarp", 0)).toBe("miss");
+  expect(truckOutcome("Flashlight+Rope", 1)).toBe("solved");
+  expect(truckOutcome("Jerrycan+Rope", 0)).toBe("solved");
+});

@@ -25,6 +25,8 @@ type Key = keyof typeof SRC;
 type Obj = { k: Key; x: number; z: number; h: number; y?: number; flip?: boolean; kind?: "capy" | "bird" | "gum" | "flower" | "tree" | undefined; side: number; seed: number };
 
 const GUARD_H: Record<string, number> = { heron: 3.4, anaconda: 3.6, capymech: 2.4, macaw: 2.6, jabiru: 3.8 };
+/** Guardians wait this close to the docking point so they fill the frame beside the bow. */
+const GUARD_D = 4.5;
 
 function buildWorld(): Obj[] {
   const o: Obj[] = [];
@@ -47,8 +49,8 @@ function buildWorld(): Obj[] {
   }
   o.push({ k: "capy", x: curve(28) - (width(28) + 0.4), z: 28, h: 1.1, side: -1, seed: 99, kind: "gum" });
   stops.forEach((s, i) => {
-    const gz = s.z + 9;
-    o.push({ k: s.sprite, x: curve(gz) + s.side * (width(gz) + (GUARD_H[s.sprite] ?? 3) / 2 + 0.5), z: gz, h: GUARD_H[s.sprite] ?? 3, side: s.side, seed: 500 + i, flip: s.side > 0 });
+    const gz = s.z + GUARD_D;
+    o.push({ k: s.sprite, x: curve(gz) + s.side * (width(gz) * 0.8), z: gz, h: GUARD_H[s.sprite] ?? 3, side: s.side, seed: 500 + i, flip: s.side > 0 });
   });
   return o;
 }
@@ -307,12 +309,23 @@ export function RiverJourney() {
         const p = project(cam, x, y, o.z); if (!p) continue;
         const im = imgs.current[o.k]; if (!im?.complete || !im.naturalWidth) continue;
         const isG = o.k in GUARD_H;
-        const hpx = isG ? Math.min(o.h * p.s, H * 0.42, W * 0.58) : o.h * p.s;
-        const wpx = hpx * (im.naturalWidth / im.naturalHeight) * scaleX;
-        // Keep a bank-side guardian visible without steering the camera at it.
+        // A guardian is framed as it would look from the docking point; once the
+        // boat moves on, that framed spot stays fixed in the world and simply
+        // grows and slides past the edge, like something left behind.
+        const ar = im.naturalWidth / im.naturalHeight;
+        let hpx = o.h * p.s, wpx = hpx * ar * scaleX;
         if (isG && d < 18) {
-          p.x = Math.max(wpx / 2 + 8, Math.min(W - wpx / 2 - 8, p.x));
-          alpha *= Math.min(1, Math.max(0, (d - 1) / 8));
+          const left = journey.get().passed.includes(o.seed - 500);
+          const dd = left ? Math.max(d, GUARD_D) : d;
+          const k = dd / d; // natural scale at the framing distance
+          const frame = (h: number) => Math.min(Math.max(h, H * 0.4 * Math.min(1, Math.max(0, (14 - dd) / 8))), H * 0.5, W * 0.72);
+          const h0 = frame((o.h * p.s) / k);
+          const w0 = h0 * ar * scaleX;
+          const x0 = Math.max(w0 / 2 + 8, Math.min(W - w0 / 2 - 8, W / 2 + (p.x - W / 2) / k));
+          const grow = left ? GUARD_D / Math.max(d, 0.4) : 1;
+          hpx = h0 * grow; wpx = w0 * grow;
+          p.x = W / 2 + (x0 - W / 2) * grow;
+          p.y = cam.hy + (p.y - cam.hy) / k * grow;
         }
         if (wpx > W * 4 || p.x + wpx < -W || p.x - wpx > W * 2) continue;
         if (o.kind === "gum") {
@@ -360,7 +373,7 @@ export function RiverJourney() {
           }
           if (near) {
             const gk = (1 - Math.abs(near.z - S.cam) / 24) * 0.55;
-            x = x * (1 - gk) + (curve(near.z + 9) + near.side * width(near.z + 9) * 0.9 + (hash(i + 5) * 2 - 1) * 2.2) * gk;
+            x = x * (1 - gk) + (curve(near.z + GUARD_D) + near.side * width(near.z + GUARD_D) * 0.9 + (hash(i + 5) * 2 - 1) * 2.2) * gk;
           }
           const p = project(cam, x, y, z); if (!p) continue;
           const pulse = reduced ? 0.75 : 0.3 + 0.7 * Math.abs(Math.sin(S.t * (0.9 + hash(i + 3) * 1.6) + ph));
@@ -408,7 +421,7 @@ export function RiverJourney() {
       vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,0.45)");
       ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
 
-      const look = S.encounter ?? stops.findIndex((s, i) => !journey.get().passed.includes(i) && s.z + 9 - S.cam > 0 && s.z + 9 - S.cam < 18);
+      const look = S.encounter ?? stops.findIndex((s, i) => !journey.get().passed.includes(i) && s.z - S.cam >= 0 && s.z - S.cam < 14);
       const nl = look >= 0 ? String(look) : "";
       if (nl !== lastNear) { lastNear = nl; setNearLine(nl || null); }
       const amb = ambientLines.find((a) => S.cam >= a.z && S.cam < a.z + 13);
