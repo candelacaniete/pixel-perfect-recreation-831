@@ -33,7 +33,6 @@ function SignalsPage() {
           <div className="scrim-l absolute inset-0" />
           <Fireflies />
         </div>
-        <p aria-hidden className="display-xl drift-down pointer-events-none absolute -right-8 top-16 rotate-90 whitespace-nowrap text-[18vw] text-scarlet/20 [--d:300px]">OBSERVE</p>
         <p className="eyebrow text-gold">Destination · The observatory</p>
         <div className="relative mt-4">
           <h1 className="display-xl relative z-10">
