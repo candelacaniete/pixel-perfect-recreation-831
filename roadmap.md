@@ -7,3 +7,4 @@
 - [ ] Signals redesign as first test of unified language
 - [ ] Apply to Home, Studio, Ventures, Work with me
 - [ ] Verify nav, form, responsive, accessibility
+- [ ] Apply 'Photorealism meets…' art direction brief
