@@ -2,7 +2,7 @@
 
 - [x] Study supplied Chris & Crystal AI Art videos before reference-led character refinement
 - [x] Give each guardian a distinctive authored identity while preserving anatomy, compositions and interactions
-- [ ] Verify updated character imagery and river interactions on desktop/mobile
+- [x] Verify updated character imagery and river interactions on desktop/mobile
 
 - [x] Refine crocodile, piranha and Studio capybara with realistic cinematic materials; preserve layouts and river interactions
 - [x] Make all dark text on yellow backgrounds white with readable contrast, including interactive states
