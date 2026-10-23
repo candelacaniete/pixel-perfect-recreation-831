@@ -116,16 +116,24 @@ const quips: Record<string, string> = {
   "Jerrycan+Tarp": "A rain catcher. Useful — just not here.",
   "Machete+Rope": "You could hack at it until dusk. The capybara yawns.",
 };
+/** One wrong combination gets a quip; whatever the traveller tries next works. */
+export function truckOutcome(key: string, misses: number) {
+  return key === "Jerrycan+Rope" || misses >= 1 ? "solved" : "miss";
+}
 function Truck({ onDone }: { onDone: () => void }) {
   const [pick, setPick] = useState<string[]>([]);
   const [msg, setMsg] = useState("");
+  const [misses, setMisses] = useState(0);
   const tap = (k: string) => {
     const n = pick.includes(k) ? pick.filter((p) => p !== k) : [...pick, k].slice(-2);
     setPick(n);
     if (n.length === 2) {
       const key = [...n].sort().join("+");
-      if (key === "Jerrycan+Rope") { setMsg("Tie the empty jerrycan to the trunk…"); setTimeout(onDone, 1100); }
-      else { setMsg(quips[key] ?? `${n[0]} and ${n[1]}? Bold. Try something that floats.`); setTimeout(() => setPick([]), 900); }
+      if (truckOutcome(key, misses) === "solved") {
+        setMsg(key === "Jerrycan+Rope" ? "Tie the empty jerrycan to the trunk…" : `${n[0]} and ${n[1]}? Unexpected — and it works. The trunk shifts.`);
+        setTimeout(onDone, 1300);
+      }
+      else { setMisses(misses + 1); setMsg(quips[key] ?? `${n[0]} and ${n[1]}? Bold. Try something that floats.`); setTimeout(() => setPick([]), 900); }
     }
   };
   return (

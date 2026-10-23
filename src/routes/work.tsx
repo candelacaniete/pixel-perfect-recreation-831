@@ -6,6 +6,8 @@ import { markVisited } from "@/components/safari/visited";
 import { Scene } from "@/components/safari/motion";
 import puma from "@/assets/puma.png";
 import { supabase } from "@/integrations/supabase/client";
+import pumaWalk from "@/assets/videos/puma-walk.mp4.asset.json";
+import { assetUrl } from "@/lib/asset-url";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
@@ -61,7 +63,8 @@ function WorkPage() {
         <p className="eyebrow">Work with me</p>
         <h1 className="display-xl relative mt-4">Five ways to<br /><em>click into your wild.</em></h1>
         <p className="mt-6 max-w-2xl text-lg">One room turned around in ninety minutes, a newsletter that reaches the right 250,000 people, or a company built from inception to scale — underneath, the work is the same.</p>
-        <img src={puma} alt="Venezuelan Llanos puma" width={1024} height={1024} className="emerge pointer-events-none relative ml-auto mt-4 block w-60 md:absolute md:-bottom-16 md:right-[-8%] md:mt-0 md:w-[30rem]" />
+        <video src={assetUrl(pumaWalk)} autoPlay muted loop playsInline aria-label="A Venezuelan Llanos puma walking" width={1280} height={720}
+          className="pointer-events-none relative -mx-5 mt-6 block w-[calc(100%+2.5rem)] max-w-none [mask-image:radial-gradient(ellipse_at_center,black_55%,transparent_80%)] md:-mx-12 md:-mt-10 md:w-[calc(100%+6rem)]" />
       </Scene>
       <section className="grid gap-px bg-ink md:grid-cols-3" aria-label="Ways to work together">
         {[...workOptions, { n: "∞", verb: "Custom", title: "Something we haven't named yet", body: "Not seeing exactly what you need? Good — that's usually where the interesting work is." }].map((o) => (

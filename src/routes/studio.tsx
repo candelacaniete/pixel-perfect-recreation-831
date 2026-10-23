@@ -82,7 +82,18 @@ function StudioPage() {
           <div><p className="eyebrow opacity-70">Walking in</p><p className="font-display mt-2 text-3xl italic">{studio.keynote.in}</p></div>
           <div><p className="eyebrow text-gold">Walking out</p><p className="font-display mt-2 text-3xl italic">{studio.keynote.out}</p></div>
         </div>
-        <ul className="relative mt-10 flex flex-wrap gap-2">{studio.keynote.formats.map((f) => <li key={f} className="cursor-default rounded-full border-2 border-ink bg-gold px-4 py-2 text-sm font-medium text-ink transition duration-300 hover:-translate-y-0.5 hover:bg-paper hover:shadow-[0_8px_20px_-8px_oklch(0_0_0/60%)]">{f}</li>)}</ul>
+        <div className="relative mt-12 max-w-3xl">
+          <p className="eyebrow text-gold">Formats</p>
+          <ol className="mt-3 border-t border-paper/30">
+            {studio.keynote.formats.map((f, i) => (
+              <li key={f} className="group flex items-baseline gap-5 border-b border-paper/30 py-4 transition-[padding,color] duration-300 hover:pl-3 hover:text-gold">
+                <span className="eyebrow w-8 shrink-0 text-gold">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-display text-2xl italic md:text-3xl">{f}</span>
+                <span aria-hidden className="ml-auto text-gold opacity-0 transition-opacity duration-300 group-hover:opacity-100">→</span>
+              </li>
+            ))}
+          </ol>
+        </div>
         <p className="relative mt-8 max-w-2xl">{studio.keynote.for}</p>
         <Link to="/work" className="pill relative mt-8 bg-gold text-ink">Let's plan and conspire →</Link>
       </Scene>
