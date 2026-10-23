@@ -58,7 +58,6 @@ function buildWorld(): Obj[] {
 
 export function RiverJourney() {
   const canvas = useRef<HTMLCanvasElement>(null);
-  const anchor = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const j = useJourney();
   const [active, setActive] = useState<number | null>(null);
@@ -307,14 +306,8 @@ export function RiverJourney() {
       vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,0.45)");
       ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
 
-      // guardian anchor for floating speech
       const look = S.encounter ?? stops.findIndex((s) => s.z + 9 - S.cam > 0 && s.z + 9 - S.cam < 18);
-      if (look >= 0 && anchor.current) {
-        const s = stops[look]!, gz = s.z + 9;
-        const p = project(cam, curve(gz) + s.side * (width(gz) + 0.5), (GUARD_H[s.sprite] ?? 3) + 0.2, gz);
-        if (p) { anchor.current.style.left = `${Math.min(W - Math.min(220, W * 0.45), Math.max(Math.min(220, W * 0.45), p.x))}px`; anchor.current.style.top = `${Math.min(H * 0.6, Math.max(170, p.y))}px`;  }
-      }
-      const nl = S.encounter == null && look >= 0 ? stops[look]!.recognition : "";
+      const nl = look >= 0 ? String(look) : "";
       if (nl !== lastNear) { lastNear = nl; setNearLine(nl || null); }
       const amb = ambientLines.find((a) => S.cam >= a.z && S.cam < a.z + 13);
       const at = amb?.text ?? "";
@@ -327,6 +320,7 @@ export function RiverJourney() {
   }, [reduced]);
 
   const stop = active != null ? stops[active]! : null;
+  const side = (stop ?? (nearLine ? stops[Number(nearLine)] : null))?.side ?? -1;
 
   return (
     <div className="fixed inset-0 overflow-hidden bg-night text-paper select-none touch-none" aria-label="A first-person boat journey down a river">
@@ -341,9 +335,9 @@ export function RiverJourney() {
       </svg>
 
       {/* floating text anchored to the nearest guardian */}
-      <div ref={anchor} className="pointer-events-none absolute z-10" style={{ left: -999, top: -999 }}>
+      <div className={`pointer-events-none absolute top-[20%] z-10 max-w-[min(80vw,26rem)] ${side > 0 ? "right-[6%] text-right [&_.speech]:ml-auto" : "left-[6%]"}`}>
         {nearLine && !stop && (
-          <p className="speech -translate-x-1/2 -translate-y-full animate-in fade-in duration-700">{nearLine}</p>
+          <p className="speech animate-in fade-in duration-700">{stops[Number(nearLine)]!.recognition}</p>
         )}
         {stop && (
           <EncounterLayer

@@ -15,7 +15,7 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
   return (
     <>
       {phase === "dialogue" && (
-        <button data-ui className="pointer-events-auto block -translate-x-1/2 -translate-y-full text-left" onClick={() => (line + 1 < stop.dialogue.length ? setLine(line + 1) : setPhase("interaction"))}>
+        <button data-ui className="pointer-events-auto block text-left" onClick={() => (line + 1 < stop.dialogue.length ? setLine(line + 1) : setPhase("interaction"))}>
           <span className="eyebrow block text-gold">{stop.guardian}</span>
           <span key={line} className="speech mt-1 block animate-in fade-in slide-in-from-bottom-1 duration-700">{stop.dialogue[line]}</span>
           <span className="eyebrow mt-2 block text-paper/70">tap to listen ›</span>
@@ -24,7 +24,7 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
 
       {phase === "interaction" && (
         <div data-ui className="pointer-events-auto">
-          <p className="speech -translate-x-1/2 -translate-y-full">{stop.prompt}</p>
+          <p className="speech">{stop.prompt}</p>
           <ScreenPortal>
             {stop.interaction === "clues" && <Clues onDone={solved} />}
             {stop.interaction === "lens" && <LensStage onDone={solved} />}
@@ -51,7 +51,7 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
       )}
 
       {phase === "departure" && (
-        <div data-ui className="pointer-events-auto -translate-x-1/2 -translate-y-full">
+        <div data-ui className="pointer-events-auto">
           <p className="speech animate-in fade-in duration-700">{stop.departure}</p>
           <ScreenPortal>
             <button data-ui autoFocus onClick={() => onDepart(true)} className="row-btn absolute bottom-8 left-1/2 z-30 -translate-x-1/2">Push off downstream ↓</button>
