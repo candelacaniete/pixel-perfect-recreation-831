@@ -228,3 +228,9 @@
 @utility scrim-l { background: linear-gradient(90deg, oklch(0.12 0.03 265 / 78%), oklch(0.12 0.03 265 / 25%) 60%, transparent); }
 @utility scrim-b { background: linear-gradient(0deg, oklch(0.12 0.03 265 / 80%), transparent 55%); }
 @media (prefers-reduced-motion: reduce) { .photo-bg { transform: none !important; } .cloud-drift, .lightning, .palm-sway { animation: none !important; } .lightning { opacity: 0; } }
+
+.guide-bird { top: calc(14vh + var(--k, 0) * 66vh); transition: top .5s cubic-bezier(.2,.8,.2,1); }
+.guide-bird img { animation: driftbob 2.6s ease-in-out infinite; }
+@keyframes liana { 0%,100% { transform: rotate(-2.5deg) } 50% { transform: rotate(2.5deg) } }
+.liana { transform-origin: 50% 0; animation: liana 6s ease-in-out infinite; translate: calc(var(--side, 0) * var(--p, 0) * 6vw) 0; }
+@media (prefers-reduced-motion: reduce) { .liana, .guide-bird img { animation: none !important; } .liana { translate: none; } }

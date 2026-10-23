@@ -65,3 +65,51 @@ export function SerpentPath({ className = "", tone = "var(--gold)" }: { classNam
     </svg>
   );
 }
+
+/** The scarlet ibis that guides a visitor down one page, one section at a time. */
+export function GuideBird({ stops }: { stops: string[] }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let f = 0;
+    const tick = () => {
+      f = 0;
+      const vh = window.innerHeight;
+      let label = stops[0] ?? "";
+      document.querySelectorAll<HTMLElement>("[data-guide]").forEach((s) => { if (s.getBoundingClientRect().top < vh * 0.55) label = s.dataset.guide ?? label; });
+      const max = document.documentElement.scrollHeight - vh;
+      const k = max > 0 ? window.scrollY / max : 0;
+      el.style.setProperty("--k", reduced ? "0" : k.toFixed(4));
+      const t = el.querySelector("[data-label]"); if (t && t.textContent !== label) t.textContent = label;
+    };
+    const on = () => { if (!f) f = requestAnimationFrame(tick); };
+    tick(); window.addEventListener("scroll", on, { passive: true }); window.addEventListener("resize", on);
+    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); };
+  }, [stops]);
+  return (
+    <div ref={ref} aria-hidden className="guide-bird pointer-events-none fixed right-2 z-30 flex flex-col items-end md:right-6">
+      <img src={birdImg} alt="" width={560} height={560} className="w-14 md:w-24" />
+      <span data-label className="eyebrow mt-1 rounded-full bg-ink/80 px-2 py-1 text-[0.6rem] text-gold" />
+    </div>
+  );
+}
+
+/** Hanging lianas that sway and part as the scene scrolls, framing the headline. */
+export function Lianas({ className = "", count = 7 }: { className?: string; count?: number }) {
+  return (
+    <div aria-hidden className={`pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-between ${className}`}>
+      {Array.from({ length: count }, (_, i) => {
+        const len = 30 + ((i * 37) % 45);
+        return (
+          <svg key={i} viewBox="0 0 40 400" preserveAspectRatio="none" className="liana" style={{ height: `${len}vh`, width: "2.5rem", animationDelay: `${-i * 0.9}s`, ["--side" as string]: i < count / 2 ? -1 : 1 }}>
+            <path d="M20 0 C 8 80, 32 160, 18 240 S 26 360, 20 400" fill="none" stroke="var(--moss)" strokeWidth="5" strokeLinecap="round" />
+            {[60, 140, 220, 300].map((y, j) => (
+              <ellipse key={y} cx={j % 2 ? 30 : 10} cy={y} rx="9" ry="4" fill={j === 2 && i % 3 === 0 ? "var(--scarlet)" : "var(--moss)"} transform={`rotate(${j % 2 ? 30 : -30} ${j % 2 ? 30 : 10} ${y})`} />
+            ))}
+          </svg>
+        );
+      })}
+    </div>
+  );
+}
