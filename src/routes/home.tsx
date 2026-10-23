@@ -75,7 +75,7 @@ function HomePage() {
           className="cross-x pointer-events-none relative z-10 -my-6 ml-auto w-full max-w-2xl [--d:90vw] md:-my-16" />
         <div className="relative z-20 flex flex-wrap items-center gap-3">
           <Link to="/ventures" className="pill bg-ink text-paper">Meet the ventures →</Link>
-          <span className="eyebrow text-muted-foreground">Mission Heirloom · All Black Sheep · (hĕm) · Conservation</span>
+          <span className="eyebrow text-muted-foreground">Mission Heirloom · All Black Sheep · (hĕm) · YRMIS</span>
         </div>
       </Scene>
 

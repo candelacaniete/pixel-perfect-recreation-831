@@ -61,7 +61,7 @@ export const studio = {
   },
 };
 
-export const ventures = ["Mission Heirloom", "All Black Sheep", "(hĕm)", "Conservation"];
+export const ventures = ["Mission Heirloom", "All Black Sheep", "(hĕm)", "YRMIS"];
 export const hqPillars = ["Designing strategies to magnify value", "Powering innovation stories", "Driving community impact"];
 
 export const signals = {
