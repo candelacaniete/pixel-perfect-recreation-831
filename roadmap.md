@@ -1,8 +1,8 @@
 # Roadmap — Art direction unification + mobile CLICK
 
-- [ ] Refine crocodile, piranha and Studio capybara with realistic cinematic materials; preserve layouts and river interactions
-- [ ] Make all dark text on yellow backgrounds white with readable contrast, including interactive states
-- [ ] Verify refined imagery, six destinations and wildlife interactions on desktop/mobile
+- [x] Refine crocodile, piranha and Studio capybara with realistic cinematic materials; preserve layouts and river interactions
+- [x] Make all dark text on yellow backgrounds white with readable contrast, including interactive states
+- [x] Verify refined imagery, six destinations and wildlife interactions on desktop/mobile
 
 - [x] Give the piranha a continuous right-to-left jump in front of the boat
 - [x] Keep crocodile text separate from its image and verify both on desktop/mobile
