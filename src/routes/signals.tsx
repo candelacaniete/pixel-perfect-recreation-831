@@ -4,6 +4,8 @@ import { signals } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
 import landSignals from "@/assets/land-signals.jpg";
+import yrmisHand from "@/assets/yrmis-hand.jpg.asset.json";
+import yrmisZebra from "@/assets/yrmis-zebra.jpg.asset.json";
 import { Scene, Fireflies } from "@/components/safari/motion";
 import puma from "@/assets/puma.png";
 
@@ -58,10 +60,14 @@ function SignalsPage() {
           <p className="eyebrow text-gold">05 · Read · Every other week</p>
           <p className="font-display mt-6 text-2xl leading-snug md:text-3xl">{signals.cadence}</p>
         </article>
+        <img src={yrmisHand.url} alt="Yrmis Barroeta looking back over her shoulder, one hand reaching toward the camera" loading="lazy" width={1400} height={1400}
+          className="reveal relative z-0 mx-auto mt-8 aspect-square w-full max-w-md rotate-[1.5deg] border-2 border-gold object-cover shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)]" />
         <article className="reveal reveal-2 relative z-20 ml-auto mt-8 max-w-xl rotate-[1deg] bg-paper p-6 text-ink shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:mr-[8%] md:p-10">
           <p className="eyebrow text-crimson">03 · Feature · Minds on a Mission</p>
           <p className="font-display mt-6 text-2xl leading-snug md:text-3xl">{signals.feature}</p>
         </article>
+        <img src={yrmisZebra.url} alt="Yrmis Barroeta resting her head on her arms, in a black and white striped sweater" loading="lazy" width={1440} height={1800}
+          className="reveal relative z-0 mt-8 aspect-[4/5] w-full max-w-sm rotate-[-1.5deg] border-2 border-scarlet object-cover shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:ml-[6%]" />
         <article className="reveal reveal-3 relative z-10 mt-8 max-w-xl rotate-[-0.5deg] bg-gold p-6 text-ink shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:ml-[14%] md:p-10">
           <p className="eyebrow">04 · Grow · Newsletter Acceleration Blueprint</p>
           <p className="font-display mt-6 text-2xl leading-snug md:text-3xl">{signals.blueprint}</p>

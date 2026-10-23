@@ -219,7 +219,7 @@
 
 /* ---- photographic landscapes ---- */
 @utility photo-bg { position: absolute; left: 0; right: 0; top: -8%; height: 116%; width: 100%; object-fit: cover; transform: translate3d(0, calc((var(--p, .5) - .5) * 14%), 0) scale(calc(1.04 + var(--p, .5) * .06)); will-change: transform; }
-@keyframes clouds { 0%,100% { transform: translateX(0) } 50% { transform: translateX(-2.5%) } }
+@keyframes clouds { 0%,100% { transform: translateX(0) scale(1.08) } 50% { transform: translateX(-2.5%) scale(1.08) } }
 @utility cloud-drift { animation: clouds 28s ease-in-out infinite; }
 @keyframes lightning { 0%, 88%, 100% { opacity: 0 } 89% { opacity: .55 } 90% { opacity: .1 } 91.5% { opacity: .7 } 94% { opacity: 0 } }
 @utility lightning { pointer-events: none; position: absolute; inset: 0; background: radial-gradient(ellipse at 82% 30%, oklch(0.95 0.15 95 / 70%), transparent 55%); mix-blend-mode: screen; animation: lightning 9s linear infinite; }
