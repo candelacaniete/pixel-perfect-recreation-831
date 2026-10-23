@@ -40,11 +40,11 @@ function VenturesPage() {
       <Scene className="isolate relative min-h-[88vh] overflow-hidden px-5 pb-12 pt-28 text-paper md:px-12">
         <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
           <img src={landVentures} alt="" width={1920} height={1088} className="photo-bg cloud-drift object-[40%_center]" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.25_0.1_262/70%),transparent_50%)]" />
+          <div className="absolute inset-0 bg-night/45" /><div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.14_0.03_260/70%),transparent_60%)]" />
         </div>
         <p className="eyebrow relative text-gold">Destination 03 · Ventures</p>
         <h1 className="display-xl relative mt-4 text-shadow-river">Four companies.<br /><span className="text-gold">Four industries.</span></h1>
-        <p className="relative mt-6 w-fit max-w-xl bg-night/55 px-3 py-2 text-lg">An economist's mind, and a habit of reading rooms the way I read the jungle.</p>
+        <p className="relative mt-6 max-w-xl text-lg text-shadow-river">An economist's mind, and a habit of reading rooms the way I read the jungle.</p>
       </Scene>
       <Scene className="relative grid gap-6 bg-tangerine/20 px-5 py-16 md:grid-cols-4 md:px-12" aria-label="Ventures">
         {ventures.map((v, i) => (

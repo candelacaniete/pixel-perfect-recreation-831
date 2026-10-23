@@ -9,3 +9,4 @@
 - [x] Map: low-exposure filter, destinations upright and ordered, footer replaces "Keep exploring"
 - [x] Lianas and flamingo-like bird removed everywhere; Yrmis photo fills the Home quote section
 - [x] Signals hero: lower-exposure background, live fireflies, nothing bursting from the branch, "OBSERVE" text removed
+- [x] Ventures hero: remove text box, dim the image instead
