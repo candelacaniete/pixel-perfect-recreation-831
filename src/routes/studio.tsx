@@ -51,7 +51,7 @@ function StudioPage() {
       <Scene className="relative isolate grid overflow-hidden border-y-2 border-ink md:grid-cols-3">
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
           <div className="reveal absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(0deg,oklch(0.78_0.12_85/45%),transparent)]" style={{ transitionDelay: "0s" }} />
-          <span className="reveal absolute bottom-[30%] right-[12%] h-20 w-20 rounded-full bg-gold/70 md:h-28 md:w-28" style={{ transitionDelay: ".2s" }} />
+          <span className="reveal absolute bottom-[8%] right-[20%] h-20 w-20 rounded-full bg-gold/70 md:h-28 md:w-28" style={{ transitionDelay: ".2s" }} />
           {[
             { src: spPalm, cls: "left-[4%] w-28 md:w-44", d: ".4s" },
             { src: spPalm, cls: "left-[36%] w-20 md:w-32 -scale-x-100", d: ".6s" },
