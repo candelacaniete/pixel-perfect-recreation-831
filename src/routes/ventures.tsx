@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ventures, hqPillars } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
+import landVentures from "@/assets/land-ventures.jpg";
 import { Scene, CrossingBird } from "@/components/safari/motion";
 import horses from "@/assets/horses.png";
 import spCapybara from "@/assets/sp-capybara.webp";
@@ -29,12 +30,16 @@ function VenturesPage() {
   useEffect(() => markVisited("ventures"), []);
   return (
     <main className="overflow-hidden bg-tangerine/20 text-ink">
-      <Scene className="relative overflow-hidden px-5 pb-12 pt-28 md:px-12">
-        <img src={horses} alt="" aria-hidden width={1024} height={1024} className="cross-x pointer-events-none absolute bottom-0 right-0 w-[70vw] max-w-3xl opacity-90 [--d:80vw]" />
+      <Scene className="relative min-h-[88vh] overflow-hidden px-5 pb-12 pt-28 text-paper md:px-12">
+        <div aria-hidden className="absolute inset-0 overflow-hidden">
+          <img src={landVentures} alt="" width={1920} height={1088} className="photo-bg cloud-drift object-[40%_center]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.25_0.1_262/70%),transparent_50%)]" />
+        </div>
+        <img src={horses} alt="" aria-hidden width={1024} height={1024} className="cross-x pointer-events-none absolute -bottom-10 right-0 w-[60vw] max-w-2xl [--d:80vw]" />
         <img src={spBird} alt="" width={560} height={560} loading="lazy" aria-hidden
           className="drift-up pointer-events-none absolute right-[6%] top-16 w-24 rotate-12 [--d:200px] md:w-36" />
-        <p className="eyebrow">Destination 03 · Ventures</p>
-        <h1 className="display-xl mt-4">Four companies.<br /><span className="text-crimson">Four industries.</span></h1>
+        <p className="eyebrow relative text-gold">Destination 03 · Ventures</p>
+        <h1 className="display-xl relative mt-4 text-shadow-river">Four companies.<br /><span className="text-gold">Four industries.</span></h1>
         <p className="relative mt-6 max-w-xl text-lg">An economist's mind, and a habit of reading rooms the way I read the jungle.</p>
       </Scene>
       <Scene className="relative grid gap-6 px-5 pb-16 md:grid-cols-4 md:px-12" aria-label="Ventures">

@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { studio } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
+import landStudio from "@/assets/land-studio.jpg";
 import { Scene, CrossingBird, SerpentPath } from "@/components/safari/motion";
 import gCapymech from "@/assets/g-capymech.webp";
 import gAnaconda from "@/assets/g-anaconda.webp";
@@ -25,15 +26,19 @@ function StudioPage() {
   useEffect(() => markVisited("studio"), []);
   return (
     <main className="overflow-hidden bg-paper text-ink">
-      <Scene className="relative grid min-h-[90vh] gap-8 px-5 pb-16 pt-28 md:grid-cols-12 md:px-12">
-        <p aria-hidden className="display-xl pointer-events-none absolute -left-6 bottom-0 whitespace-nowrap text-[24vw] text-scarlet/15 swell">BUILD</p>
-        <div className="relative md:col-span-8">
-          <p className="eyebrow">Destination 02 · Build · The Studio</p>
-          <h1 className="display-xl mt-4">Plan<br /><em className="ml-[12vw] text-crimson">and conspire.</em></h1>
-          <img src={gCapymech} alt="The Capybara Mechanic, the Studio's unlikely foreman" width={560} height={560}
-            className="drift-up mt-8 w-36 -rotate-3 rounded-full [--d:200px] border-2 border-ink shadow-[0_24px_50px_-18px_oklch(0_0_0/60%)] transition-transform duration-500 hover:rotate-0 md:absolute md:-right-4 md:top-24 md:mt-0 md:w-56" />
+      <Scene className="relative grid min-h-[90vh] gap-8 overflow-hidden px-5 pb-16 pt-28 md:grid-cols-12 md:px-12">
+        <div aria-hidden className="absolute inset-0 overflow-hidden">
+          <img src={landStudio} alt="" width={1920} height={1088} className="photo-bg object-[30%_center]" />
+          <div className="absolute inset-0 bg-[linear-gradient(0deg,var(--paper)_8%,transparent_55%)] md:bg-[linear-gradient(270deg,var(--paper)_22%,transparent_60%)]" />
         </div>
-        <div className="self-end md:col-span-4">
+        <p aria-hidden className="display-xl pointer-events-none absolute -left-6 bottom-0 whitespace-nowrap text-[24vw] text-scarlet/15 swell">BUILD</p>
+        <div className="relative md:col-span-7 md:col-start-6 md:text-right">
+          <p className="eyebrow">Destination 02 · Build · The Studio</p>
+          <h1 className="display-xl mt-4">Plan<br /><em className="text-crimson">and conspire.</em></h1>
+          <img src={gCapymech} alt="The Capybara Mechanic, the Studio's unlikely foreman" width={560} height={560}
+            className="drift-up mt-8 hidden w-36 -rotate-3 rounded-full [--d:200px] border-2 border-ink shadow-[0_24px_50px_-18px_oklch(0_0_0/60%)] transition-transform duration-500 hover:rotate-0 md:absolute md:-right-4 md:top-24 md:mt-0 md:w-56" />
+        </div>
+        <div className="relative self-end bg-paper/90 p-4 md:col-span-5 md:col-start-8 md:p-6">
           <p className="text-xl leading-snug">{studio.intro}</p>
           <p className="eyebrow mt-6 text-muted-foreground">For</p>
           <p className="mt-1">{studio.for}</p>

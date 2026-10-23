@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { reframe, origin, capybaraLaw, studio, signals } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
+import landHome from "@/assets/land-home.jpg";
 import { Scene, CrossingBird, SerpentPath } from "@/components/safari/motion";
 import gAnaconda from "@/assets/g-anaconda.webp";
 import gMacaw from "@/assets/g-macaw.webp";
@@ -28,7 +29,12 @@ function HomePage() {
   return (
     <main className="bg-paper text-ink">
       {/* Hero — the tiger steps out of the red */}
-      <Scene className="relative overflow-hidden bg-scarlet text-paper">
+      <Scene className="relative overflow-hidden bg-night text-paper">
+        <div aria-hidden className="absolute inset-0 overflow-hidden">
+          <img src={landHome} alt="" width={1920} height={1088} className="photo-bg cloud-drift object-[70%_center]" />
+          <div className="lightning" />
+          <div className="scrim-l absolute inset-0" />
+        </div>
         <div className="grid min-h-[92vh] items-center gap-6 px-5 pb-14 pt-24 md:grid-cols-12 md:px-12">
           <div className="relative z-10 md:col-span-7">
             <p className="eyebrow text-gold">Yrmis Barroeta</p>
@@ -44,10 +50,10 @@ function HomePage() {
           </div>
           <div className="relative md:col-span-5">
             <img src={tiger} alt="A monumental crimson tiger stepping out of a scarlet monolith" width={1024} height={1024}
-              className="emerge relative z-10 mx-auto w-4/5 max-w-md -rotate-2 drop-shadow-[0_30px_50px_oklch(0_0_0/45%)] md:w-full md:max-w-none" />
+              className="emerge relative z-10 mx-auto w-3/5 max-w-sm opacity-95 md:mt-40 md:w-4/5 -rotate-2 drop-shadow-[0_30px_50px_oklch(0_0_0/45%)] md:w-full md:max-w-none" />
           </div>
         </div>
-        <p aria-hidden className="display-xl swell pointer-events-none absolute -bottom-8 right-0 whitespace-nowrap text-[26vw] text-ink/15">WILD</p>
+        <p aria-hidden className="display-xl swell pointer-events-none absolute -bottom-8 right-0 whitespace-nowrap text-[26vw] text-scarlet/35 mix-blend-screen">WILD</p>
       </Scene>
 
       {/* Origin — the facts, in her words */}

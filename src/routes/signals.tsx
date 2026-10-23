@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { signals } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
+import landSignals from "@/assets/land-signals.jpg";
 import { Scene, CrossingBird, SerpentPath } from "@/components/safari/motion";
 import tiger from "@/assets/tiger.png";
 import gMacaw from "@/assets/g-macaw.webp";
@@ -26,7 +27,11 @@ function SignalsPage() {
   return (
     <main className="overflow-hidden bg-night text-paper">
       {/* Hero — the observatory, the macaw interrupting the masthead */}
-      <Scene className="relative px-5 pb-20 pt-28 md:px-12">
+      <Scene className="relative overflow-hidden px-5 pb-20 pt-28 md:px-12">
+        <div aria-hidden className="absolute inset-0 overflow-hidden">
+          <img src={landSignals} alt="" width={1920} height={1088} className="photo-bg object-[75%_center]" />
+          <div className="scrim-l absolute inset-0" />
+        </div>
         <p aria-hidden className="display-xl drift-down pointer-events-none absolute -right-8 top-16 rotate-90 whitespace-nowrap text-[18vw] text-scarlet/20 [--d:300px]">OBSERVE</p>
         <p className="eyebrow text-gold">Destination · The observatory</p>
         <div className="relative mt-4">
