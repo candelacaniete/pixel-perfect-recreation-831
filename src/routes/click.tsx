@@ -48,10 +48,10 @@ function ClickPage() {
       </section>
 
       {principles.map((p, i) => {
-        const Scene = scenes[i];
+        const Scene = scenes[i]!;
         return (
           <div id={`enc-${i}`} key={i}>
-            <Encounter index={i} letter={p.letter} name={p.name} tagline={p.tagline} guardian={p.guardian} done={done[i]} tone={tones[i]}>
+            <Encounter index={i} letter={p.letter} name={p.name} tagline={p.tagline} guardian={p.guardian} done={!!done[i]} tone={tones[i] ?? ""}>
               <Scene onDone={() => finish(i)} />
               {!done[i] && <button onClick={() => finish(i)} className="mt-4 text-sm underline opacity-70">Skip — just tell me</button>}
             </Encounter>

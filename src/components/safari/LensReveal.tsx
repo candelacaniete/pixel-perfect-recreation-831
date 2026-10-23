@@ -34,7 +34,7 @@ export function LensReveal({ onReveal }: { onReveal?: () => void }) {
         aria-valuenow={Math.round(pos.x)}
         onKeyDown={(e) => {
           const d = 6; const m: Record<string, [number, number]> = { ArrowLeft: [-d, 0], ArrowRight: [d, 0], ArrowUp: [0, -d], ArrowDown: [0, d] };
-          if (m[e.key]) { e.preventDefault(); setActive(true); onReveal?.(); setPos((p) => ({ x: Math.min(100, Math.max(0, p.x + m[e.key][0])), y: Math.min(100, Math.max(0, p.y + m[e.key][1])) })); }
+          const v = m[e.key]; if (v) { e.preventDefault(); setActive(true); onReveal?.(); setPos((p) => ({ x: Math.min(100, Math.max(0, p.x + v[0])), y: Math.min(100, Math.max(0, p.y + v[1])) })); }
         }}
       >
         <img src={base} alt="A muted, camouflaged snake coiled in dry grass" width={1200} height={1200} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
