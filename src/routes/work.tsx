@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { workOptions } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
+import { markVisited } from "@/components/safari/visited";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
@@ -17,9 +19,33 @@ export const Route = createFileRoute("/work")({
   component: WorkPage,
 });
 
+type Status = "idle" | "sending" | "sent" | "error";
+
 function WorkPage() {
+  useEffect(() => markVisited("work"), []);
   const [pick, setPick] = useState<string>("");
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    const name = String(f.get("name") || "").trim();
+    const email = String(f.get("email") || "").trim();
+    const interest = String(f.get("interest") || "").trim();
+    const message = String(f.get("message") || "").trim();
+    if (!name || !email || !message) return;
+    setStatus("sending");
+    setErrorMsg("");
+    const { error } = await supabase.from("contact_messages").insert({ name, email, interest, message });
+    if (error) {
+      setErrorMsg("The message didn't go through. Please try again — nothing was sent.");
+      setStatus("error");
+    } else {
+      setStatus("sent");
+    }
+  }
+
   return (
     <main className="bg-scarlet text-paper">
       <section className="px-5 pb-10 pt-28 md:px-12">
@@ -37,18 +63,25 @@ function WorkPage() {
           </button>
         ))}
       </section>
-      <section id="form" className="bg-paper px-5 py-16 md:px-12">
+      <section id="form" className="bg-paper px-5 py-16 text-ink md:px-12">
         <h2 className="display-lg">Start a conversation</h2>
         <p className="mt-3 max-w-xl text-muted-foreground">Tell me about the room, the company, or the goal. We'll build the approach around where you actually are.</p>
-        {sent ? (
-          <p role="status" className="font-display mt-10 text-3xl italic">Message drafted. (Prototype: sending isn't connected yet.)</p>
+        {status === "sent" ? (
+          <div role="status" className="mt-10 max-w-xl border-l-4 border-scarlet pl-5">
+            <p className="font-display text-3xl italic">Sent — thank you.</p>
+            <p className="mt-3 text-muted-foreground">Your message landed. Expect a reply from Yrmis, not an autoresponder.</p>
+            <button onClick={() => setStatus("idle")} className="pill mt-6 border-2 border-ink">Send another message</button>
+          </div>
         ) : (
-          <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="mt-10 grid max-w-3xl gap-5 md:grid-cols-2">
-            <label className="block"><span className="eyebrow">Name</span><input required className="mt-2 w-full border-b-2 border-ink bg-transparent py-2 text-lg outline-none focus:border-tangerine" /></label>
-            <label className="block"><span className="eyebrow">Email</span><input required type="email" className="mt-2 w-full border-b-2 border-ink bg-transparent py-2 text-lg outline-none focus:border-tangerine" /></label>
-            <label className="block md:col-span-2"><span className="eyebrow">Interested in</span><input value={pick} onChange={(e) => setPick(e.target.value)} placeholder="Keynote, Studio, Signals…" className="mt-2 w-full border-b-2 border-ink bg-transparent py-2 text-lg outline-none focus:border-tangerine" /></label>
-            <label className="block md:col-span-2"><span className="eyebrow">The room, the company, or the goal</span><textarea required rows={4} className="mt-2 w-full border-b-2 border-ink bg-transparent py-2 text-lg outline-none focus:border-tangerine" /></label>
-            <button className="pill w-fit bg-ink text-paper">Send →</button>
+          <form onSubmit={onSubmit} className="mt-10 grid max-w-3xl gap-5 md:grid-cols-2">
+            <label className="block"><span className="eyebrow">Name</span><input name="name" required autoComplete="name" className="mt-2 w-full border-b-2 border-ink bg-transparent py-2 text-lg outline-none focus:border-tangerine" /></label>
+            <label className="block"><span className="eyebrow">Email</span><input name="email" required type="email" autoComplete="email" className="mt-2 w-full border-b-2 border-ink bg-transparent py-2 text-lg outline-none focus:border-tangerine" /></label>
+            <label className="block md:col-span-2"><span className="eyebrow">Interested in</span><input name="interest" value={pick} onChange={(e) => setPick(e.target.value)} placeholder="Keynote, Studio, Signals…" className="mt-2 w-full border-b-2 border-ink bg-transparent py-2 text-lg outline-none focus:border-tangerine" /></label>
+            <label className="block md:col-span-2"><span className="eyebrow">The room, the company, or the goal</span><textarea name="message" required rows={4} className="mt-2 w-full border-b-2 border-ink bg-transparent py-2 text-lg outline-none focus:border-tangerine" /></label>
+            {status === "error" && <p role="alert" className="text-crimson md:col-span-2">{errorMsg}</p>}
+            <button disabled={status === "sending"} className="pill w-fit bg-ink text-paper disabled:opacity-50">
+              {status === "sending" ? "Sending…" : "Send →"}
+            </button>
           </form>
         )}
       </section>

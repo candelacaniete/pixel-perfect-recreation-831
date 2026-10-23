@@ -3,6 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { studio } from "@/content/yrmis";
 import { NextStops } from "@/components/safari/SiteChrome";
 import { markVisited } from "@/components/safari/visited";
+import gCapymech from "@/assets/g-capymech.webp";
+import gAnaconda from "@/assets/g-anaconda.webp";
 
 export const Route = createFileRoute("/studio")({
   head: () => ({
@@ -21,11 +23,14 @@ export const Route = createFileRoute("/studio")({
 function StudioPage() {
   useEffect(() => markVisited("studio"), []);
   return (
-    <main className="bg-paper text-ink">
-      <section className="grid min-h-[90vh] gap-8 px-5 pb-16 pt-28 md:grid-cols-12 md:px-12">
-        <div className="md:col-span-8">
+    <main className="overflow-hidden bg-paper text-ink">
+      <section className="relative grid min-h-[90vh] gap-8 px-5 pb-16 pt-28 md:grid-cols-12 md:px-12">
+        <p aria-hidden className="display-xl pointer-events-none absolute -left-6 bottom-0 whitespace-nowrap text-[24vw] text-scarlet/10">BUILD</p>
+        <div className="relative md:col-span-8">
           <p className="eyebrow">Destination 02 · Build · The Studio</p>
           <h1 className="display-xl mt-4">Plan<br /><em className="ml-[12vw] text-crimson">and conspire.</em></h1>
+          <img src={gCapymech} alt="The Capybara Mechanic, the Studio's unlikely foreman" width={560} height={560}
+            className="mt-8 w-36 -rotate-3 rounded-full border-2 border-ink shadow-[0_24px_50px_-18px_oklch(0_0_0/60%)] transition-transform duration-500 hover:rotate-0 md:absolute md:-right-4 md:top-24 md:mt-0 md:w-56" />
         </div>
         <div className="self-end md:col-span-4">
           <p className="text-xl leading-snug">{studio.intro}</p>
@@ -42,16 +47,18 @@ function StudioPage() {
           </article>
         ))}
       </section>
-      <section className="bg-crimson px-5 py-20 text-paper md:px-12" aria-labelledby="keynote">
+      <section className="relative overflow-hidden bg-crimson px-5 py-20 text-paper md:px-12" aria-labelledby="keynote">
+        <img src={gAnaconda} alt="" width={560} height={560} loading="lazy"
+          className="pointer-events-none absolute -right-16 -top-16 w-72 rotate-12 rounded-full opacity-30 md:w-96" aria-hidden />
         <p className="eyebrow text-gold">01 · Speak · The signature keynote</p>
-        <h2 id="keynote" className="display-lg mt-3">{studio.keynote.title}</h2>
-        <div className="mt-10 grid gap-8 md:grid-cols-2">
+        <h2 id="keynote" className="display-lg relative mt-3">{studio.keynote.title}</h2>
+        <div className="relative mt-10 grid gap-8 md:grid-cols-2">
           <div><p className="eyebrow opacity-70">Walking in</p><p className="font-display mt-2 text-3xl italic">{studio.keynote.in}</p></div>
           <div><p className="eyebrow text-gold">Walking out</p><p className="font-display mt-2 text-3xl italic">{studio.keynote.out}</p></div>
         </div>
-        <ul className="mt-10 flex flex-wrap gap-2">{studio.keynote.formats.map((f) => <li key={f} className="rounded-full border-2 border-paper/40 px-4 py-2 text-sm">{f}</li>)}</ul>
-        <p className="mt-8 max-w-2xl">{studio.keynote.for}</p>
-        <Link to="/work" className="pill mt-8 bg-gold text-ink">Let's plan and conspire →</Link>
+        <ul className="relative mt-10 flex flex-wrap gap-2">{studio.keynote.formats.map((f) => <li key={f} className="rounded-full border-2 border-paper/40 px-4 py-2 text-sm">{f}</li>)}</ul>
+        <p className="relative mt-8 max-w-2xl">{studio.keynote.for}</p>
+        <Link to="/work" className="pill relative mt-8 bg-gold text-ink">Let's plan and conspire →</Link>
       </section>
       <NextStops current="Studio" />
     </main>

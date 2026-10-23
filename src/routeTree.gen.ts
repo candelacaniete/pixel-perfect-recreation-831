@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ClickRouteImport } from './routes/click'
+import { Route as HomeRouteImport } from './routes/home'
 import { Route as SignalsRouteImport } from './routes/signals'
 import { Route as StudioRouteImport } from './routes/studio'
 import { Route as VenturesRouteImport } from './routes/ventures'
@@ -18,6 +20,16 @@ import { Route as WorkRouteImport } from './routes/work'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClickRoute = ClickRouteImport.update({
+  id: '/click',
+  path: '/click',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SignalsRoute = SignalsRouteImport.update({
@@ -43,6 +55,8 @@ const WorkRoute = WorkRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/click': typeof ClickRoute
+  '/home': typeof HomeRoute
   '/signals': typeof SignalsRoute
   '/studio': typeof StudioRoute
   '/ventures': typeof VenturesRoute
@@ -50,6 +64,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/click': typeof ClickRoute
+  '/home': typeof HomeRoute
   '/signals': typeof SignalsRoute
   '/studio': typeof StudioRoute
   '/ventures': typeof VenturesRoute
@@ -58,6 +74,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/click': typeof ClickRoute
+  '/home': typeof HomeRoute
   '/signals': typeof SignalsRoute
   '/studio': typeof StudioRoute
   '/ventures': typeof VenturesRoute
@@ -65,14 +83,25 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/signals' | '/studio' | '/ventures' | '/work'
+  fullPaths:
+    '/' | '/click' | '/home' | '/signals' | '/studio' | '/ventures' | '/work'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/signals' | '/studio' | '/ventures' | '/work'
-  id: '__root__' | '/' | '/signals' | '/studio' | '/ventures' | '/work'
+  to: '/' | '/click' | '/home' | '/signals' | '/studio' | '/ventures' | '/work'
+  id:
+    | '__root__'
+    | '/'
+    | '/click'
+    | '/home'
+    | '/signals'
+    | '/studio'
+    | '/ventures'
+    | '/work'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ClickRoute: typeof ClickRoute
+  HomeRoute: typeof HomeRoute
   SignalsRoute: typeof SignalsRoute
   StudioRoute: typeof StudioRoute
   VenturesRoute: typeof VenturesRoute
@@ -86,6 +115,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/click': {
+      id: '/click'
+      path: '/click'
+      fullPath: '/click'
+      preLoaderRoute: typeof ClickRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/signals': {
@@ -121,6 +164,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ClickRoute: ClickRoute,
+  HomeRoute: HomeRoute,
   SignalsRoute: SignalsRoute,
   StudioRoute: StudioRoute,
   VenturesRoute: VenturesRoute,
