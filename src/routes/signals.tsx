@@ -13,7 +13,7 @@ export const Route = createFileRoute("/signals")({
   head: () => ({
     meta: [
       { title: "1•1•1 Signals — Field notes from the wild and the boardroom · Yrmis" },
-      { name: "description", content: "A free newsletter every other week, read by 250,000 executives and builders." },
+      { name: "description", content: "A free newsletter every other week, read by 350K+ executives and builders." },
       { property: "og:title", content: "1•1•1 Signals" },
       { property: "og:description", content: "One upgrade. One Mind on a Mission. One invitation to build. Free." },
       { property: "og:type", content: "website" },
@@ -46,7 +46,7 @@ function SignalsPage() {
           Field notes from the edge of the wild and the boardroom.
         </p>
         <p className="mt-4 max-w-xl text-paper/70">
-          A free newsletter, every other week — read by <strong className="font-display text-3xl not-italic text-gold">250,000</strong> executives and builders.
+          A free newsletter, every other week — read by <strong className="font-display text-3xl not-italic text-gold">350K+</strong> executives and builders.
         </p>
         <div className="relative z-10 mt-8 flex flex-wrap gap-3">
           <a href={signals.substack} target="_blank" rel="noreferrer" className="pill bg-scarlet text-paper">Subscribe now ↗</a>
@@ -62,16 +62,12 @@ function SignalsPage() {
         </article>
         <img src={assetUrl(yrmisHand)} alt="Yrmis Barroeta looking back over her shoulder, one hand reaching toward the camera" loading="lazy" width={1400} height={1400}
           className="reveal relative z-0 mx-auto mt-8 aspect-square w-full max-w-md rotate-[1.5deg] border-2 border-gold object-cover shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)]" />
-        <article className="reveal reveal-2 relative z-20 ml-auto mt-8 max-w-xl rotate-[1deg] bg-paper p-6 text-ink shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:mr-[8%] md:p-10">
-          <p className="eyebrow text-crimson">03 · Feature · Minds on a Mission</p>
-          <p className="font-display mt-6 text-2xl leading-snug md:text-3xl">{signals.feature}</p>
-        </article>
-        <img src={assetUrl(yrmisZebra)} alt="Yrmis Barroeta resting her head on her arms, in a black and white striped sweater" loading="lazy" width={1440} height={1800}
-          className="reveal relative z-0 mt-8 aspect-[4/5] w-full max-w-sm rotate-[-1.5deg] border-2 border-scarlet object-cover shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:ml-[6%]" />
-        <article className="reveal reveal-3 relative z-10 mt-8 max-w-xl rotate-[-0.5deg] bg-yellow-surface p-6 text-yellow-foreground shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:ml-[14%] md:p-10">
-          <p className="eyebrow">04 · Grow · Newsletter Acceleration Blueprint</p>
+        <article className="reveal reveal-2 relative z-20 ml-auto mt-8 max-w-xl rotate-[1deg] bg-yellow-surface p-6 text-yellow-foreground shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:mr-[8%] md:p-10">
+          <p className="eyebrow">03 · Grow · Newsletter Acceleration Blueprint</p>
           <p className="font-display mt-6 text-2xl leading-snug md:text-3xl">{signals.blueprint}</p>
         </article>
+        <img src={assetUrl(yrmisZebra)} alt="Yrmis Barroeta resting her head on her arms, in a black and white striped sweater" loading="lazy" width={1440} height={1800}
+          className="reveal reveal-3 relative z-0 mt-8 aspect-[4/5] w-full max-w-sm rotate-[-1.5deg] border-2 border-scarlet object-cover shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:ml-[6%]" />
       </Scene>
 
       {/* Archive note + onward path */}
@@ -81,7 +77,7 @@ function SignalsPage() {
         <p className="relative mt-3 max-w-md text-paper/85">The issue archive will appear here. Until then, every issue lives on Substack.</p>
         <div className="relative mt-6 flex flex-wrap gap-3">
           <a href={signals.substack} target="_blank" rel="noreferrer" className="pill bg-paper text-ink">Browse the archive ↗</a>
-          <Link to="/work" className="pill border-2 border-paper">Feature your idea →</Link>
+          <Link to="/work" className="pill border-2 border-paper">Work with me →</Link>
         </div>
       </Scene>
       <NextStops current="Signals" tone="night" />

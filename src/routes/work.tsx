@@ -15,7 +15,7 @@ export const Route = createFileRoute("/work")({
   head: () => ({
     meta: [
       { title: "Work with me — Five ways to click into your wild · Yrmis" },
-      { name: "description", content: "Keynotes, the Studio, a feature in Signals, a newsletter engine of your own — or something not yet named." },
+      { name: "description", content: "Keynotes, the Studio, a newsletter engine of your own — or something not yet named." },
       { property: "og:title", content: "Work with Yrmis" },
       { property: "og:description", content: "Five ways to click into your wild." },
       { property: "og:type", content: "website" },
@@ -64,7 +64,7 @@ function WorkPage() {
         <p aria-hidden className="display-xl swell pointer-events-none absolute -right-6 bottom-0 whitespace-nowrap text-[24vw] text-ink/15">CLICK</p>
         <p className="eyebrow">Work with me</p>
         <h1 className="display-xl relative mt-4">Five ways to<br /><em>click into your wild.</em></h1>
-        <p className="mt-6 max-w-2xl text-lg">One room turned around in ninety minutes, a newsletter that reaches the right 250,000 people, or a company built from inception to scale — underneath, the work is the same.</p>
+        <p className="mt-6 max-w-2xl text-lg">One room turned around in ninety minutes, a newsletter that reaches the right 350K+ people, or a company built from inception to scale — underneath, the work is the same.</p>
         <video autoPlay muted loop playsInline aria-label="A Venezuelan Llanos puma walking" width={1280} height={720}
           className="pointer-events-none relative -mx-5 mt-6 block w-[calc(100%+2.5rem)] max-w-none [mask-image:radial-gradient(ellipse_at_center,black_55%,transparent_80%)] md:-mx-12 md:-mt-10 md:w-[calc(100%+6rem)]">
           <source src={assetUrl(pumaWalkWebm)} type="video/webm" />
