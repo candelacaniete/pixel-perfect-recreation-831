@@ -35,3 +35,15 @@
 - [x] Make Yrmis and Ventures photos use verified public addresses (Vercel redeployment still required)
 - [x] Show the Work with me puma on mobile
 - [x] River: guardian stays in place and recedes naturally when the boat leaves (no jump, no vanish)
+
+## Master implementation prompt (2026-10-25)
+- [ ] Crocodile emerald-scale refinement (river encounter asset)
+- [ ] River culminates in CLICK destination: "What can be done better?", five squares, three examples, local exercise, exits; directly accessible; no auto-return to map
+- [ ] Global footer: brand + verified socials, site nav, red Signals block
+- [ ] Signals: 350K+ readers, remove sponsorship/participation offers
+- [ ] New pages: About (3 chapters, 3 photos), Speaking (Click into Wild Innovation), Contact, Press kit
+- [ ] Homepage editorial hero with Speaking / Work with me pathways
+- [ ] Consolidate Consulting Studio into Work with me
+- [ ] Two inquiry forms (speaking, consulting) with validation and real destination
+- [ ] CLICK five squares with exact colors on Speaking and dedicated CLICK page
+- [ ] Nav: About, Work with me, Speaking, Ventures, Press kit, Signals; logo→Home; CTA→Contact
