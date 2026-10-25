@@ -7,6 +7,7 @@ import { journey, useJourney } from "../journeyStore";
 import { useReducedMotion } from "../visited";
 import { EncounterLayer, type Phase } from "./EncounterLayer";
 import { CrocodileEncounter, PiranhaSightings } from "./RiverWildlife";
+import { Destination } from "./Destination";
 
 import capyImg from "@/assets/sp-capybara.webp";
 import birdImg from "@/assets/sp-bird.webp";
