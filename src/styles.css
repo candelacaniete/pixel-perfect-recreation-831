@@ -47,6 +47,14 @@
   --color-moss: var(--moss);
   --color-river: var(--river);
   --color-dawn: var(--dawn);
+
+  /* CLICK framework — exact brand colors, fixed by spec, never re-themed */
+  --color-click-cream: var(--click-cream);
+  --color-click-yellow: var(--click-yellow);
+  --color-click-orange: var(--click-orange);
+  --color-click-olive: var(--click-olive);
+  --color-click-maroon: var(--click-maroon);
+  --color-click-umber: var(--click-umber);
 }
 
 :root {
