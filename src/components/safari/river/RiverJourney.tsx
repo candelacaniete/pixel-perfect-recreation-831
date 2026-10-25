@@ -70,11 +70,8 @@ export function RiverJourney() {
   const [fade, setFade] = useState(false);
   const [crocodileActive, setCrocodileActive] = useState(false);
 
-  useEffect(() => {
-    if (!j.landed) return;
-    journey.set({ cam: 0, passed: [], landed: false, jump: null });
-    void navigate({ to: "/", replace: true });
-  }, [j.landed, navigate]);
+  // Landing no longer returns to the map automatically: the shore destination
+  // (CLICK, applied) takes over and offers the way back itself.
 
   // mutable sim state
   const sim = useRef({ cam: j.cam, vel: 0, push: 0, logCleared: 0, fogSteps: 0, crocodileFed: j.cam > CROCODILE_Z, crocodileActive: false, encounter: null as number | null, t: 0, world: [] as Obj[], pan: 0, flow: 0, splashes: [] as { z: number; x: number; t0: number }[] });
@@ -470,10 +467,17 @@ export function RiverJourney() {
       )}
 
       {!stop && !crocodileActive && !j.landed && (
-        <Button data-ui variant="ghost" onPointerDown={() => { sim.current.push += 3; setHint(false); }} className="row-btn h-auto absolute bottom-6 right-5 z-20" aria-label="Row forward">
-          Row ↑
-        </Button>
+        <>
+          <Button data-ui variant="ghost" onPointerDown={() => { sim.current.push += 3; setHint(false); }} className="row-btn h-auto absolute bottom-6 right-5 z-20" aria-label="Row forward">
+            Row ↑
+          </Button>
+          <Button data-ui variant="ghost" onClick={() => journey.set({ landed: true })} className="row-btn h-auto absolute bottom-6 left-5 z-20" aria-label="Skip the river and go straight to the shore">
+            Skip to the shore →
+          </Button>
+        </>
       )}
+
+      {j.landed && <Destination />}
 
       <div aria-hidden className={`pointer-events-none absolute inset-0 bg-night transition-opacity duration-300 ${fade ? "opacity-100" : "opacity-0"}`} />
     </div>
