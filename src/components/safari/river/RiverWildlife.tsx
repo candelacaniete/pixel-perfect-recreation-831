@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowUp, Droplets } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { riverWildlife } from "@/content/yrmis";
-import crocodile from "@/assets/river-crocodile-authored.png";
+import crocodile from "@/assets/river-crocodile-emerald.png";
 import piranha from "@/assets/river-piranha-authored.png";
 import { canLeaveCrocodile, type CrocodilePhase } from "./world";
 

@@ -47,6 +47,14 @@
   --color-moss: var(--moss);
   --color-river: var(--river);
   --color-dawn: var(--dawn);
+
+  /* CLICK framework — exact brand colors, fixed by spec, never re-themed */
+  --color-click-cream: var(--click-cream);
+  --color-click-yellow: var(--click-yellow);
+  --color-click-orange: var(--click-orange);
+  --color-click-olive: var(--click-olive);
+  --color-click-maroon: var(--click-maroon);
+  --color-click-umber: var(--click-umber);
 }
 
 :root {
@@ -64,6 +72,13 @@
   --moss: oklch(0.45 0.05 130);
   --river: oklch(0.62 0.07 230);
   --dawn: oklch(0.88 0.09 60);
+  /* CLICK framework — exact brand hexes from the approved identity (fixed, not themed) */
+  --click-cream: #F7EEDA;
+  --click-yellow: #FAB702;
+  --click-orange: #E08A47;
+  --click-olive: #A98E2B;
+  --click-maroon: #5E1208;
+  --click-umber: #2A1B12;
   --bow: oklch(0.3 0.05 45);
   --bow-inner: oklch(0.42 0.07 50);
   --map-exposure: linear-gradient(180deg, color-mix(in oklab, var(--night) 62%, transparent), color-mix(in oklab, var(--night) 38%, transparent) 45%, color-mix(in oklab, var(--night) 72%, transparent));
