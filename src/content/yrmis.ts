@@ -39,9 +39,8 @@ export const principles = [
 export const workOptions = [
   { n: "01", verb: "Speak", title: "Keynotes & offsites", body: "Click Into Wild Innovation — the keynote for teams being moved onto AI. 45–90 min, or a leadership offsite." },
   { n: "02", verb: "Build", title: "The Studio", body: "Fractional & advisory. Founders from inception to scale; exec teams steadying a live change." },
-  { n: "03", verb: "Feature", title: "Get into 1•1•1 Signals", body: "Put your idea in front of 250,000 executives and builders — years before the headlines." },
-  { n: "04", verb: "Grow", title: "Newsletter Acceleration Blueprint", body: "From outreach to growth plan — I'll build your newsletter engine." },
-  { n: "05", verb: "Read", title: "1•1•1 Signals", body: "Field notes from the edge of the wild and the boardroom. Free, every other week." },
+  { n: "03", verb: "Grow", title: "Newsletter Acceleration Blueprint", body: "From outreach to growth plan — I'll build your newsletter engine." },
+  { n: "04", verb: "Read", title: "1•1•1 Signals", body: "Field notes from the edge of the wild and the boardroom. Free, every other week." },
 ];
 
 export const studio = {
@@ -66,9 +65,38 @@ export const hqPillars = ["Designing strategies to magnify value", "Powering inn
 
 export const signals = {
   substack: "https://yrmis.substack.com/",
+  reach: "350K+",
   cadence: "One upgrade. One Mind on a Mission. One invitation to build. Free.",
-  feature: "The Minds on a Mission slot puts your startup, invention or bold idea in front of exactly the right room — straight to inboxes that open it.",
   blueprint: "The system behind 1•1•1 Signals, built for you: a targeted, high-value email list — owned distribution, not rented reach.",
+};
+
+// Verified profiles from myheadquarters.club — do not invent others.
+export const socials = [
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/yrmis/" },
+  { name: "Instagram", href: "https://www.instagram.com/allblacksheep_club/" },
+  { name: "X", href: "https://x.com/AllBlackSheep" },
+] as const;
+
+// The river's final destination: applied innovation. Example names come from the
+// approved keynote script — do not add detail beyond them.
+export const riverDestination = {
+  headline: "What can be done better?",
+  intro:
+    "The river ends where application begins. Looking closely at nature — and borrowing lenses from other worlds — turns practical problems into opportunities.",
+  examples: ["A fit problem", "A place to eat together", "A better bag closure"],
+  exercise: {
+    title: "Try it on something of yours",
+    note: "This stays in your browser — nothing is stored or sent.",
+    prompts: ["A problem", "A different lens", "Available resources", "Useful feedback", "A first experiment"],
+  },
+  line: "New territory. Bring what you know.",
+  exits: [
+    { to: "/work", name: "Speaking", note: "Click Into Wild Innovation" },
+    { to: "/studio", name: "Consulting Studio", note: "Plan and conspire" },
+    { to: "/signals", name: "1•1•1 Signals", note: "Field notes, free" },
+  ],
+  map: "Return to the map",
+  water: "Back on the water",
 };
 
 // Fictional in-scene cues, not additional biography or company claims.
