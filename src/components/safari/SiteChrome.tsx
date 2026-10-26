@@ -3,6 +3,7 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { stops, LANDING_Z } from "@/content/journey";
 import { journey, useJourney } from "./journeyStore";
 import { useVisited } from "./visited";
+import { signals, socials } from "@/content/yrmis";
 
 const RIVER = "M 40 60 C 160 40, 120 160, 220 170 S 380 90, 420 190 S 300 300, 360 360 S 520 330, 560 420";
 
@@ -147,7 +148,7 @@ const FOOTER_TONES = {
   scarlet: "bg-scarlet text-paper border-ink",
 } as const;
 
-/** Site footer; its tone matches the hero of the page it closes. */
+/** Site footer; its tone matches the hero of the page it closes. Three areas: brand, site, newsletter. */
 export function NextStops({ current, tone = "night" }: { current?: string; tone?: keyof typeof FOOTER_TONES }) {
   const navigate = useNavigate();
   const all = [
@@ -160,12 +161,19 @@ export function NextStops({ current, tone = "night" }: { current?: string; tone?
   return (
     <footer className={`border-t-2 px-5 pb-8 pt-14 md:px-12 ${FOOTER_TONES[tone]}`}>
       <div className="grid gap-10 md:grid-cols-12">
-        <div className="md:col-span-5">
+        {/* Brand */}
+        <div className="md:col-span-4">
           <Link to="/" className="font-display text-4xl italic md:text-5xl">Yrmis</Link>
-          <p className="mt-3 max-w-sm opacity-80">Permission to use the wild, resourceful one you already have.</p>
-          <Link to="/work" className="pill mt-6 inline-flex bg-yellow-surface text-yellow-foreground">Work with me →</Link>
+          <p className="mt-3 max-w-sm opacity-80">Wild black wool / never dyes.</p>
+          <p className="eyebrow mt-6 opacity-70">All Black Sheep</p>
+          <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+            {socials.map((s) => (
+              <li key={s.name}><a href={s.href} target="_blank" rel="noreferrer" className="hover:underline">{s.name} ↗</a></li>
+            ))}
+          </ul>
         </div>
-        <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-3 md:col-span-4 md:col-start-7">
+        {/* Site */}
+        <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-3 md:col-span-4">
           <p className="eyebrow col-span-2 opacity-70">Destinations</p>
           <Link to="/" className="hover:underline">World map</Link>
           <button onClick={() => { journey.requestJump(0); navigate({ to: "/click" }); }} className="text-left hover:underline">CLICK — the river</button>
@@ -173,6 +181,13 @@ export function NextStops({ current, tone = "night" }: { current?: string; tone?
             <Link key={a.to} to={a.to} aria-current={a.n === current ? "page" : undefined} className={`hover:underline ${a.n === current ? "font-semibold" : ""}`}>{a.n}</Link>
           ))}
         </nav>
+        {/* Newsletter */}
+        <div className="bg-scarlet p-5 text-paper md:col-span-4 md:p-6">
+          <p className="eyebrow text-gold">1•1•1 Signals</p>
+          <p className="font-display mt-3 text-2xl leading-snug">Field notes from the edge of the wild and the boardroom.</p>
+          <p className="mt-2 text-sm text-paper/75">Free, every other week — read by 350K+ executives and builders.</p>
+          <a href={signals.substack} target="_blank" rel="noreferrer" className="pill mt-5 inline-flex bg-paper text-ink">Subscribe free ↗</a>
+        </div>
       </div>
       <p className="eyebrow mt-12 border-t border-current/20 pt-5 opacity-60">© {new Date().getFullYear()} Yrmis · From the Llanos, Venezuela</p>
     </footer>

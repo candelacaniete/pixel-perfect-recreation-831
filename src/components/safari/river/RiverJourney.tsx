@@ -1,6 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate } from "@tanstack/react-router";
-import { Destination } from "./Destination-x";
 import { Button } from "@/components/ui/button";
 import { stops, LANDING_Z, ambientLines } from "@/content/journey";
 import { curve, curveD, width, project, hash, palette, rgb, riverSequenceTarget, riverFrame, CROCODILE_Z, type Cam } from "./world";
@@ -60,7 +58,6 @@ function buildWorld(): Obj[] {
 }
 
 export function RiverJourney() {
-  const navigate = useNavigate();
   const canvas = useRef<HTMLCanvasElement>(null);
   const reduced = useReducedMotion();
   const j = useJourney();
