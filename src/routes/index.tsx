@@ -1,20 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { WorldMap } from "@/components/safari/WorldMap";
+import { HomePage } from "@/components/site/HomePage";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Yrmis — A map of an impossible territory" },
-      { name: "description", content: "The world of Yrmis Barroeta as one surreal map: Home, the CLICK river journey, the Studio, Ventures, 1•1•1 Signals and Work with me." },
-      { property: "og:title", content: "Yrmis — A map of an impossible territory" },
-      { property: "og:description", content: "Six landmarks, one river. Explore the Studio, Ventures, Signals and the CLICK experience." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { title: "Yrmis Barroeta" },
+      { name: "description", content: "New territory. Bring what you know. Speaking, Consulting Studio, and 1•1•1 Signals." },
+      { property: "og:title", content: "Yrmis Barroeta" },
+      { property: "og:description", content: "Speaking, Consulting Studio, and 1•1•1 Signals." },
     ],
   }),
-  component: Index,
+  component: HomePage,
 });
-
-function Index() {
-  return <WorldMap />;
-}

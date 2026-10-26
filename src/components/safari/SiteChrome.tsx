@@ -3,22 +3,24 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { stops, LANDING_Z } from "@/content/journey";
 import { journey, useJourney } from "./journeyStore";
 import { useVisited } from "./visited";
-import { signals, socials } from "@/content/yrmis";
+import { socials } from "@/content/yrmis";
 
 const RIVER = "M 40 60 C 160 40, 120 160, 220 170 S 380 90, 420 190 S 300 300, 360 360 S 520 330, 560 420";
 
 const DESTINATIONS = [
-  { to: "/", label: "World map", id: "map" },
-  { to: "/home", label: "Home", id: "home" },
-  { to: "/click", label: "Experience CLICK", id: "click" },
-  { to: "/studio", label: "Studio", id: "studio" },
+  { to: "/", label: "Home", id: "home" },
+  { to: "/about", label: "About", id: "about" },
+  { to: "/work", label: "Work with me", id: "work" },
+  { to: "/speaking", label: "Speaking", id: "speaking" },
   { to: "/ventures", label: "Ventures", id: "ventures" },
   { to: "/signals", label: "Signals", id: "signals" },
-  { to: "/work", label: "Work with me", id: "work" },
+  { to: "/river", label: "The river", id: "river" },
+  { to: "/click", label: "CLICK", id: "click" },
+  { to: "/world", label: "Yrmis World", id: "world" },
 ] as const;
 
 /** Routes with dark artwork behind the fixed header. */
-const DARK_ROUTES = new Set(["/", "/click", "/signals", "/home", "/ventures"]);
+const DARK_ROUTES = new Set(["/", "/click", "/signals", "/home", "/ventures", "/river", "/world"]);
 
 /** An illustrated map artifact: discovered stops, your position, and free routes. */
 function JourneyMap({ onGo }: { onGo: () => void }) {
@@ -26,7 +28,12 @@ function JourneyMap({ onGo }: { onGo: () => void }) {
   const navigate = useNavigate();
   const path = useRouterState({ select: (s) => s.location.pathname });
   const pts = [[150, 92], [270, 150], [395, 160], [330, 300], [440, 360]] as const;
-  const go = (i: number) => { if (path !== "/click") navigate({ to: "/click" }); journey.requestJump(i); onGo(); };
+  const go = (i: number) => {
+    if (i >= stops.length) { onGo(); void navigate({ to: "/click" }); return; }
+    if (path !== "/river") void navigate({ to: "/river", search: { stop: i } });
+    journey.requestJump(i);
+    onGo();
+  };
   const prog = Math.min(1, j.cam / LANDING_Z);
 
   return (
@@ -52,10 +59,10 @@ function JourneyMap({ onGo }: { onGo: () => void }) {
         );
       })}
       <button onClick={() => go(stops.length)} className="map-stop" style={{ left: "93%", top: "91%" }} aria-label="Sail straight to the shore">
-        <span className="map-dot">✶</span><span className="map-label">The shore<em>Studio · Ventures · Signals</em></span>
+        <span className="map-dot">✶</span><span className="map-label">The shore<em>CLICK arrival</em></span>
       </button>
       <div className="mt-2 flex flex-wrap justify-center gap-x-5 gap-y-1 font-display italic">
-        <Link to="/studio" onClick={onGo} className="underline-offset-4 hover:underline">The Studio</Link>
+        <Link to="/speaking" onClick={onGo} className="underline-offset-4 hover:underline">Speaking</Link>
         <Link to="/ventures" onClick={onGo} className="underline-offset-4 hover:underline">Ventures</Link>
         <Link to="/signals" onClick={onGo} className="underline-offset-4 hover:underline">1•1•1 Signals</Link>
         <Link to="/work" onClick={onGo} className="underline-offset-4 hover:underline">Work with me</Link>
@@ -108,7 +115,7 @@ export function SiteChrome() {
   const [mapOpen, setMapOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
   const dark = DARK_ROUTES.has(path);
-  const onRiver = path === "/click";
+  const onRiver = path === "/river";
 
   useEffect(() => {
     const k = (e: KeyboardEvent) => e.key === "Escape" && setMapOpen(false);
@@ -119,7 +126,7 @@ export function SiteChrome() {
   return (
     <>
       <header data-ui className="pointer-events-none fixed inset-x-0 top-0 z-40 flex items-center justify-between p-3 pt-[max(0.75rem,env(safe-area-inset-top))] md:p-5">
-        <Link to="/" aria-label="Yrmis — back to the world map"
+        <Link to="/" aria-label="Yrmis Barroeta, home"
           className={`pointer-events-auto font-display text-2xl italic md:text-3xl ${dark ? "text-paper text-shadow-river" : "text-ink"}`}>
           Yrmis
         </Link>
@@ -127,9 +134,10 @@ export function SiteChrome() {
           {onRiver && (
             <button onClick={() => setMapOpen(true)} className="row-btn whitespace-nowrap max-sm:px-3" aria-haspopup="dialog" aria-expanded={mapOpen}><span className="max-sm:hidden">River map</span><span className="sm:hidden">River</span></button>
           )}
-          <Link to="/" aria-current={path === "/" ? "page" : undefined} className={`row-btn whitespace-nowrap max-sm:px-3 ${path === "/" ? "row-btn-scarlet" : ""}`}>Map</Link>
+          <Link to="/world" aria-current={path === "/world" ? "page" : undefined} className={`row-btn whitespace-nowrap max-sm:px-3 ${path === "/world" ? "row-btn-scarlet" : ""}`}>World</Link>
           <DestinationMenu dark={dark} />
-          <Link to="/work" className="row-btn row-btn-scarlet hidden sm:inline-flex">Work with me</Link>
+          <Link to="/speaking" className="row-btn whitespace-nowrap max-sm:px-3">Speaking</Link>
+          <Link to="/work" className="row-btn row-btn-scarlet">Work with me</Link>
         </div>
       </header>
       {mapOpen && onRiver && (
@@ -152,9 +160,10 @@ const FOOTER_TONES = {
 export function NextStops({ current, tone = "night" }: { current?: string; tone?: keyof typeof FOOTER_TONES }) {
   const navigate = useNavigate();
   const all = [
-    { to: "/home", n: "Home" },
-    { to: "/studio", n: "Studio" },
+    { to: "/about", n: "About" },
+    { to: "/speaking", n: "Speaking" },
     { to: "/ventures", n: "Ventures" },
+    { to: "/press", n: "Press kit" },
     { to: "/signals", n: "Signals" },
     { to: "/work", n: "Work with me" },
   ] as const;
@@ -175,8 +184,8 @@ export function NextStops({ current, tone = "night" }: { current?: string; tone?
         {/* Site */}
         <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-3 md:col-span-4">
           <p className="eyebrow col-span-2 opacity-70">Destinations</p>
-          <Link to="/" className="hover:underline">World map</Link>
-          <button onClick={() => { journey.requestJump(0); navigate({ to: "/click" }); }} className="text-left hover:underline">CLICK — the river</button>
+          <Link to="/world" className="hover:underline">Yrmis World</Link>
+          <button onClick={() => { navigate({ to: "/river" }); }} className="text-left hover:underline">The river</button>
           {all.map((a) => (
             <Link key={a.to} to={a.to} aria-current={a.n === current ? "page" : undefined} className={`hover:underline ${a.n === current ? "font-semibold" : ""}`}>{a.n}</Link>
           ))}
@@ -186,7 +195,7 @@ export function NextStops({ current, tone = "night" }: { current?: string; tone?
           <p className="eyebrow text-gold">1•1•1 Signals</p>
           <p className="font-display mt-3 text-2xl leading-snug">Field notes from the edge of the wild and the boardroom.</p>
           <p className="mt-2 text-sm text-paper/75">Free, every other week — read by 350K+ executives and builders.</p>
-          <a href={signals.substack} target="_blank" rel="noreferrer" className="pill mt-5 inline-flex bg-paper text-ink">Subscribe free ↗</a>
+          <a href="https://yrmis.substack.com/subscribe" target="_blank" rel="noreferrer" className="pill mt-5 inline-flex bg-paper text-ink">Subscribe free ↗</a>
         </div>
       </div>
       <p className="eyebrow mt-12 border-t border-current/20 pt-5 opacity-60">© {new Date().getFullYear()} Yrmis · From the Llanos, Venezuela</p>

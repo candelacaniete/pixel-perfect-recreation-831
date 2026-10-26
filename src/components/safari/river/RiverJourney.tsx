@@ -57,7 +57,7 @@ function buildWorld(): Obj[] {
   return o;
 }
 
-export function RiverJourney() {
+export function RiverJourney({ onShore }: { onShore?: () => void } = {}) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const reduced = useReducedMotion();
   const j = useJourney();
@@ -68,6 +68,7 @@ export function RiverJourney() {
   const [hint, setHint] = useState(true);
   const [fade, setFade] = useState(false);
   const [crocodileActive, setCrocodileActive] = useState(false);
+  const shoreSent = useRef(false);
 
   // Landing no longer returns to the map automatically: the shore destination
   // (CLICK, applied) takes over and offers the way back itself.
@@ -97,6 +98,12 @@ export function RiverJourney() {
     }, 350);
     return () => clearTimeout(id);
   }, [j.jump]);
+
+  useEffect(() => {
+    if (!j.landed || !onShore || shoreSent.current) return;
+    shoreSent.current = true;
+    onShore();
+  }, [j.landed, onShore]);
 
   const depart = useCallback((completed: boolean) => {
     const i = sim.current.encounter;
@@ -470,13 +477,13 @@ export function RiverJourney() {
           <Button data-ui variant="ghost" onPointerDown={() => { sim.current.push += 3; setHint(false); }} className="row-btn h-auto absolute bottom-6 right-5 z-20" aria-label="Row forward">
             Row ↑
           </Button>
-          <Button data-ui variant="ghost" onClick={() => journey.set({ landed: true })} className="row-btn h-auto absolute bottom-6 left-5 z-20" aria-label="Skip the river and go straight to the shore">
-            Skip to the shore →
+          <Button data-ui variant="ghost" onClick={() => journey.set({ landed: true })} className="row-btn h-auto absolute bottom-6 left-5 z-20" aria-label="Skip the river and open the CLICK arrival">
+            Skip to CLICK →
           </Button>
         </>
       )}
 
-      {j.landed && <Destination />}
+      {j.landed && !onShore && <Destination />}
 
       <div aria-hidden className={`pointer-events-none absolute inset-0 bg-night transition-opacity duration-300 ${fade ? "opacity-100" : "opacity-0"}`} />
     </div>

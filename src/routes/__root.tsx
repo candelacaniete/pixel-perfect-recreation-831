@@ -12,7 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { SiteChrome } from "@/components/safari/SiteChrome";
+import editorialCss from "../editorial.css?url";
 
 function NotFoundComponent() {
   return (
@@ -79,16 +79,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "Yrmis — An editorial safari" },
-      { name: "description", content: "Yrmis Barroeta: keynotes, the Studio, ventures and 1•1•1 Signals." },
+      { title: "Yrmis Barroeta" },
+      { name: "description", content: "Yrmis Barroeta: speaking, Consulting Studio, ventures, and 1•1•1 Signals." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" },
       { rel: "stylesheet", href: appCss },
+      { rel: "stylesheet", href: editorialCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
@@ -117,7 +118,6 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SiteChrome />
       <Outlet />
     </QueryClientProvider>
   );

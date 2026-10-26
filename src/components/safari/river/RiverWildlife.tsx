@@ -46,7 +46,7 @@ export function CrocodileEncounter({ reduced, onContinue }: { reduced: boolean; 
       )}
       <div className="crocodile-actions absolute inset-x-5 bottom-[calc(env(safe-area-inset-bottom)+1.5rem)] flex flex-wrap items-center justify-center gap-3">
         {canLeaveCrocodile(phase) && <Button variant="ghost" onClick={onContinue} className="row-btn h-auto min-h-11"><ArrowDown />{copy.continue}</Button>}
-        <Button asChild variant="ghost" className="row-btn h-auto min-h-11"><Link to="/">{copy.map}</Link></Button>
+        <Button asChild variant="ghost" className="row-btn h-auto min-h-11"><Link to="/world">{copy.map}</Link></Button>
       </div>
     </section>
   );
