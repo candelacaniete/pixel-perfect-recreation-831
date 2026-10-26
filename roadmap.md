@@ -37,10 +37,10 @@
 - [x] River: guardian stays in place and recedes naturally when the boat leaves (no jump, no vanish)
 
 ## Master implementation prompt (2026-10-25)
-- [ ] Crocodile emerald-scale refinement (river encounter asset)
-- [ ] River culminates in CLICK destination: "What can be done better?", five squares, three examples, local exercise, exits; directly accessible; no auto-return to map
-- [ ] Global footer: brand + verified socials, site nav, red Signals block
-- [ ] Signals: 350K+ readers, remove sponsorship/participation offers
+- [x] Crocodile emerald-scale refinement (river encounter asset)
+- [x] River culminates in CLICK destination: "What can be done better?", five squares, three examples, local exercise, exits; directly accessible; no auto-return to map
+- [x] Global footer: brand + verified socials, site nav, red Signals block
+- [x] Signals: 350K+ readers, remove sponsorship/participation offers
 - [ ] New pages: About (3 chapters, 3 photos), Speaking (Click into Wild Innovation), Contact, Press kit
 - [ ] Homepage editorial hero with Speaking / Work with me pathways
 - [ ] Consolidate Consulting Studio into Work with me
