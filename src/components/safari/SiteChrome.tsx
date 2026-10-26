@@ -3,6 +3,7 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { stops, LANDING_Z } from "@/content/journey";
 import { journey, useJourney } from "./journeyStore";
 import { useVisited } from "./visited";
+import { signals, socials } from "@/content/yrmis";
 
 const RIVER = "M 40 60 C 160 40, 120 160, 220 170 S 380 90, 420 190 S 300 300, 360 360 S 520 330, 560 420";
 
