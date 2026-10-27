@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
-import { DuskClose } from "@/components/editorial/Reference";
+import { Band } from "@/components/editorial/Reference";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy, ventureStories } from "@/content/yrmis";
 import caiman from "@/assets/reference/ref-ventures-caiman.jpg";
+import aerial from "@/assets/worldmap-flatlands.jpg";
 import greenhouse from "@/assets/sourced/ventures/mh-greenhouse.jpg";
 import family from "@/assets/sourced/ventures/abs-family.jpg";
 import hem from "@/assets/sourced/ventures/hem-store.jpg";
@@ -17,12 +18,14 @@ export function VenturesPage() {
   return (
     <Shell current="Ventures">
       <main className="yw">
-        <section className="yw-hero" aria-label="Ventures" style={{ background: "#0c241c" }}>
-          <img className="yw-hero-img" src={caiman} alt="An Orinoco caiman in dark green water" style={{ objectPosition: "center 55%" }} />
-          <div className="yw-hero-copy">
+        <section className="open ventures-open" aria-label="Ventures">
+          <div className="open-copy">
             <h1 className="yw-display">Ideas<br />into real<br />worlds</h1>
             <p className="yw-standfirst">{siteCopy.venturesLead}</p>
           </div>
+          <figure>
+            <img src={caiman} alt="An Orinoco caiman in dark green water" />
+          </figure>
         </section>
         <section className="yw-sheet">
           <h2>Featured projects</h2>
@@ -40,11 +43,11 @@ export function VenturesPage() {
             ))}
           </div>
         </section>
-        <DuskClose>
+        <Band src={aerial}>
           <h2>Let’s build what’s next</h2>
           <p>{siteCopy.studio}</p>
           <Link to="/contact" search={{ interest: "Consulting Studio" }} className="yw-pill">Get in touch →</Link>
-        </DuskClose>
+        </Band>
       </main>
     </Shell>
   );

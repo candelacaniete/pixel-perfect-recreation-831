@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
-import { DuskClose } from "@/components/editorial/Reference";
+import { Band } from "@/components/editorial/Reference";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import anaconda from "@/assets/reference/ref-about-anaconda.jpg";
+import portrait from "@/assets/sourced/portraits/yrmis-blazer.jpg";
+import tree from "@/assets/origin.jpg";
 
 const drives = [
   { n: "01", title: "Curiosity", body: "Notice what bugs you. Ask what could work better." },
@@ -17,15 +19,18 @@ export function AboutPage() {
   return (
     <Shell current="About">
       <main className="yw">
-        <section className="yw-hero" aria-label="About">
-          <img className="yw-hero-img" src={anaconda} alt="An anaconda coiled through dark water at dusk" style={{ objectPosition: "70% 45%" }} />
-          <div className="yw-hero-copy">
-            <p className="yw-kicker" style={{ color: "#f6efe4" }}>A journey across territories, ideas and life.</p>
+        <section className="open about-open" aria-label="About">
+          <div className="open-copy">
+            <p className="yw-kicker">A journey across territories, ideas and life.</p>
             <h1 className="yw-display">A curious<br />way of<br />belonging</h1>
             <p className="yw-standfirst">{siteCopy.about}</p>
           </div>
+          <figure>
+            <img src={anaconda} alt="An anaconda coiled through dark water at dusk" />
+          </figure>
         </section>
         <section className="yw-sheet" id="story">
+          <img className="story-photo" src={portrait} alt="Yrmis Barroeta" />
           <h2>My story</h2>
           {siteCopy.story.map((chapter) => (
             <article key={chapter.title} className="yw-story">
@@ -33,7 +38,7 @@ export function AboutPage() {
               {chapter.paragraphs.map((paragraph) => <p key={paragraph} className="yw-prose">{paragraph}</p>)}
             </article>
           ))}
-          <blockquote className="yw-quote" style={{ color: "var(--yw-ink)", marginTop: "2.4rem" }}>
+          <blockquote className="yw-quote" style={{ color: "var(--yw-ink)", marginTop: "2.2rem" }}>
             “{siteCopy.story[2].paragraphs[1]}”
           </blockquote>
           <div className="yw-block">
@@ -54,9 +59,9 @@ export function AboutPage() {
             <Link to="/contact" search={{ interest: "Consulting Studio" }} className="yw-pill">See my full journey →</Link>
           </div>
         </section>
-        <DuskClose>
+        <Band src={tree}>
           <p className="yw-quote">“{siteCopy.yellow}”</p>
-        </DuskClose>
+        </Band>
       </main>
     </Shell>
   );

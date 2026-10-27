@@ -1,10 +1,9 @@
 import type { ReactNode } from "react";
-import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
 
-export function DuskClose({ children }: { children: ReactNode }) {
+export function Band({ src, children, tall = false }: { src: string; children: ReactNode; tall?: boolean }) {
   return (
-    <section className="yw-dusk">
-      <img src={dusk} alt="" />
+    <section className={tall ? "yw-dusk band-tall" : "yw-dusk"}>
+      <img src={src} alt="" />
       <div className="yw-dusk-copy">{children}</div>
     </section>
   );

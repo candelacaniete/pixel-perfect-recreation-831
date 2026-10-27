@@ -2,10 +2,11 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { ClickFive } from "@/components/site/ClickFive";
-import { DuskClose } from "@/components/editorial/Reference";
 import { markVisited } from "@/components/safari/visited";
 import { clickExamples, clickOutcomes, riverDestination } from "@/content/yrmis";
 import llanos from "@/assets/reference/ref-click-llanos.jpg";
+
+const crops = ["20% 70%", "70% 40%", "40% 30%", "80% 80%", "30% 50%"];
 
 const fields = [
   { key: "problem", label: "The problem I keep noticing", long: true },
@@ -32,9 +33,9 @@ export function ClickPage() {
   return (
     <Shell current="CLICK">
       <main className="yw">
-        <section className="yw-hero" aria-label="CLICK">
-          <img className="yw-hero-img" src={llanos} alt="A Llanos wetland at sunset, with water lilies and no animals" />
-          <div className="yw-hero-copy">
+        <section className="click-open" aria-label="CLICK">
+          <img src={llanos} alt="A Llanos wetland at sunset, with water lilies and no animals" />
+          <div className="open-copy">
             <h1 className="yw-display">Click</h1>
             <p className="yw-standfirst">{riverDestination.line}</p>
           </div>
@@ -42,20 +43,12 @@ export function ClickPage() {
         <section className="yw-sheet">
           <h2>A way of seeing.<br />A way of acting.</h2>
           <p>{riverDestination.intro}</p>
-          <Link to="/river" className="yw-venture" style={{ marginTop: "1.4rem", textDecoration: "none", color: "inherit" }}>
-            <img src={llanos} alt="" style={{ height: "8rem", objectFit: "cover", borderRadius: "0.7rem" }} />
-            <div>
-              <p className="yw-kicker">The separate experience</p>
-              <h3>Enter the river</h3>
-              <p>The interactive journey is its own route. This page stays readable if you never open it.</p>
-            </div>
-          </Link>
           <div className="yw-block">
             <h2>The principles of CLICK</h2>
             <div className="yw-principles">
               {clickOutcomes.map((item, index) => (
                 <Link key={item.name} to="/river" search={{ stop: index }} className="yw-principle">
-                  <img className="yw-thumb" src={llanos} alt="" style={{ height: "4.4rem", objectPosition: `${20 + index * 15}% ${30 + index * 10}%` }} />
+                  <img className="yw-thumb" src={llanos} alt="" style={{ height: "4.4rem", objectPosition: crops[index] }} />
                   <strong>0{index + 1} {item.name}</strong>
                   <span>{item.line}</span>
                 </Link>
@@ -109,9 +102,6 @@ export function ClickPage() {
           <p>A separate journey. It is not part of this page, and it is not in the main menu.</p>
           <Link to="/river" className="yw-pill" style={{ background: "#f3eadc", color: "#17120f" }}>Enter the experience →</Link>
         </section>
-        <DuskClose>
-          <p className="yw-quote">“{riverDestination.headline}”</p>
-        </DuskClose>
       </main>
     </Shell>
   );
