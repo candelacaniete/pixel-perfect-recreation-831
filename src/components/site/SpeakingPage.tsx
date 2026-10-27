@@ -2,35 +2,34 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { ClickFive } from "@/components/site/ClickFive";
-import { Fireflies, Lanterns, Scene } from "@/components/safari/motion";
+import { Scene } from "@/components/safari/motion";
 import { markVisited } from "@/components/safari/visited";
 import { clickOutcomes, siteCopy } from "@/content/yrmis";
 import stage from "@/assets/sourced/portraits/yrmis-stage.webp";
-import land from "@/assets/land-home.jpg";
+import jabiru from "@/assets/g-jabiru-authored.png";
 
 export function SpeakingPage() {
   useEffect(() => markVisited("speaking"), []);
   return (
     <Shell current="Speaking">
       <main className="overflow-hidden bg-night text-paper">
-        <Scene className="isolate relative overflow-hidden px-5 pb-16 pt-28 md:px-12">
-          <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
-            <img src={land} alt="" className="photo-bg object-[70%_center]" />
-            <div className="absolute inset-0 bg-night/55" />
-            <Fireflies count={20} />
-          </div>
-          <Lanterns />
-          <p className="eyebrow relative text-gold">The signature keynote</p>
-          <h1 className="display-xl relative mt-4">CLICK into<br /><em className="text-gold">Wild Innovation</em></h1>
-          <p className="relative mt-6 max-w-2xl text-lg">{siteCopy.speaking}</p>
-          <div className="relative mt-8 flex flex-wrap gap-3">
-            <Link to="/contact" search={{ interest: "Speaking" }} className="pill bg-yellow-surface text-yellow-foreground">Check availability</Link>
-            <a href="#audience-outcomes" className="pill border-2 border-paper">Audience outcomes</a>
+        <Scene className="relative bg-night px-5 pb-16 pt-28 md:px-12">
+          <div className="grid items-end gap-8 md:grid-cols-12">
+            <div className="md:col-span-6">
+              <p className="eyebrow text-gold">The signature keynote · guarded by the jabiru</p>
+              <h1 className="display-xl mt-4">CLICK into<br /><em className="text-gold">Wild Innovation</em></h1>
+              <p className="mt-6 max-w-xl text-lg">{siteCopy.speaking}</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link to="/contact" search={{ interest: "Speaking" }} className="pill bg-yellow-surface text-yellow-foreground">Check availability</Link>
+                <a href="#audience-outcomes" className="pill border-2 border-paper">Audience outcomes</a>
+              </div>
+            </div>
+            <img src={stage} alt="Yrmis mid-story" width={650} height={650} className="aspect-[4/5] w-full border-2 border-gold object-cover md:col-span-4" />
+            <img src={jabiru} alt="The jabiru, guardian of the keynote" className="w-36 justify-self-center object-contain md:col-span-2 md:w-full" />
           </div>
         </Scene>
-        <section className="grid items-center gap-8 bg-scarlet px-5 py-16 md:grid-cols-2 md:px-12">
-          <img src={stage} alt="Yrmis mid-story" width={650} height={650} className="aspect-square w-full border-2 border-gold object-cover" />
-          <div>
+        <section className="bg-scarlet px-5 py-16 text-center md:px-12">
+          <div className="mx-auto max-w-3xl">
             <p className="eyebrow text-gold">Walking out</p>
             <h2 className="display-lg mt-3">{siteCopy.walkingOut}</h2>
             <Link to="/river" className="pill mt-8 bg-paper text-ink">Experience CLICK</Link>

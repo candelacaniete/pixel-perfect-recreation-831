@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { Shell } from "@/components/site/Shell";
-import { Fireflies, Lanterns, Scene } from "@/components/safari/motion";
+import { Fireflies, Scene } from "@/components/safari/motion";
 import { markVisited } from "@/components/safari/visited";
 import { signalIssues, siteCopy, substackArchive, subscribeUrl } from "@/content/yrmis";
 import land from "@/assets/land-signals-observation.jpg";
 import glasses from "@/assets/sourced/portraits/yrmis-glasses.webp";
+import macaw from "@/assets/g-macaw-authored.png";
 
 export function SignalsPage() {
   useEffect(() => markVisited("signals"), []);
@@ -18,25 +19,31 @@ export function SignalsPage() {
             <div className="scrim-l absolute inset-0" />
             <Fireflies />
           </div>
-          <Lanterns count={6} />
-          <p className="eyebrow relative text-gold">The newsletter</p>
-          <h1 className="display-xl relative mt-4">
-            1<span className="text-scarlet">•</span>1<span className="text-scarlet">•</span>1<br />
-            <em className="text-scarlet">Signals</em>
-          </h1>
-          <p className="font-display relative mt-8 max-w-2xl text-2xl italic leading-snug md:text-4xl">{siteCopy.yellow}</p>
-          <p className="relative mt-4 max-w-xl text-lg text-paper/80">{siteCopy.signalsPromise}</p>
-          <p className="relative mt-4 max-w-xl">{siteCopy.signalsOffer}</p>
-          <a href={subscribeUrl} target="_blank" rel="noreferrer" className="pill relative mt-8 bg-scarlet text-paper">Subscribe free ↗</a>
+          <div className="relative grid items-end gap-8 md:grid-cols-12">
+            <div className="md:col-span-7">
+              <p className="eyebrow text-gold">The newsletter · guarded by the macaw</p>
+              <h1 className="display-xl mt-4 text-shadow-river">
+                1<span className="text-scarlet">•</span>1<span className="text-scarlet">•</span>1<br />
+                <em className="text-scarlet">Signals</em>
+              </h1>
+              <p className="font-display mt-8 max-w-xl text-2xl italic leading-snug text-shadow-river md:text-4xl">{siteCopy.yellow}</p>
+              <p className="mt-4 max-w-xl text-shadow-river">{siteCopy.signalsOffer}</p>
+              <a href={subscribeUrl} target="_blank" rel="noreferrer" className="pill mt-8 bg-scarlet text-paper">Subscribe free ↗</a>
+            </div>
+            <img src={macaw} alt="The macaw, guardian of 1•1•1 Signals" className="w-40 justify-self-center object-contain md:col-span-5 md:w-64 md:justify-self-end" />
+          </div>
         </Scene>
         <Scene className="relative px-5 py-16 md:px-12">
-          <article className="reveal relative z-10 max-w-xl rotate-[-1.5deg] bg-scarlet p-6 shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:p-10">
-            <p className="eyebrow text-gold">Every other week</p>
-            <p className="font-display mt-4 text-2xl leading-snug md:text-3xl">{siteCopy.signalsOffer}</p>
-          </article>
-          <img src={glasses} alt="Yrmis wearing glasses, the portrait used in 1•1•1 Signals" width={212} height={258} className="reveal relative z-0 mt-8 w-48 border-2 border-gold bg-night md:ml-[8%]" />
+          <div className="grid items-center gap-8 md:grid-cols-2">
+            <article className="bg-scarlet p-6 shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:p-10">
+              <p className="eyebrow text-gold">Every other week</p>
+              <p className="font-display mt-4 text-2xl leading-snug md:text-3xl">{siteCopy.signalsPromise}</p>
+            </article>
+            <img src={glasses} alt="Yrmis wearing glasses, the portrait used in 1•1•1 Signals" width={212} height={258} className="mx-auto w-48 border-2 border-gold bg-night" />
+          </div>
         </Scene>
         <Scene className="relative border-t-2 border-scarlet bg-scarlet px-5 py-16 md:px-12">
+          <div className="mx-auto max-w-3xl">
           <p className="eyebrow text-gold">Recent issues</p>
           <ul className="mt-6 max-w-xl divide-y divide-paper/25">
             {signalIssues.map((issue) => (
@@ -46,6 +53,7 @@ export function SignalsPage() {
             ))}
           </ul>
           <a href={substackArchive} target="_blank" rel="noreferrer" className="pill mt-8 bg-paper text-ink">Browse the archive ↗</a>
+          </div>
         </Scene>
       </main>
     </Shell>

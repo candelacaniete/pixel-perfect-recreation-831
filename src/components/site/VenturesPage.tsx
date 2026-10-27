@@ -6,7 +6,6 @@ import { markVisited } from "@/components/safari/visited";
 import { siteCopy, ventureStories } from "@/content/yrmis";
 import land from "@/assets/land-ventures-crocodile.jpg";
 import horses from "@/assets/horses.png";
-import crocodile from "@/assets/river-crocodile-authored.png";
 import greenhouse from "@/assets/sourced/ventures/mh-greenhouse.jpg";
 import family from "@/assets/sourced/ventures/abs-family.jpg";
 import hem from "@/assets/sourced/ventures/hem-store.jpg";
@@ -26,14 +25,16 @@ export function VenturesPage() {
             <img src={land} alt="" width={1376} height={768} className="photo-bg object-right" />
             <div className="absolute inset-0 bg-night/45" />
           </div>
-          <img src={crocodile} alt="" aria-hidden className="drift-up pointer-events-none absolute bottom-0 right-2 w-36 md:w-56 [--d:90px]" />
-          <p className="eyebrow relative text-gold">Entrepreneurial Ventures</p>
-          <h1 className="display-xl relative mt-4 text-shadow-river">Different ventures.<br /><span className="text-gold">More ways to see.</span></h1>
-          <p className="relative mt-6 max-w-xl text-lg text-shadow-river">{siteCopy.venturesLead}</p>
+          <div className="relative flex min-h-[70svh] items-end">
+            <div className="max-w-3xl">
+              <p className="eyebrow text-gold">Entrepreneurial Ventures · guarded by the crocodile</p>
+              <h1 className="display-xl mt-4 text-shadow-river">Different ventures.<br /><span className="text-gold">More ways to see.</span></h1>
+              <p className="mt-6 max-w-xl text-lg text-shadow-river">{siteCopy.venturesLead}</p>
+            </div>
+          </div>
         </Scene>
-        <Scene className="relative overflow-hidden bg-paper px-5 py-10 md:px-12">
-          <img src={horses} alt="Four wild horses — crimson, black, gold and green — one for each company" width={1376} height={768} className="cross-x relative z-10 w-full max-w-4xl [--d:75vw]" />
-          <img src={horses} alt="" aria-hidden width={1376} height={768} className="cross-x-rtl relative z-10 -mt-10 w-full max-w-2xl [--d:60vw] md:-mt-20" />
+        <Scene className="relative overflow-hidden bg-paper px-5 py-8 md:px-12">
+          <img src={horses} alt="Four wild horses — crimson, black, gold and green — one for each company" width={1376} height={768} className="cross-x relative z-10 mx-auto w-full max-w-4xl [--d:70vw]" />
         </Scene>
         <Scene className="relative grid gap-6 px-5 py-10 md:grid-cols-2 md:px-12 xl:grid-cols-4">
           {ventureStories.map((venture, index) => (

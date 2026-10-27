@@ -1,6 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { Shell } from "@/components/site/Shell";
+import { GuardianTrail } from "@/components/site/GuardianTrail";
 import { markVisited } from "@/components/safari/visited";
 import { inquiryFromSearch, inquiryTypes, publishedEmail, type InquiryType } from "@/content/yrmis";
 
@@ -21,6 +22,10 @@ export function ContactPage({ interest }: { interest: InquiryType }) {
   const [result, setResult] = useState("");
   const speaking = interest === "Speaking";
   const field = "mt-2 w-full border-b-2 border-ink bg-transparent py-3 text-lg outline-none focus:border-tangerine";
+  const answers = speaking
+    ? [name, email, organization, date, location, audience, message]
+    : [name, email, project, challenge, timing, message];
+  const progress = answers.filter((value) => value.trim()).length / answers.length;
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -36,10 +41,12 @@ export function ContactPage({ interest }: { interest: InquiryType }) {
   return (
     <Shell tone="paper" current="Contact">
       <main className="bg-paper px-5 pb-20 pt-28 text-ink md:px-12">
+        <div className="mx-auto max-w-6xl">
         <p className="eyebrow text-crimson">Work with me</p>
-        <h1 className="display-xl mt-3 max-w-4xl">Let’s make<br />things happen.</h1>
+        <h1 className="display-lg mt-3 max-w-3xl">Let’s make things happen.</h1>
         <p className="mt-4 max-w-xl text-lg">Tell me what you’re building, planning, or trying to figure out. We’ll start there.</p>
-        <form onSubmit={onSubmit} noValidate className="mt-10 grid max-w-3xl gap-6">
+        <div className="mt-10 grid items-start gap-10 md:grid-cols-[minmax(0,1.2fr)_minmax(16rem,0.8fr)]">
+        <form onSubmit={onSubmit} noValidate className="order-2 grid gap-6 md:order-1">
           <p className="border-l-4 border-scarlet bg-scarlet/10 px-4 py-3 text-sm">
             <strong>This form does not send.</strong> For a real inquiry, email <a className="underline" href={`mailto:${publishedEmail}`}>{publishedEmail}</a>.
           </p>
@@ -70,6 +77,11 @@ export function ContactPage({ interest }: { interest: InquiryType }) {
           <button className="pill w-fit bg-ink text-paper" type="submit">Review inquiry</button>
           <p role="status">{result}</p>
         </form>
+        <div className="order-1 md:sticky md:top-28 md:order-2">
+          <GuardianTrail progress={progress} />
+        </div>
+        </div>
+        </div>
       </main>
     </Shell>
   );

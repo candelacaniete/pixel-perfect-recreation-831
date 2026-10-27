@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
-import { Fireflies, Lanterns, Scene } from "@/components/safari/motion";
+import { Scene } from "@/components/safari/motion";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy, socials } from "@/content/yrmis";
 import blazer from "@/assets/sourced/portraits/yrmis-blazer.jpg";
 import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
 import red from "@/assets/sourced/portraits/yrmis-red.jpg";
-import land from "@/assets/land-home.jpg";
+import origin from "@/assets/origin.jpg";
+import heron from "@/assets/g-heron-authored.png";
 
 const instagram = socials.find((item) => item.name === "Instagram");
 
@@ -16,19 +17,28 @@ export function AboutPage() {
   return (
     <Shell current="About">
       <main className="overflow-hidden bg-night text-paper">
-        <Scene className="isolate relative overflow-hidden px-5 pb-16 pt-28 md:px-12">
+        <Scene className="isolate relative min-h-[88svh] overflow-hidden">
           <div aria-hidden className="absolute inset-0 -z-10">
-            <img src={land} alt="" className="photo-bg object-center opacity-40" />
-            <Fireflies count={18} />
+            <img src={origin} alt="" className="photo-bg object-center" />
+            <div className="absolute inset-0 bg-night/50" />
+            <div className="scrim-l absolute inset-0" />
           </div>
-          <Lanterns count={5} />
-          <p className="eyebrow relative text-gold">About</p>
-          <h1 className="display-xl relative mt-4">
-            {siteCopy.headline}
-            <br />
-            <em className="text-gold">{siteCopy.headlineEm}</em>
-          </h1>
-          <p className="relative mt-6 max-w-2xl text-lg">{siteCopy.about}</p>
+          <div className="relative grid min-h-[88svh] items-end gap-6 px-5 pb-16 pt-28 md:grid-cols-12 md:px-12">
+            <div className="md:col-span-7">
+              <p className="eyebrow text-gold">About · guarded by the night heron</p>
+              <h1 className="display-xl mt-4 text-shadow-river">
+                {siteCopy.headline}
+                <br />
+                <em className="text-gold">{siteCopy.headlineEm}</em>
+              </h1>
+              <p className="mt-6 max-w-xl text-lg text-shadow-river">{siteCopy.about}</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link to="/work" className="pill bg-yellow-surface text-yellow-foreground">Work with me</Link>
+                <Link to="/speaking" className="pill border-2 border-paper">Speaking</Link>
+              </div>
+            </div>
+            <img src={heron} alt="The night heron, guardian of this part of the Llanos" className="w-40 justify-self-center object-contain md:col-span-5 md:w-64 md:justify-self-end" />
+          </div>
         </Scene>
         <section className="grid items-start gap-10 px-5 py-16 md:grid-cols-12 md:px-12">
           <img src={blazer} alt="Yrmis Barroeta in a blazer, original press-kit portrait" width={2688} height={4032} className="aspect-[4/5] w-full border-2 border-gold object-cover md:col-span-5" />
