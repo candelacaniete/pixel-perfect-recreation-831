@@ -104,6 +104,13 @@
   --ring: var(--tangerine);
 }
 
+/* Signature yellow squares always carry short white type. The five CLICK
+   grounds stay on their own hexes and are not recolored by the site palette. */
+.bg-click-yellow,
+.bg-click-yellow :is(a, span, p, li) {
+  color: #fff;
+}
+
 @layer base {
   * { border-color: var(--color-border); }
   html { scroll-behavior: smooth; }

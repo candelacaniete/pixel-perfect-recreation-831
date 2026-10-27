@@ -1,10 +1,16 @@
 /* Reference visual system. Scoped to .yw so the river keeps its own rules. */
 
 .yw {
-  --yw-cream: #f3eadc;
-  --yw-ink: #1b140f;
-  --yw-muted: #5c5148;
-  --yw-line: rgba(27, 20, 15, 0.14);
+  --yw-cream: #F7EEDA;
+  --yw-maroon: #750217;
+  --yw-red: #CD1D20;
+  --yw-neon: #DC235B;
+  --yw-sunset: #E4701D;
+  --yw-yellow: #FAB702;
+  --yw-ink: #221710;
+  --yw-muted: #3d2a24;
+  --yw-line: rgba(117, 2, 23, 0.16);
+  --yw-dark: #12080c;
   background: var(--yw-cream);
   color: var(--yw-ink);
   font-family: var(--font-sans);
@@ -23,7 +29,7 @@
 }
 
 .yw :focus-visible {
-  outline: 2px solid #c4a574;
+  outline: 2px solid var(--yw-neon);
   outline-offset: 3px;
 }
 
@@ -188,8 +194,8 @@
   padding: 0.9rem 1.25rem;
   border: 0;
   border-radius: 999px;
-  background: #17120f;
-  color: #f6efe4;
+  background: var(--yw-red);
+  color: #fff;
   font: 500 0.72rem/1 var(--font-sans);
   letter-spacing: 0.12em;
   text-decoration: none;
@@ -214,13 +220,22 @@
 .yw-block h2,
 .yw-dark h2,
 .yw-dusk-copy h2,
-.home-bridge h2 {
+.home-bridge h2,
+.signals-card h2,
+.yw-plain h1,
+.yw-plain h2 {
   margin: 0;
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 4vw, 3.6rem);
   font-weight: 500;
   letter-spacing: -0.03em;
   line-height: 0.95;
+  color: var(--yw-maroon);
+}
+.yw-dark h2,
+.yw-dark h3,
+.yw-dusk-copy h2 {
+  color: inherit;
 }
 
 .yw-sheet p,
@@ -249,6 +264,7 @@
 
 .yw-kicker {
   margin: 0 0 1rem;
+  color: var(--yw-sunset);
   font: 500 0.72rem/1 var(--font-sans);
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -256,9 +272,10 @@
 
 .yw-dark {
   padding: 3.5rem 7vw 4rem;
-  background: #12100e;
-  color: #f4ecdf;
+  background: var(--yw-dark);
+  color: var(--yw-cream);
 }
+.yw-dark .yw-kicker { color: var(--yw-cream); }
 .yw-dark > p {
   max-width: 36rem;
   margin: 0 0 1.2rem;
@@ -575,8 +592,8 @@
   height: 2.6rem;
   border: 0;
   border-radius: 999px;
-  background: #17120f;
-  color: #f6efe4;
+  background: var(--yw-red);
+  color: #fff;
   cursor: pointer;
 }
 
@@ -614,8 +631,8 @@
 }
 
 .yw-examples button[aria-pressed="true"] {
-  background: #17120f;
-  color: #f6efe4;
+  background: var(--yw-maroon);
+  color: var(--yw-cream);
 }
 
 .yw-plain {
@@ -669,8 +686,9 @@
   gap: 0.7rem 1.3rem;
   align-items: center;
   padding: 1rem 7vw 1.4rem;
-  background: #12100e;
-  color: #f4ecdf;
+  background: var(--yw-dark);
+  color: var(--yw-cream);
+  font-family: var(--font-sans);
   font-size: 0.78rem;
 }
 
@@ -813,7 +831,7 @@
   grid-template-columns: 1.15fr 0.85fr;
   gap: 2rem;
   padding: 2.8rem 7vw 3.2rem;
-  background: #f7f1e6;
+  background: var(--yw-cream);
 }
 .signals-card {
   position: relative;
@@ -821,8 +839,8 @@
   margin: -2.2rem 7vw 1.6rem;
   padding: 2rem 1.5rem 1.4rem;
   border-radius: 1.2rem;
-  background: #f3eadc;
-  color: #1b140f;
+  background: var(--yw-cream);
+  color: var(--yw-ink);
 }
 .signals-card h2 {
   margin: 0;
@@ -1078,4 +1096,37 @@
   .yw-orb svg { width: 0.5rem; height: 0.5rem; }
   .bleed-center .lockup { width: min(72vw, 16rem); }
   .yw-sheet-home h2 { font-size: clamp(1.7rem, 7vw, 2.3rem); }
+}
+
+/* Reading surfaces from the handoff: maroon, cream, and a dark ground.
+   Cream sheets keep maroon Fraunces titles. Yellow squares stay white. */
+.yw-read-maroon {
+  background: var(--yw-maroon);
+  color: var(--yw-cream);
+}
+.yw-sheet.yw-read-maroon h2,
+.yw-read-maroon .yw-block h2,
+.yw-read-maroon h3,
+.yw-read-maroon p,
+.yw-read-maroon .yw-kicker {
+  color: var(--yw-cream);
+}
+.yw-read-maroon .yw-ico-ink {
+  border-color: rgba(247, 238, 218, 0.7);
+  color: var(--yw-cream);
+}
+.yw-read-maroon .yw-pill {
+  background: var(--yw-cream);
+  color: var(--yw-maroon);
+}
+.yw-drives h3,
+.yw-venture h3,
+.yw-asset h3,
+.yw-rows h3 {
+  color: var(--yw-maroon);
+}
+.yw-read-maroon .yw-drives h3 { color: var(--yw-cream); }
+.bg-click-yellow,
+.bg-click-yellow :is(a, span, p) {
+  color: #fff;
 }

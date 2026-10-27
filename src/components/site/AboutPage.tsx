@@ -52,7 +52,7 @@ export function AboutPage() {
         <Band src={anaconda}>
           <p className="yw-quote">“{siteCopy.story[2].paragraphs[1]}”</p>
         </Band>
-        <section className="yw-sheet" style={{ marginTop: 0, borderRadius: 0 }}>
+        <section className="yw-sheet yw-read-maroon" style={{ marginTop: 0, borderRadius: 0 }}>
           <div className="yw-block">
             <h2>What drives me</h2>
             <div className="yw-drives">
