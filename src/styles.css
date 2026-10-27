@@ -343,7 +343,55 @@
 .arch { position: absolute; width: 9rem; height: 13rem; border: 12px solid var(--gold); border-bottom: 0; border-radius: 8rem 8rem 0 0; opacity: .35; }
 .arch-stone { position: absolute; width: 7rem; height: 7rem; border-radius: 50%; background: oklch(0.72 0.02 80 / 25%); }
 @media (min-width: 768px) { .glide-serpent { width: 13rem; } }
+.guide-slot { pointer-events: none; }
+.guide-follow {
+  position: fixed;
+  z-index: 30;
+  right: 0.75rem;
+  bottom: 1rem;
+  width: 5.75rem;
+  pointer-events: none;
+}
+.guide-follow img { width: 100%; max-height: 18vh; border-radius: 0.6rem; box-shadow: 0 10px 24px rgb(0 0 0 / 28%); }
+.guide-follow-plain { width: 6.5rem; }
+.guide-follow-plain img { border-radius: 0; box-shadow: none; max-height: 22vh; filter: drop-shadow(0 10px 14px rgb(0 0 0 / 40%)); }
+@media (min-width: 768px) {
+  .guide-follow { top: 30vh; bottom: auto; right: 1.25rem; width: 10.5rem; }
+  .guide-follow-plain { width: 9.5rem; }
+}
+.live-water {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 18% 80%, oklch(0.82 0.12 85 / 55%), transparent 52%),
+    linear-gradient(180deg, oklch(0.62 0.07 210), oklch(0.45 0.08 195) 42%, oklch(0.58 0.09 145));
+}
+.live-water-night {
+  background:
+    radial-gradient(ellipse at 72% 18%, oklch(0.78 0.03 250 / 28%), transparent 42%),
+    linear-gradient(180deg, oklch(0.16 0.04 260), oklch(0.24 0.05 215) 48%, oklch(0.18 0.05 195));
+}
+.live-waves { position: absolute; left: 0; bottom: 0; width: 200%; height: 72%; }
+.wave { transform-box: fill-box; }
+.wave-a { fill: oklch(0.78 0.06 200 / 32%); animation: wave-drift 18s linear infinite; }
+.wave-b { fill: oklch(0.9 0.08 90 / 28%); animation: wave-drift 26s linear infinite reverse; }
+.wave-c { fill: oklch(0.96 0.02 95 / 22%); animation: wave-drift 13s linear infinite; }
+.live-water-night .wave-a { fill: oklch(0.55 0.06 210 / 35%); }
+.live-water-night .wave-b { fill: oklch(0.72 0.08 85 / 22%); }
+.live-water-night .wave-c { fill: oklch(0.9 0.03 250 / 16%); }
+@keyframes wave-drift { to { transform: translateX(-50%); } }
+.live-glint {
+  position: absolute;
+  top: 28%;
+  left: -25%;
+  width: 28%;
+  height: 22%;
+  background: radial-gradient(ellipse, oklch(0.97 0.04 95 / 50%), transparent 70%);
+  animation: glint-run 12s ease-in-out infinite;
+}
+@keyframes glint-run { to { left: 95%; } }
 @media (prefers-reduced-motion: reduce) {
-  .water-live, .mist, .bubble-breath, .balloon-breath, .cloud-puff, .water-deep::after, .water-sheet::before, .sky-drift img, .sun-glow { animation: none !important; }
+  .water-live, .mist, .bubble-breath, .balloon-breath, .cloud-puff, .water-deep::after, .water-sheet::before, .sky-drift img, .sun-glow, .wave, .live-glint { animation: none !important; }
   .herd { left: auto; right: 4%; }
+  .live-glint { left: 36%; }
 }

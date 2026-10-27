@@ -3,12 +3,12 @@ import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { ClickFive } from "@/components/site/ClickFive";
 import { Scene } from "@/components/safari/motion";
-import { PoseCycle, WaterSurface } from "@/components/site/habitat";
+import { ClickSnake, LiveWater } from "@/components/site/habitat";
+import { Guide, GuideHero, GuideSlot } from "@/components/site/Guide";
 import { markVisited } from "@/components/safari/visited";
 import { clickExamples } from "@/content/yrmis";
 import coil1 from "@/assets/living/anaconda-coil-1.jpg";
 import coil2 from "@/assets/living/anaconda-coil-2.jpg";
-import nightWater from "@/assets/land-signals-observation.jpg";
 
 const coils = [coil1, coil2];
 
@@ -37,19 +37,25 @@ export function ClickPage() {
   return (
     <Shell>
       <main className="overflow-hidden bg-night text-paper">
-        <Scene className="relative overflow-hidden bg-night px-5 pb-16 pt-28 md:px-12">
-          <WaterSurface src={nightWater} position="center 65%" className="-z-10" />
-          <div aria-hidden className="absolute inset-0 -z-10 bg-night/55" />
-          <div className="relative mx-auto max-w-3xl">
-            <p className="eyebrow text-gold">CLICK · guarded by the anaconda</p>
-            <h1 className="display-xl mt-3">What can be<br /><em className="text-gold">done better?</em></h1>
-            <p className="mt-6 max-w-xl text-lg">Think of your desk, your company, your neighborhood. What’s one thing that bugs you? Start there. You can open this page without finishing the river.</p>
-          </div>
-        </Scene>
-        <PoseCycle frames={coils} interval={1100} alt="The anaconda coiled in the night water, shifting its head" />
+        <Guide frames={coils} interval={1100} follow={false} focus="center 62%" alt="The anaconda coiled in the night water, shifting its head">
+          <GuideHero>
+            <Scene className="relative min-h-[78svh] overflow-hidden bg-night px-5 pb-12 pt-28 md:px-12">
+              <LiveWater tone="night" />
+              <div className="relative grid items-end gap-6 md:grid-cols-12">
+                <div className="md:col-span-7">
+                  <p className="eyebrow text-gold">CLICK · guarded by the anaconda</p>
+                  <h1 className="display-xl mt-3">What can be<br /><em className="text-gold">done better?</em></h1>
+                  <p className="mt-6 max-w-xl text-lg">Think of your desk, your company, your neighborhood. What’s one thing that bugs you? Start there. You can open this page without finishing the river.</p>
+                </div>
+                <GuideSlot className="w-full max-w-xs md:col-span-5 md:max-w-sm md:justify-self-end" />
+              </div>
+            </Scene>
+          </GuideHero>
+        </Guide>
         <section className="bg-night px-5 py-12 md:px-12">
           <ClickFive />
         </section>
+        <ClickSnake />
         <section className="bg-paper px-5 py-14 text-ink md:px-12">
           <div className="mx-auto max-w-5xl">
           <p className="eyebrow text-crimson">Illustrative examples from the talk</p>

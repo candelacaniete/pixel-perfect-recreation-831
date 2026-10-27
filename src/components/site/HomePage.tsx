@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { Fireflies, Lanterns, Scene } from "@/components/safari/motion";
-import { PoseCycle } from "@/components/site/habitat";
+import { Guide, GuideEnd, GuideHero, GuideSlot } from "@/components/site/Guide";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import landHome from "@/assets/land-home.jpg";
@@ -17,6 +17,8 @@ export function HomePage() {
   return (
     <Shell current="Home">
       <main className="overflow-hidden bg-night text-paper">
+        <Guide frames={gallop} interval={420} focus="center 58%" frame="aspect-video" alt="Four horses — crimson, black, gold and green — galloping in place on the plain">
+        <GuideHero>
         <Scene as="header" className="isolate relative min-h-[100svh] overflow-hidden">
           <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
             <img src={landHome} alt="" width={1920} height={1088} className="photo-bg cloud-drift object-[70%_center]" />
@@ -25,7 +27,7 @@ export function HomePage() {
             <Fireflies count={28} />
           </div>
           <Lanterns count={5} />
-          <div className="relative z-20 flex min-h-[100svh] items-end px-5 pb-16 pt-28 md:px-12">
+          <div className="relative z-20 flex min-h-[100svh] flex-col justify-end px-5 pb-8 pt-28 md:px-12">
             <div className="max-w-3xl">
               <p className="eyebrow text-gold">{siteCopy.identity}</p>
               <h1 className="display-xl mt-4">
@@ -40,8 +42,10 @@ export function HomePage() {
                 <Link to="/speaking" className="pill border-2 border-paper">Speaking</Link>
               </div>
             </div>
+            <GuideSlot className="mt-5 max-w-lg" />
           </div>
         </Scene>
+        </GuideHero>
 
         <section className="border-t border-gold/30 px-5 py-16 md:px-12">
           <div className="mx-auto max-w-3xl">
@@ -52,8 +56,8 @@ export function HomePage() {
             <Link to="/about" className="pill mt-8 bg-paper text-ink">Read the story</Link>
           </div>
         </section>
-
-        <PoseCycle frames={gallop} interval={420} alt="Four horses — crimson, black, gold and green — galloping in place on the plain" />
+        <GuideEnd />
+        </Guide>
 
         <section className="bg-scarlet px-5 py-16 md:px-12">
           <div className="mx-auto max-w-3xl">

@@ -2,11 +2,10 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { Scene } from "@/components/safari/motion";
-import { WaterSurface } from "@/components/site/habitat";
+import { LiveWater } from "@/components/site/habitat";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy, ventureStories } from "@/content/yrmis";
 import land from "@/assets/land-ventures-crocodile.jpg";
-import water from "@/assets/living/ventures-water.jpg";
 import greenhouse from "@/assets/sourced/ventures/mh-greenhouse.jpg";
 import family from "@/assets/sourced/ventures/abs-family.jpg";
 import hem from "@/assets/sourced/ventures/hem-store.jpg";
@@ -34,9 +33,10 @@ export function VenturesPage() {
             </div>
           </div>
         </Scene>
-        <Scene className="relative px-5 py-16 md:px-12">
-          <WaterSurface src={water} position="center" />
-          <div className="relative z-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div aria-hidden className="h-20 md:h-28" />
+        <Scene className="relative mx-5 overflow-hidden md:mx-12">
+          <LiveWater />
+          <div className="relative z-10 grid gap-6 px-3 py-10 md:grid-cols-2 md:px-6 md:py-14 xl:grid-cols-4">
           {ventureStories.map((venture, index) => (
             <article key={venture.name} className={`reveal flex flex-col overflow-hidden shadow-[0_24px_50px_-20px_oklch(0_0_0/50%)] transition duration-300 hover:rotate-0 hover:scale-[1.03] ${tints[index]} ${tilts[index]}`}>
               <img src={photos[venture.photo]} alt="" className="aspect-[4/5] w-full object-cover" />
@@ -49,11 +49,8 @@ export function VenturesPage() {
           ))}
           </div>
         </Scene>
-        <section className="relative px-5 py-16 md:px-12">
-          <WaterSurface src={water} position="center 60%" />
-          <div className="relative z-10">
-            <Link to="/work" className="pill bg-ink text-paper">Work with me</Link>
-          </div>
+        <section className="px-5 py-16 md:px-12">
+          <Link to="/work" className="pill bg-ink text-paper">Work with me</Link>
         </section>
       </main>
     </Shell>

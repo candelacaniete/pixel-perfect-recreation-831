@@ -3,10 +3,9 @@ import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { ClickFive } from "@/components/site/ClickFive";
 import { Scene } from "@/components/safari/motion";
-import { PoseCycle } from "@/components/site/habitat";
+import { Guide, GuideEnd, GuideHero, GuideSlot } from "@/components/site/Guide";
 import { markVisited } from "@/components/safari/visited";
 import { clickOutcomes, siteCopy } from "@/content/yrmis";
-import stage from "@/assets/sourced/portraits/yrmis-stage.webp";
 import llanos from "@/assets/living/speaking-llanos.jpg";
 import jabiruUp from "@/assets/living/jabiru-up.jpg";
 import jabiruDown from "@/assets/living/jabiru-down.jpg";
@@ -19,12 +18,14 @@ export function SpeakingPage() {
   return (
     <Shell current="Speaking">
       <main className="overflow-hidden bg-night text-paper">
-        <Scene className="relative min-h-[88svh] overflow-hidden bg-night px-5 pb-16 pt-28 md:px-12">
+        <Guide frames={jabiruFlight} focus="center 40%" alt="The jabiru beating its wings over the sunlit Llanos">
+        <GuideHero>
+        <Scene className="relative min-h-[88svh] overflow-hidden bg-night px-5 pb-12 pt-28 md:px-12">
           <img src={llanos} alt="" className="photo-bg object-center" />
           <div aria-hidden className="sky-drift"><img src={llanos} alt="" /></div>
           <div aria-hidden className="sun-glow" />
           <div aria-hidden className="scrim-l absolute inset-0" />
-          <div className="relative grid items-end gap-8 md:grid-cols-12">
+          <div className="relative grid items-end gap-6 md:grid-cols-12">
             <div className="md:col-span-7">
               <p className="eyebrow text-gold">The signature keynote · guarded by the jabiru</p>
               <h1 className="display-xl mt-4">CLICK into<br /><em className="text-gold">Wild Innovation</em></h1>
@@ -34,9 +35,10 @@ export function SpeakingPage() {
                 <a href="#audience-outcomes" className="pill border-2 border-paper">Audience outcomes</a>
               </div>
             </div>
-            <img src={stage} alt="Yrmis mid-story" width={650} height={650} className="relative aspect-[4/5] max-h-[56vh] w-full border-2 border-gold object-cover object-top md:col-span-5 md:w-auto md:justify-self-end" />
+            <GuideSlot className="w-full max-w-xs md:col-span-5 md:max-w-sm md:justify-self-end" />
           </div>
         </Scene>
+        </GuideHero>
         <section className="bg-scarlet px-5 py-16 text-center md:px-12">
           <div className="mx-auto max-w-3xl">
             <p className="eyebrow text-gold">Walking out</p>
@@ -44,13 +46,12 @@ export function SpeakingPage() {
             <Link to="/river" className="pill mt-8 bg-paper text-ink">Experience CLICK</Link>
           </div>
         </section>
-        <PoseCycle frames={jabiruFlight} alt="The jabiru beating its wings over the sunlit Llanos" />
-        <section className="bg-night px-5 py-12 md:px-12">
+        <section className="bg-night px-5 py-12 md:py-12 md:pl-12 md:pr-40">
           <ClickFive />
         </section>
         <section id="audience-outcomes" className="bg-paper px-5 py-16 text-ink md:px-12">
           <p className="eyebrow text-crimson">Audience outcomes</p>
-          <ol className="mt-8 grid gap-6 md:grid-cols-2">
+          <ol className="mt-8 grid gap-6 md:grid-cols-2 md:pr-36">
             {clickOutcomes.map((item) => (
               <li key={item.name} className="border-t-2 border-ink pt-4">
                 <h3 className="font-display text-3xl">{item.letter} · {item.name}</h3>
@@ -59,6 +60,8 @@ export function SpeakingPage() {
             ))}
           </ol>
         </section>
+        <GuideEnd />
+        </Guide>
         <section className="grid gap-4 bg-night px-5 py-12 md:grid-cols-3 md:px-12">
           {[
             ["Watch Yrmis speak", "Place an approved stage clip here, with captions, a clear play control and a mobile poster frame."],
@@ -72,7 +75,6 @@ export function SpeakingPage() {
             </article>
           ))}
         </section>
-        <PoseCycle frames={[jabiruGlide, jabiruUp, jabiruDown]} alt="The jabiru gliding over the same sunlit plain" />
         <section className="bg-scarlet px-5 py-16 md:px-12">
           <h2 className="display-lg">Bring CLICK to your team.</h2>
           <div className="mt-8 flex flex-wrap gap-3">

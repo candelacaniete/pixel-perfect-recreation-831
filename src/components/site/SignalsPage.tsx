@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Shell } from "@/components/site/Shell";
 import { Fireflies, Scene } from "@/components/safari/motion";
-import { PoseCycle, WaterSurface } from "@/components/site/habitat";
+import { Guide, GuideEnd, GuideHero, GuideSlot } from "@/components/site/Guide";
 import { markVisited } from "@/components/safari/visited";
 import { signalIssues, siteCopy, substackArchive, subscribeUrl } from "@/content/yrmis";
 import land from "@/assets/land-signals-observation.jpg";
@@ -17,14 +17,17 @@ export function SignalsPage() {
   return (
     <Shell current="Signals">
       <main className="overflow-hidden bg-night text-paper">
-        <Scene className="isolate relative min-h-[88svh] overflow-hidden px-5 pb-20 pt-28 md:px-12">
+        <Guide frames={macawFlight} focus="40% 42%" alt="The macaw beating its wings in front of the moon">
+        <GuideHero>
+        <Scene className="isolate relative min-h-[88svh] overflow-hidden px-5 pb-12 pt-28 md:px-12">
           <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
             <img src={land} alt="" width={1920} height={1088} className="photo-bg object-[75%_center]" />
             <div className="absolute inset-0 bg-night/45" />
             <div className="scrim-l absolute inset-0" />
             <Fireflies />
           </div>
-          <div className="relative max-w-3xl">
+          <div className="relative grid items-end gap-6 md:grid-cols-12">
+          <div className="max-w-3xl md:col-span-7">
               <p className="eyebrow text-gold">The newsletter · guarded by the macaw</p>
               <h1 className="display-xl mt-4 text-shadow-river">
                 1<span className="text-scarlet">•</span>1<span className="text-scarlet">•</span>1<br />
@@ -34,9 +37,12 @@ export function SignalsPage() {
               <p className="mt-4 max-w-xl text-shadow-river">{siteCopy.signalsOffer}</p>
               <a href={subscribeUrl} target="_blank" rel="noreferrer" className="pill mt-8 bg-scarlet text-paper">Subscribe free ↗</a>
           </div>
+          <GuideSlot className="w-full max-w-xs md:col-span-5 md:max-w-sm md:justify-self-end" />
+          </div>
         </Scene>
+        </GuideHero>
         <Scene className="relative px-5 py-16 md:px-12">
-          <div className="grid items-center gap-8 md:grid-cols-2">
+          <div className="grid items-center gap-8 md:grid-cols-2 md:pr-36">
             <article className="bg-scarlet p-6 shadow-[0_30px_60px_-20px_oklch(0_0_0/70%)] md:p-10">
               <p className="eyebrow text-gold">Every other week</p>
               <p className="font-display mt-4 text-2xl leading-snug md:text-3xl">{siteCopy.signalsPromise}</p>
@@ -44,10 +50,9 @@ export function SignalsPage() {
             <img src={glasses} alt="Yrmis wearing glasses, the portrait used in 1•1•1 Signals" width={212} height={258} className="mx-auto w-48 border-2 border-gold bg-night" />
           </div>
         </Scene>
-        <PoseCycle frames={macawFlight} alt="The macaw beating its wings in front of the moon" />
+        <GuideEnd />
+        </Guide>
         <Scene className="relative overflow-hidden border-t border-gold/30 bg-night px-5 py-16 md:px-12">
-          <WaterSurface src={land} position="center 70%" />
-          <div aria-hidden className="absolute inset-0 bg-night/72" />
           <Fireflies count={16} />
           <div className="relative z-10 mx-auto max-w-3xl">
           <p className="eyebrow text-gold">Recent issues</p>
