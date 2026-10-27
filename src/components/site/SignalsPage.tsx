@@ -6,6 +6,7 @@ import { signalIssues, signals, siteCopy, substackArchive, subscribeUrl } from "
 import puma from "@/assets/reference/ref-signals-puma.jpg";
 import night from "@/assets/land-signals-observation.jpg";
 import typeSignals from "@/assets/reference/type-signals.png";
+import glasses from "@/assets/sourced/portraits/yrmis-glasses.png";
 
 const finds = [
   { title: "Reflections", body: "Ideas and questions from the field.", icon: "home" },
@@ -50,6 +51,11 @@ export function SignalsPage() {
           </div>
         </section>
         <section className="signals-card">
+          <figure className="yw-signals-portrait">
+            <img src={glasses} width={212} height={258} alt="Yrmis Barroeta wearing glasses, the portrait published in the 1.1.1 Signals footer" />
+            <figcaption>The portrait from the 1.1.1 Signals footer.</figcaption>
+          </figure>
+          <div>
           <h2>Subscribe to 1.1.1 Signals</h2>
           <p>Get it in your inbox. This opens the Substack subscribe page.</p>
           <form className="yw-sub" action={subscribeUrl} method="get" target="_blank">
@@ -63,6 +69,7 @@ export function SignalsPage() {
             ))}
           </ul>
           <a className="yw-pill" href={substackArchive} target="_blank" rel="noreferrer">Browse the archive →</a>
+          </div>
         </section>
         <Band src={night}>
           <p className="yw-quote">No spam. Field notes, free.</p>

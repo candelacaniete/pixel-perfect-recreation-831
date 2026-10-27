@@ -62,7 +62,7 @@ export function RiverJourney({ onShore }: { onShore?: () => void } = {}) {
   const reduced = useReducedMotion();
   const j = useJourney();
   const [active, setActive] = useState<number | null>(null);
-  const [phase, setPhase] = useState<Phase>("dialogue");
+  const [phase, setPhase] = useState<Phase>("arrival");
   const [caption, setCaption] = useState<{ text: string; cite?: string } | null>(null);
   const [nearLine, setNearLine] = useState<string | null>(null);
   const [hint, setHint] = useState(true);
@@ -165,7 +165,7 @@ export function RiverJourney({ onShore }: { onShore?: () => void } = {}) {
         if (S.cam >= targetZ - 0.05) {
           S.cam = targetZ; S.vel = 0;
           if (next === -2) { S.crocodileActive = true; setCrocodileActive(true); }
-          else if (next >= 0) { S.encounter = next; setActive(next); setPhase("dialogue"); }
+          else if (next >= 0) { S.encounter = next; setActive(next); setPhase("arrival"); }
           else journey.set({ landed: true });
         }
       } else { S.push = 0; S.vel *= 0.9; }
@@ -466,7 +466,7 @@ export function RiverJourney({ onShore }: { onShore?: () => void } = {}) {
       </div>
 
       {/* floating text anchored to the nearest guardian */}
-      <div className={`pointer-events-none absolute inset-x-5 top-[calc(env(safe-area-inset-top)+5.5rem)] z-10 md:inset-x-auto md:top-[20%] md:w-[26rem] ${side > 0 ? "md:right-[6%]" : "md:left-[6%]"}`}>
+      <div className={`pointer-events-none absolute inset-x-5 top-[calc(env(safe-area-inset-top)+7.25rem)] z-10 md:inset-x-auto md:top-[22%] md:w-[26rem] ${side > 0 ? "md:right-[6%]" : "md:left-[6%]"}`}>
         {nearLine && !stop && (
           <p className="speech animate-in fade-in duration-700">{stops[Number(nearLine)]?.recognition}</p>
         )}

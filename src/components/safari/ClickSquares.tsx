@@ -16,14 +16,11 @@ const SQUARE_STYLE = [
 
 export function ClickSquares({ className = "" }: { className?: string }) {
   return (
-    <ol className={`grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5 ${className}`}>
+    <ol className={`click-row ${className}`}>
       {principles.map((p, i) => (
-        <li key={p.name} className={`flex min-h-40 flex-col justify-between p-4 md:min-h-56 md:p-5 ${SQUARE_STYLE[i]!.bg} ${SQUARE_STYLE[i]!.fg} ${i === 4 ? "max-lg:col-span-2 max-lg:sm:col-span-1" : ""}`}>
-          <span aria-hidden className={`font-display leading-none ${i === 1 ? "text-7xl md:text-8xl" : "text-5xl md:text-7xl"}`}>{p.letter}</span>
-          <div className="mt-6">
-            <p className={`font-display leading-tight ${i === 1 ? "text-3xl md:text-4xl" : "text-lg md:text-xl"}`}>{p.name}</p>
-            {i === 1 ? null : <p className="mt-2 text-sm leading-snug opacity-80">{p.tagline}</p>}
-          </div>
+        <li key={p.name} className={`click-square ${SQUARE_STYLE[i]!.bg} ${SQUARE_STYLE[i]!.fg}`}>
+          <span aria-hidden className="click-letter">{p.letter}</span>
+          <p className="click-name">{p.name}</p>
         </li>
       ))}
     </ol>

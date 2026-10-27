@@ -6,8 +6,9 @@ import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import anaconda from "@/assets/reference/ref-about-anaconda.jpg";
 import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
-import portrait from "@/assets/sourced/portraits/yrmis-blazer.jpg";
-import typeAbout from "@/assets/reference/type-about.png";
+import blazer from "@/assets/sourced/portraits/yrmis-blazer.jpg";
+import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
+import heels from "@/assets/sourced/portraits/yrmis-red.jpg";
 
 const drives = [
   { title: "Curiosity", body: "Notice what bugs you. Ask what could work better.", icon: "eye" },
@@ -31,21 +32,37 @@ export function AboutPage() {
   return (
     <Shell current="About">
       <main className="yw">
-        <section className="bleed" aria-label="About">
-          <img className="bleed-photo" src={anaconda} alt="An anaconda coiled through dark water at dusk" style={{ objectPosition: "18% 38%" }} />
-          <div className="bleed-copy">
+        <section className="yw-opener" aria-labelledby="about-title">
+          <img
+            src={blazer}
+            width={2688}
+            height={4032}
+            alt="Yrmis Barroeta in a black blazer, hands at her waist, photographed in black and white"
+          />
+          <div>
             <p className="yw-kicker">A journey across territories, ideas and life.</p>
-            <h1 className="lockup-title"><img className="lockup" src={typeAbout} alt="A curious way of belonging" /></h1>
-            <p className="yw-standfirst">{siteCopy.about}</p>
+            <h1 id="about-title">A curious way of belonging</h1>
+            <p>{siteCopy.about}</p>
           </div>
         </section>
-        <section className="yw-sheet" id="story">
-          <img className="story-photo" src={portrait} alt="Yrmis Barroeta" />
+        <section className="yw-read" id="story">
           <h2>My story</h2>
-          {siteCopy.story.map((chapter) => (
+          {siteCopy.story.map((chapter, index) => (
             <article key={chapter.title} className="yw-story">
-              <p className="yw-kicker">{chapter.title}</p>
+              <h3>{chapter.title}</h3>
               {chapter.paragraphs.map((paragraph) => <p key={paragraph} className="yw-prose">{paragraph}</p>)}
+              {index === 0 && (
+                <figure className="yw-plate">
+                  <img src={plants} width={1400} height={1400} alt="Yrmis Barroeta smiling among large green leaves" />
+                  <figcaption>Among the plants.</figcaption>
+                </figure>
+              )}
+              {index === 1 && (
+                <figure className="yw-plate">
+                  <img src={heels} width={1440} height={1800} alt="Yrmis Barroeta in red tights and red heels, one hand resting on her shin" />
+                  <figcaption>Red tights and red heels.</figcaption>
+                </figure>
+              )}
             </article>
           ))}
         </section>

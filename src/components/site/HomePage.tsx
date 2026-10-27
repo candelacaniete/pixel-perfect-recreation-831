@@ -10,6 +10,7 @@ import wetland from "@/assets/reference/ref-click-llanos.jpg";
 import palms from "@/assets/reference/ref-tile-palms.jpg";
 import anaconda from "@/assets/reference/ref-about-anaconda.jpg";
 import typeHome from "@/assets/reference/type-home-ink.png";
+import portrait from "@/assets/sourced/portraits/yrmis-red.jpg";
 
 const areas = [
   { title: "Science & innovation", to: "/speaking" as const, img: dusk, focus: "30% 55%" },
@@ -31,6 +32,24 @@ export function HomePage() {
   return (
     <Shell current="Home">
       <main className="yw">
+        <section className="yw-intro" aria-labelledby="who-yrmis">
+          <div>
+            <p className="yw-kicker">Yrmis Barroeta</p>
+            <h1 id="who-yrmis">{siteCopy.identity}</h1>
+            <p>{siteCopy.about}</p>
+            <div className="yw-actions">
+              <Link to="/speaking" className="yw-pill">Speaking</Link>
+              <Link to="/work" className="yw-pill yw-pill-ink">Work with me</Link>
+            </div>
+          </div>
+          <img
+            className="yw-portrait"
+            src={portrait}
+            width={1440}
+            height={1800}
+            alt="Yrmis Barroeta in a black dress, red tights, and red heels, one hand resting on her shin"
+          />
+        </section>
         <section className="bleed bleed-ink" aria-label="Home">
           <img className="bleed-photo" src={capybara} alt="A capybara among water lilies at sunset in the Llanos" />
           <div className="bleed-copy">
