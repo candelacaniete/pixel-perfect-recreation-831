@@ -1,6 +1,7 @@
-/* Reference visual system. Scoped to .yw so the river keeps its own rules. */
+/* Reference visual system. Tokens live on the root so the masthead and footer,
+   which sit beside .yw, can use them. Page color stays on .yw. */
 
-.yw {
+:root {
   --yw-cream: #F7EEDA;
   --yw-maroon: #750217;
   --yw-red: #CD1D20;
@@ -11,6 +12,9 @@
   --yw-muted: #3d2a24;
   --yw-line: rgba(117, 2, 23, 0.16);
   --yw-dark: #12080c;
+}
+
+.yw {
   background: var(--yw-cream);
   color: var(--yw-ink);
   font-family: var(--font-sans);
@@ -271,7 +275,7 @@
 .yw-kicker {
   margin: 0 0 1rem;
   color: var(--yw-sunset);
-  font: 500 0.72rem/1 var(--font-sans);
+  font: 500 0.72rem/1 var(--font-mono), ui-monospace, monospace;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -702,25 +706,49 @@
   padding-top: 4.8rem;
 }
 
+.yw-wordmark {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.85rem;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: inherit;
+  text-decoration: none;
+}
+.yw-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: var(--yw-red);
+  color: #fff;
+  font: 600 0.68rem/1 var(--font-sans);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.yw-cta:hover { background: var(--yw-yellow); color: #fff; transform: translateY(-2px) rotate(-1deg); }
+.yw-cta:active { transform: scale(0.97); }
+.yw-chrome.is-ink:not(.is-solid) .yw-wordmark { color: #1b140f; }
+
 @media (max-width: 900px) {
-  .yw-nav { display: none; }
-  .yw-chrome.is-open .yw-nav {
+  .yw-chrome {
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "logo cta" "nav nav";
+    gap: 0.35rem 0.8rem;
+  }
+  .yw-wordmark { grid-area: logo; }
+  .yw-cta { grid-area: cta; justify-self: end; }
+  .yw-nav {
+    grid-area: nav;
     display: flex;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.4rem 1.2rem 1rem;
-    background: #16120f;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.4rem 0.8rem;
   }
-  .yw-chrome.is-open .yw-more-panel {
-    position: static;
-    grid-column: 1 / -1;
-    padding: 0 1.2rem 1rem;
-    border-radius: 0;
-  }
+  .yw-nav a { white-space: nowrap; }
   .yw-find,
   .yw-tracks,
   .yw-pair,
@@ -1135,6 +1163,222 @@
 .bg-click-yellow,
 .bg-click-yellow :is(a, span, p) {
   color: #fff;
+}
+
+/* Editorial heroes: type leads, the Llanos and the animals accompany. */
+.ed-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(14rem, 0.82fr);
+  align-items: end;
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--yw-cream);
+  background: var(--yw-dark);
+}
+.ed-hero-ground {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+  animation: ed-drift 32s ease-in-out infinite alternate;
+}
+.ed-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  background-image: radial-gradient(rgba(18, 8, 12, 0.65) 0.3px, transparent 0.45px);
+  background-size: 3px 3px;
+}
+.ed-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(18, 8, 12, 0.78) 0%, rgba(18, 8, 12, 0.28) 48%, rgba(18, 8, 12, 0.08) 100%),
+    linear-gradient(to top, rgba(18, 8, 12, 0.72), rgba(18, 8, 12, 0) 46%);
+}
+.ed-hero-copy {
+  position: relative;
+  z-index: 2;
+  padding: 7.4rem 6vw 3.5rem;
+  max-width: 42rem;
+}
+.ed-hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(3.2rem, 7.4vw, 6.6rem);
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  color: var(--yw-cream);
+}
+.ed-deck {
+  max-width: 36rem;
+  margin: 1.1rem 0 0;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--yw-cream);
+}
+.ed-hero .yw-kicker { color: var(--yw-yellow); }
+.ed-hero-plate,
+.ed-animal {
+  position: relative;
+  z-index: 2;
+  width: auto;
+  max-width: min(42vw, 28rem);
+  max-height: 78vh;
+  height: auto;
+  justify-self: end;
+  align-self: end;
+  margin: 0 4vw 0 0;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.38));
+}
+.ed-animal {
+  position: absolute;
+  right: 4vw;
+  bottom: 0;
+  width: min(26vw, 16rem);
+  max-height: 58vh;
+  margin: 0;
+  animation: ed-float 7.5s ease-in-out infinite;
+  pointer-events: none;
+}
+.ed-hero:has(.ed-hero-squares) .ed-animal {
+  top: 16vh;
+  bottom: auto;
+  width: min(18vw, 11rem);
+}
+canvas.ed-animal {
+  width: min(44vw, 30rem);
+  max-height: 48vh;
+  height: auto;
+}
+.ed-hero-open { grid-template-columns: minmax(0, 36rem); }
+.ed-hero:has(.ed-hero-squares) { grid-template-columns: minmax(0, 1fr); }
+.ed-hero:has(.ed-hero-squares) .ed-hero-copy { max-width: 40rem; }
+.ed-hero .yw-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.ed-hero .yw-pill-ink {
+  border-color: var(--yw-cream);
+  color: var(--yw-cream);
+}
+.ed-animal.is-left { right: auto; left: 3vw; width: min(26vw, 16rem); }
+.ed-native { margin: 1.3rem 0 0; }
+.ed-native img {
+  display: block;
+  width: 212px;
+  height: 258px;
+  object-fit: contain;
+  background: #efe4d0;
+}
+.ed-native figcaption {
+  margin-top: 0.45rem;
+  max-width: 16rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--yw-cream);
+}
+.ed-hero + .yw-plain { padding-top: 2.4rem; }
+.ed-hero:has(.ed-hero-plate) + .yw-sheet,
+.ed-hero:has(.ed-hero-squares) + .yw-sheet { margin-top: 0; }
+.ed-hero-plate { margin-bottom: 1.4rem; }
+.ed-hero-squares {
+  position: relative;
+  z-index: 2;
+  grid-column: 1 / -1;
+  padding: 0 4vw 2.2rem;
+}
+.ed-night .ed-fireflies { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.ed-fireflies span {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--yw-yellow);
+  box-shadow: 0 0 10px 3px rgba(250, 183, 2, 0.7);
+  animation: ed-float 5.5s ease-in-out infinite;
+}
+.ed-fireflies span:nth-child(1) { top: 22%; left: 18%; }
+.ed-fireflies span:nth-child(2) { top: 40%; left: 62%; animation-delay: -1.4s; }
+.ed-fireflies span:nth-child(3) { top: 68%; left: 30%; animation-delay: -2.6s; }
+.ed-fireflies span:nth-child(4) { top: 18%; left: 78%; animation-delay: -3.2s; }
+@keyframes ed-drift { to { transform: scale(1.12) translate3d(-1.4%, -1%, 0); } }
+@keyframes ed-float { 50% { transform: translateY(-14px); } }
+
+.ed-foot {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15fr 0.7fr 1fr;
+  gap: 2rem 2.2rem;
+  padding: 3.2rem 7vw 1.4rem;
+  overflow: hidden;
+  background: var(--yw-dark);
+  color: var(--yw-cream);
+  font-family: var(--font-sans);
+}
+.ed-foot-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(4rem, 10vw, 7.5rem);
+  letter-spacing: -0.045em;
+  line-height: 0.84;
+}
+.ed-foot p { margin: 0.7rem 0 0; line-height: 1.45; }
+.ed-foot nav,
+.ed-foot-socials { display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+.ed-foot a { color: inherit; text-decoration: none; }
+.ed-foot a:hover { color: var(--yw-yellow); }
+.ed-foot .yw-kicker { color: var(--yw-yellow); }
+.ed-foot-signals {
+  position: relative;
+  z-index: 1;
+  align-self: start;
+  padding: 1.3rem 1.2rem 1.5rem;
+  background: var(--yw-red);
+  color: #fff;
+}
+.ed-foot-signals .yw-kicker { color: #fff; }
+.ed-foot-signals a { font-weight: 600; }
+.ed-foot-animal {
+  display: block;
+  width: 7.5rem;
+  height: auto;
+  margin-top: 1.2rem;
+  animation: ed-float 8s ease-in-out infinite;
+}
+.ed-foot-fine {
+  grid-column: 1 / -1;
+  position: relative;
+  z-index: 1;
+  margin: 0.2rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(247, 238, 218, 0.28);
+  font-size: 0.85rem;
+}
+@media (max-width: 800px) {
+  .ed-hero { display: flex; flex-direction: column; min-height: 0; align-items: stretch; }
+  .ed-hero-copy { order: 1; padding: 9.2rem 1.2rem 1.4rem; }
+  .ed-hero-plate { order: 2; position: relative; width: auto; max-width: min(88vw, 22rem); max-height: none; margin: 0 auto; }
+  .ed-animal, .ed-animal.is-left { order: 5; position: relative; right: auto; left: auto; width: min(78vw, 18rem); margin: 0 auto; }
+  .ed-hero-squares { order: 4; padding: 1rem 1rem 1.4rem; }
+  .ed-foot { grid-template-columns: 1fr; padding: 2.4rem 1.2rem 1.2rem; }
+  .ed-foot-animal { width: 6.2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ed-hero-ground, .ed-animal, .ed-foot-animal, .ed-fireflies span { animation: none; }
+  .ed-hero-ground { transform: none; }
 }
 
 /* Who Yrmis is, then the portrait. On a phone the copy stays first. */

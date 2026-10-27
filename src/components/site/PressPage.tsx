@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
+import { EditorialHero } from "@/components/editorial/EditorialHero";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import turtle from "@/assets/reference/ref-press-turtle.jpg";
+import macaw from "@/assets/g-macaw-authored.png";
 import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
 import blazer from "@/assets/sourced/portraits/yrmis-blazer.jpg";
 import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
@@ -44,10 +46,15 @@ export function PressPage() {
   return (
     <Shell current="Press kit">
       <main className="yw">
+        <EditorialHero
+          kicker="Press kit"
+          title="Media assets"
+          deck={`${siteCopy.identity}. Official materials for media, events, and collaborations.`}
+          ground={turtle}
+          groundAlt="A turtle on the dry ground of the Llanos"
+          animal={{ src: macaw, width: 1024, height: 1024, alt: "An illustrated macaw in flight" }}
+        />
         <section className="yw-sheet">
-          <p className="yw-kicker">Press kit</p>
-          <h2>Media assets</h2>
-          <p>{siteCopy.identity}. Official materials for media, events, and collaborations.</p>
           <p>These are the files already published. Nothing here is a placeholder download.</p>
           <div className="yw-assets">
             {assets.map((asset) => (

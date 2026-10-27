@@ -1,8 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
+import { EditorialHero } from "@/components/editorial/EditorialHero";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
+import plain from "@/assets/reference/ref-dusk-llanos.jpg";
+import capy from "@/assets/g-capymech-authored.png";
 
 const tracks = [
   { eyebrow: "Founders", title: "From idea to next stage.", body: siteCopy.founders, interest: "Consulting Studio" as const },
@@ -14,10 +17,16 @@ export function WorkPage() {
   useEffect(() => markVisited("work"), []);
   return (
     <Shell current="Work with me">
-      <main className="yw yw-plain">
-        <p className="yw-kicker">Consulting studio</p>
-        <h1 className="yw-display" style={{ fontSize: "clamp(3rem, 6vw, 5.4rem)" }}>Plan and conspire.</h1>
-        <p className="yw-prose">{siteCopy.studio}</p>
+      <main className="yw">
+        <EditorialHero
+          kicker="Consulting studio"
+          title="Plan and conspire."
+          deck={siteCopy.studio}
+          ground={plain}
+          groundAlt="The Llanos at dusk"
+          animal={{ src: capy, width: 1024, height: 1024, alt: "An illustrated capybara at a workbench" }}
+        />
+        <section className="yw-plain">
         <div className="yw-tracks">
           {tracks.map((track) => (
             <Link key={track.eyebrow} to="/contact" search={{ interest: track.interest }}>
@@ -37,6 +46,7 @@ export function WorkPage() {
             <h2>{siteCopy.unnamed}</h2>
           </Link>
         </div>
+        </section>
       </main>
     </Shell>
   );

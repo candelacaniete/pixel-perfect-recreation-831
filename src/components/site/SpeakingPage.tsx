@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { Band } from "@/components/editorial/Reference";
+import { EditorialHero } from "@/components/editorial/EditorialHero";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy, studio } from "@/content/yrmis";
 import plain from "@/assets/reference/ref-dusk-llanos.jpg";
@@ -9,6 +10,8 @@ import palms from "@/assets/reference/ref-tile-palms.jpg";
 import wetland from "@/assets/reference/ref-tile-wetland.jpg";
 import field from "@/assets/reference/ref-tile-plain.jpg";
 import night from "@/assets/reference/ref-tile-night.jpg";
+import jabiruPhoto from "@/assets/reference/ref-speaking-jabiru.jpg";
+import jabiru from "@/assets/g-jabiru-authored.png";
 const topics = [
   { title: studio.keynote.title, body: studio.keynote.out, img: palms },
   { title: "For the room", body: studio.keynote.for, img: wetland },
@@ -21,11 +24,17 @@ export function SpeakingPage() {
   return (
     <Shell current="Speaking">
       <main className="yw">
+        <EditorialHero
+          kicker="Speaking"
+          title={studio.keynote.title}
+          deck={siteCopy.speaking}
+          ground={jabiruPhoto}
+          groundAlt="A jabiru in the shallow water of the Llanos"
+          animal={{ src: jabiru, width: 1024, height: 1024, alt: "An illustrated jabiru with its beak open" }}
+        >
+          <Link to="/contact" search={{ interest: "Speaking" }} className="yw-pill">Book Yrmis for an event</Link>
+        </EditorialHero>
         <section className="yw-sheet" id="topics">
-          <p className="yw-kicker">Speaking</p>
-          <h2>{studio.keynote.title}</h2>
-          <p>{siteCopy.speaking}</p>
-          <Link to="/contact" search={{ interest: "Speaking" }} className="yw-pill">Book Yrmis for an event →</Link>
           <h2>Topics</h2>
           <div className="yw-rows">
             {topics.map((topic) => (

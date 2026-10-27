@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { Band } from "@/components/editorial/Reference";
+import { EditorialHero } from "@/components/editorial/EditorialHero";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
 import wetland from "@/assets/reference/ref-click-llanos.jpg";
 import palms from "@/assets/reference/ref-tile-palms.jpg";
 import anaconda from "@/assets/reference/ref-about-anaconda.jpg";
+import capybara from "@/assets/reference/ref-home-capybara.jpg";
 import portrait from "@/assets/sourced/portraits/yrmis-red.jpg";
 
 const areas = [
@@ -30,24 +32,24 @@ export function HomePage() {
   return (
     <Shell current="Home">
       <main className="yw">
-        <section className="yw-intro" aria-labelledby="who-yrmis">
-          <div>
-            <p className="yw-kicker">Yrmis Barroeta</p>
-            <h1 id="who-yrmis">{siteCopy.identity}</h1>
-            <p>{siteCopy.about}</p>
-            <div className="yw-actions">
-              <Link to="/speaking" className="yw-pill">Speaking</Link>
-              <Link to="/work" className="yw-pill yw-pill-ink">Work with me</Link>
-            </div>
+        <EditorialHero
+          kicker="Yrmis Barroeta"
+          title={siteCopy.identity}
+          deck={siteCopy.about}
+          ground={capybara}
+          groundAlt="A capybara at the edge of a Venezuelan Llanos wetland"
+          plate={{
+            src: portrait,
+            width: 1440,
+            height: 1800,
+            alt: "Yrmis Barroeta in a black dress, red tights, and red heels, one hand resting on her shin",
+          }}
+        >
+          <div className="yw-actions">
+            <Link to="/speaking" className="yw-pill">Speaking</Link>
+            <Link to="/work" className="yw-pill yw-pill-ink">Work with me</Link>
           </div>
-          <img
-            className="yw-portrait"
-            src={portrait}
-            width={1440}
-            height={1800}
-            alt="Yrmis Barroeta in a black dress, red tights, and red heels, one hand resting on her shin"
-          />
-        </section>
+        </EditorialHero>
         <section className="yw-sheet yw-sheet-home">
           <div className="yw-split">
             <div>

@@ -4,7 +4,6 @@ import { stops, LANDING_Z } from "@/content/journey";
 import { socials, subscribeUrl, substackHome } from "@/content/yrmis";
 import { journey, useJourney } from "./journeyStore";
 import ibis from "@/assets/sp-bird.webp";
-import mark from "@/assets/reference/type-mark.png";
 import capybara from "@/assets/sp-capybara.webp";
 import grass from "@/assets/sp-grass.webp";
 
@@ -85,7 +84,7 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
   const [solid, setSolid] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
   const onRiver = path === "/river";
-  const inkHero = path !== "/signals" && path !== "/world";
+  const inkHero = path === "/contact";
   const here = (to: string) => path === to || (to === "/" && path === "/home");
 
   useEffect(() => {
@@ -108,28 +107,23 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
 
   if (!onRiver) {
     const worldNav = [
-      { to: "/", label: "Home" },
       { to: "/about", label: "About" },
+      { to: "/work", label: "Work with me" },
       { to: "/speaking", label: "Speaking" },
       { to: "/ventures", label: "Ventures" },
-      { to: "/press", label: "Press Kit" },
-      { to: "/signals", label: "1.1.1 Signals" },
+      { to: "/press", label: "Press kit" },
+      { to: "/signals", label: "Signals" },
+      { to: "/click", label: "CLICK" },
     ] as const;
     return (
-      <header data-ui className={`yw-chrome${inkHero ? " is-ink" : ""}${solid || menuOpen ? " is-solid" : ""}${menuOpen ? " is-open" : ""}`}>
-        <Link to="/" className="yw-mark" aria-label="Yrmis World, home"><img src={mark} alt="" /></Link>
+      <header data-ui className={`yw-chrome${inkHero ? " is-ink" : ""}${solid ? " is-solid" : ""}`}>
+        <Link to="/" className="yw-wordmark" aria-label="Yrmis, home">Yrmis</Link>
         <nav className="yw-nav" aria-label="Site navigation">
           {worldNav.map((item) => (
-            <Link key={item.to} to={item.to} aria-current={here(item.to) ? "page" : undefined} onClick={() => setMenuOpen(false)}>{item.label}</Link>
+            <Link key={item.to} to={item.to} aria-current={here(item.to) ? "page" : undefined}>{item.label}</Link>
           ))}
         </nav>
-        <button type="button" className="yw-more" aria-expanded={menuOpen} aria-label="More pages" onClick={() => setMenuOpen((open) => !open)}>+</button>
-        <div className="yw-more-panel">
-          <Link to="/work" onClick={() => setMenuOpen(false)}>Work with me</Link>
-          <Link to="/click" onClick={() => setMenuOpen(false)}>CLICK</Link>
-          <Link to="/contact" search={{ interest: "Consulting Studio" }} onClick={() => setMenuOpen(false)}>Contact</Link>
-          <Link to="/world" onClick={() => setMenuOpen(false)}>World</Link>
-        </div>
+        <Link to="/contact" search={{ interest: "Consulting Studio" }} className="yw-cta">Start a conversation</Link>
       </header>
     );
   }
@@ -171,17 +165,42 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
 export function NextStops({ current, tone = "night" }: { current?: string; tone?: "night" | "paper" | "scarlet" }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   if (path !== "/river") {
+    const year = new Date().getFullYear();
+    const destinations = [
+      { to: "/", label: "Home" },
+      { to: "/about", label: "About" },
+      { to: "/work", label: "Work with me" },
+      { to: "/speaking", label: "Speaking" },
+      { to: "/ventures", label: "Ventures" },
+      { to: "/press", label: "Press kit" },
+      { to: "/signals", label: "Signals" },
+      { to: "/click", label: "CLICK" },
+      { to: "/world", label: "Yrmis World" },
+    ] as const;
     return (
-      <footer className="yw-fine">
-        <span>© Yrmis Barroeta</span>
-        <Link to="/work">Work with me</Link>
-        <Link to="/click">CLICK</Link>
-        <Link to="/contact" search={{ interest: "Consulting Studio" }}>Contact</Link>
-        <Link to="/world">World</Link>
-        <a href={subscribeUrl} target="_blank" rel="noreferrer">Subscribe</a>
-        {socials.map((item) => (
-          <a key={item.name} href={item.href} target="_blank" rel="noreferrer">{item.name}</a>
-        ))}
+      <footer className="ed-foot">
+        <div className="ed-foot-brand">
+          <p className="yw-kicker">All Black Sheep</p>
+          <p className="ed-foot-name">Yrmis</p>
+          <p>Wild black wool<br />never dyes.</p>
+          <div className="ed-foot-socials">
+            {socials.map((item) => (
+              <a key={item.name} href={item.href} target="_blank" rel="noreferrer">{item.name}</a>
+            ))}
+          </div>
+          <img className="ed-foot-animal" src={capybara} alt="" />
+        </div>
+        <nav aria-label="Footer">
+          <p className="yw-kicker">The issue</p>
+          {destinations.map((item) => <Link key={item.label} to={item.to}>{item.label}</Link>)}
+          <Link to="/contact" search={{ interest: "Consulting Studio" }}>Contact</Link>
+        </nav>
+        <div className="ed-foot-signals">
+          <p className="yw-kicker">1•1•1 Signals</p>
+          <p>Field notes from the edge of the wild and the boardroom. Free, every other week.</p>
+          <a href={substackHome} target="_blank" rel="noreferrer">Read on Substack</a>
+        </div>
+        <p className="ed-foot-fine">© {year} Yrmis · From the Llanos, Venezuela</p>
       </footer>
     );
   }

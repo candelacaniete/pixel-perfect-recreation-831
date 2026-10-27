@@ -2,10 +2,12 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { Band } from "@/components/editorial/Reference";
+import { EditorialHero } from "@/components/editorial/EditorialHero";
 import { ClickFive } from "@/components/site/ClickFive";
 import { markVisited } from "@/components/safari/visited";
 import { clickExamples, clickOutcomes, riverDestination } from "@/content/yrmis";
 import llanos from "@/assets/reference/ref-click-llanos.jpg";
+import heron from "@/assets/g-heron-authored.png";
 
 const crops = ["20% 70%", "70% 40%", "40% 30%", "80% 80%", "30% 50%"];
 
@@ -34,14 +36,18 @@ export function ClickPage() {
   return (
     <Shell current="CLICK">
       <main className="yw">
+        <EditorialHero
+          kicker="CLICK"
+          title={riverDestination.line}
+          deck={riverDestination.intro}
+          ground={llanos}
+          groundAlt="Flooded grassland in the Llanos"
+          animal={{ src: heron, width: 1024, height: 1024, alt: "An illustrated heron standing in the shallows" }}
+          stage={<ClickFive />}
+        >
+          <Link to="/river" className="yw-pill">Enter the river</Link>
+        </EditorialHero>
         <section className="yw-sheet">
-          <h2>A way of seeing.<br />A way of acting.</h2>
-          <p>{riverDestination.intro}</p>
-          <Link to="/river" className="yw-play">
-            <img src={llanos} alt="" />
-            <span className="yw-play-btn" aria-hidden="true">▶</span>
-            <span className="sr-only">Enter the CLICK experience</span>
-          </Link>
           <div className="yw-block">
             <h2>The principles of CLICK</h2>
             <div className="yw-principles">
