@@ -5,21 +5,7 @@ import { Fireflies, Lanterns, Scene } from "@/components/safari/motion";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import landHome from "@/assets/land-home.jpg";
-import heron from "@/assets/g-heron-authored.png";
-import jabiru from "@/assets/g-jabiru-authored.png";
-import capybara from "@/assets/g-capymech-authored.png";
-import crocodile from "@/assets/river-crocodile-authored.png";
-import macaw from "@/assets/g-macaw-authored.png";
-import anaconda from "@/assets/g-anaconda-authored.png";
-
-const cast = [
-  { to: "/about", name: "About", animal: "Night heron", img: heron },
-  { to: "/speaking", name: "Speaking", animal: "Jabiru", img: jabiru },
-  { to: "/work", name: "Work with me", animal: "Capybara mechanic", img: capybara },
-  { to: "/ventures", name: "Ventures", animal: "Crocodile", img: crocodile },
-  { to: "/signals", name: "Signals", animal: "Macaw", img: macaw },
-  { to: "/click", name: "CLICK", animal: "Anaconda", img: anaconda },
-] as const;
+import horses from "@/assets/horses.png";
 
 export function HomePage() {
   useEffect(() => markVisited("home"), []);
@@ -34,7 +20,8 @@ export function HomePage() {
             <Fireflies count={28} />
           </div>
           <Lanterns count={5} />
-          <div className="relative z-10 flex min-h-[100svh] items-end px-5 pb-16 pt-28 md:px-12">
+          <img src={horses} alt="Four wild horses — crimson, black, gold and green — crossing the plain" width={1376} height={768} className="cross-x herd [--d:110vw]" />
+          <div className="relative z-20 flex min-h-[100svh] items-start px-5 pt-36 md:px-12">
             <div className="max-w-3xl">
               <p className="eyebrow text-gold">{siteCopy.identity}</p>
               <h1 className="display-xl mt-4">
@@ -52,24 +39,7 @@ export function HomePage() {
           </div>
         </Scene>
 
-        <section className="px-5 py-14 md:px-12" aria-label="Guardians of the Llanos">
-          <div className="mx-auto max-w-5xl">
-            <p className="eyebrow text-gold">Guardians</p>
-            <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
-              {cast.map((item) => (
-                <li key={item.name}>
-                  <Link to={item.to} className="group block text-center">
-                    <img src={item.img} alt="" className="mx-auto h-28 w-full object-contain transition-transform duration-300 group-hover:scale-105 md:h-36" />
-                    <span className="eyebrow mt-3 block text-gold">{item.animal}</span>
-                    <span className="font-display mt-1 block text-xl">{item.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="border-t border-paper/15 px-5 py-16 md:px-12">
+        <section className="border-t border-gold/30 px-5 py-16 md:px-12">
           <div className="mx-auto max-w-3xl">
             <p className="eyebrow text-gold">About</p>
             <h2 className="display-lg mt-3">Another field. Another lens.</h2>

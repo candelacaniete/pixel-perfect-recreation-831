@@ -2,10 +2,9 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { ClickFive } from "@/components/site/ClickFive";
-import { Scene } from "@/components/safari/motion";
+import { Lianas, Scene, SerpentPath } from "@/components/safari/motion";
 import { markVisited } from "@/components/safari/visited";
 import { clickExamples } from "@/content/yrmis";
-import territory from "@/assets/territory.jpg";
 import anaconda from "@/assets/g-anaconda-authored.png";
 
 const fields = [
@@ -33,21 +32,20 @@ export function ClickPage() {
   return (
     <Shell>
       <main className="overflow-hidden bg-night text-paper">
-        <Scene className="isolate relative overflow-hidden px-5 pb-16 pt-28 md:px-12">
-          <div aria-hidden className="absolute inset-0 -z-10">
-            <img src={territory} alt="" className="photo-bg object-center" />
-            <div className="absolute inset-0 bg-night/55" />
-            <div className="scrim-l absolute inset-0" />
+        <Scene className="relative overflow-hidden px-5 pb-16 pt-28 md:px-12">
+          <div aria-hidden className="water-deep absolute inset-0 -z-10">
+            <Lianas count={6} />
           </div>
-          <div className="relative grid items-end gap-8 md:grid-cols-12">
-            <div className="md:col-span-7">
-              <p className="eyebrow text-gold">CLICK · guarded by the anaconda</p>
-              <h1 className="display-xl mt-3 text-shadow-river">What can be<br /><em className="text-gold">done better?</em></h1>
-              <p className="mt-6 max-w-xl text-lg text-shadow-river">Think of your desk, your company, your neighborhood. What’s one thing that bugs you? Start there. You can open this page without finishing the river.</p>
-            </div>
-            <img src={anaconda} alt="The anaconda, guardian of the CLICK arrival" className="w-44 justify-self-center object-contain md:col-span-5 md:w-72 md:justify-self-end" />
+          <div className="relative mx-auto max-w-3xl">
+            <p className="eyebrow text-gold">CLICK · guarded by the anaconda</p>
+            <h1 className="display-xl mt-3">What can be<br /><em className="text-gold">done better?</em></h1>
+            <p className="mt-6 max-w-xl text-lg">Think of your desk, your company, your neighborhood. What’s one thing that bugs you? Start there. You can open this page without finishing the river.</p>
           </div>
-          <div className="relative mt-10"><ClickFive /></div>
+          <div className="relative mt-8 h-40 overflow-hidden">
+            <SerpentPath className="inset-x-0 top-0 h-full w-full opacity-80" tone="var(--river)" />
+            <img src={anaconda} alt="The anaconda moving through the dark water" className="glide-serpent" />
+          </div>
+          <div className="relative mt-4"><ClickFive /></div>
         </Scene>
         <section className="bg-paper px-5 py-14 text-ink md:px-12">
           <div className="mx-auto max-w-5xl">

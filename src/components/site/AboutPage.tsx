@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
-import { Scene } from "@/components/safari/motion";
+import { FlyingGuardian, Scene } from "@/components/safari/motion";
+import { Mist, WaterLive } from "@/components/site/habitat";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy, socials } from "@/content/yrmis";
 import blazer from "@/assets/sourced/portraits/yrmis-blazer.jpg";
@@ -19,12 +20,17 @@ export function AboutPage() {
       <main className="overflow-hidden bg-night text-paper">
         <Scene className="isolate relative min-h-[88svh] overflow-hidden">
           <div aria-hidden className="absolute inset-0 -z-10">
-            <img src={origin} alt="" className="photo-bg object-center" />
-            <div className="absolute inset-0 bg-night/50" />
+            <img src={origin} alt="" className="photo-bg cloud-drift object-[center_30%]" />
+            <div className="absolute inset-0 bg-night/40" />
             <div className="scrim-l absolute inset-0" />
+            <Mist />
+            <WaterLive />
           </div>
-          <div className="relative grid min-h-[88svh] items-end gap-6 px-5 pb-16 pt-28 md:grid-cols-12 md:px-12">
-            <div className="md:col-span-7">
+          <div className="sky-lane">
+            <FlyingGuardian src={heron} alt="The night heron crossing the dusk sky" top="0%" className="w-24 md:w-32" />
+          </div>
+          <div className="relative grid min-h-[88svh] items-end gap-6 px-5 pb-16 pt-28 md:px-12">
+            <div className="max-w-3xl">
               <p className="eyebrow text-gold">About · guarded by the night heron</p>
               <h1 className="display-xl mt-4 text-shadow-river">
                 {siteCopy.headline}
@@ -37,10 +43,9 @@ export function AboutPage() {
                 <Link to="/speaking" className="pill border-2 border-paper">Speaking</Link>
               </div>
             </div>
-            <img src={heron} alt="The night heron, guardian of this part of the Llanos" className="w-40 justify-self-center object-contain md:col-span-5 md:w-64 md:justify-self-end" />
           </div>
         </Scene>
-        <section className="grid items-start gap-10 px-5 py-16 md:grid-cols-12 md:px-12">
+        <section className="grid items-start gap-10 border-t border-gold/40 px-5 py-16 md:grid-cols-12 md:px-12">
           <img src={blazer} alt="Yrmis Barroeta in a blazer, original press-kit portrait" width={2688} height={4032} className="aspect-[4/5] w-full border-2 border-gold object-cover md:col-span-5" />
           <div className="max-w-2xl md:col-span-7">
             {siteCopy.story.map((section) => (

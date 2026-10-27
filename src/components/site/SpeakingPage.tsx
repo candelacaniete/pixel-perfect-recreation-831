@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { ClickFive } from "@/components/site/ClickFive";
-import { Scene } from "@/components/safari/motion";
+import { FlyingGuardian, Scene } from "@/components/safari/motion";
+import { LlanosSky } from "@/components/site/habitat";
 import { markVisited } from "@/components/safari/visited";
 import { clickOutcomes, siteCopy } from "@/content/yrmis";
 import stage from "@/assets/sourced/portraits/yrmis-stage.webp";
@@ -13,9 +14,13 @@ export function SpeakingPage() {
   return (
     <Shell current="Speaking">
       <main className="overflow-hidden bg-night text-paper">
-        <Scene className="relative bg-night px-5 pb-16 pt-28 md:px-12">
-          <div className="grid items-end gap-8 md:grid-cols-12">
-            <div className="md:col-span-6">
+        <Scene className="relative min-h-[88svh] overflow-hidden bg-night px-5 pb-16 pt-28 md:px-12">
+          <LlanosSky />
+          <div className="sky-lane">
+            <FlyingGuardian src={jabiru} alt="The jabiru flying across the Llanos sky" top="0%" className="w-24 md:w-32" />
+          </div>
+          <div className="relative grid items-end gap-8 md:grid-cols-12">
+            <div className="md:col-span-7">
               <p className="eyebrow text-gold">The signature keynote · guarded by the jabiru</p>
               <h1 className="display-xl mt-4">CLICK into<br /><em className="text-gold">Wild Innovation</em></h1>
               <p className="mt-6 max-w-xl text-lg">{siteCopy.speaking}</p>
@@ -24,9 +29,12 @@ export function SpeakingPage() {
                 <a href="#audience-outcomes" className="pill border-2 border-paper">Audience outcomes</a>
               </div>
             </div>
-            <img src={stage} alt="Yrmis mid-story" width={650} height={650} className="aspect-[4/5] w-full border-2 border-gold object-cover md:col-span-4" />
-            <img src={jabiru} alt="The jabiru, guardian of the keynote" className="w-36 justify-self-center object-contain md:col-span-2 md:w-full" />
+            <img src={stage} alt="Yrmis mid-story" width={650} height={650} className="relative aspect-[4/5] max-h-[56vh] w-full border-2 border-gold object-cover object-top md:col-span-5 md:w-auto md:justify-self-end" />
           </div>
+        </Scene>
+        <Scene className="relative h-36 overflow-hidden md:h-44">
+          <LlanosSky />
+          <FlyingGuardian src={jabiru} alt="" flip top="18%" className="w-20 md:w-28" />
         </Scene>
         <section className="bg-scarlet px-5 py-16 text-center md:px-12">
           <div className="mx-auto max-w-3xl">
