@@ -2,15 +2,9 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { ClickFive } from "@/components/site/ClickFive";
-import { Scene } from "@/components/safari/motion";
-import { ClickSnake, LiveWater } from "@/components/site/habitat";
-import { Guide, GuideHero, GuideSlot } from "@/components/site/Guide";
 import { markVisited } from "@/components/safari/visited";
-import { clickExamples } from "@/content/yrmis";
-import coil1 from "@/assets/living/anaconda-coil-1.jpg";
-import coil2 from "@/assets/living/anaconda-coil-2.jpg";
-
-const coils = [coil1, coil2];
+import { clickExamples, riverDestination } from "@/content/yrmis";
+import coil from "@/assets/living/anaconda-coil-1.jpg";
 
 const fields = [
   { key: "problem", label: "The problem I keep noticing", long: true },
@@ -36,87 +30,75 @@ export function ClickPage() {
 
   return (
     <Shell>
-      <main className="overflow-hidden bg-night text-paper">
-        <Guide frames={coils} interval={1100} follow={false} focus="center 62%" alt="The anaconda coiled in the night water, shifting its head">
-          <GuideHero>
-            <Scene className="relative min-h-[78svh] overflow-hidden bg-night px-5 pb-12 pt-28 md:px-12">
-              <LiveWater tone="night" />
-              <div className="relative grid items-end gap-6 md:grid-cols-12">
-                <div className="md:col-span-7">
-                  <p className="eyebrow text-gold">CLICK · guarded by the anaconda</p>
-                  <h1 className="display-xl mt-3">What can be<br /><em className="text-gold">done better?</em></h1>
-                  <p className="mt-6 max-w-xl text-lg">Think of your desk, your company, your neighborhood. What’s one thing that bugs you? Start there. You can open this page without finishing the river.</p>
-                </div>
-                <GuideSlot className="w-full max-w-xs md:col-span-5 md:max-w-sm md:justify-self-end" />
-              </div>
-            </Scene>
-          </GuideHero>
-        </Guide>
-        <section className="bg-night px-5 py-12 md:px-12">
+      <main className="llanos">
+        <section className="ll-split">
+          <div className="ll-panel">
+            <p className="ll-kicker">CLICK</p>
+            <h1 className="ll-display" style={{ marginTop: "0.7rem" }}>{riverDestination.headline}</h1>
+            <p className="ll-lede">Think of your desk, your company, your neighborhood. What’s one thing that bugs you? Start there. You can open this page without finishing the river.</p>
+          </div>
+          <figure className="ll-portrait" style={{ minHeight: "22rem" }}>
+            <img src={coil} alt="The anaconda coiled in the night water" />
+          </figure>
+        </section>
+        <section className="ll-pad">
           <ClickFive />
         </section>
-        <ClickSnake />
-        <section className="bg-paper px-5 py-14 text-ink md:px-12">
-          <div className="mx-auto max-w-5xl">
-          <p className="eyebrow text-crimson">Illustrative examples from the talk</p>
-          <h2 className="display-lg mt-3">Find. Adapt. Build.</h2>
-          <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Explore innovation examples">
+        <section className="ll-pad" style={{ paddingTop: 0 }}>
+          <p className="ll-kicker">Illustrative examples from the talk</p>
+          <h2 className="ll-title" style={{ marginTop: "0.6rem" }}>Find. Adapt. Build.</h2>
+          <div className="ll-examples" style={{ marginTop: "1.2rem" }} role="group" aria-label="Explore innovation examples">
             {clickExamples.map((item, index) => (
-              <button key={item.title} type="button" aria-pressed={scene === index} onClick={() => setScene(index)} className={`pill border-2 border-ink ${scene === index ? "bg-ink text-paper" : ""}`}>
+              <button key={item.title} type="button" aria-pressed={scene === index} onClick={() => setScene(index)} className="ll-btn">
                 {item.title}
               </button>
             ))}
           </div>
-          <div className="mt-8 max-w-2xl">
-            <h3 className="font-display text-3xl">{example.title}</h3>
-            <p className="mt-4"><strong>The problem. </strong>{example.problem}</p>
-            <p className="mt-3"><strong>A useful lens. </strong>{example.lens}</p>
-            <p className="mt-3"><strong>A first move. </strong>{example.move}</p>
-          </div>
+          <div style={{ marginTop: "1.5rem", maxWidth: "40rem" }}>
+            <h3 className="ll-title" style={{ fontSize: "2rem" }}>{example.title}</h3>
+            <p><strong>The problem. </strong>{example.problem}</p>
+            <p><strong>A useful lens. </strong>{example.lens}</p>
+            <p><strong>A first move. </strong>{example.move}</p>
           </div>
         </section>
-        <section className="bg-scarlet px-5 py-14 md:px-12">
-          <div className="mx-auto max-w-5xl">
-          <p className="eyebrow text-gold">Your turn</p>
-          <h2 className="display-lg mt-3">Give that curiosity something to work on.</h2>
-          <p className="mt-4 max-w-xl text-sm text-paper/80">Optional local exercise. Your notes stay in this page’s memory; they are not sent, saved, or evaluated by AI.</p>
-          <form onSubmit={onSubmit} className="mt-8 grid max-w-2xl gap-4">
+        <section className="ll-pad ll-red">
+          <p className="ll-kicker">Your turn</p>
+          <h2 className="ll-title" style={{ marginTop: "0.6rem" }}>Give that curiosity something to work on.</h2>
+          <p className="ll-lede">Optional local exercise. Your notes stay in this page’s memory; they are not sent, saved, or evaluated by AI.</p>
+          <form onSubmit={onSubmit} className="ll-form" style={{ maxWidth: "40rem", marginTop: "1.5rem" }}>
             {fields.map((field) => (
               <label key={field.key}>
-                <span className="eyebrow">{field.label}</span>
+                <span className="ll-kicker">{field.label}</span>
                 {field.long ? (
-                  <textarea className="mt-2 w-full border-b-2 border-paper bg-transparent py-2 text-lg outline-none" maxLength={800} required value={idea[field.key]} onChange={(event) => setIdea({ ...idea, [field.key]: event.target.value })} />
+                  <textarea className="ll-field" style={{ borderColor: "#fff", color: "#fff" }} maxLength={800} required value={idea[field.key]} onChange={(event) => setIdea({ ...idea, [field.key]: event.target.value })} />
                 ) : (
-                  <input className="mt-2 w-full border-b-2 border-paper bg-transparent py-2 text-lg outline-none" maxLength={300} required={field.key === "test"} value={idea[field.key]} onChange={(event) => setIdea({ ...idea, [field.key]: event.target.value })} />
+                  <input className="ll-field" style={{ borderColor: "#fff", color: "#fff" }} maxLength={300} required={field.key === "test"} value={idea[field.key]} onChange={(event) => setIdea({ ...idea, [field.key]: event.target.value })} />
                 )}
               </label>
             ))}
-            <button className="pill w-fit bg-paper text-ink" type="submit">Put the pieces together</button>
+            <button className="ll-btn ll-btn-light" type="submit" style={{ width: "fit-content" }}>Put the pieces together</button>
           </form>
           {shown.length > 0 && (
-            <article className="mt-8 max-w-2xl bg-paper p-6 text-ink" aria-live="polite">
-              <p className="eyebrow">Your working idea</p>
-              <h3 className="font-display mt-2 text-3xl">Find. Adapt. Build.</h3>
+            <article className="ll-panel" style={{ marginTop: "1.5rem", maxWidth: "40rem", background: "var(--ll-bone)", color: "var(--ll-ink)" }} aria-live="polite">
+              <p className="ll-kicker">Your working idea</p>
+              <h3 className="ll-title" style={{ fontSize: "2rem", marginTop: "0.4rem" }}>Find. Adapt. Build.</h3>
               <dl>
                 {fields.filter((field) => shown.includes(field.key)).map((field) => (
-                  <div key={field.key} className="mt-4">
-                    <dt className="font-semibold">{field.label}</dt>
-                    <dd>{idea[field.key].trim()}</dd>
+                  <div key={field.key} style={{ marginTop: "1rem" }}>
+                    <dt className="ll-kicker">{field.label}</dt>
+                    <dd style={{ margin: "0.3rem 0 0" }}>{idea[field.key].trim()}</dd>
                   </div>
                 ))}
               </dl>
             </article>
           )}
-          </div>
         </section>
-        <section className="px-5 py-14 md:px-12">
-          <div className="mx-auto max-w-5xl">
-          <h2 className="display-lg">What comes next?</h2>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link to="/contact" search={{ interest: "Speaking" }} className="pill bg-scarlet text-paper">Bring CLICK to your team</Link>
-            <Link to="/contact" search={{ interest: "Consulting Studio" }} className="pill border-2 border-paper">Build with me</Link>
-            <Link to="/signals" className="pill border-2 border-paper">Keep exploring</Link>
-          </div>
+        <section className="ll-pad">
+          <h2 className="ll-title">What comes next?</h2>
+          <div className="ll-actions">
+            <Link to="/contact" search={{ interest: "Speaking" }} className="ll-btn ll-btn-red">Bring CLICK to your team</Link>
+            <Link to="/contact" search={{ interest: "Consulting Studio" }} className="ll-btn">Build with me</Link>
+            <Link to="/signals" className="ll-btn">Keep exploring</Link>
           </div>
         </section>
       </main>

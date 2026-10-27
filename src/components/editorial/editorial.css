@@ -1,0 +1,283 @@
+/* Editorial site. Scoped to .llanos so the river keeps its own rules.
+   System: bone field, oxblood and scarlet structure, one Llanos interruption per page.
+   Yellow #FAB702 always carries white text. */
+
+.llanos {
+  --ll-ink: #221710;
+  --ll-bone: #F7EEDA;
+  --ll-ox: #750217;
+  --ll-red: #CD1D20;
+  --ll-pink: #DC235B;
+  --ll-copper: #E4701D;
+  --ll-yellow: #FAB702;
+  background: var(--ll-bone);
+  color: var(--ll-ink);
+  font-family: var(--font-sans);
+}
+
+.llanos :focus-visible {
+  outline: 3px solid var(--ll-copper);
+  outline-offset: 3px;
+}
+
+.ll-kicker {
+  margin: 0;
+  font: 500 11px/1.3 var(--font-sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.ll-display {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 7.4vw, 7.2rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+
+.ll-display em,
+.ll-title em {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.ll-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 0.96;
+}
+
+.ll-lede {
+  max-width: 38rem;
+  margin: 1.25rem 0 0;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.ll-pad {
+  padding: 4.5rem 5%;
+}
+
+.ll-first {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.85fr);
+  background: var(--ll-bone);
+}
+
+.ll-first-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8vh 6% 6vh;
+}
+
+.ll-portrait {
+  position: relative;
+  margin: 0;
+  min-height: 70vh;
+  overflow: hidden;
+  background: var(--ll-ox);
+}
+
+.ll-portrait img,
+.ll-frame img,
+.ll-horizon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ll-portrait img { object-position: 50% 18%; }
+.ll-portrait figcaption {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  color: #fff;
+}
+
+.ll-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.75rem;
+}
+
+.ll-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  border: 1px solid currentColor;
+  padding: 0.7rem 1rem;
+  color: inherit;
+  font: 500 12px/1 var(--font-sans);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.ll-btn:hover { background: #22171010; }
+.ll-btn-red { border-color: var(--ll-red); background: var(--ll-red); color: #fff; }
+.ll-btn-red:hover { background: var(--ll-ox); border-color: var(--ll-ox); }
+.ll-btn-light { border-color: #fff; color: #fff; }
+.ll-btn-light:hover { background: #ffffff18; }
+.ll-btn-ink { border-color: var(--ll-ink); background: var(--ll-ink); color: var(--ll-bone); }
+.ll-btn-ink:hover { background: var(--ll-ox); border-color: var(--ll-ox); }
+
+.ll-horizon {
+  position: relative;
+  height: 34vh;
+  min-height: 200px;
+  overflow: hidden;
+  background: var(--ll-ox);
+}
+
+.ll-horizon img { object-position: center 62%; }
+.ll-horizon figcaption {
+  position: absolute;
+  left: 5%;
+  bottom: 1rem;
+  color: #fff;
+}
+
+.ll-animal {
+  position: relative;
+  z-index: 2;
+  width: min(38vw, 380px);
+  margin: -14vh 7% -2rem auto;
+}
+
+.ll-animal img {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-shadow: 0 24px 50px -28px #221710;
+}
+
+.ll-split { display: grid; grid-template-columns: 1.15fr 0.85fr; }
+.ll-panel { padding: 4.5rem 6%; }
+.ll-ox { background: var(--ll-ox); color: #fff; }
+.ll-red { background: var(--ll-red); color: #fff; }
+.ll-ink { background: var(--ll-ink); color: var(--ll-bone); }
+.ll-copper { background: var(--ll-copper); color: var(--ll-ink); }
+.ll-pink { background: var(--ll-pink); color: #fff; }
+.ll-yellow { background: var(--ll-yellow); color: #fff; }
+.ll-yellow :is(h1, h2, h3, p, a, span) { color: #fff; }
+
+.ll-index a {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: baseline;
+  border-top: 1px solid #22171033;
+  padding: 1.35rem 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ll-index a:last-child { border-bottom: 1px solid #22171033; }
+.ll-index h2 { margin: 0; font: 300 clamp(1.7rem, 3vw, 2.6rem)/1 var(--font-display); }
+.ll-index a:hover h2 { text-decoration: underline; text-underline-offset: 5px; }
+.ll-index .ll-go { font: 500 12px/1 var(--font-sans); letter-spacing: 0.06em; text-transform: uppercase; }
+
+.ll-story { max-width: 68ch; }
+.ll-story h2 { margin: 0 0 0.6rem; font: 300 2.4rem/1.05 var(--font-display); }
+.ll-story p { margin: 0 0 1rem; font-size: 1.2rem; line-height: 1.7; }
+.ll-story section { margin: 0 0 3rem; }
+
+.ll-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ll-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ll-work-tracks a,
+.ll-pair a {
+  display: block;
+  min-height: 16rem;
+  padding: 1.6rem;
+  color: inherit;
+  text-decoration: none;
+}
+.ll-work-tracks h2,
+.ll-pair h2 { margin: 0.8rem 0 0; font: 300 2rem/1.05 var(--font-display); }
+.ll-work-tracks a:hover,
+.ll-pair a:hover,
+.ll-venture:hover { transform: translateY(-3px); }
+
+.ll-work-tracks a,
+.ll-pair a,
+.ll-venture { transition: transform 0.25s ease; }
+
+.ll-venture {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  background: #fff;
+  color: var(--ll-ink);
+}
+
+.ll-venture img { width: 100%; height: 100%; min-height: 16rem; object-fit: cover; }
+.ll-venture div { padding: 1.5rem; }
+.ll-venture h2 { margin: 0.35rem 0 0; font: 300 2.2rem/1 var(--font-display); }
+.ll-venture:nth-child(even) { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+.ll-venture:nth-child(even) img { order: 2; }
+.ll-venture:nth-child(3) { background: var(--ll-yellow); color: #fff; }
+
+.ll-logos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; list-style: none; margin: 0; padding: 0; }
+.ll-logos li { display: grid; aspect-ratio: 2 / 1; place-items: center; background: #fff; padding: 1rem; }
+.ll-logos img { max-height: 2.5rem; width: auto; }
+
+.ll-issues { margin: 0; padding: 0; list-style: none; }
+.ll-issues a { display: block; border-top: 1px solid #22171033; padding: 1rem 0; color: inherit; font: 300 1.6rem/1.2 var(--font-display); text-decoration: none; }
+.ll-issues a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.ll-form { display: grid; gap: 1.15rem; }
+.ll-field {
+  width: 100%;
+  margin-top: 0.4rem;
+  border: 0;
+  border-bottom: 2px solid var(--ll-ink);
+  background: transparent;
+  padding: 0.7rem 0;
+  color: inherit;
+  font: 400 1.05rem/1.4 var(--font-sans);
+}
+.ll-note { border-left: 4px solid var(--ll-red); background: #cd1d2014; padding: 0.8rem 1rem; font-size: 0.95rem; }
+.ll-contact { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(14rem, 0.8fr); gap: 2.5rem; align-items: start; }
+.ll-status:empty { display: none; }
+
+.ll-examples { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ll-examples button[aria-pressed="true"] { background: var(--ll-ink); color: var(--ll-bone); }
+.ll-slots { display: grid; gap: 0.8rem; }
+.ll-slot { border: 1px dashed #22171066; padding: 1.2rem; }
+.ll-slot p:last-child { margin: 0.6rem 0 0; }
+
+.ll-reveal { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .ll-reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .ll-reveal.is-in { opacity: 1; transform: none; }
+  .ll-horizon img { transform-origin: center 60%; animation: ll-drift 22s ease-in-out infinite alternate; }
+}
+@keyframes ll-drift { to { transform: scale(1.05); } }
+@media (prefers-reduced-motion: reduce) {
+  .ll-horizon img,
+  .ll-work-tracks a,
+  .ll-pair a,
+  .ll-venture { animation: none; transition: none; }
+}
+
+@media (max-width: 900px) {
+  .ll-first,
+  .ll-split,
+  .ll-grid-2,
+  .ll-grid-3,
+  .ll-contact,
+  .ll-venture,
+  .ll-venture:nth-child(even) { grid-template-columns: 1fr; }
+  .ll-venture:nth-child(even) img { order: 0; }
+  .ll-grid-3 { grid-template-columns: 1fr; }
+  .ll-logos { grid-template-columns: 1fr 1fr; }
+  .ll-animal { width: min(72vw, 280px); margin-top: -8vh; }
+  .ll-index a { grid-template-columns: 2.6rem minmax(0, 1fr); }
+  .ll-index .ll-go { grid-column: 2; }
+  .ll-portrait { min-height: 62vh; }
+}
