@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { NextStops, SiteChrome } from "@/components/safari/SiteChrome";
+import "@/components/editorial/editorial.css";
 
 export function Shell({
   children,

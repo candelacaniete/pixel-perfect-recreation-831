@@ -3,10 +3,9 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { stops, LANDING_Z } from "@/content/journey";
 import { socials, subscribeUrl, substackHome } from "@/content/yrmis";
 import { journey, useJourney } from "./journeyStore";
-import macaw from "@/assets/footer/macaw.webp";
-import capybara from "@/assets/footer/capybara.webp";
-import fanPalm from "@/assets/footer/fan-palm.webp";
-import leaves from "@/assets/footer/leaves.webp";
+import ibis from "@/assets/sp-bird.webp";
+import capybara from "@/assets/sp-capybara.webp";
+import grass from "@/assets/sp-grass.webp";
 
 const RIVER = "M 40 60 C 160 40, 120 160, 220 170 S 380 90, 420 190 S 300 300, 360 360 S 520 330, 560 420";
 
@@ -135,7 +134,7 @@ export function NextStops({ current, tone = "night" }: { current?: string; tone?
   const path = useRouterState({ select: (s) => s.location.pathname });
   return (
     <footer className="site-footer" data-current={current} data-tone={tone}>
-      <img className="footer-bird" src={macaw} alt="" />
+      <img className="footer-bird" src={ibis} alt="" />
       <div className="footer-grid">
         <div className="footer-statement">
           <h2>Wild black wool<br /><em>never dyes.</em></h2>
@@ -160,8 +159,8 @@ export function NextStops({ current, tone = "night" }: { current?: string; tone?
           <a className="footer-url" href={substackHome} target="_blank" rel="noreferrer">yrmis.substack.com ↗</a>
         </div>
       </div>
-      <img className="footer-flora footer-flora-left" src={fanPalm} alt="" />
-      <img className="footer-flora footer-flora-right" src={leaves} alt="" />
+      <img className="footer-flora footer-flora-left" src={grass} alt="" />
+      <img className="footer-flora footer-flora-right" src={grass} alt="" />
       <div className="footer-fine">
         <span>© Yrmis Barroeta</span>
         <Link to="/contact" search={{ interest: "Consulting Studio" }}>Start a conversation →</Link>

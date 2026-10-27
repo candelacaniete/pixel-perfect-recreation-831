@@ -26,31 +26,31 @@ export function PressPage() {
   useEffect(() => markVisited("press"), []);
   return (
     <Shell tone="paper" current="Press kit">
-      <main className="bg-paper px-5 pb-16 pt-28 text-ink md:px-12">
-        <p className="eyebrow text-crimson">Press kit</p>
-        <h1 className="display-xl mt-3">Press kit</h1>
-        <p className="mt-4 max-w-xl text-lg">{siteCopy.identity}</p>
-        <div className="mt-8 grid items-start gap-8 md:grid-cols-2">
-          <img src={portrait} alt="Yrmis Barroeta, original red portrait" width={1440} height={1800} className="w-full border-2 border-ink object-cover" />
-          <div>
-            <div className="flex flex-wrap gap-3">
-              <a className="pill bg-ink text-paper" href="/press/yrmis-barroeta-press-kit-2026.pdf">Press kit 2026</a>
-              <a className="pill border-2 border-ink" href="/press/yrmis-media-kit-2025.pdf">Media kit 2025</a>
-            </div>
-            <p className="mt-6 max-w-md">Speaker materials and a press inquiry. The kits are the documents already published.</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a className="pill border-2 border-ink" href="https://www.myheadquarters.club/innovationkeynote" target="_blank" rel="noreferrer">Speaker materials ↗</a>
-              <Link to="/contact" search={{ interest: "Press" }} className="pill bg-scarlet text-paper">Press inquiry</Link>
+      <main className="llanos">
+        <section className="ll-split">
+          <figure className="ll-portrait" style={{ minHeight: "28rem" }}>
+            <img src={portrait} alt="Yrmis Barroeta, original red portrait" width={1440} height={1800} />
+          </figure>
+          <div className="ll-panel">
+            <p className="ll-kicker">05 · Press kit</p>
+            <h1 className="ll-display" style={{ marginTop: "0.7rem" }}>Press kit</h1>
+            <p className="ll-lede">{siteCopy.identity}</p>
+            <p>Speaker materials and a press inquiry. The kits are the documents already published.</p>
+            <div className="ll-actions">
+              <a className="ll-btn ll-btn-ink" href="/press/yrmis-barroeta-press-kit-2026.pdf">Press kit 2026</a>
+              <a className="ll-btn" href="/press/yrmis-media-kit-2025.pdf">Media kit 2025</a>
+              <a className="ll-btn" href="https://www.myheadquarters.club/innovationkeynote" target="_blank" rel="noreferrer">Speaker materials ↗</a>
+              <Link to="/contact" search={{ interest: "Press" }} className="ll-btn ll-btn-red">Press inquiry</Link>
             </div>
           </div>
-        </div>
-        <ul className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {logos.map(([src, alt]) => (
-            <li key={alt} className="grid aspect-[2/1] place-items-center border border-ink/15 bg-white p-4">
-              <img src={src} alt={alt} className="max-h-10 w-auto" />
-            </li>
-          ))}
-        </ul>
+        </section>
+        <section className="ll-pad">
+          <ul className="ll-logos">
+            {logos.map(([src, alt]) => (
+              <li key={alt}><img src={src} alt={alt} /></li>
+            ))}
+          </ul>
+        </section>
       </main>
     </Shell>
   );
