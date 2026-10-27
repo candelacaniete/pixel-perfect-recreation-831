@@ -7,7 +7,7 @@ export function WorldPage() {
   useEffect(() => markVisited("world"), []);
   return (
     <Shell>
-      <main className="bg-night pt-16 text-paper">
+      <main className="bg-night text-paper">
         <WorldMap />
       </main>
     </Shell>

@@ -28,7 +28,7 @@ export function RiverPage({ stop }: { stop: number | undefined }) {
   if (entered) {
     return (
       <>
-        <SiteChrome />
+        <SiteChrome overlay />
         <RiverJourney onShore={onShore} />
       </>
     );
