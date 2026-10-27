@@ -56,8 +56,10 @@ export function SignalsPage() {
             <figcaption>The portrait from the 1.1.1 Signals footer.</figcaption>
           </figure>
           <div>
-          <h2>Subscribe to 1.1.1 Signals</h2>
-          <p>Get it in your inbox. This opens the Substack subscribe page.</p>
+          <p className="yw-kicker">Subscribe</p>
+          <h2>1•1•1 Signals</h2>
+          <p>{siteCopy.signalsPromise}</p>
+          <p>This opens the Substack page. Nothing is sent from this site.</p>
           <form className="yw-sub" action={subscribeUrl} method="get" target="_blank">
             <label className="sr-only" htmlFor="signals-email">Email address</label>
             <input id="signals-email" name="email" type="email" required placeholder="Your email address" autoComplete="email" />

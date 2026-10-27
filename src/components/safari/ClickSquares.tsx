@@ -8,7 +8,7 @@ import { principles } from "@/content/yrmis";
  */
 const SQUARE_STYLE = [
   { bg: "bg-click-cream", fg: "text-click-umber" },
-  { bg: "bg-click-yellow", fg: "text-white" },
+  { bg: "bg-click-yellow", fg: "" },
   { bg: "bg-click-orange", fg: "text-click-umber" },
   { bg: "bg-click-olive", fg: "text-click-umber" },
   { bg: "bg-click-maroon", fg: "text-paper" },

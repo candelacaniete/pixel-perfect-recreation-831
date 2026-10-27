@@ -140,6 +140,19 @@ export const clickOutcomes = [
   { letter: "K", name: "Kickstart under uncertainty", line: "Take a step. Learn what happens." },
 ] as const;
 
+/** Published talk. Not the TEDx recording; that file is not linked from the keynote page. */
+export const speakingWatch = {
+  title: "You Don’t Need Permission to Create",
+  href: "https://www.youtube.com/watch?v=gvUXBeRdF9A",
+} as const;
+
+/** Published on the keynote page. These are credentials, not invented quotations. */
+export const credentials = [
+  "TEDx San Francisco — a talk on turning a personal health journey into a community-driven business.",
+  "Five-time Teacher of the Year at Parsons School of Design, where she built and taught the Business & Entrepreneurship curriculum.",
+  "Founder and editor of 1•1•1 Signals.",
+] as const;
+
 export const subscribeUrl = "https://yrmis.substack.com/subscribe";
 export const substackHome = "https://yrmis.substack.com/";
 export const substackArchive = "https://yrmis.substack.com/archive";
@@ -165,7 +178,8 @@ export const siteCopy = {
   speaking: "I take teams on a trip through the problems that became my companies. Along the way, we practice spotting problems, using what we know, and putting ideas to work through CLICK.",
   yellow: "See sooner. Think sharper.",
   venturesLead: "Fashion, food, content, and technology. Each field adds another way to see a problem.",
-  signalsPromise: "Where tech meets human performance.",
+  signalsPromise:
+    "Field notes from the edge of the wild and the boardroom. One upgrade. One Mind on a Mission. One invitation to build. Free, every other week — read by 350K+ executives and builders.",
   signalsOffer: "Join 350K+ readers. One human performance upgrade, one bold idea, and one invitation to build. Free, about every two weeks.",
   founders: "Strategy, growth, fundraising readiness, and fractional leadership, from the first idea to the next stage.",
   executives: "A thinking partner for the decisions, priorities, and people involved in making change work.",

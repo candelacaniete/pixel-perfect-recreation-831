@@ -2,41 +2,48 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { markVisited } from "@/components/safari/visited";
-import { siteCopy } from "@/content/yrmis";
-
-const tracks = [
-  { eyebrow: "Founders", title: "From idea to next stage.", body: siteCopy.founders, interest: "Consulting Studio" as const },
-  { eyebrow: "Executive teams", title: "A thinking partner.", body: siteCopy.executives, interest: "Consulting Studio" as const },
-  { eyebrow: "Institutions", title: "Venture partners.", body: siteCopy.institutions, interest: "Consulting Studio" as const },
-];
+import { siteCopy, studio } from "@/content/yrmis";
+import capybara from "@/assets/reference/ref-home-capybara.jpg";
 
 export function WorkPage() {
   useEffect(() => markVisited("work"), []);
   return (
     <Shell current="Work with me">
-      <main className="yw yw-plain">
-        <p className="yw-kicker">Consulting studio</p>
-        <h1 className="yw-display" style={{ fontSize: "clamp(3rem, 6vw, 5.4rem)" }}>Plan and conspire.</h1>
-        <p className="yw-prose">{siteCopy.studio}</p>
-        <div className="yw-tracks">
-          {tracks.map((track) => (
-            <Link key={track.eyebrow} to="/contact" search={{ interest: track.interest }}>
-              <span className="yw-kicker">{track.eyebrow}</span>
-              <h2>{track.title}</h2>
-              <p>{track.body}</p>
-            </Link>
-          ))}
-        </div>
-        <div className="yw-pair">
-          <Link to="/contact" search={{ interest: "Communications strategy" }}>
-            <span className="yw-kicker">Communications strategy</span>
+      <main className="yw">
+        <section className="yw-intro">
+          <div>
+            <p className="yw-kicker">Consulting Studio</p>
+            <h1 className="yw-lead">{studio.intro}</h1>
+            <p>{siteCopy.studio}</p>
+            <Link to="/contact" search={{ interest: "Consulting Studio" }} className="yw-pill">Start a project</Link>
+          </div>
+          <img className="yw-portrait yw-frame" src={capybara} width={864} height={1152} alt="A capybara among water lilies at sunset in the Llanos" />
+        </section>
+        <section className="yw-sheet">
+          <p className="yw-kicker">Who I work with</p>
+          <div className="yw-tracks">
+            {studio.tracks.map((track) => (
+              <Link key={track.name} to="/contact" search={{ interest: "Consulting Studio" }}>
+                <span className="yw-kicker">{track.name}</span>
+                <h2>{track.name}</h2>
+                <p>{track.body}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+        <section className="yw-sheet yw-read-maroon" style={{ marginTop: 0, borderRadius: 0 }}>
+          <div className="yw-block">
+            <p className="yw-kicker">Communications strategy</p>
             <h2>{siteCopy.communications}</h2>
-          </Link>
-          <Link to="/contact" search={{ interest: "Other" }}>
-            <span className="yw-kicker">Something we haven’t named yet</span>
-            <h2>{siteCopy.unnamed}</h2>
-          </Link>
-        </div>
+            <Link to="/contact" search={{ interest: "Communications strategy" }} className="yw-pill">Start a project</Link>
+          </div>
+        </section>
+        <section className="yw-dark">
+          <p className="yw-kicker">Start a project</p>
+          <h2>Tell me what you’re building.</h2>
+          <p>{siteCopy.conversation}</p>
+          <Link to="/contact" search={{ interest: "Consulting Studio" }} className="yw-pill">Start a project inquiry</Link>
+        </section>
       </main>
     </Shell>
   );
