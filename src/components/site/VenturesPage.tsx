@@ -4,14 +4,11 @@ import { Shell } from "@/components/site/Shell";
 import { Band } from "@/components/editorial/Reference";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy, ventureStories } from "@/content/yrmis";
-import caiman from "@/assets/reference/ref-ventures-caiman.jpg";
 import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
 import greenhouse from "@/assets/sourced/ventures/mh-greenhouse.jpg";
 import family from "@/assets/sourced/ventures/abs-family.jpg";
 import hem from "@/assets/sourced/ventures/hem-store.jpg";
 import pants from "@/assets/sourced/ventures/yrmis-pants.jpg";
-import typeVentures from "@/assets/reference/type-ventures.png";
-
 const photos = { greenhouse, family, hem, pants } as const;
 
 export function VenturesPage() {
@@ -19,15 +16,10 @@ export function VenturesPage() {
   return (
     <Shell current="Ventures">
       <main className="yw">
-        <section className="bleed" aria-label="Ventures">
-          <img className="bleed-photo" src={caiman} alt="An Orinoco caiman in dark green water" style={{ objectPosition: "28% 42%" }} />
-          <div className="bleed-copy">
-            <h1 className="lockup-title"><img className="lockup" src={typeVentures} alt="Ideas into real worlds" /></h1>
-            <p className="yw-standfirst">{siteCopy.venturesLead}</p>
-          </div>
-        </section>
         <section className="yw-sheet">
+          <p className="yw-kicker">Ventures</p>
           <h2>Featured projects</h2>
+          <p>{siteCopy.venturesLead}</p>
           <p>I develop and collaborate on projects that turn a way of seeing into a working business.</p>
           <div className="yw-ventures">
             {ventureStories.map((venture) => (

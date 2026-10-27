@@ -5,7 +5,6 @@ import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import turtle from "@/assets/reference/ref-press-turtle.jpg";
 import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
-import typePress from "@/assets/reference/type-press.png";
 import blazer from "@/assets/sourced/portraits/yrmis-blazer.jpg";
 import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
 import heels from "@/assets/sourced/portraits/yrmis-red.jpg";
@@ -45,15 +44,10 @@ export function PressPage() {
   return (
     <Shell current="Press kit">
       <main className="yw">
-        <section className="bleed" aria-label="Press kit">
-          <img className="bleed-photo" src={turtle} alt="An Arrau turtle under the surface, among water lilies" style={{ objectPosition: "24% 40%" }} />
-          <div className="bleed-copy">
-            <h1 className="lockup-title"><img className="lockup" src={typePress} alt="Press kit and resources" /></h1>
-            <p className="yw-standfirst">{siteCopy.identity}. Official materials for media, events, and collaborations.</p>
-          </div>
-        </section>
         <section className="yw-sheet">
+          <p className="yw-kicker">Press kit</p>
           <h2>Media assets</h2>
+          <p>{siteCopy.identity}. Official materials for media, events, and collaborations.</p>
           <p>These are the files already published. Nothing here is a placeholder download.</p>
           <div className="yw-assets">
             {assets.map((asset) => (

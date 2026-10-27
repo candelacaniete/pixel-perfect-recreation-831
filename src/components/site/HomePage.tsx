@@ -4,12 +4,10 @@ import { Shell } from "@/components/site/Shell";
 import { Band } from "@/components/editorial/Reference";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
-import capybara from "@/assets/reference/ref-home-capybara.jpg";
 import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
 import wetland from "@/assets/reference/ref-click-llanos.jpg";
 import palms from "@/assets/reference/ref-tile-palms.jpg";
 import anaconda from "@/assets/reference/ref-about-anaconda.jpg";
-import typeHome from "@/assets/reference/type-home-ink.png";
 import portrait from "@/assets/sourced/portraits/yrmis-red.jpg";
 
 const areas = [
@@ -49,14 +47,6 @@ export function HomePage() {
             height={1800}
             alt="Yrmis Barroeta in a black dress, red tights, and red heels, one hand resting on her shin"
           />
-        </section>
-        <section className="bleed bleed-ink" aria-label="Home">
-          <img className="bleed-photo" src={capybara} alt="A capybara among water lilies at sunset in the Llanos" />
-          <div className="bleed-copy">
-            <h1 className="lockup-title"><img className="lockup" src={typeHome} alt="Ideas that move territories" /></h1>
-            <p className="yw-standfirst">{siteCopy.homeDeck}</p>
-            <Link to="/about" className="yw-pill">Explore Yrmis’s world →</Link>
-          </div>
         </section>
         <section className="yw-sheet yw-sheet-home">
           <div className="yw-split">

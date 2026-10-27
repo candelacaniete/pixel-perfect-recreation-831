@@ -207,6 +207,12 @@
   border: 1px solid rgba(246, 239, 228, 0.75);
 }
 
+.yw > .yw-sheet:first-child,
+.yw > .yw-dark:first-child {
+  margin-top: 0;
+  padding-top: 7.2rem;
+}
+
 .yw-sheet {
   position: relative;
   z-index: 2;

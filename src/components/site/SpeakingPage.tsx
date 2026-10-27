@@ -4,14 +4,11 @@ import { Shell } from "@/components/site/Shell";
 import { Band } from "@/components/editorial/Reference";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy, studio } from "@/content/yrmis";
-import jabiru from "@/assets/reference/ref-speaking-jabiru.jpg";
 import plain from "@/assets/reference/ref-dusk-llanos.jpg";
 import palms from "@/assets/reference/ref-tile-palms.jpg";
 import wetland from "@/assets/reference/ref-tile-wetland.jpg";
 import field from "@/assets/reference/ref-tile-plain.jpg";
 import night from "@/assets/reference/ref-tile-night.jpg";
-import typeSpeaking from "@/assets/reference/type-speaking.png";
-
 const topics = [
   { title: studio.keynote.title, body: studio.keynote.out, img: palms },
   { title: "For the room", body: studio.keynote.for, img: wetland },
@@ -24,17 +21,12 @@ export function SpeakingPage() {
   return (
     <Shell current="Speaking">
       <main className="yw">
-        <section className="bleed" aria-label="Speaking">
-          <img className="bleed-photo" src={jabiru} alt="A jabiru standing in the Llanos at sunset" style={{ objectPosition: "22% 30%" }} />
-          <div className="bleed-copy">
-            <h1 className="lockup-title"><img className="lockup" src={typeSpeaking} alt="Conversations that inspire a more alive world" /></h1>
-            <p className="yw-standfirst">{siteCopy.speaking}</p>
-            <Link to="/contact" search={{ interest: "Speaking" }} className="yw-pill">Book Yrmis for an event →</Link>
-          </div>
-        </section>
         <section className="yw-sheet" id="topics">
-          <h2>Topics</h2>
+          <p className="yw-kicker">Speaking</p>
+          <h2>{studio.keynote.title}</h2>
           <p>{siteCopy.speaking}</p>
+          <Link to="/contact" search={{ interest: "Speaking" }} className="yw-pill">Book Yrmis for an event →</Link>
+          <h2>Topics</h2>
           <div className="yw-rows">
             {topics.map((topic) => (
               <article key={topic.title} className="yw-row">

@@ -3,9 +3,7 @@ import { Shell } from "@/components/site/Shell";
 import { Band } from "@/components/editorial/Reference";
 import { markVisited } from "@/components/safari/visited";
 import { signalIssues, signals, siteCopy, substackArchive, subscribeUrl } from "@/content/yrmis";
-import puma from "@/assets/reference/ref-signals-puma.jpg";
 import night from "@/assets/land-signals-observation.jpg";
-import typeSignals from "@/assets/reference/type-signals.png";
 import glasses from "@/assets/sourced/portraits/yrmis-glasses.png";
 
 const finds = [
@@ -28,14 +26,9 @@ export function SignalsPage() {
   return (
     <Shell current="Signals">
       <main className="yw yw-night page-pad">
-        <section className="bleed" aria-label="1.1.1 Signals">
-          <img className="bleed-photo" src={puma} alt="A puma on a rock under a full moon" style={{ objectPosition: "30% 36%" }} />
-          <div className="bleed-copy">
-            <h1 className="lockup-title"><img className="lockup" src={typeSignals} alt="1.1.1 Signals" /></h1>
-            <p className="yw-standfirst">{siteCopy.signalsPromise}</p>
-          </div>
-        </section>
         <section className="yw-dark">
+          <p className="yw-kicker">1•1•1 Signals</p>
+          <h2>1.1.1 Signals</h2>
           <p>{siteCopy.signalsPromise}</p>
           <h2>What you’ll find</h2>
           <div className="yw-find-list">

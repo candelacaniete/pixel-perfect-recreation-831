@@ -85,7 +85,7 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
   const [solid, setSolid] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
   const onRiver = path === "/river";
-  const inkHero = path === "/" || path === "/home" || path === "/about";
+  const inkHero = path !== "/signals" && path !== "/world";
   const here = (to: string) => path === to || (to === "/" && path === "/home");
 
   useEffect(() => {
