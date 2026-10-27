@@ -30,52 +30,56 @@ export function RiverPage({ stop }: { stop: number | undefined }) {
 
   return (
     <Shell>
-      <p className="ed-eyebrow">The river experience</p>
-      <h1>
-        CLICK into
-        <br />
-        <em>Wild Innovation</em>
-      </h1>
-      <p className="ed-serif">Trust me. You’re gonna want a window seat.</p>
-      <p>A trip through the way I solve problems. We start in the Llanos. We end with what you could build next.</p>
-      <div className="ed-riverline">
-        <span>THE LLANOS</span>
-        <i aria-hidden="true" />
-        <strong>
-          CLICK
-          <br />
-          <em>Find. Adapt. Build.</em>
-        </strong>
-      </div>
-      <div className="ed-block ed-maroon">
-        <h2>
-          Five ways to spot problems,
-          <br />
-          <em>cross industries, and make something work.</em>
-        </h2>
-        <p>Bring your curiosity.</p>
-        <div className="ed-controls">
-          <button
-            type="button"
-            className="ed-control"
-            onClick={() => {
-              const state = journey.get();
-              if (state.landed || state.cam >= LANDING_Z - 1) {
-                journey.set({ cam: 0, passed: [], landed: false, jump: null });
-              }
-              setEntered(true);
-            }}
-          >
-            Enter the river
-          </button>
-          <Link to="/click" className="ed-control">
-            Preview where the river ends
-          </Link>
-          <Link to="/speaking" className="ed-control">
-            Speaking
-          </Link>
+      <section className="chapter hero">
+        <div className="chap">
+          <span className="num">River</span>
+          <h1 className="d" style={{ fontSize: "clamp(40px, 6vw, 84px)" }}>
+            CLICK into
+            <br />
+            <em>Wild Innovation</em>
+          </h1>
+          <p className="lede">Trust me. You’re gonna want a window seat. A trip through the way I solve problems. We start in the Llanos. We end with what you could build next.</p>
         </div>
-      </div>
+        <div className="grid">
+          <div className="sq w2 oxb">
+            <div className="eyebrow">The Llanos</div>
+            <p className="d h-l">
+              Five ways to spot problems, cross industries, and make something work.
+            </p>
+            <p className="small">Bring your curiosity.</p>
+          </div>
+          <div className="sq w2 gold">
+            <p className="d h-l">
+              CLICK
+              <br />
+              <em>Find. Adapt. Build.</em>
+            </p>
+          </div>
+          <div className="sq w3 bone">
+            <div className="actions">
+              <button
+                type="button"
+                className="btn red"
+                onClick={() => {
+                  const state = journey.get();
+                  if (state.landed || state.cam >= LANDING_Z - 1) {
+                    journey.set({ cam: 0, passed: [], landed: false, jump: null });
+                  }
+                  setEntered(true);
+                }}
+              >
+                Enter the river
+              </button>
+              <Link to="/click" className="btn">
+                Preview where the river ends
+              </Link>
+              <Link to="/speaking" className="btn">
+                Speaking
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </Shell>
   );
 }

@@ -1,123 +1,94 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useEffect, useId, useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { socials, subscribeUrl, substackHome } from "@/content/yrmis";
-
-type SitePath = "/" | "/about" | "/work" | "/speaking" | "/ventures" | "/press" | "/signals" | "/contact" | "/world" | "/river" | "/click" | "/home";
 
 const nav = [
   { to: "/about", label: "About" },
   { to: "/work", label: "Work with me" },
   { to: "/speaking", label: "Speaking" },
-  { to: "/ventures", label: "Entrepreneurial Ventures" },
+  { to: "/ventures", label: "Ventures" },
   { to: "/press", label: "Press kit" },
-  { to: "/signals", label: "1•1•1 Signals Newsletter" },
+  { to: "/signals", label: "1•1•1 Signals" },
 ] as const;
 
-export function Chapter({
-  n,
-  title,
-  to,
-}: {
-  n: string;
-  title: string;
-  to: SitePath;
-}) {
-  return (
-    <Link to={to} className="ed-chapter">
-      <span>{n}</span>
-      <h2>{title}</h2>
-      <span aria-hidden="true">→</span>
-    </Link>
-  );
-}
-
-export function Shell({ children }: { children: ReactNode }) {
+export function Shell({ children, page = false }: { children: ReactNode; page?: boolean }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
-  const [open, setOpen] = useState(false);
-  const menuId = useId();
-
-  useEffect(() => {
-    setOpen(false);
-  }, [path]);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
 
   return (
-    <div className="ed">
+    <div className={page ? "living page" : "living"}>
       <a className="sr-only" href="#content">
         Skip to content
       </a>
-      <header className="ed-header">
-        <Link to="/" className="ed-logo">
+      <div className="grain" aria-hidden="true" />
+      <nav className="nav" aria-label="Primary">
+        <Link to="/" className="brand">
           Yrmis Barroeta
         </Link>
-        <button
-          type="button"
-          className="ed-menu"
-          aria-expanded={open}
-          aria-controls={menuId}
-          onClick={() => setOpen((value) => !value)}
-        >
-          Menu
-        </button>
-        <nav id={menuId} className={open ? "ed-nav is-open" : "ed-nav"} aria-label="Primary">
+        <ul>
           {nav.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              aria-current={path === item.to ? "page" : undefined}
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <Link to="/contact" search={{ interest: "Consulting Studio" }} className="ed-cta">
-          Start a conversation
-        </Link>
-      </header>
-      <main id="content" className="ed-main">
-        {children}
-      </main>
-      <footer className="ed-footer">
-        <div className="ed-footer-grid">
-          <div className="ed-foot-brand">
-            <h2>Wild black wool never dyes.</h2>
-            <p>Yrmis Barroeta · Wild Innovation</p>
-            <div className="ed-socials">
-              {socials.map((item) => (
-                <a key={item.name} href={item.href} aria-label={item.name} target="_blank" rel="noreferrer">
-                  {item.name === "LinkedIn" ? "in" : item.name === "Instagram" ? "IG" : "𝕏"}
-                </a>
-              ))}
-            </div>
-          </div>
-          <nav className="ed-foot-site" aria-label="Site">
-            <p className="ed-eyebrow">Site</p>
-            {nav.map((item) => (
-              <Link key={item.to} to={item.to}>
+            <li key={item.to}>
+              <Link to={item.to} className={path === item.to ? "on" : undefined} aria-current={path === item.to ? "page" : undefined}>
                 {item.label}
               </Link>
-            ))}
-          </nav>
-          <div className="ed-foot-signals">
-            <p className="ed-eyebrow">1•1•1 Signals</p>
-            <h2>Field notes, free, every other week.</h2>
-            <a className="ed-control" href={subscribeUrl}>
-              Subscribe now
-            </a>
+            </li>
+          ))}
+        </ul>
+        <div className="ctas">
+          <Link to="/contact" search={{ interest: "Consulting Studio" }} className="btn">
+            Start a conversation
+          </Link>
+          <a className="btn red" href={subscribeUrl} target="_blank" rel="noreferrer">
+            Subscribe now
+          </a>
+        </div>
+      </nav>
+      <div id="content">{children}</div>
+      <footer className="chapter short">
+        <div className="grid">
+          <div className="sq w2 inkb lined">
+            <p className="d h-xl">
+              Wild black wool
+              <br />
+              <em>never dyes.</em>
+            </p>
+            <div>
+              <div className="eyebrow">Yrmis Barroeta · Wild Innovation</div>
+              <div className="social">
+                {socials.map((item) => (
+                  <a key={item.name} href={item.href} aria-label={item.name} target="_blank" rel="noreferrer">
+                    {item.name === "LinkedIn" ? "in" : item.name === "Instagram" ? "IG" : "𝕏"}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="sq bone">
+            <div className="eyebrow">Site</div>
+            <ul className="list small">
+              {nav.map((item) => (
+                <li key={item.to}>
+                  <Link to={item.to}>{item.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="sq redb">
+            <div className="eyebrow">1•1•1 Signals</div>
+            <p className="d h-m">Field notes, free, every other week.</p>
+            <div>
+              <a className="btn" href={subscribeUrl} target="_blank" rel="noreferrer">
+                Subscribe now
+              </a>
+              <p className="small" style={{ marginTop: 10 }}>
+                <a href={substackHome} target="_blank" rel="noreferrer">
+                  yrmis.substack.com ↗
+                </a>
+              </p>
+            </div>
           </div>
         </div>
-        <div className="ed-fine">
+        <div className="fine">
           <span>© Yrmis Barroeta</span>
-          <a href={substackHome}>yrmis.substack.com</a>
           <Link to="/world">Explore Yrmis World</Link>
         </div>
       </footer>

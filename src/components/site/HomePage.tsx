@@ -1,165 +1,220 @@
 import { Link } from "@tanstack/react-router";
-import { Chapter, Shell } from "@/components/site/Shell";
-import { clickOutcomes, signalIssues, siteCopy, subscribeUrl } from "@/content/yrmis";
+import { Shell } from "@/components/site/Shell";
+import { ClickFive } from "@/components/site/ClickFive";
+import { signalIssues, siteCopy, subscribeUrl } from "@/content/yrmis";
 import blazer from "@/assets/sourced/portraits/yrmis-blazer.jpg";
+import stage from "@/assets/sourced/portraits/yrmis-stage.webp";
 import glasses from "@/assets/sourced/portraits/yrmis-glasses.webp";
+import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
+import tedx from "@/assets/sourced/logos/tedx.svg";
+import vogue from "@/assets/sourced/logos/vogue.svg";
+import chronicle from "@/assets/sourced/logos/sfchronicle.svg";
+import east from "@/assets/sourced/logos/24east.svg";
+import berkeley from "@/assets/sourced/logos/berkeleyside.png";
+import kresser from "@/assets/sourced/logos/kresser.svg";
+import bullet from "@/assets/sourced/logos/bulletproof.svg";
+
+const logos = [
+  [tedx, "TEDx"],
+  [vogue, "Vogue"],
+  [chronicle, "San Francisco Chronicle"],
+  [east, "24 East"],
+  [berkeley, "Berkeleyside"],
+  [kresser, "Chris Kresser"],
+  [bullet, "Bulletproof"],
+] as const;
 
 export function HomePage() {
   return (
     <Shell>
-      <Chapter n="01" title="About" to="/about" />
-      <div className="ed-grid ed-about">
-        <div className="ed-block ed-photo">
-          <img
-            src={blazer}
-            width={2688}
-            height={4032}
-            alt="Yrmis Barroeta, black and white blazer portrait from the press kit"
-          />
-        </div>
-        <div className="ed-block ed-red ed-hero">
-          <div>
-            <p className="ed-eyebrow">{siteCopy.identity}</p>
-            <h1>
-              {siteCopy.headline}
-              <br />
-              <em>{siteCopy.headlineEm}</em>
+      <header className="chapter hero">
+        <div className="grid">
+          <div className="sq w2 h2 bone">
+            <div className="eyebrow">{siteCopy.identity}</div>
+            <h1 className="d" style={{ margin: 0 }}>
+              <span className="word tight" style={{ display: "block" }}>
+                New
+                <br />
+                territory.
+              </span>
+              <span className="word tight i" style={{ display: "block" }}>
+                Bring what
+                <br />
+                you know.
+              </span>
             </h1>
-            <p>{siteCopy.homeIntro}</p>
-            <div className="ed-controls">
-              <Link to="/river" className="ed-control">
+            <div className="controls" style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+              <Link to="/river" className="btn">
                 Explore CLICK
               </Link>
-              <Link to="/work" className="ed-control">
+              <Link to="/work" className="btn red">
                 Work with me
               </Link>
-              <Link to="/speaking" className="ed-textlink">
+              <Link to="/speaking" className="small" style={{ alignSelf: "center", textDecoration: "underline" }}>
                 Speaking
               </Link>
             </div>
           </div>
-        </div>
-        <div className="ed-block ed-bone">
-          <p className="ed-serif">{siteCopy.about}</p>
-        </div>
-        <div className="ed-block ed-yellow">
-          <h3>
-            See sooner.
-            <br />
-            <em>Think sharper.</em>
-          </h3>
-        </div>
-      </div>
-
-      <div className="ed-space">
-        <Chapter n="03" title="Speaking" to="/speaking" />
-        <div className="ed-grid">
-          <div className="ed-block ed-red ed-w2">
-            <p className="ed-eyebrow">The signature keynote</p>
-            <h2>
-              CLICK into
+          <div className="sq w2 h3">
+            <img src={blazer} width={2688} height={4032} alt="Yrmis Barroeta, black and white blazer portrait from the press kit" />
+          </div>
+          <div className="sq olive tile" aria-hidden="true">
+            <div className="t">
+              <span>CLICK</span>
+              <span>CLICK</span>
+              <span>CLICK</span>
+            </div>
+          </div>
+          <div className="sq gold">
+            <p className="d h-m">{siteCopy.about}</p>
+            <p className="d h-l">
+              See sooner.
               <br />
-              <em>Wild Innovation</em>
-            </h2>
-            <p>{siteCopy.speaking}</p>
-            <Link to="/contact" search={{ interest: "Speaking" }} className="ed-control">
+              <em>Think sharper.</em>
+            </p>
+          </div>
+        </div>
+        <div className="proof">
+          {logos.map(([src, alt]) => (
+            <img key={alt} src={src} alt={alt} />
+          ))}
+        </div>
+      </header>
+
+      <section className="chapter" style={{ ["--rows" as string]: 2 }}>
+        <div className="chap">
+          <Link to="/speaking" className="num">
+            03
+          </Link>
+          <h2 className="d">
+            <Link to="/speaking">
+              Speaking — <em>CLICK into Wild Innovation</em>
+            </Link>
+          </h2>
+          <p className="lede">{siteCopy.speaking}</p>
+        </div>
+        <div className="grid">
+          <div className="sq w2 redb">
+            <div className="eyebrow">The signature keynote</div>
+            <div className="word" style={{ fontSize: "clamp(40px, 5vw, 92px)" }}>
+              Click
+              <br />
+              <span className="i">into</span> Wild
+            </div>
+            <Link to="/contact" search={{ interest: "Speaking" }} className="btn">
               Check availability
             </Link>
           </div>
-          <div className="ed-block ed-bone ed-w2">
-            <p className="ed-eyebrow">Audience outcomes</p>
-            <ol className="ed-outcomes">
-              {clickOutcomes.map((item) => (
-                <li key={item.name}>
-                  <span aria-hidden="true">{item.letter}</span>
-                  <div>
-                    <strong>{item.name}</strong>
-                    <p>{item.line}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-            <Link to="/speaking" className="ed-textlink">
+          <div className="sq h2">
+            <img src={stage} width={650} height={650} alt="Yrmis mid-story" />
+          </div>
+          <div className="sq bone">
+            <div className="eyebrow">Audience outcomes</div>
+            <p className="d h-m">Five approaches to a new problem.</p>
+            <Link to="/speaking" className="btn">
               Explore the keynote
             </Link>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="ed-space">
-        <Chapter n="02" title="Work with me" to="/work" />
-        <div className="ed-grid">
-          <div className="ed-block ed-copper ed-w2">
-            <p className="ed-eyebrow">Consulting Studio · Fractional & advisory</p>
-            <h2>
-              Plan <em>and</em>
+      <section className="chapter short">
+        <ClickFive />
+      </section>
+
+      <section className="chapter">
+        <div className="chap">
+          <Link to="/work" className="num">
+            02
+          </Link>
+          <h2 className="d">
+            <Link to="/work">
+              Work with me — <em>Consulting Studio</em>
+            </Link>
+          </h2>
+          <p className="lede">{siteCopy.studio}</p>
+        </div>
+        <div className="grid">
+          <div className="sq w2 copper">
+            <div className="eyebrow">Consulting Studio</div>
+            <div className="word" style={{ fontSize: "clamp(40px, 5vw, 88px)" }}>
+              Plan <span className="i">and</span>
               <br />
-              conspire.
-            </h2>
-            <p>{siteCopy.studio}</p>
-            <Link to="/contact" search={{ interest: "Consulting Studio" }} className="ed-control">
+              conspire
+            </div>
+            <Link to="/contact" search={{ interest: "Consulting Studio" }} className="btn">
               Discuss your project
             </Link>
           </div>
-          <div className="ed-block ed-bone">
-            <p className="ed-eyebrow">Founders</p>
-            <h3>
-              From idea
-              <br />
-              <em>to next stage.</em>
-            </h3>
-            <p>{siteCopy.founders}</p>
+          <div className="sq bone">
+            <div className="eyebrow">Founders</div>
+            <p className="d h-m">From idea to next stage.</p>
+            <p className="small">{siteCopy.founders}</p>
           </div>
-          <div className="ed-block ed-maroon">
-            <p className="ed-eyebrow">Executive teams</p>
-            <p>{siteCopy.executives}</p>
+          <div className="sq oxb">
+            <div className="eyebrow">Executive teams</div>
+            <p className="small">{siteCopy.executives}</p>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="ed-space">
-        <Chapter n="04" title="Entrepreneurial Ventures" to="/ventures" />
-        <div className="ed-block ed-maroon">
-          <h2>
-            Different ventures.
-            <br />
-            <em>More ways to see.</em>
+      <section className="chapter short">
+        <div className="chap">
+          <Link to="/ventures" className="num">
+            04
+          </Link>
+          <h2 className="d">
+            <Link to="/ventures">
+              Entrepreneurial Ventures — <em>more ways to see.</em>
+            </Link>
           </h2>
-          <p>{siteCopy.venturesLead}</p>
-          <Link to="/ventures" className="ed-control">
-            Explore the ventures
+          <p className="lede">{siteCopy.venturesLead}</p>
+        </div>
+        <div className="grid">
+          <Link to="/ventures" className="sq">
+            <img src={plants} alt="" />
+          </Link>
+          <div className="sq jungleb">
+            <div className="eyebrow">Four companies</div>
+            <p className="d h-m">Mission Heirloom · All Black Sheep · (hĕm) · YRMIS</p>
+          </div>
+          <Link to="/ventures" className="sq w2 redb">
+            <p className="d h-l">Different ventures. More ways to see.</p>
+            <span className="btn">Explore the ventures</span>
           </Link>
         </div>
-      </div>
+      </section>
 
-      <div className="ed-space">
-        <Chapter n="06" title="1•1•1 Signals Newsletter" to="/signals" />
-        <div className="ed-grid">
-          <div className="ed-block ed-red ed-w2">
-            <h2>
-              Where tech meets
+      <section className="chapter">
+        <div className="chap">
+          <Link to="/signals" className="num">
+            06
+          </Link>
+          <h2 className="d">
+            <Link to="/signals">
+              1•1•1 Signals — <em>where tech meets human performance.</em>
+            </Link>
+          </h2>
+          <p className="lede">{siteCopy.signalsOffer}</p>
+        </div>
+        <div className="grid">
+          <div className="sq w2 redb">
+            <div className="eyebrow">The newsletter</div>
+            <p className="d h-l">
+              See sooner.
               <br />
-              <em>human performance.</em>
-            </h2>
-            <p>{siteCopy.signalsOffer}</p>
-            <a className="ed-control" href={subscribeUrl} target="_blank" rel="noreferrer">
-              Subscribe free ↗
+              <em>Think sharper.</em>
+            </p>
+            <a className="btn" href={subscribeUrl} target="_blank" rel="noreferrer">
+              Subscribe free
             </a>
           </div>
-          <div className="ed-block ed-bone ed-w2">
-            <div className="ed-inline-photo">
-              <img src={glasses} width={212} height={258} alt="Yrmis wearing glasses, newsletter portrait" />
-              <div>
-                <p className="ed-eyebrow">1•1•1 Signals</p>
-                <h3>
-                  See sooner.
-                  <br />
-                  <em>Think sharper.</em>
-                </h3>
-              </div>
-            </div>
-            <p className="ed-eyebrow">Recent issues</p>
-            <ul className="ed-issues">
+          <div className="sq">
+            <img src={glasses} width={212} height={258} alt="Yrmis wearing glasses, newsletter portrait" />
+          </div>
+          <div className="sq bone">
+            <div className="eyebrow">Recent issues</div>
+            <ul className="issues">
               {signalIssues.map((issue) => (
                 <li key={issue.href}>
                   <a href={issue.href} target="_blank" rel="noreferrer">
@@ -170,35 +225,34 @@ export function HomePage() {
             </ul>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="ed-block ed-maroon ed-space">
-        <p className="ed-eyebrow">Start a conversation</p>
-        <h2>
-          Let’s make
-          <br />
-          <em>things happen.</em>
-        </h2>
-        <p>{siteCopy.conversation}</p>
-        <div className="ed-controls">
-          <Link to="/contact" search={{ interest: "Speaking" }} className="ed-control">
-            Event inquiry
-          </Link>
-          <Link to="/contact" search={{ interest: "Consulting Studio" }} className="ed-control">
-            Project inquiry
+      <section className="chapter short">
+        <div className="grid">
+          <div className="sq w3 oxb">
+            <div className="eyebrow">Start a conversation</div>
+            <p className="d h-l">
+              Let’s make
+              <br />
+              <em>things happen.</em>
+            </p>
+            <p className="small">{siteCopy.conversation}</p>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+              <Link to="/contact" search={{ interest: "Speaking" }} className="btn">
+                Event inquiry
+              </Link>
+              <Link to="/contact" search={{ interest: "Consulting Studio" }} className="btn">
+                Project inquiry
+              </Link>
+            </div>
+          </div>
+          <Link to="/world" className="sq gold">
+            <div className="eyebrow">Optional</div>
+            <p className="d h-m">Explore Yrmis World</p>
+            <span className="small">Speaking, the river, and a few unlikely connections.</span>
           </Link>
         </div>
-      </div>
-
-      <div className="ed-worldstrip">
-        <div>
-          <p className="ed-eyebrow">A few unlikely connections</p>
-          <h3>Explore Yrmis World</h3>
-        </div>
-        <Link to="/world" className="ed-control">
-          Explore Yrmis World
-        </Link>
-      </div>
+      </section>
     </Shell>
   );
 }

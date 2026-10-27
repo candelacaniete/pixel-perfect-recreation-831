@@ -5,37 +5,30 @@ import { WorldMap } from "@/components/safari/WorldMap";
 export function WorldPage() {
   return (
     <Shell>
-      <p className="ed-eyebrow">Optional exploration</p>
-      <h1>
-        Yrmis <em>World</em>
-      </h1>
-      <p>Speaking, ventures, ideas, and a few unlikely connections. Pick a place to start.</p>
-      <div className="ed-grid">
-        <div className="ed-block ed-maroon ed-w2">
-          <h2>Experience CLICK</h2>
-          <Link to="/river" className="ed-control">
-            Explore CLICK
+      <section className="chapter short">
+        <div className="chap">
+          <span className="num">World</span>
+          <h1 className="d" style={{ fontSize: "clamp(40px, 6vw, 84px)" }}>
+            Yrmis <em>World</em>
+          </h1>
+          <p className="lede">Speaking, ventures, ideas, and a few unlikely connections. Pick a place to start. This route stays outside the service menu.</p>
+        </div>
+        <div className="grid">
+          <Link to="/river" className="sq oxb">
+            <div className="eyebrow">Experience CLICK</div>
+            <p className="d h-l">Explore the river</p>
+          </Link>
+          <Link to="/speaking" className="sq redb">
+            <p className="d h-m">Speaking</p>
+          </Link>
+          <Link to="/work" className="sq copper">
+            <p className="d h-m">Work with me</p>
+          </Link>
+          <Link to="/signals" className="sq gold">
+            <p className="d h-m">Signals</p>
           </Link>
         </div>
-        <div className="ed-block ed-red ed-w2">
-          <h2>
-            Plan <em>and</em>
-            <br />
-            conspire.
-          </h2>
-          <div className="ed-controls">
-            <Link to="/speaking" className="ed-control">
-              Speaking
-            </Link>
-            <Link to="/work" className="ed-control">
-              Work with me
-            </Link>
-            <Link to="/signals" className="ed-control">
-              Signals
-            </Link>
-          </div>
-        </div>
-      </div>
+      </section>
       <WorldMap />
     </Shell>
   );
