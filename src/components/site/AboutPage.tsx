@@ -7,6 +7,7 @@ import { siteCopy } from "@/content/yrmis";
 import anaconda from "@/assets/reference/ref-about-anaconda.jpg";
 import portrait from "@/assets/sourced/portraits/yrmis-blazer.jpg";
 import tree from "@/assets/origin.jpg";
+import typeAbout from "@/assets/reference/type-about.png";
 
 const drives = [
   { n: "01", title: "Curiosity", body: "Notice what bugs you. Ask what could work better." },
@@ -19,15 +20,13 @@ export function AboutPage() {
   return (
     <Shell current="About">
       <main className="yw">
-        <section className="open about-open" aria-label="About">
-          <div className="open-copy">
+        <section className="bleed" aria-label="About">
+          <img className="bleed-photo" src={anaconda} alt="An anaconda coiled through dark water at dusk" style={{ objectPosition: "62% 45%" }} />
+          <div className="bleed-copy">
             <p className="yw-kicker">A journey across territories, ideas and life.</p>
-            <h1 className="yw-display">A curious<br />way of<br />belonging</h1>
+            <h1 className="lockup-title"><img className="lockup" src={typeAbout} alt="A curious way of belonging" /></h1>
             <p className="yw-standfirst">{siteCopy.about}</p>
           </div>
-          <figure>
-            <img src={anaconda} alt="An anaconda coiled through dark water at dusk" />
-          </figure>
         </section>
         <section className="yw-sheet" id="story">
           <img className="story-photo" src={portrait} alt="Yrmis Barroeta" />

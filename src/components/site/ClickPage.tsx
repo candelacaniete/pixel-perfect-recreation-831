@@ -5,6 +5,7 @@ import { ClickFive } from "@/components/site/ClickFive";
 import { markVisited } from "@/components/safari/visited";
 import { clickExamples, clickOutcomes, riverDestination } from "@/content/yrmis";
 import llanos from "@/assets/reference/ref-click-llanos.jpg";
+import typeClick from "@/assets/reference/type-click.png";
 
 const crops = ["20% 70%", "70% 40%", "40% 30%", "80% 80%", "30% 50%"];
 
@@ -33,10 +34,10 @@ export function ClickPage() {
   return (
     <Shell current="CLICK">
       <main className="yw">
-        <section className="click-open" aria-label="CLICK">
-          <img src={llanos} alt="A Llanos wetland at sunset, with water lilies and no animals" />
-          <div className="open-copy">
-            <h1 className="yw-display">Click</h1>
+        <section className="bleed" aria-label="CLICK">
+          <img className="bleed-photo" src={llanos} alt="A Llanos wetland at sunset, with water lilies and no animals" style={{ objectPosition: "center 62%" }} />
+          <div className="bleed-copy">
+            <h1 className="lockup-title"><img className="lockup" src={typeClick} alt="Click" /></h1>
             <p className="yw-standfirst">{riverDestination.line}</p>
           </div>
         </section>

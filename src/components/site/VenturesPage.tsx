@@ -10,6 +10,7 @@ import greenhouse from "@/assets/sourced/ventures/mh-greenhouse.jpg";
 import family from "@/assets/sourced/ventures/abs-family.jpg";
 import hem from "@/assets/sourced/ventures/hem-store.jpg";
 import pants from "@/assets/sourced/ventures/yrmis-pants.jpg";
+import typeVentures from "@/assets/reference/type-ventures.png";
 
 const photos = { greenhouse, family, hem, pants } as const;
 
@@ -18,14 +19,12 @@ export function VenturesPage() {
   return (
     <Shell current="Ventures">
       <main className="yw">
-        <section className="open ventures-open" aria-label="Ventures">
-          <div className="open-copy">
-            <h1 className="yw-display">Ideas<br />into real<br />worlds</h1>
+        <section className="bleed" aria-label="Ventures">
+          <img className="bleed-photo" src={caiman} alt="An Orinoco caiman in dark green water" style={{ objectPosition: "58% 48%" }} />
+          <div className="bleed-copy">
+            <h1 className="lockup-title"><img className="lockup" src={typeVentures} alt="Ideas into real worlds" /></h1>
             <p className="yw-standfirst">{siteCopy.venturesLead}</p>
           </div>
-          <figure>
-            <img src={caiman} alt="An Orinoco caiman in dark green water" />
-          </figure>
         </section>
         <section className="yw-sheet">
           <h2>Featured projects</h2>

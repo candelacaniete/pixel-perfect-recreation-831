@@ -4,6 +4,7 @@ import { stops, LANDING_Z } from "@/content/journey";
 import { socials, subscribeUrl, substackHome } from "@/content/yrmis";
 import { journey, useJourney } from "./journeyStore";
 import ibis from "@/assets/sp-bird.webp";
+import mark from "@/assets/reference/type-mark.png";
 import capybara from "@/assets/sp-capybara.webp";
 import grass from "@/assets/sp-grass.webp";
 
@@ -81,6 +82,7 @@ function currentPath(path: string, to: string) {
 export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
   const [mapOpen, setMapOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [solid, setSolid] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
   const onRiver = path === "/river";
   const here = (to: string) => path === to || (to === "/" && path === "/home");
@@ -96,6 +98,12 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
   }, []);
 
   useEffect(() => { setMenuOpen(false); }, [path]);
+  useEffect(() => {
+    const onScroll = () => setSolid(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   if (!onRiver) {
     const worldNav = [
@@ -107,8 +115,8 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
       { to: "/signals", label: "1.1.1 Signals" },
     ] as const;
     return (
-      <header data-ui className={menuOpen ? "yw-chrome is-open" : "yw-chrome"}>
-        <Link to="/" className="yw-mark" aria-label="Yrmis World, home"><span>YRMIS</span><span>WORLD</span></Link>
+      <header data-ui className={`yw-chrome${solid || menuOpen ? " is-solid" : ""}${menuOpen ? " is-open" : ""}`}>
+        <Link to="/" className="yw-mark" aria-label="Yrmis World, home"><img src={mark} alt="" /></Link>
         <nav className="yw-nav" aria-label="Site navigation">
           {worldNav.map((item) => (
             <Link key={item.to} to={item.to} aria-current={here(item.to) ? "page" : undefined} onClick={() => setMenuOpen(false)}>{item.label}</Link>

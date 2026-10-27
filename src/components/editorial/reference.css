@@ -37,13 +37,20 @@
   gap: 1.5rem;
   padding: 0.45rem 4vw;
   min-height: 3.25rem;
-  background: rgba(12, 8, 6, 0.62);
-  backdrop-filter: blur(8px);
+  background: linear-gradient(to bottom, rgba(8, 6, 4, 0.55), rgba(8, 6, 4, 0));
+  backdrop-filter: none;
   color: #f6efe4;
 }
 
+.yw-chrome.is-solid,
 .yw-chrome.is-open {
-  background: #16120f;
+  background: rgba(12, 8, 6, 0.92);
+  backdrop-filter: blur(8px);
+}
+.yw-mark img {
+  display: block;
+  height: 42px;
+  width: auto;
 }
 
 .yw-mark {
@@ -197,7 +204,7 @@
 .yw-sheet {
   position: relative;
   z-index: 2;
-  margin-top: -1.4rem;
+  margin-top: -2.6rem;
   padding: 4.2rem 7vw 3.2rem;
   border-radius: 2.2rem 2.2rem 0 0;
   background: var(--yw-cream);
@@ -837,6 +844,54 @@
   .signals-card { margin: 0 1rem; }
   .story-photo { float: none; display: block; margin: 0 0 1rem; }
   .open-copy { padding: 5rem 1.2rem 1.6rem; }
+}
+
+/* Full-bleed openings, type over the photograph, as in the mockup. */
+.bleed {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  color: #f7f1e8;
+}
+.bleed::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(10, 7, 5, 0.62) 0%, rgba(10, 7, 5, 0.18) 42%, rgba(10, 7, 5, 0.05) 100%);
+  pointer-events: none;
+}
+.bleed-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+.bleed-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100svh;
+  max-width: 44rem;
+  padding: 6.2rem 7vw 12vh;
+}
+.lockup-title { margin: 0; }
+.lockup {
+  position: static;
+  display: block;
+  width: min(78vw, 32rem);
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+.bleed .yw-standfirst { text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35); }
+
+@media (max-width: 900px) {
+  .lockup { width: min(92vw, 22rem); }
+  .bleed-copy { padding: 5.2rem 1.2rem 5.5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

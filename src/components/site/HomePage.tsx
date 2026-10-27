@@ -10,12 +10,13 @@ import palms from "@/assets/reference/ref-tile-palms.jpg";
 import wetland from "@/assets/reference/ref-tile-wetland.jpg";
 import plain from "@/assets/reference/ref-tile-plain.jpg";
 import night from "@/assets/reference/ref-tile-night.jpg";
+import typeHome from "@/assets/reference/type-home.png";
 
 const areas = [
-  { title: "Speaking", line: "Click Into Wild Innovation", to: "/speaking" as const, img: palms },
-  { title: "Ventures", line: siteCopy.venturesLead, to: "/ventures" as const, img: plain },
-  { title: "The Llanos", line: siteCopy.story[0].title, to: "/about" as const, img: capybara },
-  { title: "1.1.1 Signals", line: siteCopy.signalsPromise, to: "/signals" as const, img: night },
+  { title: "Science & innovation", line: "Click Into Wild Innovation", to: "/speaking" as const, img: palms },
+  { title: "Nature & conservation", line: siteCopy.story[0].title, to: "/about" as const, img: wetland },
+  { title: "Culture & education", line: siteCopy.venturesLead, to: "/ventures" as const, img: plain },
+  { title: "Territory & community", line: siteCopy.signalsPromise, to: "/signals" as const, img: night },
 ];
 
 export function HomePage() {
@@ -23,10 +24,10 @@ export function HomePage() {
   return (
     <Shell current="Home">
       <main className="yw">
-        <section className="home-open" aria-label="Home">
-          <img src={capybara} alt="A capybara among water lilies at sunset in the Llanos" />
-          <div className="open-copy">
-            <h1 className="yw-display">Ideas<br />that move<br />territories</h1>
+        <section className="bleed" aria-label="Home">
+          <img className="bleed-photo" src={capybara} alt="A capybara among water lilies at sunset in the Llanos" style={{ objectPosition: "82% 40%" }} />
+          <div className="bleed-copy">
+            <h1 className="lockup-title"><img className="lockup" src={typeHome} alt="Ideas that move territories" /></h1>
             <p className="yw-standfirst">{siteCopy.homeIntro}</p>
             <Link to="/about" className="yw-pill">Explore Yrmis’s world →</Link>
           </div>
@@ -46,7 +47,7 @@ export function HomePage() {
             {areas.map((area) => (
               <Link key={area.to} to={area.to}>
                 <figure>
-                  <img src={area.img} alt="" style={area.to === "/about" ? { objectPosition: "50% 96%" } : undefined} />
+                  <img src={area.img} alt="" />
                   <figcaption>{area.title}</figcaption>
                   <p>{area.line}</p>
                 </figure>

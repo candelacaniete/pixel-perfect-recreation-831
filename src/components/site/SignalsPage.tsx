@@ -5,6 +5,7 @@ import { markVisited } from "@/components/safari/visited";
 import { signalIssues, signals, siteCopy, substackArchive, subscribeUrl } from "@/content/yrmis";
 import puma from "@/assets/reference/ref-signals-puma.jpg";
 import night from "@/assets/land-signals-observation.jpg";
+import typeSignals from "@/assets/reference/type-signals.png";
 
 const finds = [
   { title: "The letter", body: siteCopy.signalsPromise },
@@ -18,22 +19,23 @@ export function SignalsPage() {
   return (
     <Shell current="Signals">
       <main className="yw yw-night page-pad">
-        <section className="open signals-open" aria-label="1.1.1 Signals">
-          <div className="open-copy">
-            <h1 className="yw-display">1.1.1<br />Signals</h1>
+        <section className="bleed" aria-label="1.1.1 Signals">
+          <img className="bleed-photo" src={puma} alt="A puma on a rock under a full moon" style={{ objectPosition: "70% 40%" }} />
+          <div className="bleed-copy">
+            <h1 className="lockup-title"><img className="lockup" src={typeSignals} alt="1.1.1 Signals" /></h1>
             <p className="yw-standfirst">{siteCopy.signalsPromise}</p>
-            <div className="yw-find" style={{ marginTop: "1.4rem" }}>
-              {finds.map((item) => (
-                <article key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </article>
-              ))}
-            </div>
           </div>
-          <figure>
-            <img src={puma} alt="A puma on a rock under a full moon" />
-          </figure>
+        </section>
+        <section className="yw-dark">
+          <h2>What you’ll find</h2>
+          <div className="yw-find">
+            {finds.map((item) => (
+              <article key={item.title}>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
         </section>
         <section className="signals-card">
           <h2>Subscribe to 1.1.1 Signals</h2>

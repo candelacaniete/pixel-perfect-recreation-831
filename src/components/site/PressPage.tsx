@@ -4,6 +4,7 @@ import { Shell } from "@/components/site/Shell";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import turtle from "@/assets/reference/ref-press-turtle.jpg";
+import typePress from "@/assets/reference/type-press.png";
 import red from "@/assets/sourced/portraits/yrmis-red.jpg";
 import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
 import street from "@/assets/sourced/portraits/yrmis-street.jpg";
@@ -37,14 +38,12 @@ export function PressPage() {
   return (
     <Shell current="Press kit">
       <main className="yw">
-        <section className="open press-open" aria-label="Press kit">
-          <div className="open-copy">
-            <h1 className="yw-display">Press kit<br />& resources</h1>
+        <section className="bleed" aria-label="Press kit">
+          <img className="bleed-photo" src={turtle} alt="An Arrau turtle under the surface, among water lilies" style={{ objectPosition: "64% 42%" }} />
+          <div className="bleed-copy">
+            <h1 className="lockup-title"><img className="lockup" src={typePress} alt="Press kit and resources" /></h1>
             <p className="yw-standfirst">{siteCopy.identity}. Official materials for media, events, and collaborations.</p>
           </div>
-          <figure>
-            <img src={turtle} alt="An Arrau turtle under the surface, among water lilies" />
-          </figure>
         </section>
         <section className="yw-sheet">
           <h2>Media assets</h2>
