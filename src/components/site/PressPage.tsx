@@ -4,6 +4,7 @@ import { Shell } from "@/components/site/Shell";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import turtle from "@/assets/reference/ref-press-turtle.jpg";
+import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
 import typePress from "@/assets/reference/type-press.png";
 import red from "@/assets/sourced/portraits/yrmis-red.jpg";
 import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
@@ -39,7 +40,7 @@ export function PressPage() {
     <Shell current="Press kit">
       <main className="yw">
         <section className="bleed" aria-label="Press kit">
-          <img className="bleed-photo" src={turtle} alt="An Arrau turtle under the surface, among water lilies" style={{ objectPosition: "64% 42%" }} />
+          <img className="bleed-photo" src={turtle} alt="An Arrau turtle under the surface, among water lilies" style={{ objectPosition: "24% 40%" }} />
           <div className="bleed-copy">
             <h1 className="lockup-title"><img className="lockup" src={typePress} alt="Press kit and resources" /></h1>
             <p className="yw-standfirst">{siteCopy.identity}. Official materials for media, events, and collaborations.</p>
@@ -56,7 +57,7 @@ export function PressPage() {
                   <h3>{asset.title}</h3>
                   <p>{asset.note}</p>
                 </span>
-                <span className="yw-go">Open →</span>
+                <span className="yw-go" aria-hidden="true">+</span>
               </a>
             ))}
             <Link className="yw-asset" to="/contact" search={{ interest: "Press" }}>
@@ -65,7 +66,7 @@ export function PressPage() {
                 <h3>Press contact</h3>
                 <p>Interviews, speaking, and press inquiries.</p>
               </span>
-              <span className="yw-go">Write →</span>
+              <span className="yw-go" aria-hidden="true">+</span>
             </Link>
           </div>
           <ul className="yw-logos">
@@ -77,6 +78,7 @@ export function PressPage() {
             <Link to="/contact" search={{ interest: "Press" }} className="yw-pill">Get in touch →</Link>
           </div>
         </section>
+        <section className="yw-strip"><img src={dusk} alt="" /></section>
       </main>
     </Shell>
   );

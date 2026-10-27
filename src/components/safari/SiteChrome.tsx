@@ -85,6 +85,7 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
   const [solid, setSolid] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
   const onRiver = path === "/river";
+  const inkHero = path === "/" || path === "/home";
   const here = (to: string) => path === to || (to === "/" && path === "/home");
 
   useEffect(() => {
@@ -115,7 +116,7 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
       { to: "/signals", label: "1.1.1 Signals" },
     ] as const;
     return (
-      <header data-ui className={`yw-chrome${solid || menuOpen ? " is-solid" : ""}${menuOpen ? " is-open" : ""}`}>
+      <header data-ui className={`yw-chrome${inkHero ? " is-ink" : ""}${solid || menuOpen ? " is-solid" : ""}${menuOpen ? " is-open" : ""}`}>
         <Link to="/" className="yw-mark" aria-label="Yrmis World, home"><img src={mark} alt="" /></Link>
         <nav className="yw-nav" aria-label="Site navigation">
           {worldNav.map((item) => (

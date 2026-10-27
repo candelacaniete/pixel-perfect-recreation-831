@@ -5,18 +5,18 @@ import { Band } from "@/components/editorial/Reference";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy, studio } from "@/content/yrmis";
 import jabiru from "@/assets/reference/ref-speaking-jabiru.jpg";
-import plain from "@/assets/living/speaking-llanos.jpg";
-import stage from "@/assets/sourced/portraits/yrmis-stage.webp";
-import seated from "@/assets/sourced/portraits/yrmis-seated.jpg";
-import red from "@/assets/sourced/portraits/yrmis-red.jpg";
-import glasses from "@/assets/sourced/portraits/yrmis-glasses.webp";
+import plain from "@/assets/reference/ref-dusk-llanos.jpg";
+import palms from "@/assets/reference/ref-tile-palms.jpg";
+import wetland from "@/assets/reference/ref-tile-wetland.jpg";
+import field from "@/assets/reference/ref-tile-plain.jpg";
+import night from "@/assets/reference/ref-tile-night.jpg";
 import typeSpeaking from "@/assets/reference/type-speaking.png";
 
 const topics = [
-  { title: studio.keynote.title, body: siteCopy.speaking, img: stage },
-  { title: "For the room", body: studio.keynote.for, img: seated },
-  { title: "What changes", body: studio.keynote.out, img: red },
-  { title: "Where it starts", body: studio.keynote.in, img: glasses },
+  { title: studio.keynote.title, body: studio.keynote.out, img: palms },
+  { title: "For the room", body: studio.keynote.for, img: wetland },
+  { title: "Where it starts", body: studio.keynote.in, img: field },
+  { title: "Across fields", body: siteCopy.venturesLead, img: night },
 ];
 
 export function SpeakingPage() {
@@ -25,7 +25,7 @@ export function SpeakingPage() {
     <Shell current="Speaking">
       <main className="yw">
         <section className="bleed" aria-label="Speaking">
-          <img className="bleed-photo" src={jabiru} alt="A jabiru standing in the Llanos at sunset" style={{ objectPosition: "68% 28%" }} />
+          <img className="bleed-photo" src={jabiru} alt="A jabiru standing in the Llanos at sunset" style={{ objectPosition: "22% 30%" }} />
           <div className="bleed-copy">
             <h1 className="lockup-title"><img className="lockup" src={typeSpeaking} alt="Conversations that inspire a more alive world" /></h1>
             <p className="yw-standfirst">{siteCopy.speaking}</p>

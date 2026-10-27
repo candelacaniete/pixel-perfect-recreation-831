@@ -5,7 +5,7 @@ import { Band } from "@/components/editorial/Reference";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy, ventureStories } from "@/content/yrmis";
 import caiman from "@/assets/reference/ref-ventures-caiman.jpg";
-import aerial from "@/assets/worldmap-flatlands.jpg";
+import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
 import greenhouse from "@/assets/sourced/ventures/mh-greenhouse.jpg";
 import family from "@/assets/sourced/ventures/abs-family.jpg";
 import hem from "@/assets/sourced/ventures/hem-store.jpg";
@@ -20,7 +20,7 @@ export function VenturesPage() {
     <Shell current="Ventures">
       <main className="yw">
         <section className="bleed" aria-label="Ventures">
-          <img className="bleed-photo" src={caiman} alt="An Orinoco caiman in dark green water" style={{ objectPosition: "58% 48%" }} />
+          <img className="bleed-photo" src={caiman} alt="An Orinoco caiman in dark green water" style={{ objectPosition: "28% 42%" }} />
           <div className="bleed-copy">
             <h1 className="lockup-title"><img className="lockup" src={typeVentures} alt="Ideas into real worlds" /></h1>
             <p className="yw-standfirst">{siteCopy.venturesLead}</p>
@@ -42,7 +42,7 @@ export function VenturesPage() {
             ))}
           </div>
         </section>
-        <Band src={aerial}>
+        <Band src={dusk}>
           <h2>Let’s build what’s next</h2>
           <p>{siteCopy.studio}</p>
           <Link to="/contact" search={{ interest: "Consulting Studio" }} className="yw-pill">Get in touch →</Link>

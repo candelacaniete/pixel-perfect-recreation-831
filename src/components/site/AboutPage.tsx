@@ -5,15 +5,26 @@ import { Band } from "@/components/editorial/Reference";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import anaconda from "@/assets/reference/ref-about-anaconda.jpg";
+import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
 import portrait from "@/assets/sourced/portraits/yrmis-blazer.jpg";
-import tree from "@/assets/origin.jpg";
 import typeAbout from "@/assets/reference/type-about.png";
 
 const drives = [
-  { n: "01", title: "Curiosity", body: "Notice what bugs you. Ask what could work better." },
-  { n: "02", title: "Nature", body: siteCopy.story[0].paragraphs[1] },
-  { n: "03", title: "People", body: siteCopy.studio },
-];
+  { title: "Curiosity", body: "Notice what bugs you. Ask what could work better.", icon: "eye" },
+  { title: "Nature", body: "What I found was a problem I cared about too much to ignore.", icon: "leaf" },
+  { title: "People", body: "I work with founders and leadership teams.", icon: "people" },
+] as const;
+
+function DriveIcon({ name }: { name: (typeof drives)[number]["icon"] }) {
+  const common = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  if (name === "eye") {
+    return <svg {...common}><circle cx="12" cy="12" r="3" /><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z" /></svg>;
+  }
+  if (name === "leaf") {
+    return <svg {...common}><path d="M5 19c8 0 14-8 14-14-6 0-14 6-14 14z" /><path d="M8 14c2-2 5-4 8-5" /></svg>;
+  }
+  return <svg {...common}><circle cx="9" cy="9" r="2.2" /><circle cx="16" cy="10" r="1.7" /><path d="M4.5 18c.6-2.2 2.4-3.4 4.5-3.4S13 15.8 13.6 18M14 18c.3-1.5 1.4-2.5 3-2.5 1.2 0 2.2.6 2.7 1.6" /></svg>;
+}
 
 export function AboutPage() {
   useEffect(() => markVisited("about"), []);
@@ -21,7 +32,7 @@ export function AboutPage() {
     <Shell current="About">
       <main className="yw">
         <section className="bleed" aria-label="About">
-          <img className="bleed-photo" src={anaconda} alt="An anaconda coiled through dark water at dusk" style={{ objectPosition: "62% 45%" }} />
+          <img className="bleed-photo" src={anaconda} alt="An anaconda coiled through dark water at dusk" style={{ objectPosition: "18% 38%" }} />
           <div className="bleed-copy">
             <p className="yw-kicker">A journey across territories, ideas and life.</p>
             <h1 className="lockup-title"><img className="lockup" src={typeAbout} alt="A curious way of belonging" /></h1>
@@ -37,15 +48,17 @@ export function AboutPage() {
               {chapter.paragraphs.map((paragraph) => <p key={paragraph} className="yw-prose">{paragraph}</p>)}
             </article>
           ))}
-          <blockquote className="yw-quote" style={{ color: "var(--yw-ink)", marginTop: "2.2rem" }}>
-            “{siteCopy.story[2].paragraphs[1]}”
-          </blockquote>
+        </section>
+        <Band src={anaconda}>
+          <p className="yw-quote">“{siteCopy.story[2].paragraphs[1]}”</p>
+        </Band>
+        <section className="yw-sheet" style={{ marginTop: 0, borderRadius: 0 }}>
           <div className="yw-block">
             <h2>What drives me</h2>
             <div className="yw-drives">
               {drives.map((item) => (
-                <article key={item.n}>
-                  <p className="yw-mark-num">{item.n}</p>
+                <article key={item.title}>
+                  <p className="yw-ico-ink"><DriveIcon name={item.icon} /></p>
                   <h3>{item.title}</h3>
                   <p>{item.body}</p>
                 </article>
@@ -54,13 +67,11 @@ export function AboutPage() {
           </div>
           <div className="yw-block">
             <h2>Experience & background</h2>
-            <p>{siteCopy.walkingOut}</p>
+            <p>{siteCopy.story[1].paragraphs[0]}</p>
             <Link to="/contact" search={{ interest: "Consulting Studio" }} className="yw-pill">See my full journey →</Link>
           </div>
         </section>
-        <Band src={tree}>
-          <p className="yw-quote">“{siteCopy.yellow}”</p>
-        </Band>
+        <section className="yw-strip"><img src={dusk} alt="" /></section>
       </main>
     </Shell>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
+import { Band } from "@/components/editorial/Reference";
 import { ClickFive } from "@/components/site/ClickFive";
 import { markVisited } from "@/components/safari/visited";
 import { clickExamples, clickOutcomes, riverDestination } from "@/content/yrmis";
@@ -34,8 +35,8 @@ export function ClickPage() {
   return (
     <Shell current="CLICK">
       <main className="yw">
-        <section className="bleed" aria-label="CLICK">
-          <img className="bleed-photo" src={llanos} alt="A Llanos wetland at sunset, with water lilies and no animals" style={{ objectPosition: "center 62%" }} />
+        <section className="bleed bleed-center" aria-label="CLICK">
+          <img className="bleed-photo" src={llanos} alt="A Llanos wetland at sunset, with water lilies and no animals" style={{ objectPosition: "center 58%" }} />
           <div className="bleed-copy">
             <h1 className="lockup-title"><img className="lockup" src={typeClick} alt="Click" /></h1>
             <p className="yw-standfirst">{riverDestination.line}</p>
@@ -44,6 +45,11 @@ export function ClickPage() {
         <section className="yw-sheet">
           <h2>A way of seeing.<br />A way of acting.</h2>
           <p>{riverDestination.intro}</p>
+          <Link to="/river" className="yw-play">
+            <img src={llanos} alt="" />
+            <span className="yw-play-btn" aria-hidden="true">▶</span>
+            <span className="sr-only">Enter the CLICK experience</span>
+          </Link>
           <div className="yw-block">
             <h2>The principles of CLICK</h2>
             <div className="yw-principles">
@@ -98,11 +104,11 @@ export function ClickPage() {
             <div style={{ marginTop: "1rem" }}><ClickFive /></div>
           </div>
         </section>
-        <section className="yw-dark">
+        <Band src={llanos} tall>
           <h2>Explore the CLICK experience</h2>
           <p>A separate journey. It is not part of this page, and it is not in the main menu.</p>
-          <Link to="/river" className="yw-pill" style={{ background: "#f3eadc", color: "#17120f" }}>Enter the experience →</Link>
-        </section>
+          <Link to="/river" className="yw-pill">Enter the experience →</Link>
+        </Band>
       </main>
     </Shell>
   );
