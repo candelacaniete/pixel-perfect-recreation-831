@@ -4,7 +4,7 @@ import { Shell } from "@/components/site/Shell";
 import { SiteChrome } from "@/components/safari/SiteChrome";
 import { Scene } from "@/components/safari/motion";
 import { KeyedPuma } from "@/components/site/KeyedPuma";
-import { WaterLive } from "@/components/site/habitat";
+import { WaterSurface } from "@/components/site/habitat";
 import { RiverJourney } from "@/components/safari/river/RiverJourney";
 import { journey } from "@/components/safari/journeyStore";
 import { markVisited } from "@/components/safari/visited";
@@ -38,10 +38,12 @@ export function RiverPage({ stop }: { stop: number | undefined }) {
     <Shell>
       <main className="overflow-hidden bg-night text-paper">
         <Scene className="relative min-h-[100svh] overflow-hidden">
-          <img src={canyon} alt="" className="photo-bg object-center" />
-          <div aria-hidden className="absolute inset-0 bg-night/35" />
-          <WaterLive className="h-[58%]" />
-          <KeyedPuma className="pointer-events-none absolute bottom-[6%] right-0 z-10 w-[min(86vw,22rem)] md:bottom-[24%] md:w-[min(42vw,24rem)]" />
+          <img src={canyon} alt="" className="photo-bg object-[86%_center] md:object-center" />
+          <div aria-hidden className="absolute inset-0 bg-night/25" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[42%] md:block">
+            <WaterSurface src={canyon} position="center 78%" />
+          </div>
+          <KeyedPuma className="pointer-events-none absolute bottom-[34%] right-0 z-10 w-36 md:bottom-[32%] md:right-[4%] md:w-[min(34vw,20rem)]" />
           <div className="relative z-20 flex min-h-[100svh] items-start px-5 pb-16 pt-32 md:px-12">
           <div className="max-w-xl">
           <p className="eyebrow text-gold">The Llanos</p>

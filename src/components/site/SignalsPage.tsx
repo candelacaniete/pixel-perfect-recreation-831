@@ -1,12 +1,16 @@
 import { useEffect } from "react";
 import { Shell } from "@/components/site/Shell";
-import { Fireflies, FlyingGuardian, Scene } from "@/components/safari/motion";
-import { WaterLive } from "@/components/site/habitat";
+import { Fireflies, Scene } from "@/components/safari/motion";
+import { PoseCycle, WaterSurface } from "@/components/site/habitat";
 import { markVisited } from "@/components/safari/visited";
 import { signalIssues, siteCopy, substackArchive, subscribeUrl } from "@/content/yrmis";
 import land from "@/assets/land-signals-observation.jpg";
 import glasses from "@/assets/sourced/portraits/yrmis-glasses.webp";
-import macaw from "@/assets/g-macaw-authored.png";
+import macawUp from "@/assets/living/macaw-up.jpg";
+import macawDown from "@/assets/living/macaw-down.jpg";
+import macawGlide from "@/assets/living/macaw-glide.jpg";
+
+const macawFlight = [macawUp, macawDown, macawGlide];
 
 export function SignalsPage() {
   useEffect(() => markVisited("signals"), []);
@@ -19,9 +23,7 @@ export function SignalsPage() {
             <div className="absolute inset-0 bg-night/45" />
             <div className="scrim-l absolute inset-0" />
             <Fireflies />
-            <WaterLive />
           </div>
-          <FlyingGuardian src={macaw} alt="The macaw flying in front of the moon" top="8%" className="w-36 md:w-56" />
           <div className="relative max-w-3xl">
               <p className="eyebrow text-gold">The newsletter · guarded by the macaw</p>
               <h1 className="display-xl mt-4 text-shadow-river">
@@ -42,9 +44,12 @@ export function SignalsPage() {
             <img src={glasses} alt="Yrmis wearing glasses, the portrait used in 1•1•1 Signals" width={212} height={258} className="mx-auto w-48 border-2 border-gold bg-night" />
           </div>
         </Scene>
+        <PoseCycle frames={macawFlight} alt="The macaw beating its wings in front of the moon" />
         <Scene className="relative overflow-hidden border-t border-gold/30 bg-night px-5 py-16 md:px-12">
+          <WaterSurface src={land} position="center 70%" />
+          <div aria-hidden className="absolute inset-0 bg-night/72" />
           <Fireflies count={16} />
-          <div className="relative mx-auto max-w-3xl">
+          <div className="relative z-10 mx-auto max-w-3xl">
           <p className="eyebrow text-gold">Recent issues</p>
           <ul className="mt-6 max-w-xl divide-y divide-paper/25">
             {signalIssues.map((issue) => (

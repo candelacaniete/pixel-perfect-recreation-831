@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { Scene } from "@/components/safari/motion";
-import { WaterLive } from "@/components/site/habitat";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import territory from "@/assets/territory.jpg";
@@ -20,9 +19,7 @@ export function WorkPage() {
     <Shell current="Work with me">
       <main className="overflow-hidden bg-night text-paper">
         <Scene className="isolate relative min-h-[100svh] overflow-hidden">
-          <img src={territory} alt="A capybara on a surreal scarlet shore, blowing a golden bubble among flowers, arches and stone spheres" width={1920} height={1088} className="photo-bg cloud-drift object-center" />
-          <div aria-hidden className="bubble-breath" />
-          <WaterLive />
+          <img src={territory} alt="A capybara on a surreal scarlet shore, blowing a golden bubble among flowers, arches and stone spheres" width={1920} height={1088} className="photo-bg object-center" />
           <div aria-hidden className="scrim-l absolute inset-0" />
           <div className="relative z-10 flex min-h-[100svh] items-end px-5 pb-16 pt-28 md:px-12">
             <div className="max-w-3xl">
@@ -38,12 +35,6 @@ export function WorkPage() {
               </Link>
             </div>
           </div>
-        </Scene>
-
-        <Scene className="relative min-h-[70svh] overflow-hidden">
-          <img src={mechanic} alt="The capybara mechanic on a half-sunk red car, a rope in its paws and a red balloon over the palms" width={1376} height={768} className="photo-bg object-[20%_center]" />
-          <div aria-hidden className="balloon-breath" />
-          <WaterLive />
         </Scene>
 
         <section className="relative grid gap-px overflow-hidden bg-ink md:grid-cols-3">
@@ -68,6 +59,10 @@ export function WorkPage() {
             <span className="font-display mt-4 block text-3xl leading-snug">{siteCopy.unnamed}</span>
           </Link>
         </section>
+        <div aria-hidden className="h-16 bg-night md:h-24" />
+        <Scene className="relative min-h-[78svh] overflow-hidden">
+          <img src={mechanic} alt="The capybara mechanic on a half-sunk red car, a rope in its paws and a red balloon over the palms" width={1376} height={768} className="photo-bg object-[20%_center]" />
+        </Scene>
       </main>
     </Shell>
   );

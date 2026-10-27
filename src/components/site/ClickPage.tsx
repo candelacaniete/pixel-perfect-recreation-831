@@ -2,10 +2,15 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { ClickFive } from "@/components/site/ClickFive";
-import { Lianas, Scene, SerpentPath } from "@/components/safari/motion";
+import { Scene } from "@/components/safari/motion";
+import { PoseCycle, WaterSurface } from "@/components/site/habitat";
 import { markVisited } from "@/components/safari/visited";
 import { clickExamples } from "@/content/yrmis";
-import anaconda from "@/assets/g-anaconda-authored.png";
+import coil1 from "@/assets/living/anaconda-coil-1.jpg";
+import coil2 from "@/assets/living/anaconda-coil-2.jpg";
+import nightWater from "@/assets/land-signals-observation.jpg";
+
+const coils = [coil1, coil2];
 
 const fields = [
   { key: "problem", label: "The problem I keep noticing", long: true },
@@ -32,21 +37,19 @@ export function ClickPage() {
   return (
     <Shell>
       <main className="overflow-hidden bg-night text-paper">
-        <Scene className="relative overflow-hidden px-5 pb-16 pt-28 md:px-12">
-          <div aria-hidden className="water-deep absolute inset-0 -z-10">
-            <Lianas count={6} />
-          </div>
+        <Scene className="relative overflow-hidden bg-night px-5 pb-16 pt-28 md:px-12">
+          <WaterSurface src={nightWater} position="center 65%" className="-z-10" />
+          <div aria-hidden className="absolute inset-0 -z-10 bg-night/55" />
           <div className="relative mx-auto max-w-3xl">
             <p className="eyebrow text-gold">CLICK · guarded by the anaconda</p>
             <h1 className="display-xl mt-3">What can be<br /><em className="text-gold">done better?</em></h1>
             <p className="mt-6 max-w-xl text-lg">Think of your desk, your company, your neighborhood. What’s one thing that bugs you? Start there. You can open this page without finishing the river.</p>
           </div>
-          <div className="relative mt-8 h-40 overflow-hidden">
-            <SerpentPath className="inset-x-0 top-0 h-full w-full opacity-80" tone="var(--river)" />
-            <img src={anaconda} alt="The anaconda moving through the dark water" className="glide-serpent" />
-          </div>
-          <div className="relative mt-4"><ClickFive /></div>
         </Scene>
+        <PoseCycle frames={coils} interval={1100} alt="The anaconda coiled in the night water, shifting its head" />
+        <section className="bg-night px-5 py-12 md:px-12">
+          <ClickFive />
+        </section>
         <section className="bg-paper px-5 py-14 text-ink md:px-12">
           <div className="mx-auto max-w-5xl">
           <p className="eyebrow text-crimson">Illustrative examples from the talk</p>

@@ -2,12 +2,17 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { ClickFive } from "@/components/site/ClickFive";
-import { FlyingGuardian, Scene } from "@/components/safari/motion";
-import { LlanosSky } from "@/components/site/habitat";
+import { Scene } from "@/components/safari/motion";
+import { PoseCycle } from "@/components/site/habitat";
 import { markVisited } from "@/components/safari/visited";
 import { clickOutcomes, siteCopy } from "@/content/yrmis";
 import stage from "@/assets/sourced/portraits/yrmis-stage.webp";
-import jabiru from "@/assets/g-jabiru-authored.png";
+import llanos from "@/assets/living/speaking-llanos.jpg";
+import jabiruUp from "@/assets/living/jabiru-up.jpg";
+import jabiruDown from "@/assets/living/jabiru-down.jpg";
+import jabiruGlide from "@/assets/living/jabiru-glide.jpg";
+
+const jabiruFlight = [jabiruUp, jabiruDown, jabiruGlide];
 
 export function SpeakingPage() {
   useEffect(() => markVisited("speaking"), []);
@@ -15,10 +20,10 @@ export function SpeakingPage() {
     <Shell current="Speaking">
       <main className="overflow-hidden bg-night text-paper">
         <Scene className="relative min-h-[88svh] overflow-hidden bg-night px-5 pb-16 pt-28 md:px-12">
-          <LlanosSky />
-          <div className="sky-lane">
-            <FlyingGuardian src={jabiru} alt="The jabiru flying across the Llanos sky" top="0%" className="w-24 md:w-32" />
-          </div>
+          <img src={llanos} alt="" className="photo-bg object-center" />
+          <div aria-hidden className="sky-drift"><img src={llanos} alt="" /></div>
+          <div aria-hidden className="sun-glow" />
+          <div aria-hidden className="scrim-l absolute inset-0" />
           <div className="relative grid items-end gap-8 md:grid-cols-12">
             <div className="md:col-span-7">
               <p className="eyebrow text-gold">The signature keynote · guarded by the jabiru</p>
@@ -32,10 +37,6 @@ export function SpeakingPage() {
             <img src={stage} alt="Yrmis mid-story" width={650} height={650} className="relative aspect-[4/5] max-h-[56vh] w-full border-2 border-gold object-cover object-top md:col-span-5 md:w-auto md:justify-self-end" />
           </div>
         </Scene>
-        <Scene className="relative h-36 overflow-hidden md:h-44">
-          <LlanosSky />
-          <FlyingGuardian src={jabiru} alt="" flip top="18%" className="w-20 md:w-28" />
-        </Scene>
         <section className="bg-scarlet px-5 py-16 text-center md:px-12">
           <div className="mx-auto max-w-3xl">
             <p className="eyebrow text-gold">Walking out</p>
@@ -43,6 +44,7 @@ export function SpeakingPage() {
             <Link to="/river" className="pill mt-8 bg-paper text-ink">Experience CLICK</Link>
           </div>
         </section>
+        <PoseCycle frames={jabiruFlight} alt="The jabiru beating its wings over the sunlit Llanos" />
         <section className="bg-night px-5 py-12 md:px-12">
           <ClickFive />
         </section>
@@ -70,6 +72,7 @@ export function SpeakingPage() {
             </article>
           ))}
         </section>
+        <PoseCycle frames={[jabiruGlide, jabiruUp, jabiruDown]} alt="The jabiru gliding over the same sunlit plain" />
         <section className="bg-scarlet px-5 py-16 md:px-12">
           <h2 className="display-lg">Bring CLICK to your team.</h2>
           <div className="mt-8 flex flex-wrap gap-3">

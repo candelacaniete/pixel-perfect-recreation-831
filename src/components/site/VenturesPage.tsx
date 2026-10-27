@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { Scene } from "@/components/safari/motion";
-import { WaterLive } from "@/components/site/habitat";
+import { WaterSurface } from "@/components/site/habitat";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy, ventureStories } from "@/content/yrmis";
 import land from "@/assets/land-ventures-crocodile.jpg";
+import water from "@/assets/living/ventures-water.jpg";
 import greenhouse from "@/assets/sourced/ventures/mh-greenhouse.jpg";
 import family from "@/assets/sourced/ventures/abs-family.jpg";
 import hem from "@/assets/sourced/ventures/hem-store.jpg";
@@ -24,7 +25,6 @@ export function VenturesPage() {
           <div className="absolute inset-0 -z-10 overflow-hidden">
             <img src={land} alt="A crocodile resting in a surreal wetland, under a stone sphere and a floating red block" width={1376} height={768} className="photo-bg object-right" />
             <div aria-hidden className="absolute inset-0 bg-night/35" />
-            <WaterLive />
           </div>
           <div className="relative flex min-h-[70svh] items-end">
             <div className="max-w-3xl">
@@ -35,8 +35,8 @@ export function VenturesPage() {
           </div>
         </Scene>
         <Scene className="relative px-5 py-16 md:px-12">
-          <div aria-hidden className="water-sheet" />
-          <div className="relative grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <WaterSurface src={water} position="center" />
+          <div className="relative z-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {ventureStories.map((venture, index) => (
             <article key={venture.name} className={`reveal flex flex-col overflow-hidden shadow-[0_24px_50px_-20px_oklch(0_0_0/50%)] transition duration-300 hover:rotate-0 hover:scale-[1.03] ${tints[index]} ${tilts[index]}`}>
               <img src={photos[venture.photo]} alt="" className="aspect-[4/5] w-full object-cover" />
@@ -49,9 +49,9 @@ export function VenturesPage() {
           ))}
           </div>
         </Scene>
-        <section className="relative px-5 py-12 md:px-12">
-          <div aria-hidden className="water-sheet" />
-          <div className="relative">
+        <section className="relative px-5 py-16 md:px-12">
+          <WaterSurface src={water} position="center 60%" />
+          <div className="relative z-10">
             <Link to="/work" className="pill bg-ink text-paper">Work with me</Link>
           </div>
         </section>

@@ -1,15 +1,19 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
-import { FlyingGuardian, Scene } from "@/components/safari/motion";
-import { Mist, WaterLive } from "@/components/site/habitat";
+import { Scene } from "@/components/safari/motion";
+import { PoseCycle } from "@/components/site/habitat";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy, socials } from "@/content/yrmis";
 import blazer from "@/assets/sourced/portraits/yrmis-blazer.jpg";
 import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
 import red from "@/assets/sourced/portraits/yrmis-red.jpg";
 import origin from "@/assets/origin.jpg";
-import heron from "@/assets/g-heron-authored.png";
+import heronUp from "@/assets/living/heron-up.jpg";
+import heronDown from "@/assets/living/heron-down.jpg";
+import heronGlide from "@/assets/living/heron-glide.jpg";
+
+const heronFlight = [heronUp, heronDown, heronGlide];
 
 const instagram = socials.find((item) => item.name === "Instagram");
 
@@ -20,14 +24,9 @@ export function AboutPage() {
       <main className="overflow-hidden bg-night text-paper">
         <Scene className="isolate relative min-h-[88svh] overflow-hidden">
           <div aria-hidden className="absolute inset-0 -z-10">
-            <img src={origin} alt="" className="photo-bg cloud-drift object-[center_30%]" />
+            <img src={origin} alt="" className="photo-bg object-[center_30%]" />
             <div className="absolute inset-0 bg-night/40" />
             <div className="scrim-l absolute inset-0" />
-            <Mist />
-            <WaterLive />
-          </div>
-          <div className="sky-lane">
-            <FlyingGuardian src={heron} alt="The night heron crossing the dusk sky" top="0%" className="w-24 md:w-32" />
           </div>
           <div className="relative grid min-h-[88svh] items-end gap-6 px-5 pb-16 pt-28 md:px-12">
             <div className="max-w-3xl">
@@ -58,7 +57,8 @@ export function AboutPage() {
             ))}
           </div>
         </section>
-        <section className="grid gap-6 px-5 pb-16 md:grid-cols-2 md:px-12">
+        <PoseCycle frames={heronFlight} alt="The night heron beating its wings over the dusk river" />
+        <section className="grid gap-6 px-5 py-16 md:grid-cols-2 md:px-12">
           <figure>
             <img src={plants} alt="Yrmis laughing among green leaves, original press-kit photograph" className="aspect-square w-full rotate-[-1.5deg] border-2 border-gold object-cover" />
           </figure>
@@ -66,6 +66,7 @@ export function AboutPage() {
             <img src={red} alt="Yrmis in red tights and red heels, original press-kit photograph" className="aspect-[4/5] w-full rotate-[1.5deg] border-2 border-scarlet object-cover" />
           </figure>
         </section>
+        <PoseCycle frames={[heronGlide, heronUp, heronDown]} alt="The night heron gliding over the same dusk river" />
         <section className="bg-scarlet px-5 py-14 md:px-12">
           <h2 className="display-lg">Find me on Instagram.</h2>
           {instagram && (

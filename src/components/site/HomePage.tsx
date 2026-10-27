@@ -2,10 +2,15 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { Fireflies, Lanterns, Scene } from "@/components/safari/motion";
+import { PoseCycle } from "@/components/site/habitat";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import landHome from "@/assets/land-home.jpg";
-import horses from "@/assets/horses.png";
+import gallop1 from "@/assets/living/horses-gallop-1.jpg";
+import gallop2 from "@/assets/living/horses-gallop-2.jpg";
+import gallop3 from "@/assets/living/horses-gallop-3.jpg";
+
+const gallop = [gallop1, gallop2, gallop3];
 
 export function HomePage() {
   useEffect(() => markVisited("home"), []);
@@ -20,8 +25,7 @@ export function HomePage() {
             <Fireflies count={28} />
           </div>
           <Lanterns count={5} />
-          <img src={horses} alt="Four wild horses — crimson, black, gold and green — crossing the plain" width={1376} height={768} className="cross-x herd [--d:110vw]" />
-          <div className="relative z-20 flex min-h-[100svh] items-start px-5 pt-36 md:px-12">
+          <div className="relative z-20 flex min-h-[100svh] items-end px-5 pb-16 pt-28 md:px-12">
             <div className="max-w-3xl">
               <p className="eyebrow text-gold">{siteCopy.identity}</p>
               <h1 className="display-xl mt-4">
@@ -48,6 +52,8 @@ export function HomePage() {
             <Link to="/about" className="pill mt-8 bg-paper text-ink">Read the story</Link>
           </div>
         </section>
+
+        <PoseCycle frames={gallop} interval={420} alt="Four horses — crimson, black, gold and green — galloping in place on the plain" />
 
         <section className="bg-scarlet px-5 py-16 md:px-12">
           <div className="mx-auto max-w-3xl">
