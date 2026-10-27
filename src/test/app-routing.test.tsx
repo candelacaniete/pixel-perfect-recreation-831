@@ -10,8 +10,8 @@ describe("App routing", () => {
   it("matches a page for / instead of falling back to not found", () => {
     const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
 
-    const matches = router.matchRoutes("/");
-
-    expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+    for (const path of ["/", "/home", "/about", "/work", "/speaking", "/ventures", "/press", "/signals", "/contact", "/world", "/river", "/click"]) {
+      expect(router.matchRoutes(path).at(-1)?.routeId).not.toBe(rootRouteId);
+    }
   });
 });

@@ -10,7 +10,7 @@ import anacondaSprite from "@/assets/g-anaconda-authored.png";
 
 type Landmark = {
   id: string;
-  to: "/home" | "/click" | "/studio" | "/ventures" | "/signals" | "/work";
+  to: "/speaking" | "/river" | "/work" | "/ventures" | "/signals" | "/click";
   name: string;
   kicker: string;
   creature: string;
@@ -18,12 +18,12 @@ type Landmark = {
 };
 
 const LANDMARKS: Landmark[] = [
-  { id: "home", to: "/home", name: "Home", kicker: "The clearing", creature: "The Jabiru", img: jabiruSprite },
-  { id: "click", to: "/click", name: "Experience CLICK", kicker: "The river journey", creature: "The Night Heron", img: heronSprite },
-  { id: "studio", to: "/studio", name: "Studio", kicker: "Plan and conspire", creature: "The Capybara Mechanic", img: capybaraSprite },
+  { id: "speaking", to: "/speaking", name: "Speaking", kicker: "The keynote", creature: "The Jabiru", img: jabiruSprite },
+  { id: "river", to: "/river", name: "The river", kicker: "From the Llanos", creature: "The Night Heron", img: heronSprite },
+  { id: "work", to: "/work", name: "Work with me", kicker: "Consulting Studio", creature: "The Capybara Mechanic", img: capybaraSprite },
   { id: "ventures", to: "/ventures", name: "Ventures", kicker: "Four companies", creature: "The Crocodile", img: crocodileSprite },
-  { id: "signals", to: "/signals", name: "Signals", kicker: "The observatory", creature: "The Macaw", img: macawSprite },
-  { id: "work", to: "/work", name: "Work with me", kicker: "Start a conversation", creature: "The Anaconda", img: anacondaSprite },
+  { id: "signals", to: "/signals", name: "Signals", kicker: "1•1•1 Signals", creature: "The Macaw", img: macawSprite },
+  { id: "click", to: "/click", name: "CLICK", kicker: "Innovation arrival", creature: "The Anaconda", img: anacondaSprite },
 ];
 
 function LandmarkLink({ l, visited, current }: { l: Landmark; visited: boolean; current: boolean }) {
@@ -53,16 +53,16 @@ export function WorldMap() {
   const path = useRouterState({ select: (s) => s.location.pathname });
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-night text-paper">
+    <section className="relative min-h-[80vh] overflow-hidden bg-night text-paper" aria-label="Yrmis World map">
       <img src={worldmap} alt="" width={1920} height={1280} className="absolute inset-0 h-full w-full object-cover object-[48%_center]" />
       <div className="map-exposure absolute inset-0" aria-hidden />
       <div className="grain absolute inset-0" aria-hidden />
 
-      <div className="pointer-events-none relative z-10 px-5 pt-20 md:px-12 md:pt-24">
-        <p className="eyebrow text-gold">A map of an impossible territory</p>
-        <h1 className="display-xl text-shadow-river mt-2 text-paper">Yrmis<br />World</h1>
+      <div className="pointer-events-none relative z-10 px-5 pt-8 md:px-12 md:pt-10">
+        <p className="eyebrow text-gold">Optional creative route</p>
+        <h2 className="display-xl text-shadow-river mt-2 text-paper">Yrmis<br />World</h2>
         <p className="font-display text-shadow-river mt-3 max-w-md text-xl italic md:text-2xl">
-          Six landmarks, one river running through all of them. Pick anywhere — you can never get lost.
+          Speaking, ventures, ideas, and a few unlikely connections.
         </p>
       </div>
 
@@ -73,9 +73,9 @@ export function WorldMap() {
         ))}
       </nav>
 
-      <p className="text-shadow-river absolute bottom-4 left-12 z-10 hidden max-w-xs text-right text-xs italic text-paper/80 md:block">
-        The river is the way in: Experience CLICK is a first-person boat ride through the five instincts.
+      <p className="text-shadow-river relative z-10 px-5 pb-8 text-sm italic text-paper/80 md:px-12">
+        The river is optional. Speaking, work, and the newsletter are on this map too.
       </p>
-    </main>
+    </section>
   );
 }

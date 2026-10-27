@@ -46,6 +46,14 @@ export function Scene({ as: Tag = "section", className = "", style, children, ..
   return <Tag ref={ref as never} className={`scene ${className}`} style={style} {...rest}>{children}</Tag>;
 }
 
+/** A guardian that crosses its own sky as the scene scrolls. Clouds stay slower. */
+export function FlyingGuardian({ src, alt, flip = false, top = "18%", className = "" }: { src: string; alt: string; flip?: boolean; top?: string; className?: string }) {
+  return (
+    <img src={src} alt={alt} width={768} height={1024} style={{ top }}
+      className={`cross-bird pointer-events-none absolute z-20 w-32 object-contain md:w-48 ${flip ? "cross-bird-rtl" : ""} ${className}`} />
+  );
+}
+
 /** A bird that crosses the viewport as its scene scrolls past. */
 export function CrossingBird({ className = "", flip = false }: { className?: string; flip?: boolean }) {
   return (
@@ -110,6 +118,23 @@ export function Lianas({ className = "", count = 7 }: { className?: string; coun
           </svg>
         );
       })}
+    </div>
+  );
+}
+
+/** Lanterns hung over a night scene. Each cord turns on its own beat. */
+export function Lanterns({ count = 5 }: { count?: number }) {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-20 h-[46vh] overflow-hidden">
+      {Array.from({ length: count }, (_, i) => (
+        <span
+          key={i}
+          className="lantern-hang"
+          style={{ left: `${8 + (i * 84) / Math.max(1, count - 1)}%`, height: `${16 + ((i * 17) % 22)}vh`, animationDelay: `${-i * 0.55}s`, animationDuration: `${2.8 + (i % 3) * 0.7}s` }}
+        >
+          <span className="lantern" />
+        </span>
+      ))}
     </div>
   );
 }

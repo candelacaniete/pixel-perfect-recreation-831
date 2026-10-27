@@ -10,7 +10,9 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
   stop: Stop; phase: Phase; setPhase: (p: Phase) => void; onDepart: (completed: boolean) => void; onClearLog: () => void; onFog: (n: number) => void;
 }) {
   const [line, setLine] = useState(0);
-  useEffect(() => { setLine(0); }, [stop]);
+  const [takeaway, setTakeaway] = useState(false);
+  const [note, setNote] = useState<string | null>(null);
+  useEffect(() => { setLine(0); setTakeaway(false); setNote(null); }, [stop]);
   const solved = () => setPhase("revelation");
 
   return (
@@ -19,7 +21,7 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
         <Button variant="ghost" data-ui className="pointer-events-auto block h-auto w-full whitespace-normal p-0 text-left hover:bg-transparent" onClick={() => (line + 1 < stop.dialogue.length ? setLine(line + 1) : setPhase("interaction"))}>
           <span className="eyebrow block text-gold">{stop.guardian}</span>
           <span key={line} className="speech mt-1 block animate-in fade-in slide-in-from-bottom-1 duration-700">{stop.dialogue[line]}</span>
-          <span className="eyebrow mt-2 block text-paper/70">tap to listen ›</span>
+          <span className="eyebrow mt-2 block text-paper/70">Continue ›</span>
         </Button>
       )}
 
@@ -29,7 +31,7 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
           <ScreenPortal>
             {stop.interaction === "clues" && <Clues onDone={solved} />}
             {stop.interaction === "lens" && <LensStage onDone={solved} />}
-            {stop.interaction === "truck" && <Truck onDone={() => { onClearLog(); solved(); }} />}
+            {stop.interaction === "truck" && <Truck onDone={(chosen) => { onClearLog(); setNote(chosen); solved(); }} />}
             {stop.interaction === "signals" && <Signals onDone={solved} />}
             {stop.interaction === "fog" && <Fog onStep={onFog} onDone={solved} />}
             <button data-ui onClick={solved} className="eyebrow absolute bottom-[calc(env(safe-area-inset-bottom)+1.25rem)] left-5 p-2 z-30 text-paper/70 underline">Skip — just tell me</button>
@@ -41,13 +43,21 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
         <ScreenPortal>
           <div data-ui className="absolute inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+6rem)] top-[calc(env(safe-area-inset-top)+5rem)] flex items-center justify-center overflow-y-auto px-6 py-4 text-center">
             <div className="my-auto w-full max-w-2xl animate-in fade-in zoom-in-95 duration-1000">
-              <p className="speech mx-auto mb-6 max-w-md">{stop.revelation}</p>
-              <span className="font-display block text-7xl leading-none text-gold text-shadow-river md:text-9xl">{stop.letter}</span>
-              <span className="eyebrow mt-2 block">{stop.name}</span>
-              <span className="font-display mt-3 block break-words text-2xl italic text-shadow-river md:text-4xl">“{stop.tagline}”</span>
+              <p className="speech mx-auto mb-6 max-w-md">{note ?? stop.revelation}</p>
+              {takeaway && (
+                <>
+                  <span className="font-display block text-7xl leading-none text-gold text-shadow-river md:text-9xl">{stop.letter}</span>
+                  <span className="eyebrow mt-2 block">{stop.name}</span>
+                  <span className="font-display mt-3 block break-words text-2xl italic text-shadow-river md:text-4xl">“{stop.tagline}”</span>
+                </>
+              )}
             </div>
           </div>
-          <Button variant="ghost" data-ui autoFocus onClick={() => setPhase("departure")} className="row-btn absolute bottom-8 left-1/2 z-30 h-auto w-max max-w-[calc(100vw-2rem)] -translate-x-1/2 whitespace-normal">Thank the {stop.guardian.replace("The ", "")}</Button>
+          {takeaway ? (
+            <Button variant="ghost" data-ui autoFocus onClick={() => setPhase("departure")} className="row-btn absolute bottom-8 left-1/2 z-30 h-auto w-max max-w-[calc(100vw-2rem)] -translate-x-1/2 whitespace-normal">Continue</Button>
+          ) : (
+            <Button variant="ghost" data-ui autoFocus onClick={() => setTakeaway(true)} className="row-btn absolute bottom-8 left-1/2 z-30 h-auto w-max max-w-[calc(100vw-2rem)] -translate-x-1/2 whitespace-normal">Show the takeaway</Button>
+          )}
         </ScreenPortal>
       )}
 
@@ -120,7 +130,7 @@ const quips: Record<string, string> = {
 export function truckOutcome(key: string, misses: number) {
   return key === "Jerrycan+Rope" || misses >= 1 ? "solved" : "miss";
 }
-function Truck({ onDone }: { onDone: () => void }) {
+function Truck({ onDone }: { onDone: (note: string) => void }) {
   const [pick, setPick] = useState<string[]>([]);
   const [msg, setMsg] = useState("");
   const [misses, setMisses] = useState(0);
@@ -130,8 +140,9 @@ function Truck({ onDone }: { onDone: () => void }) {
     if (n.length === 2) {
       const key = [...n].sort().join("+");
       if (truckOutcome(key, misses) === "solved") {
-        setMsg(key === "Jerrycan+Rope" ? "Tie the empty jerrycan to the trunk…" : `${n[0]} and ${n[1]}? Unexpected — and it works. The trunk shifts.`);
-        setTimeout(onDone, 1300);
+        const pair = `${n[0]} and ${n[1]}`;
+        setMsg(key === "Jerrycan+Rope" ? "Tie the empty jerrycan to the trunk…" : `${pair}? Unexpected — and it works. The trunk shifts.`);
+        setTimeout(() => onDone(`${pair}: the trunk floats free and turns with the current.`), 1300);
       }
       else { setMisses(misses + 1); setMsg(quips[key] ?? `${n[0]} and ${n[1]}? Bold. Try something that floats.`); setTimeout(() => setPick([]), 900); }
     }

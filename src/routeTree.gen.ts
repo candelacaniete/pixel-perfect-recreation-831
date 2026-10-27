@@ -10,16 +10,27 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as ClickRouteImport } from './routes/click'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as PressRouteImport } from './routes/press'
+import { Route as RiverRouteImport } from './routes/river'
 import { Route as SignalsRouteImport } from './routes/signals'
+import { Route as SpeakingRouteImport } from './routes/speaking'
 import { Route as StudioRouteImport } from './routes/studio'
 import { Route as VenturesRouteImport } from './routes/ventures'
 import { Route as WorkRouteImport } from './routes/work'
+import { Route as WorldRouteImport } from './routes/world'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ClickRoute = ClickRouteImport.update({
@@ -27,14 +38,34 @@ const ClickRoute = ClickRouteImport.update({
   path: '/click',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PressRoute = PressRouteImport.update({
+  id: '/press',
+  path: '/press',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RiverRoute = RiverRouteImport.update({
+  id: '/river',
+  path: '/river',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignalsRoute = SignalsRouteImport.update({
   id: '/signals',
   path: '/signals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpeakingRoute = SpeakingRouteImport.update({
+  id: '/speaking',
+  path: '/speaking',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudioRoute = StudioRouteImport.update({
@@ -52,60 +83,120 @@ const WorkRoute = WorkRouteImport.update({
   path: '/work',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorldRoute = WorldRouteImport.update({
+  id: '/world',
+  path: '/world',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/click': typeof ClickRoute
+  '/contact': typeof ContactRoute
   '/home': typeof HomeRoute
+  '/press': typeof PressRoute
+  '/river': typeof RiverRoute
   '/signals': typeof SignalsRoute
+  '/speaking': typeof SpeakingRoute
   '/studio': typeof StudioRoute
   '/ventures': typeof VenturesRoute
   '/work': typeof WorkRoute
+  '/world': typeof WorldRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/click': typeof ClickRoute
+  '/contact': typeof ContactRoute
   '/home': typeof HomeRoute
+  '/press': typeof PressRoute
+  '/river': typeof RiverRoute
   '/signals': typeof SignalsRoute
+  '/speaking': typeof SpeakingRoute
   '/studio': typeof StudioRoute
   '/ventures': typeof VenturesRoute
   '/work': typeof WorkRoute
+  '/world': typeof WorldRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/click': typeof ClickRoute
+  '/contact': typeof ContactRoute
   '/home': typeof HomeRoute
+  '/press': typeof PressRoute
+  '/river': typeof RiverRoute
   '/signals': typeof SignalsRoute
+  '/speaking': typeof SpeakingRoute
   '/studio': typeof StudioRoute
   '/ventures': typeof VenturesRoute
   '/work': typeof WorkRoute
+  '/world': typeof WorldRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/click' | '/home' | '/signals' | '/studio' | '/ventures' | '/work'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/click' | '/home' | '/signals' | '/studio' | '/ventures' | '/work'
-  id:
-    | '__root__'
     | '/'
+    | '/about'
     | '/click'
+    | '/contact'
     | '/home'
+    | '/press'
+    | '/river'
     | '/signals'
+    | '/speaking'
     | '/studio'
     | '/ventures'
     | '/work'
+    | '/world'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/about'
+    | '/click'
+    | '/contact'
+    | '/home'
+    | '/press'
+    | '/river'
+    | '/signals'
+    | '/speaking'
+    | '/studio'
+    | '/ventures'
+    | '/work'
+    | '/world'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/click'
+    | '/contact'
+    | '/home'
+    | '/press'
+    | '/river'
+    | '/signals'
+    | '/speaking'
+    | '/studio'
+    | '/ventures'
+    | '/work'
+    | '/world'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   ClickRoute: typeof ClickRoute
+  ContactRoute: typeof ContactRoute
   HomeRoute: typeof HomeRoute
+  PressRoute: typeof PressRoute
+  RiverRoute: typeof RiverRoute
   SignalsRoute: typeof SignalsRoute
+  SpeakingRoute: typeof SpeakingRoute
   StudioRoute: typeof StudioRoute
   VenturesRoute: typeof VenturesRoute
   WorkRoute: typeof WorkRoute
+  WorldRoute: typeof WorldRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -117,11 +208,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/click': {
       id: '/click'
       path: '/click'
       fullPath: '/click'
       preLoaderRoute: typeof ClickRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home': {
@@ -131,11 +236,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/press': {
+      id: '/press'
+      path: '/press'
+      fullPath: '/press'
+      preLoaderRoute: typeof PressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/river': {
+      id: '/river'
+      path: '/river'
+      fullPath: '/river'
+      preLoaderRoute: typeof RiverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signals': {
       id: '/signals'
       path: '/signals'
       fullPath: '/signals'
       preLoaderRoute: typeof SignalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/speaking': {
+      id: '/speaking'
+      path: '/speaking'
+      fullPath: '/speaking'
+      preLoaderRoute: typeof SpeakingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/studio': {
@@ -159,17 +285,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/world': {
+      id: '/world'
+      path: '/world'
+      fullPath: '/world'
+      preLoaderRoute: typeof WorldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   ClickRoute: ClickRoute,
+  ContactRoute: ContactRoute,
   HomeRoute: HomeRoute,
+  PressRoute: PressRoute,
+  RiverRoute: RiverRoute,
   SignalsRoute: SignalsRoute,
+  SpeakingRoute: SpeakingRoute,
   StudioRoute: StudioRoute,
   VenturesRoute: VenturesRoute,
   WorkRoute: WorkRoute,
+  WorldRoute: WorldRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
