@@ -256,6 +256,13 @@
 .liana { transform-origin: 50% 0; animation: liana 6s ease-in-out infinite; translate: calc(var(--side, 0) * var(--p, 0) * 6vw) 0; }
 @media (prefers-reduced-motion: reduce) { .liana, .guide-bird img { animation: none !important; } .liana { translate: none; } }
 
+/* Hanging lanterns. The cord turns; the light stays readable against the night. */
+.lantern-hang { position: absolute; top: 0; width: 2px; transform-origin: 50% 0; animation: lantern-swing 3.6s ease-in-out infinite; background: linear-gradient(var(--gold), transparent); }
+.lantern { position: absolute; left: 50%; bottom: -18px; width: 16px; height: 24px; margin-left: -8px; border-radius: 42% 42% 46% 46%; background: radial-gradient(circle at 50% 35%, #fff6c8, var(--gold) 42%, #8a3b08 78%); box-shadow: 0 0 12px 4px color-mix(in oklab, var(--gold) 75%, transparent), 0 0 28px 10px color-mix(in oklab, var(--gold) 35%, transparent); }
+.lantern::after { content: ""; position: absolute; left: 3px; right: 3px; top: 6px; height: 7px; border-radius: 40%; background: rgb(255 250 220 / 80%); }
+@keyframes lantern-swing { 0%, 100% { transform: rotate(-16deg); } 50% { transform: rotate(16deg); } }
+@media (prefers-reduced-motion: reduce) { .lantern-hang { animation: none; } }
+
 .firefly { position: absolute; border-radius: 9999px; background: var(--gold); box-shadow: 0 0 8px 2px color-mix(in oklab, var(--gold) 70%, transparent), 0 0 22px 6px color-mix(in oklab, var(--gold) 30%, transparent); animation-name: firefly-drift, firefly-blink; animation-iteration-count: infinite; animation-timing-function: ease-in-out; animation-direction: alternate; }
 @keyframes firefly-drift { to { transform: translate(var(--fx), var(--fy)); } }
 @keyframes firefly-blink { 0%, 30% { opacity: 0.1; } 60%, 100% { opacity: 1; } }

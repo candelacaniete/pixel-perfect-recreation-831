@@ -14,13 +14,15 @@ const DESTINATIONS = [
   { to: "/speaking", label: "Speaking", id: "speaking" },
   { to: "/ventures", label: "Ventures", id: "ventures" },
   { to: "/signals", label: "Signals", id: "signals" },
+  { to: "/press", label: "Press kit", id: "press" },
+  { to: "/contact", label: "Contact", id: "contact" },
   { to: "/river", label: "The river", id: "river" },
   { to: "/click", label: "CLICK", id: "click" },
   { to: "/world", label: "Yrmis World", id: "world" },
 ] as const;
 
 /** Routes with dark artwork behind the fixed header. */
-const DARK_ROUTES = new Set(["/", "/click", "/signals", "/home", "/ventures", "/river", "/world"]);
+const DARK_ROUTES = new Set(["/", "/home", "/about", "/speaking", "/ventures", "/signals", "/click", "/river", "/world", "/work"]);
 
 /** An illustrated map artifact: discovered stops, your position, and free routes. */
 function JourneyMap({ onGo }: { onGo: () => void }) {
@@ -134,10 +136,10 @@ export function SiteChrome() {
           {onRiver && (
             <button onClick={() => setMapOpen(true)} className="row-btn whitespace-nowrap max-sm:px-3" aria-haspopup="dialog" aria-expanded={mapOpen}><span className="max-sm:hidden">River map</span><span className="sm:hidden">River</span></button>
           )}
-          <Link to="/world" aria-current={path === "/world" ? "page" : undefined} className={`row-btn whitespace-nowrap max-sm:px-3 ${path === "/world" ? "row-btn-scarlet" : ""}`}>World</Link>
+          <Link to="/world" aria-current={path === "/world" ? "page" : undefined} className={`row-btn whitespace-nowrap max-sm:hidden ${path === "/world" ? "row-btn-scarlet" : ""}`}>World</Link>
           <DestinationMenu dark={dark} />
-          <Link to="/speaking" className="row-btn whitespace-nowrap max-sm:px-3">Speaking</Link>
-          <Link to="/work" className="row-btn row-btn-scarlet">Work with me</Link>
+          <Link to="/speaking" className="row-btn hidden whitespace-nowrap sm:inline-flex">Speaking</Link>
+          <Link to="/work" className="row-btn row-btn-scarlet whitespace-nowrap max-sm:px-3">Work with me</Link>
         </div>
       </header>
       {mapOpen && onRiver && (

@@ -1,7 +1,9 @@
+import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
-import { useState, type CSSProperties, type FormEvent } from "react";
 import { Shell } from "@/components/site/Shell";
 import { ClickFive } from "@/components/site/ClickFive";
+import { Fireflies, Lanterns, Scene } from "@/components/safari/motion";
+import { markVisited } from "@/components/safari/visited";
 import { clickExamples } from "@/content/yrmis";
 
 const fields = [
@@ -15,6 +17,7 @@ const fields = [
 type IdeaKey = (typeof fields)[number]["key"];
 
 export function ClickPage() {
+  useEffect(() => markVisited("click"), []);
   const [scene, setScene] = useState(0);
   const example = clickExamples[scene] ?? clickExamples[0];
   const [idea, setIdea] = useState<Record<IdeaKey, string>>({ problem: "", lens: "", reuse: "", feedback: "", test: "" });
@@ -27,129 +30,73 @@ export function ClickPage() {
 
   return (
     <Shell>
-      <section className="chapter">
-        <div className="chap">
-          <span className="num">CLICK</span>
-          <h1 className="d" style={{ fontSize: "clamp(36px, 5vw, 72px)" }}>
-            What can be
-            <br />
-            <em>done better?</em>
-          </h1>
-          <p className="lede">Think of your desk, your company, your neighborhood. What’s one thing that bugs you? Start there. You can open this page without finishing the river.</p>
-        </div>
-        <ClickFive />
-      </section>
-      <section className="chapter short">
-        <div className="sq bone" style={{ margin: "0 var(--m, 5vw)" }}>
-          <div className="split" style={{ paddingTop: 0 }}>
-            <div>
-              <div className="eyebrow">Illustrative examples from the talk</div>
-              <h2 className="d h-l">
-                Find. Adapt.
-                <br />
-                <em>Build.</em>
-              </h2>
-            </div>
-            <div className="actions" role="group" aria-label="Explore innovation examples">
-              {clickExamples.map((item, index) => (
-                <button key={item.title} type="button" className="btn" aria-pressed={scene === index} onClick={() => setScene(index)}>
-                  {item.title}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="split">
-            <div className="sq oxb" data-kind={example.kind} aria-hidden="true" style={{ minHeight: 220, alignItems: "center", justifyContent: "center", gap: 16 }}>
-              <span style={shape(example.kind, 0)} />
-              <span style={shape(example.kind, 1)} />
-            </div>
-            <div>
-              <h3 className="d h-l">{example.title}</h3>
-              <div className="eyebrow">The problem</div>
-              <p>{example.problem}</p>
-              <div className="eyebrow">A useful lens</div>
-              <p>{example.lens}</p>
-              <div className="eyebrow">A first move</div>
-              <p>{example.move}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="chapter short">
-        <div className="sq redb" style={{ margin: "0 var(--m, 5vw)" }}>
-          <div className="eyebrow">Your turn</div>
-          <h2 className="d h-l">
-            Give that curiosity
-            <br />
-            <em>something to work on.</em>
-          </h2>
-          <p className="small">Optional local exercise. Your notes stay in this page’s memory; they are not sent, saved, or evaluated by AI.</p>
-          <form className="form" onSubmit={onSubmit}>
-            {fields.map((field) => (
-              <div key={field.key}>
-                <label htmlFor={`idea-${field.key}`}>{field.label}</label>
-                {field.long ? (
-                  <textarea id={`idea-${field.key}`} maxLength={800} required value={idea[field.key]} onChange={(event) => setIdea({ ...idea, [field.key]: event.target.value })} />
-                ) : (
-                  <input id={`idea-${field.key}`} maxLength={300} required={field.key === "test"} value={idea[field.key]} onChange={(event) => setIdea({ ...idea, [field.key]: event.target.value })} />
-                )}
-              </div>
+      <main className="overflow-hidden bg-night text-paper">
+        <Scene className="relative px-5 pb-12 pt-28 md:px-12">
+          <Fireflies count={16} />
+          <Lanterns count={4} />
+          <p className="eyebrow relative text-gold">CLICK</p>
+          <h1 className="display-xl relative mt-3">What can be<br /><em className="text-gold">done better?</em></h1>
+          <p className="relative mt-6 max-w-2xl text-lg">Think of your desk, your company, your neighborhood. What’s one thing that bugs you? Start there. You can open this page without finishing the river.</p>
+          <div className="relative mt-10"><ClickFive /></div>
+        </Scene>
+        <section className="bg-paper px-5 py-14 text-ink md:px-12">
+          <p className="eyebrow text-crimson">Illustrative examples from the talk</p>
+          <h2 className="display-lg mt-3">Find. Adapt. Build.</h2>
+          <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Explore innovation examples">
+            {clickExamples.map((item, index) => (
+              <button key={item.title} type="button" aria-pressed={scene === index} onClick={() => setScene(index)} className={`pill border-2 border-ink ${scene === index ? "bg-ink text-paper" : ""}`}>
+                {item.title}
+              </button>
             ))}
-            <button className="btn" type="submit">
-              Put the pieces together
-            </button>
+          </div>
+          <div className="mt-8 max-w-2xl">
+            <h3 className="font-display text-3xl">{example.title}</h3>
+            <p className="mt-4"><strong>The problem. </strong>{example.problem}</p>
+            <p className="mt-3"><strong>A useful lens. </strong>{example.lens}</p>
+            <p className="mt-3"><strong>A first move. </strong>{example.move}</p>
+          </div>
+        </section>
+        <section className="bg-scarlet px-5 py-14 md:px-12">
+          <p className="eyebrow text-gold">Your turn</p>
+          <h2 className="display-lg mt-3">Give that curiosity something to work on.</h2>
+          <p className="mt-4 max-w-xl text-sm text-paper/80">Optional local exercise. Your notes stay in this page’s memory; they are not sent, saved, or evaluated by AI.</p>
+          <form onSubmit={onSubmit} className="mt-8 grid max-w-2xl gap-4">
+            {fields.map((field) => (
+              <label key={field.key}>
+                <span className="eyebrow">{field.label}</span>
+                {field.long ? (
+                  <textarea className="mt-2 w-full border-b-2 border-paper bg-transparent py-2 text-lg outline-none" maxLength={800} required value={idea[field.key]} onChange={(event) => setIdea({ ...idea, [field.key]: event.target.value })} />
+                ) : (
+                  <input className="mt-2 w-full border-b-2 border-paper bg-transparent py-2 text-lg outline-none" maxLength={300} required={field.key === "test"} value={idea[field.key]} onChange={(event) => setIdea({ ...idea, [field.key]: event.target.value })} />
+                )}
+              </label>
+            ))}
+            <button className="pill w-fit bg-paper text-ink" type="submit">Put the pieces together</button>
           </form>
           {shown.length > 0 && (
-            <article className="idea" aria-live="polite">
-              <div className="eyebrow">Your working idea</div>
-              <h3 className="d">Find. Adapt. Build.</h3>
+            <article className="mt-8 max-w-2xl bg-paper p-6 text-ink" aria-live="polite">
+              <p className="eyebrow">Your working idea</p>
+              <h3 className="font-display mt-2 text-3xl">Find. Adapt. Build.</h3>
               <dl>
-                {fields
-                  .filter((field) => shown.includes(field.key))
-                  .map((field) => (
-                    <div key={field.key}>
-                      <dt>{field.label}</dt>
-                      <dd>{idea[field.key].trim()}</dd>
-                    </div>
-                  ))}
+                {fields.filter((field) => shown.includes(field.key)).map((field) => (
+                  <div key={field.key} className="mt-4">
+                    <dt className="font-semibold">{field.label}</dt>
+                    <dd>{idea[field.key].trim()}</dd>
+                  </div>
+                ))}
               </dl>
             </article>
           )}
-        </div>
-        <div className="sq oxb" style={{ margin: "14px var(--m, 5vw) 0" }}>
-          <h2 className="d h-l">What comes next?</h2>
-          <div className="actions">
-            <Link to="/contact" search={{ interest: "Speaking" }} className="btn">
-              Bring CLICK to your team
-            </Link>
-            <Link to="/contact" search={{ interest: "Consulting Studio" }} className="btn">
-              Build with me
-            </Link>
-            <Link to="/signals" className="btn">
-              Keep exploring
-            </Link>
+        </section>
+        <section className="px-5 py-14 md:px-12">
+          <h2 className="display-lg">What comes next?</h2>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link to="/contact" search={{ interest: "Speaking" }} className="pill bg-scarlet text-paper">Bring CLICK to your team</Link>
+            <Link to="/contact" search={{ interest: "Consulting Studio" }} className="pill border-2 border-paper">Build with me</Link>
+            <Link to="/signals" className="pill border-2 border-paper">Keep exploring</Link>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
     </Shell>
   );
-}
-
-function shape(kind: string, index: number): CSSProperties {
-  if (kind === "table") {
-    return { width: 90, height: 90, borderRadius: "50%", background: index ? "#DC235B" : "#E4701D", border: "12px solid #F7EEDA", display: "block" };
-  }
-  if (kind === "clip") {
-    return index
-      ? { width: 36, height: 36, borderRadius: "50%", background: "#750217", display: "block" }
-      : { width: 150, height: 100, borderRadius: 15, background: "#E08A47", transform: "rotate(-20deg)", display: "block" };
-  }
-  return {
-    width: 48,
-    height: 160,
-    borderRadius: "40% 40% 8% 8%",
-    background: index ? "#FAB702" : "#DC235B",
-    transform: index ? "rotate(-12deg)" : "rotate(12deg)",
-    display: "block",
-  };
 }

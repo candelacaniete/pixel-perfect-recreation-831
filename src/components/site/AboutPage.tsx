@@ -1,87 +1,66 @@
+import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
+import { Fireflies, Lanterns, Scene } from "@/components/safari/motion";
+import { markVisited } from "@/components/safari/visited";
 import { siteCopy, socials } from "@/content/yrmis";
 import blazer from "@/assets/sourced/portraits/yrmis-blazer.jpg";
 import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
 import red from "@/assets/sourced/portraits/yrmis-red.jpg";
+import land from "@/assets/land-home.jpg";
 
 const instagram = socials.find((item) => item.name === "Instagram");
 
 export function AboutPage() {
+  useEffect(() => markVisited("about"), []);
   return (
-    <Shell page>
-      <main className="swrap">
-        <header className="phead">
-          <div>
-            <div className="eyebrow red">About</div>
-            <h1 className="d">
-              New territory.
-              <br />
-              <em>Bring what you know.</em>
-            </h1>
+    <Shell current="About">
+      <main className="overflow-hidden bg-night text-paper">
+        <Scene className="isolate relative overflow-hidden px-5 pb-16 pt-28 md:px-12">
+          <div aria-hidden className="absolute inset-0 -z-10">
+            <img src={land} alt="" className="photo-bg object-center opacity-40" />
+            <Fireflies count={18} />
           </div>
-          <div className="side">
-            <p className="lede">{siteCopy.about}</p>
-            <div className="actions">
-              <Link to="/work" className="btn">
-                Work with me
-              </Link>
-              <Link to="/speaking" className="btn red">
-                Speaking
-              </Link>
-            </div>
-          </div>
-        </header>
-        <div className="block">
-          <div className="media">
-            <img src={blazer} width={2688} height={4032} alt="Yrmis Barroeta in a blazer, original press-kit portrait" />
-          </div>
-          <div className="story">
-            <div className="eyebrow">My story</div>
+          <Lanterns count={5} />
+          <p className="eyebrow relative text-gold">About</p>
+          <h1 className="display-xl relative mt-4">
+            {siteCopy.headline}
+            <br />
+            <em className="text-gold">{siteCopy.headlineEm}</em>
+          </h1>
+          <p className="relative mt-6 max-w-2xl text-lg">{siteCopy.about}</p>
+        </Scene>
+        <section className="grid items-start gap-10 px-5 py-16 md:grid-cols-12 md:px-12">
+          <img src={blazer} alt="Yrmis Barroeta in a blazer, original press-kit portrait" width={2688} height={4032} className="aspect-[4/5] w-full border-2 border-gold object-cover md:col-span-5" />
+          <div className="max-w-2xl md:col-span-7">
             {siteCopy.story.map((section) => (
-              <section key={section.title}>
-                <h2 className="d" style={{ fontSize: "clamp(28px, 3vw, 44px)", margin: "28px 0 8px" }}>
-                  {section.title}
-                </h2>
+              <section key={section.title} className="mb-12">
+                <h2 className="font-display text-4xl">{section.title}</h2>
                 {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
+                  <p key={paragraph} className="mt-4 text-lg leading-relaxed text-paper/85">{paragraph}</p>
                 ))}
               </section>
             ))}
           </div>
-        </div>
-        <div className="gallery" style={{ marginTop: 28 }}>
+        </section>
+        <section className="grid gap-6 px-5 pb-16 md:grid-cols-2 md:px-12">
           <figure>
-            <img src={plants} width={1400} height={1400} alt="Yrmis laughing among green leaves, original press-kit photograph" />
-            <figcaption>Original press-kit photograph</figcaption>
+            <img src={plants} alt="Yrmis laughing among green leaves, original press-kit photograph" className="aspect-square w-full rotate-[-1.5deg] border-2 border-gold object-cover" />
           </figure>
           <figure>
-            <img src={red} width={1440} height={1800} alt="Yrmis in red tights and red heels, original press-kit photograph" />
-            <figcaption>Original press-kit photograph</figcaption>
+            <img src={red} alt="Yrmis in red tights and red heels, original press-kit photograph" className="aspect-[4/5] w-full rotate-[1.5deg] border-2 border-scarlet object-cover" />
           </figure>
-        </div>
-        <div className="sband">
-          <div>
-            <div className="eyebrow">All Black Sheep · Instagram</div>
-            <p className="big">
-              Find me <em>on Instagram.</em>
-            </p>
-            <p className="small">Direct profile link. No simulated or automatically updating feed.</p>
-          </div>
+        </section>
+        <section className="bg-scarlet px-5 py-14 md:px-12">
+          <h2 className="display-lg">Find me on Instagram.</h2>
           {instagram && (
-            <a className="btn bone" href={instagram.href} target="_blank" rel="noreferrer">
-              @allblacksheep_club ↗
-            </a>
+            <a className="pill mt-6 bg-paper text-ink" href={instagram.href} target="_blank" rel="noreferrer">@allblacksheep_club ↗</a>
           )}
-        </div>
-        <div className="actions" style={{ margin: "28px 0 8px" }}>
-          <Link to="/ventures" className="btn">
-            Entrepreneurial Ventures
-          </Link>
-          <Link to="/press" className="btn">
-            Press kit
-          </Link>
-        </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link to="/ventures" className="pill border-2 border-paper">Entrepreneurial Ventures</Link>
+            <Link to="/press" className="pill border-2 border-paper">Press kit</Link>
+          </div>
+        </section>
       </main>
     </Shell>
   );

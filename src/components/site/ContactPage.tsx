@@ -1,10 +1,12 @@
 import { useNavigate } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Shell } from "@/components/site/Shell";
+import { markVisited } from "@/components/safari/visited";
 import { inquiryFromSearch, inquiryTypes, publishedEmail, type InquiryType } from "@/content/yrmis";
 
 export function ContactPage({ interest }: { interest: InquiryType }) {
   const navigate = useNavigate();
+  useEffect(() => markVisited("contact"), []);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -18,6 +20,7 @@ export function ContactPage({ interest }: { interest: InquiryType }) {
   const [error, setError] = useState("");
   const [result, setResult] = useState("");
   const speaking = interest === "Speaking";
+  const field = "mt-2 w-full border-b-2 border-ink bg-transparent py-3 text-lg outline-none focus:border-tangerine";
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -31,75 +34,40 @@ export function ContactPage({ interest }: { interest: InquiryType }) {
   }
 
   return (
-    <Shell page>
-      <main className="swrap">
-        <header className="phead">
-          <div>
-            <div className="eyebrow red">Work with me</div>
-            <h1 className="d">
-              Let’s make
-              <br />
-              <em>things happen.</em>
-            </h1>
-          </div>
-          <p className="lede">Tell me what you’re building, planning, or trying to figure out. We’ll start there.</p>
-        </header>
-        <form className="form" onSubmit={onSubmit} noValidate style={{ maxWidth: 720, paddingBottom: 20 }}>
-          <div className="notice">
-            <strong>This form does not send.</strong> For a real inquiry, email <a href={`mailto:${publishedEmail}`}>{publishedEmail}</a>.
-          </div>
-          <label htmlFor="yb-interest">I’m interested in</label>
-          <select
-            id="yb-interest"
-            value={interest}
-            onChange={(event) => {
-              setResult("");
-              void navigate({
-                to: "/contact",
-                search: { interest: inquiryFromSearch(event.target.value) },
-                replace: true,
-              });
-            }}
-          >
-            {inquiryTypes.map((type) => (
-              <option key={type}>{type}</option>
-            ))}
-          </select>
-          <label htmlFor="yb-name">Name</label>
-          <input id="yb-name" autoComplete="name" required value={name} onChange={(event) => setName(event.target.value)} />
-          <label htmlFor="yb-email">Email</label>
-          <input id="yb-email" type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} />
+    <Shell tone="paper" current="Contact">
+      <main className="bg-paper px-5 pb-20 pt-28 text-ink md:px-12">
+        <p className="eyebrow text-crimson">Work with me</p>
+        <h1 className="display-xl mt-3 max-w-4xl">Let’s make<br />things happen.</h1>
+        <p className="mt-4 max-w-xl text-lg">Tell me what you’re building, planning, or trying to figure out. We’ll start there.</p>
+        <form onSubmit={onSubmit} noValidate className="mt-10 grid max-w-3xl gap-6">
+          <p className="border-l-4 border-scarlet bg-scarlet/10 px-4 py-3 text-sm">
+            <strong>This form does not send.</strong> For a real inquiry, email <a className="underline" href={`mailto:${publishedEmail}`}>{publishedEmail}</a>.
+          </p>
+          <label>
+            <span className="eyebrow">I’m interested in</span>
+            <select className={field} value={interest} onChange={(event) => { setResult(""); void navigate({ to: "/contact", search: { interest: inquiryFromSearch(event.target.value) }, replace: true }); }}>
+              {inquiryTypes.map((type) => <option key={type}>{type}</option>)}
+            </select>
+          </label>
+          <label><span className="eyebrow">Name</span><input className={field} autoComplete="name" required value={name} onChange={(event) => setName(event.target.value)} /></label>
+          <label><span className="eyebrow">Email</span><input className={field} type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} /></label>
           {speaking ? (
             <>
-              <label htmlFor="yb-org">Organization</label>
-              <input id="yb-org" autoComplete="organization" value={organization} onChange={(event) => setOrganization(event.target.value)} />
-              <label htmlFor="yb-date">Event date</label>
-              <input id="yb-date" type="date" value={date} onChange={(event) => setDate(event.target.value)} />
-              <label htmlFor="yb-location">Location or virtual</label>
-              <input id="yb-location" value={location} onChange={(event) => setLocation(event.target.value)} />
-              <label htmlFor="yb-audience">Audience and desired outcomes</label>
-              <input id="yb-audience" value={audience} onChange={(event) => setAudience(event.target.value)} />
+              <label><span className="eyebrow">Organization</span><input className={field} autoComplete="organization" value={organization} onChange={(event) => setOrganization(event.target.value)} /></label>
+              <label><span className="eyebrow">Event date</span><input className={field} type="date" value={date} onChange={(event) => setDate(event.target.value)} /></label>
+              <label><span className="eyebrow">Location or virtual</span><input className={field} value={location} onChange={(event) => setLocation(event.target.value)} /></label>
+              <label><span className="eyebrow">Audience and desired outcomes</span><input className={field} value={audience} onChange={(event) => setAudience(event.target.value)} /></label>
             </>
           ) : (
             <>
-              <label htmlFor="yb-project">Company / project</label>
-              <input id="yb-project" value={project} onChange={(event) => setProject(event.target.value)} />
-              <label htmlFor="yb-challenge">Current challenge</label>
-              <input id="yb-challenge" value={challenge} onChange={(event) => setChallenge(event.target.value)} />
-              <label htmlFor="yb-timing">Timing</label>
-              <input id="yb-timing" value={timing} onChange={(event) => setTiming(event.target.value)} />
+              <label><span className="eyebrow">Company / project</span><input className={field} value={project} onChange={(event) => setProject(event.target.value)} /></label>
+              <label><span className="eyebrow">Current challenge</span><input className={field} value={challenge} onChange={(event) => setChallenge(event.target.value)} /></label>
+              <label><span className="eyebrow">Timing</span><input className={field} value={timing} onChange={(event) => setTiming(event.target.value)} /></label>
             </>
           )}
-          <label htmlFor="yb-message">What are you working on?</label>
-          <textarea id="yb-message" value={message} onChange={(event) => setMessage(event.target.value)} />
-          {error && (
-            <p className="notice" role="alert">
-              {error}
-            </p>
-          )}
-          <button className="btn red" type="submit">
-            Review inquiry
-          </button>
+          <label><span className="eyebrow">What are you working on?</span><textarea className={field} rows={4} value={message} onChange={(event) => setMessage(event.target.value)} /></label>
+          {error && <p role="alert" className="text-crimson">{error}</p>}
+          <button className="pill w-fit bg-ink text-paper" type="submit">Review inquiry</button>
           <p role="status">{result}</p>
         </form>
       </main>

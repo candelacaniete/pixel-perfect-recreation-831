@@ -174,9 +174,27 @@ export function RiverJourney({ onShore }: { onShore?: () => void } = {}) {
       const t = S.cam / LANDING_Z;
       const pal = palette(t);
       const sway = reduced ? 0 : Math.sin(S.t * 0.6) * 0.12;
-      // Keep the camera in the river: widen the view, never pan onto a bank.
       const { F, hy } = riverFrame(W, H);
+      const narrow = Math.max(0, Math.min(1, (1.25 - W / H) / 0.7), H < 520 ? 0.7 : 0);
       const cam: Cam = { z: S.cam, W, H, F, hy: hy + (reduced ? 0 : Math.sin(S.t * 1.3) * 2), c0: curve(S.cam), d0: curveD(S.cam), sway, pan: 0 };
+      // The view turns toward the next guardian. On a phone the turn is stronger
+      // so the lanterns and the animal stay inside the frame; the bow stays on the water.
+      let panTarget = 0;
+      if (!reduced && narrow > 0) {
+        const gi = S.encounter ?? stops.findIndex((s, i) => !journey.get().passed.includes(i) && s.z - S.cam > -2 && s.z - S.cam < 26);
+        const gs = gi >= 0 ? stops[gi] : undefined;
+        if (gs) {
+          const gz = gs.z;
+          const d = Math.max(0.8, gz - S.cam);
+          const gx = curve(gz) + gs.side * (width(gz) + 0.5);
+          const lx = gx - (cam.c0 + cam.d0 * d * 0.92);
+          const want = (gs.side * W * 0.2) / (F / d);
+          const close = Math.min(1, Math.max(0, (26 - d) / 12));
+          panTarget = (lx - want) * close * narrow;
+        }
+      }
+      S.pan += (panTarget - S.pan) * Math.min(1, dt * 2.5);
+      cam.pan = S.pan;
 
       // --- sky ---
       const sky = ctx.createLinearGradient(0, 0, 0, cam.hy);
@@ -435,13 +453,17 @@ export function RiverJourney({ onShore }: { onShore?: () => void } = {}) {
         setCrocodileActive(false);
       }} />}
 
-      {/* bow of the boat */}
-      <svg aria-hidden viewBox="0 0 400 160" className={`pointer-events-none absolute bottom-[-8px] left-1/2 w-[min(90vw,560px,95vh)] ${reduced ? "-translate-x-1/2" : "animate-bob"}`}>
-        <path d="M200 6 C 260 40, 330 110, 400 160 L 0 160 C 70 110, 140 40, 200 6 Z" fill="var(--bow)" />
-        <path d="M200 6 C 240 50, 290 110, 340 160 L 60 160 C 110 110, 160 50, 200 6 Z" fill="var(--bow-inner)" />
-        <path d="M200 6 L 200 160" stroke="var(--bow)" strokeWidth="6" />
-        <path d="M120 120 C 160 112, 240 112, 280 120" stroke="var(--bow)" strokeWidth="8" fill="none" />
-      </svg>
+      {/* bow of the boat, with the two lanterns that turn as it rocks */}
+      <div aria-hidden className={`pointer-events-none absolute bottom-[-8px] left-1/2 w-[min(90vw,560px,95vh)] ${reduced ? "-translate-x-1/2" : "animate-bob"}`}>
+        <svg viewBox="0 0 400 160" className="block h-auto w-full">
+          <path d="M200 6 C 260 40, 330 110, 400 160 L 0 160 C 70 110, 140 40, 200 6 Z" fill="var(--bow)" />
+          <path d="M200 6 C 240 50, 290 110, 340 160 L 60 160 C 110 110, 160 50, 200 6 Z" fill="var(--bow-inner)" />
+          <path d="M200 6 L 200 160" stroke="var(--bow)" strokeWidth="6" />
+          <path d="M120 120 C 160 112, 240 112, 280 120" stroke="var(--bow)" strokeWidth="8" fill="none" />
+        </svg>
+        <span className="lantern-hang" style={{ left: "30%", height: "42%", animationDuration: "2.6s" }}><span className="lantern" /></span>
+        <span className="lantern-hang" style={{ left: "68%", height: "30%", animationDelay: "-1.1s", animationDuration: "3.3s" }}><span className="lantern" /></span>
+      </div>
 
       {/* floating text anchored to the nearest guardian */}
       <div className={`pointer-events-none absolute inset-x-5 top-[calc(env(safe-area-inset-top)+5.5rem)] z-10 md:inset-x-auto md:top-[20%] md:w-[26rem] ${side > 0 ? "md:right-[6%]" : "md:left-[6%]"}`}>

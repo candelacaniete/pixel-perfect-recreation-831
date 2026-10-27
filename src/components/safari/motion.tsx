@@ -114,6 +114,23 @@ export function Lianas({ className = "", count = 7 }: { className?: string; coun
   );
 }
 
+/** Lanterns hung over a night scene. Each cord turns on its own beat. */
+export function Lanterns({ count = 5 }: { count?: number }) {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-20 h-[46vh] overflow-hidden">
+      {Array.from({ length: count }, (_, i) => (
+        <span
+          key={i}
+          className="lantern-hang"
+          style={{ left: `${8 + (i * 84) / Math.max(1, count - 1)}%`, height: `${16 + ((i * 17) % 22)}vh`, animationDelay: `${-i * 0.55}s`, animationDuration: `${2.8 + (i % 3) * 0.7}s` }}
+        >
+          <span className="lantern" />
+        </span>
+      ))}
+    </div>
+  );
+}
+
 /** Living fireflies drifting and blinking across a night background. */
 export function Fireflies({ count = 34 }: { count?: number }) {
   return (
