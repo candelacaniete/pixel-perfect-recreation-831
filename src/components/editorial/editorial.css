@@ -265,6 +265,151 @@
   .ll-venture { animation: none; transition: none; }
 }
 
+/* Home hero only. One sticky plain, one jabiru, one scroll reveal. */
+.ll-scene {
+  --p: 0;
+  --mx: 0;
+  position: relative;
+  height: 220vh;
+  margin-top: -4.8rem;
+  background: #d7b56a;
+}
+.ll-scene-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background: #c9863a;
+}
+.ll-scene-land,
+.ll-scene-grass {
+  position: absolute;
+  pointer-events: none;
+  object-fit: cover;
+}
+.ll-scene-land {
+  inset: -8% -4%;
+  width: 108%;
+  height: 116%;
+  max-width: none;
+  object-position: center 46%;
+  transform: translate3d(calc(var(--mx) * -14px), calc(var(--p) * -3%), 0) scale(calc(1.08 + var(--p) * 0.05));
+}
+.ll-scene-grass {
+  z-index: 6;
+  left: -6%;
+  bottom: -4%;
+  width: 112%;
+  height: 30%;
+  max-width: none;
+  object-position: center 100%;
+  transform: translate3d(calc(var(--mx) * 18px), calc(var(--p) * 6%), 0) scale(1.04);
+  -webkit-mask-image: linear-gradient(to top, #000 0 22%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 0 22%, transparent 100%);
+}
+.ll-scene-copy {
+  position: absolute;
+  z-index: 8;
+  top: 0;
+  left: 0;
+  width: min(38rem, 52%);
+  padding: 6.4rem 4% 0 6%;
+  color: #f7eeda;
+  text-shadow: 0 2px 16px rgba(24, 12, 4, 0.62);
+}
+.ll-scene-copy .ll-lede,
+.ll-scene .ll-display { color: #f7eeda; }
+.ll-scene .ll-display { font-size: clamp(2.8rem, 5.4vw, 5.5rem); }
+.ll-scene-bird {
+  position: absolute;
+  z-index: 4;
+  right: 8%;
+  bottom: -3%;
+  width: min(92vh, 48vw);
+  height: auto;
+  pointer-events: none;
+  transform-origin: 62% 100%;
+  transform: translate3d(calc(var(--p) * -9vw + var(--mx) * 14px), calc(var(--p) * -7vh), 0) scale(calc(1.04 - var(--p) * 0.1)) rotate(calc(var(--mx) * -1deg));
+  filter: sepia(0.16) saturate(1.04) drop-shadow(0 22px 12px rgba(48, 24, 6, 0.28));
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 96%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 96%);
+}
+.ll-scene-shadow {
+  position: absolute;
+  z-index: 4;
+  right: 14%;
+  bottom: 9%;
+  width: 16vw;
+  height: 1.8rem;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(42, 22, 6, 0.48), transparent 70%);
+  pointer-events: none;
+  transform: scale(calc(1 - var(--p) * 0.35), 1);
+  opacity: calc(0.75 - var(--p) * 0.35);
+}
+.ll-scene-portrait {
+  position: absolute;
+  z-index: 5;
+  right: 4%;
+  bottom: 0;
+  width: min(26vw, 340px);
+  height: 70%;
+  margin: 0;
+  overflow: hidden;
+  transform: translate3d(0, calc((1 - min(var(--p) * 1.7, 1)) * 112%), 0);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 30%), linear-gradient(to right, transparent, #000 10%, #000 92%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to top, transparent 0%, #000 30%), linear-gradient(to right, transparent, #000 10%, #000 92%, transparent);
+  mask-composite: intersect;
+}
+.ll-scene-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 16%;
+}
+.ll-scene-portrait figcaption {
+  position: absolute;
+  left: 0.8rem;
+  bottom: 26%;
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
+}
+
+@media (max-width: 800px) {
+  .ll-scene { height: 190vh; margin-top: -7.5rem; }
+  .ll-scene-copy { width: 100%; padding: 8.6rem 1.15rem 0; }
+  .ll-scene-copy .ll-actions { max-width: 12.2rem; }
+  .ll-scene .ll-display { font-size: clamp(2.5rem, 11vw, 3.6rem); }
+  .ll-scene-bird {
+    right: auto;
+    left: -4%;
+    width: 66vw;
+    bottom: 0;
+    transform: translate3d(calc(var(--mx) * 8px), calc(var(--p) * -2vh), 0) scale(calc(1.02 - var(--p) * 0.04));
+  }
+  .ll-scene-portrait { width: 42vw; height: 38%; right: 0; }
+  .ll-scene-shadow { right: 6%; width: 34vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ll-scene { --p: 1; height: auto; }
+  .ll-scene-sticky { position: relative; height: 100svh; }
+  .ll-scene-land,
+  .ll-scene-grass,
+  .ll-scene-bird,
+  .ll-scene-shadow,
+  .ll-scene-portrait { transform: none; animation: none; }
+  .ll-scene-bird { left: auto; right: 24%; width: min(72vh, 42vw); bottom: 0; }
+  .ll-scene-portrait { transform: none; }
+  .ll-scene-shadow { opacity: 0.4; }
+}
+
+@media (max-width: 800px) and (prefers-reduced-motion: reduce) {
+  .ll-scene-bird { left: -2%; right: auto; width: 62vw; bottom: 0; }
+  .ll-scene-portrait { width: 40vw; height: 36%; }
+}
+
 @media (max-width: 900px) {
   .ll-first,
   .ll-split,

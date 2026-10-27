@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
+import { HomeScene } from "@/components/editorial/HomeScene";
 import { Reveal } from "@/components/editorial/Reveal";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
-import portrait from "@/assets/sourced/portraits/yrmis-blazer.jpg";
-import horizon from "@/assets/living/speaking-llanos.jpg";
-import jabiru from "@/assets/living/jabiru-glide.jpg";
 import horses from "@/assets/living/horses-gallop-2.jpg";
 
 const chapters = [
@@ -22,32 +20,7 @@ export function HomePage() {
   return (
     <Shell current="Home">
       <main className="llanos">
-        <section className="ll-first">
-          <div className="ll-first-copy">
-            <p className="ll-kicker">01 · {siteCopy.identity}</p>
-            <h1 className="ll-display" style={{ marginTop: "1rem" }}>
-              {siteCopy.headline}
-              <br />
-              <em>{siteCopy.headlineEm}</em>
-            </h1>
-            <p className="ll-lede">{siteCopy.homeIntro}</p>
-            <div className="ll-actions">
-              <Link to="/river" className="ll-btn ll-btn-red">Explore CLICK</Link>
-              <Link to="/work" className="ll-btn">Work with me</Link>
-              <Link to="/speaking" className="ll-btn">Speaking</Link>
-            </div>
-          </div>
-          <figure className="ll-portrait">
-            <img src={portrait} alt="Yrmis Barroeta in a blazer, original press-kit portrait" width={2688} height={4032} />
-            <figcaption className="ll-kicker">Yrmis Barroeta</figcaption>
-          </figure>
-        </section>
-
-        <figure className="ll-horizon">
-          <img src={horizon} alt="Sunlit Venezuelan Llanos: flat water, grasses, and a wide sky" />
-          <figcaption className="ll-kicker">The Llanos</figcaption>
-        </figure>
-        <img className="ll-animal" src={jabiru} alt="A jabiru crossing the horizon, larger than the plain behind it" />
+        <HomeScene />
 
         <Reveal>
           <section className="ll-split">
