@@ -28,10 +28,8 @@
   border: 0;
 }
 
-.yw :focus-visible,
-.yw-chrome :focus-visible,
-.yw-foot :focus-visible {
-  outline: 2px solid var(--yw-sunset);
+.yw :focus-visible {
+  outline: 2px solid var(--yw-neon);
   outline-offset: 3px;
 }
 
@@ -40,44 +38,15 @@
   inset: 0 0 auto 0;
   z-index: 40;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 0.8rem 1.2rem;
+  gap: 1.5rem;
   padding: 0.45rem 4vw;
   min-height: 3.25rem;
   background: linear-gradient(to bottom, rgba(8, 6, 4, 0.55), rgba(8, 6, 4, 0));
   backdrop-filter: none;
   color: #f6efe4;
 }
-.yw-wordmark {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 500;
-  font-size: 1.7rem;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: inherit;
-  text-decoration: none;
-}
-.yw-cta {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.55rem 0.9rem;
-  border-radius: 999px;
-  background: var(--yw-red);
-  color: var(--yw-cream);
-  font: 600 0.68rem/1 var(--font-sans);
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.yw-cta:hover {
-  background: var(--yw-yellow);
-  color: #fff;
-  transform: translateY(-2px) rotate(-1deg);
-}
-.yw-cta:active { transform: scale(0.97); }
 
 .yw-chrome.is-solid,
 .yw-chrome.is-open {
@@ -227,18 +196,11 @@
   border-radius: 999px;
   background: var(--yw-red);
   color: #fff;
-  font: 600 0.72rem/1 var(--font-sans);
+  font: 500 0.72rem/1 var(--font-sans);
   letter-spacing: 0.12em;
   text-decoration: none;
   text-transform: uppercase;
-  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
-.yw-pill:hover {
-  background: var(--yw-yellow);
-  color: #fff;
-  transform: translateY(-2px) rotate(-1deg);
-}
-.yw-pill:active { transform: scale(0.97); }
 
 .yw-pill-ghost {
   background: transparent;
@@ -303,8 +265,8 @@
 .yw-kicker {
   margin: 0 0 1rem;
   color: var(--yw-sunset);
-  font: 400 0.7rem/1 var(--font-mono);
-  letter-spacing: 0.18em;
+  font: 500 0.72rem/1 var(--font-sans);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -389,7 +351,7 @@
 
 .yw-dusk-copy {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   max-width: 36rem;
   padding: 4rem 7vw;
 }
@@ -735,22 +697,24 @@
 }
 
 @media (max-width: 900px) {
-  .yw-chrome {
-    grid-template-columns: auto 1fr;
-    grid-template-areas: "logo cta" "nav nav";
-  }
-  .yw-wordmark { grid-area: logo; }
-  .yw-cta { grid-area: cta; justify-self: end; }
-  .yw-nav {
-    grid-area: nav;
+  .yw-nav { display: none; }
+  .yw-chrome.is-open .yw-nav {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    overflow: visible;
-    gap: 0.45rem 0.85rem;
-    padding-bottom: 0.15rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.4rem 1.2rem 1rem;
+    background: #16120f;
   }
-  .yw-nav a { white-space: nowrap; }
+  .yw-chrome.is-open .yw-more-panel {
+    position: static;
+    grid-column: 1 / -1;
+    padding: 0 1.2rem 1rem;
+    border-radius: 0;
+  }
   .yw-find,
   .yw-tracks,
   .yw-pair,
@@ -913,39 +877,12 @@
   overflow: hidden;
   color: #f7f1e8;
 }
-.bleed::before,
-.yw-dusk::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.28;
-  mix-blend-mode: multiply;
-  background-image: radial-gradient(rgba(0, 0, 0, 0.45) 0.45px, transparent 0.55px);
-  background-size: 2px 2px;
-}
 .bleed::after {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 1;
-  background:
-    linear-gradient(90deg, rgba(8, 6, 4, 0.5) 0%, rgba(8, 6, 4, 0.14) 34%, rgba(8, 6, 4, 0) 60%),
-    linear-gradient(to top, rgba(8, 6, 4, 0.45), rgba(8, 6, 4, 0) 42%);
+  background: linear-gradient(90deg, rgba(8, 6, 4, 0.5) 0%, rgba(8, 6, 4, 0.14) 34%, rgba(8, 6, 4, 0) 60%);
   pointer-events: none;
-}
-@supports (animation-timeline: view()) {
-  .bleed-photo {
-    transform-origin: center center;
-    animation: bleed-zoom linear both;
-    animation-timeline: view();
-    animation-range: cover 0% cover 100%;
-  }
-}
-@keyframes bleed-zoom {
-  from { transform: scale(1.04); }
-  to { transform: scale(1.1); }
 }
 .bleed-photo {
   position: absolute;
@@ -957,7 +894,7 @@
 }
 .bleed-copy {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -983,11 +920,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .yw-hero-img,
-  .yw-dusk img,
-  .bleed-photo { animation: none; transform: none; }
-  .yw-pill:hover,
-  .yw-cta:hover,
-  .yw-format:hover { transform: none; }
+  .yw-dusk img { transform: none; }
 }
 
 /* Home sits on a pale sky, so the type is ink and the header follows. */
@@ -1198,93 +1131,6 @@
   color: #fff;
 }
 
-.yw-foot {
-  display: grid;
-  grid-template-columns: 1.1fr 0.8fr 1fr;
-  gap: 2rem 2.4rem;
-  padding: 3rem 7vw 1.4rem;
-  font-family: var(--font-sans);
-}
-.yw-foot-cream { background: var(--yw-cream); color: var(--yw-ink); }
-.yw-foot-dark { background: var(--yw-dark); color: var(--yw-cream); }
-.yw-foot-red { background: var(--yw-maroon); color: var(--yw-cream); }
-.yw-foot-name {
-  margin: 0;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(3.2rem, 8vw, 6rem);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 0.86;
-}
-.yw-foot p { margin: 0.8rem 0 0; line-height: 1.45; }
-.yw-foot nav,
-.yw-foot-socials { display: flex; flex-direction: column; align-items: flex-start; gap: 0.45rem; }
-.yw-foot a { color: inherit; text-decoration: none; }
-.yw-foot a:hover { color: var(--yw-sunset); }
-.yw-foot-signals {
-  padding: 1.2rem 1.2rem 1.4rem;
-  background: var(--yw-red);
-  color: var(--yw-cream);
-}
-.yw-foot-signals .yw-kicker,
-.yw-foot-red .yw-kicker,
-.yw-foot-dark .yw-kicker { color: var(--yw-cream); }
-.yw-foot-signals a { font-weight: 600; }
-.yw-foot-fine {
-  grid-column: 1 / -1;
-  margin: 0.4rem 0 0;
-  padding-top: 1rem;
-  border-top: 1px solid currentColor;
-  font-size: 0.85rem;
-  opacity: 0.8;
-}
-.yw-format {
-  display: grid;
-  grid-template-columns: 3.2rem 1fr;
-  gap: 0.8rem;
-  align-items: baseline;
-  padding: 1rem 0;
-  border-top: 1px solid var(--yw-line);
-  color: inherit;
-  text-decoration: none;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-.yw-format:hover { transform: translateY(-2px); color: var(--yw-sunset); }
-.yw-format em {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  letter-spacing: -0.03em;
-  line-height: 0.95;
-}
-.yw-format span { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.18em; }
-.yw-frame {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  border: 1px solid var(--yw-sunset);
-  transform: rotate(-1deg);
-  background: #efe4d0;
-}
-.yw-frame-red { border-color: var(--yw-red); }
-.yw-field-error { display: block; margin-top: 0.35rem; color: var(--yw-red); font-size: 0.85rem; }
-.yw-outcomes {
-  display: grid;
-  gap: 1rem;
-}
-.yw-outcomes p {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-}
-@media (max-width: 800px) {
-  .yw-foot { grid-template-columns: 1fr; padding: 2.2rem 1.2rem 1.2rem; }
-}
-
 /* Who Yrmis is, then the portrait. On a phone the copy stays first. */
 .yw-intro,
 .yw-opener {
@@ -1310,26 +1156,6 @@
 }
 .yw-intro h1,
 .yw-opener h1 { font-size: clamp(2.4rem, 4.2vw, 4rem); }
-.yw-intro h1.yw-lead { font-size: clamp(2rem, 3.2vw, 3.15rem); line-height: 1.08; }
-.yw-hero-title {
-  margin: 0;
-  max-width: 11ch;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(3.2rem, 8vw, 6.5rem);
-  letter-spacing: -0.04em;
-  line-height: 0.9;
-  color: var(--yw-cream);
-}
-.yw-credentials { margin: 1rem 0 0; padding: 0; list-style: none; }
-.yw-credentials li {
-  max-width: 62ch;
-  margin: 0;
-  padding: 0.85rem 0;
-  border-top: 1px solid var(--yw-line);
-  font-size: 1.05rem;
-  line-height: 1.6;
-}
 .yw-intro p,
 .yw-opener p {
   max-width: 38rem;
@@ -1364,12 +1190,12 @@
 }
 .yw-read h2 { font-size: clamp(2.2rem, 4vw, 3.4rem); }
 .yw-read h3 {
-  margin-top: 1.8rem;
+  margin-top: 0;
   font-size: clamp(1.7rem, 2.4vw, 2.15rem);
 }
-.yw-read .yw-story + .yw-story { margin-top: 4.5rem; }
+.yw-read .yw-story + .yw-story { margin-top: 3.4rem; }
 .yw-read .yw-prose {
-  max-width: 50ch;
+  max-width: 68ch;
   margin-top: 1.15rem;
   font-size: 1.125rem;
   line-height: 1.75;

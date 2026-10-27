@@ -53,7 +53,6 @@ export function PressPage() {
           </div>
         </section>
         <section className="yw-sheet">
-          <p className="yw-kicker">Press kit</p>
           <h2>Media assets</h2>
           <p>These are the files already published. Nothing here is a placeholder download.</p>
           <div className="yw-assets">
@@ -76,8 +75,7 @@ export function PressPage() {
               <span className="yw-go" aria-hidden="true">+</span>
             </Link>
           </div>
-          <p className="yw-kicker">Photographs</p>
-          <h2>The press-kit portraits</h2>
+          <h2>Photographs</h2>
           <p>The portraits published with the press kit. Each frame shows the full photograph.</p>
           <div className="yw-gallery">
             {gallery.map((photo) => (
@@ -93,7 +91,6 @@ export function PressPage() {
             {logos.map(([src, alt]) => <li key={alt}><img src={src} alt={alt} /></li>)}
           </ul>
           <div className="yw-block">
-            <p className="yw-kicker">Press inquiry</p>
             <h2>Press contact</h2>
             <p>For media inquiries, interviews, and speaking, write directly.</p>
             <Link to="/contact" search={{ interest: "Press" }} className="yw-pill">Get in touch →</Link>

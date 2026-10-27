@@ -34,7 +34,6 @@ export function AboutPage() {
       <main className="yw">
         <section className="yw-opener" aria-labelledby="about-title">
           <img
-            className="yw-frame"
             src={blazer}
             width={2688}
             height={4032}
@@ -54,42 +53,18 @@ export function AboutPage() {
               {chapter.paragraphs.map((paragraph) => <p key={paragraph} className="yw-prose">{paragraph}</p>)}
               {index === 0 && (
                 <figure className="yw-plate">
-                  <img className="yw-frame" src={plants} width={1400} height={1400} alt="Yrmis Barroeta smiling among large green leaves" />
+                  <img src={plants} width={1400} height={1400} alt="Yrmis Barroeta smiling among large green leaves" />
                   <figcaption>Among the plants.</figcaption>
                 </figure>
               )}
               {index === 1 && (
                 <figure className="yw-plate">
-                  <img className="yw-frame yw-frame-red" src={heels} width={1440} height={1800} alt="Yrmis Barroeta in red tights and red heels, one hand resting on her shin" />
+                  <img src={heels} width={1440} height={1800} alt="Yrmis Barroeta in red tights and red heels, one hand resting on her shin" />
                   <figcaption>Red tights and red heels.</figcaption>
-                </figure>
-              )}
-              {index === 2 && (
-                <figure className="yw-plate">
-                  <img className="yw-frame" src={blazer} width={2688} height={4032} alt="Yrmis Barroeta in a black blazer, hands at her waist, photographed in black and white" />
-                  <figcaption>Black blazer, black and white.</figcaption>
                 </figure>
               )}
             </article>
           ))}
-        </section>
-        <section className="yw-sheet">
-          <p className="yw-kicker">Press kit</p>
-          <h2>Photographs</h2>
-          <div className="yw-gallery">
-            <figure>
-              <img className="yw-frame" src={blazer} width={2688} height={4032} alt="Yrmis Barroeta in a black blazer, hands at her waist, photographed in black and white" />
-              <figcaption>Black blazer, black and white.</figcaption>
-            </figure>
-            <figure>
-              <img className="yw-frame" src={plants} width={1400} height={1400} alt="Yrmis Barroeta smiling among large green leaves" />
-              <figcaption>Among the plants.</figcaption>
-            </figure>
-            <figure>
-              <img className="yw-frame yw-frame-red" src={heels} width={1440} height={1800} alt="Yrmis Barroeta in red tights and red heels, one hand resting on her shin" />
-              <figcaption>Red tights and red heels.</figcaption>
-            </figure>
-          </div>
         </section>
         <Band src={anaconda}>
           <p className="yw-quote">“{siteCopy.story[2].paragraphs[1]}”</p>

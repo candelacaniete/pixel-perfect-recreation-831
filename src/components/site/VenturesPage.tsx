@@ -27,8 +27,7 @@ export function VenturesPage() {
           </div>
         </section>
         <section className="yw-sheet">
-          <p className="yw-kicker">Selected ventures</p>
-          <h2>Mission Heirloom, All Black Sheep, (hĕm), YRMIS</h2>
+          <h2>Featured projects</h2>
           <p>I develop and collaborate on projects that turn a way of seeing into a working business.</p>
           <div className="yw-ventures">
             {ventureStories.map((venture) => (

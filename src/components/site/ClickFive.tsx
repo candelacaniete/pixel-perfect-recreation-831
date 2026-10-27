@@ -3,7 +3,7 @@ import { clickOutcomes } from "@/content/yrmis";
 
 const SQUARE_STYLE = [
   "bg-click-cream text-click-umber",
-  "bg-click-yellow",
+  "bg-click-yellow text-white",
   "bg-click-orange text-click-umber",
   "bg-click-olive text-click-umber",
   "bg-click-maroon text-paper",

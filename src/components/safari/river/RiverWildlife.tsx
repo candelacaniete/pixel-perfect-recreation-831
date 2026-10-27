@@ -22,6 +22,7 @@ export function CrocodileEncounter({ reduced, onContinue }: { reduced: boolean; 
 
   return (
     <section data-ui aria-label="Crocodile encounter" className="absolute inset-0 z-20" data-phase={phase}>
+      <p role="status" className="river-state">{phase === "waiting" ? "Entrada" : phase === "feeding" ? "Respuesta" : "Continuar"}</p>
       <div className="crocodile-caption">
         <h2 className="font-display text-2xl italic text-shadow-river md:text-4xl">{copy.title}</h2>
         <p aria-live="polite" className="speech mx-auto mt-3">{phase === "waiting" ? copy.cue : phase === "feeding" ? copy.reacting : copy.fed}</p>
@@ -30,7 +31,7 @@ export function CrocodileEncounter({ reduced, onContinue }: { reduced: boolean; 
       {!imageFailed && <img ref={target} src={crocodile} alt="A crocodile rises vertically from the river toward the food" width={768} height={1024}
         onError={() => setImageFailed(true)} className={`crocodile-character ${phase === "waiting" ? "crocodile-arrives" : phase === "feeding" ? "crocodile-feeds" : "crocodile-dives"}`} />}
       {phase !== "ready" && (
-        <Button variant="ghost" aria-label={copy.offer} disabled={phase === "feeding"} onClick={offer}
+        <Button variant="ghost" autoFocus={phase === "waiting"} aria-label={copy.offer} disabled={phase === "feeding"} onClick={offer}
           onPointerDown={(e) => { dragging.current = true; e.currentTarget.setPointerCapture(e.pointerId); }}
           onPointerMove={(e) => {
             if (!dragging.current) return;
@@ -45,7 +46,7 @@ export function CrocodileEncounter({ reduced, onContinue }: { reduced: boolean; 
         </Button>
       )}
       <div className="crocodile-actions absolute inset-x-5 bottom-[calc(env(safe-area-inset-bottom)+1.5rem)] flex flex-wrap items-center justify-center gap-3">
-        {canLeaveCrocodile(phase) && <Button variant="ghost" onClick={onContinue} className="row-btn h-auto min-h-11"><ArrowDown />{copy.continue}</Button>}
+        {canLeaveCrocodile(phase) && <Button variant="ghost" autoFocus onClick={onContinue} className="row-btn h-auto min-h-11"><ArrowDown />{copy.continue}</Button>}
         <Button asChild variant="ghost" className="row-btn h-auto min-h-11"><Link to="/world">{copy.map}</Link></Button>
       </div>
     </section>
@@ -82,7 +83,7 @@ export function PiranhaSightings({ enabled, reduced }: { enabled: boolean; reduc
         <img src={piranha} alt="An expressive crimson and teal piranha with golden fins leaps right to left in front of the boat" width={1024} height={768} className="h-full w-full object-contain" />
       </Button>}
       <Button variant="ghost" onClick={show} className="row-btn pointer-events-auto absolute bottom-6 left-5 h-auto min-h-11" aria-label={riverWildlife.piranha.watch}>
-        <Droplets aria-hidden /><span className="hidden md:inline">{riverWildlife.piranha.watch}</span>
+        <Droplets aria-hidden /><span>{riverWildlife.piranha.watch}</span>
       </Button>
     </div>
   );
