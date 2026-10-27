@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
+import { DuskClose } from "@/components/editorial/Reference";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
-import portrait from "@/assets/sourced/portraits/yrmis-red.jpg";
+import turtle from "@/assets/reference/ref-press-turtle.jpg";
+import llanos from "@/assets/reference/ref-click-llanos.jpg";
 import tedx from "@/assets/sourced/logos/tedx.svg";
 import vogue from "@/assets/sourced/logos/vogue.svg";
 import chronicle from "@/assets/sourced/logos/sfchronicle.svg";
@@ -22,35 +24,56 @@ const logos = [
   [bullet, "Bulletproof"],
 ] as const;
 
+const assets = [
+  { title: "Press kit 2026", note: "Biography and published materials.", href: "/press/yrmis-barroeta-press-kit-2026.pdf", external: false, pos: "30% 40%" },
+  { title: "Media kit 2025", note: "Photographs and supporting files.", href: "/press/yrmis-media-kit-2025.pdf", external: false, pos: "60% 55%" },
+  { title: "Speaker materials", note: "The keynote page at My Headquarters.", href: "https://www.myheadquarters.club/innovationkeynote", external: true, pos: "75% 30%" },
+] as const;
+
 export function PressPage() {
   useEffect(() => markVisited("press"), []);
   return (
-    <Shell tone="paper" current="Press kit">
-      <main className="llanos">
-        <section className="ll-split">
-          <figure className="ll-portrait" style={{ minHeight: "28rem" }}>
-            <img src={portrait} alt="Yrmis Barroeta, original red portrait" width={1440} height={1800} />
-          </figure>
-          <div className="ll-panel">
-            <p className="ll-kicker">05 · Press kit</p>
-            <h1 className="ll-display" style={{ marginTop: "0.7rem" }}>Press kit</h1>
-            <p className="ll-lede">{siteCopy.identity}</p>
-            <p>Speaker materials and a press inquiry. The kits are the documents already published.</p>
-            <div className="ll-actions">
-              <a className="ll-btn ll-btn-ink" href="/press/yrmis-barroeta-press-kit-2026.pdf">Press kit 2026</a>
-              <a className="ll-btn" href="/press/yrmis-media-kit-2025.pdf">Media kit 2025</a>
-              <a className="ll-btn" href="https://www.myheadquarters.club/innovationkeynote" target="_blank" rel="noreferrer">Speaker materials ↗</a>
-              <Link to="/contact" search={{ interest: "Press" }} className="ll-btn ll-btn-red">Press inquiry</Link>
-            </div>
+    <Shell current="Press kit">
+      <main className="yw">
+        <section className="yw-hero" aria-label="Press kit" style={{ background: "#0b3a40" }}>
+          <img className="yw-hero-img" src={turtle} alt="An Arrau turtle under the surface, among water lilies" style={{ objectPosition: "center 42%" }} />
+          <div className="yw-hero-copy">
+            <h1 className="yw-display">Press kit<br />& resources</h1>
+            <p className="yw-standfirst">{siteCopy.identity}. Official materials for media, events, and collaborations.</p>
           </div>
         </section>
-        <section className="ll-pad">
-          <ul className="ll-logos">
-            {logos.map(([src, alt]) => (
-              <li key={alt}><img src={src} alt={alt} /></li>
+        <section className="yw-sheet">
+          <h2>Media assets</h2>
+          <p>These are the files already published. Nothing here is a placeholder download.</p>
+          <div className="yw-assets">
+            {assets.map((asset) => (
+              <a key={asset.title} className="yw-asset" href={asset.href} {...(asset.external ? { target: "_blank", rel: "noreferrer" } : {})}>
+                <img src={llanos} alt="" style={{ objectPosition: asset.pos }} />
+                <span>
+                  <h3>{asset.title}</h3>
+                  <p>{asset.note}</p>
+                </span>
+                <span className="yw-go">Open →</span>
+              </a>
             ))}
+            <Link className="yw-asset" to="/contact" search={{ interest: "Press" }}>
+              <img src={llanos} alt="" style={{ objectPosition: "40% 80%" }} />
+              <span>
+                <h3>Press contact</h3>
+                <p>Interviews, speaking, and press inquiries.</p>
+              </span>
+              <span className="yw-go">Write →</span>
+            </Link>
+          </div>
+          <ul className="yw-logos">
+            {logos.map(([src, alt]) => <li key={alt}><img src={src} alt={alt} /></li>)}
           </ul>
         </section>
+        <DuskClose>
+          <h2>Press contact</h2>
+          <p>For media inquiries, interviews, and speaking, write directly.</p>
+          <Link to="/contact" search={{ interest: "Press" }} className="yw-pill">Get in touch →</Link>
+        </DuskClose>
       </main>
     </Shell>
   );

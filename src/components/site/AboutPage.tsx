@@ -1,86 +1,62 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
-import { Reveal } from "@/components/editorial/Reveal";
+import { DuskClose } from "@/components/editorial/Reference";
 import { markVisited } from "@/components/safari/visited";
-import { siteCopy, socials } from "@/content/yrmis";
-import blazer from "@/assets/sourced/portraits/yrmis-blazer.jpg";
-import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
-import red from "@/assets/sourced/portraits/yrmis-red.jpg";
-import heron from "@/assets/living/heron-glide.jpg";
+import { siteCopy } from "@/content/yrmis";
+import anaconda from "@/assets/reference/ref-about-anaconda.jpg";
 
-const instagram = socials.find((item) => item.name === "Instagram");
+const drives = [
+  { n: "01", title: "Curiosity", body: "Notice what bugs you. Ask what could work better." },
+  { n: "02", title: "Nature", body: siteCopy.story[0].paragraphs[1] },
+  { n: "03", title: "People", body: siteCopy.studio },
+];
 
 export function AboutPage() {
   useEffect(() => markVisited("about"), []);
-  const [first, ...rest] = siteCopy.story;
   return (
     <Shell current="About">
-      <main className="llanos">
-        <section className="ll-first">
-          <div className="ll-first-copy">
-            <p className="ll-kicker">01 · About</p>
-            <h1 className="ll-display" style={{ marginTop: "1rem" }}>
-              {siteCopy.headline}
-              <br />
-              <em>{siteCopy.headlineEm}</em>
-            </h1>
-            <p className="ll-lede">{siteCopy.about}</p>
-            <div className="ll-actions">
-              <Link to="/work" className="ll-btn ll-btn-red">Work with me</Link>
-              <Link to="/speaking" className="ll-btn">Speaking</Link>
+      <main className="yw">
+        <section className="yw-hero" aria-label="About">
+          <img className="yw-hero-img" src={anaconda} alt="An anaconda coiled through dark water at dusk" style={{ objectPosition: "70% 45%" }} />
+          <div className="yw-hero-copy">
+            <p className="yw-kicker" style={{ color: "#f6efe4" }}>A journey across territories, ideas and life.</p>
+            <h1 className="yw-display">A curious<br />way of<br />belonging</h1>
+            <p className="yw-standfirst">{siteCopy.about}</p>
+          </div>
+        </section>
+        <section className="yw-sheet" id="story">
+          <h2>My story</h2>
+          {siteCopy.story.map((chapter) => (
+            <article key={chapter.title} className="yw-story">
+              <p className="yw-kicker">{chapter.title}</p>
+              {chapter.paragraphs.map((paragraph) => <p key={paragraph} className="yw-prose">{paragraph}</p>)}
+            </article>
+          ))}
+          <blockquote className="yw-quote" style={{ color: "var(--yw-ink)", marginTop: "2.4rem" }}>
+            “{siteCopy.story[2].paragraphs[1]}”
+          </blockquote>
+          <div className="yw-block">
+            <h2>What drives me</h2>
+            <div className="yw-drives">
+              {drives.map((item) => (
+                <article key={item.n}>
+                  <p className="yw-mark-num">{item.n}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </article>
+              ))}
             </div>
           </div>
-          <figure className="ll-portrait">
-            <img src={blazer} alt="Yrmis Barroeta in a blazer, original press-kit portrait" width={2688} height={4032} />
-          </figure>
-        </section>
-
-        <section className="ll-pad">
-          <Reveal>
-            <article className="ll-story">
-              {first && (
-                <section>
-                  <h2>{first.title}</h2>
-                  {first.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                </section>
-              )}
-            </article>
-          </Reveal>
-        </section>
-
-        <figure className="ll-horizon">
-          <img src={heron} alt="The night heron crossing a dusk river in the Llanos" />
-          <figcaption className="ll-kicker">The Llanos</figcaption>
-        </figure>
-
-        <section className="ll-pad">
-          <Reveal>
-            <article className="ll-story">
-              {rest.map((section) => (
-                <section key={section.title}>
-                  <h2>{section.title}</h2>
-                  {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                </section>
-              ))}
-            </article>
-          </Reveal>
-          <div className="ll-grid-2" style={{ marginTop: "1rem" }}>
-            <img src={plants} alt="Yrmis laughing among green leaves, original press-kit photograph" />
-            <img src={red} alt="Yrmis in red tights and red heels, original press-kit photograph" />
+          <div className="yw-block">
+            <h2>Experience & background</h2>
+            <p>{siteCopy.walkingOut}</p>
+            <Link to="/contact" search={{ interest: "Consulting Studio" }} className="yw-pill">See my full journey →</Link>
           </div>
         </section>
-
-        <section className="ll-pad ll-red">
-          <h2 className="ll-title">Find me on Instagram.</h2>
-          {instagram && (
-            <a className="ll-btn ll-btn-light" style={{ marginTop: "1.4rem" }} href={instagram.href} target="_blank" rel="noreferrer">@allblacksheep_club ↗</a>
-          )}
-          <div className="ll-actions">
-            <Link to="/ventures" className="ll-btn ll-btn-light">Entrepreneurial Ventures</Link>
-            <Link to="/press" className="ll-btn ll-btn-light">Press kit</Link>
-          </div>
-        </section>
+        <DuskClose>
+          <p className="yw-quote">“{siteCopy.yellow}”</p>
+        </DuskClose>
       </main>
     </Shell>
   );

@@ -83,6 +83,7 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
   const onRiver = path === "/river";
+  const here = (to: string) => path === to || (to === "/" && path === "/home");
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -95,6 +96,34 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
   }, []);
 
   useEffect(() => { setMenuOpen(false); }, [path]);
+
+  if (!onRiver) {
+    const worldNav = [
+      { to: "/", label: "Home" },
+      { to: "/about", label: "About" },
+      { to: "/speaking", label: "Speaking" },
+      { to: "/ventures", label: "Ventures" },
+      { to: "/press", label: "Press Kit" },
+      { to: "/signals", label: "1.1.1 Signals" },
+    ] as const;
+    return (
+      <header data-ui className={menuOpen ? "yw-chrome is-open" : "yw-chrome"}>
+        <Link to="/" className="yw-mark" aria-label="Yrmis World, home"><span>YRMIS</span><span>WORLD</span></Link>
+        <nav className="yw-nav" aria-label="Site navigation">
+          {worldNav.map((item) => (
+            <Link key={item.to} to={item.to} aria-current={here(item.to) ? "page" : undefined} onClick={() => setMenuOpen(false)}>{item.label}</Link>
+          ))}
+        </nav>
+        <button type="button" className="yw-more" aria-expanded={menuOpen} aria-label="More pages" onClick={() => setMenuOpen((open) => !open)}>+</button>
+        <div className="yw-more-panel">
+          <Link to="/work" onClick={() => setMenuOpen(false)}>Work with me</Link>
+          <Link to="/click" onClick={() => setMenuOpen(false)}>CLICK</Link>
+          <Link to="/contact" search={{ interest: "Consulting Studio" }} onClick={() => setMenuOpen(false)}>Contact</Link>
+          <Link to="/world" onClick={() => setMenuOpen(false)}>World</Link>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <>
@@ -115,7 +144,7 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
             River map
           </button>
         )}
-        <Link to="/contact" search={{ interest: "Consulting Studio" }} className="site-cta" aria-current={path === "/contact" ? "page" : undefined}>
+        <Link to="/contact" search={{ interest: "Consulting Studio" }} className="site-cta">
           Start a conversation →
         </Link>
       </header>
@@ -132,6 +161,21 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
 /** Three zones from the guide: the wool line and networks, Site, and 1•1•1 Signals. */
 export function NextStops({ current, tone = "night" }: { current?: string; tone?: "night" | "paper" | "scarlet" }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
+  if (path !== "/river") {
+    return (
+      <footer className="yw-fine">
+        <span>© Yrmis Barroeta</span>
+        <Link to="/work">Work with me</Link>
+        <Link to="/click">CLICK</Link>
+        <Link to="/contact" search={{ interest: "Consulting Studio" }}>Contact</Link>
+        <Link to="/world">World</Link>
+        <a href={subscribeUrl} target="_blank" rel="noreferrer">Subscribe</a>
+        {socials.map((item) => (
+          <a key={item.name} href={item.href} target="_blank" rel="noreferrer">{item.name}</a>
+        ))}
+      </footer>
+    );
+  }
   return (
     <footer className="site-footer" data-current={current} data-tone={tone}>
       <img className="footer-bird" src={ibis} alt="" />
