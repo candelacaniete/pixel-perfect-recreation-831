@@ -1543,3 +1543,194 @@ canvas.ed-animal {
   .yw-opener { grid-template-columns: 1fr; padding: 6.2rem 1.2rem 1.6rem; }
   .signals-card { grid-template-columns: 1fr; }
 }
+
+/* About, as a diary: a wide story, a staggered triptych, a two-column close. */
+.diary-open {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(15rem, 0.62fr);
+  gap: 2.4rem 4vw;
+  align-items: end;
+  padding: 6.2rem 7vw 5.4rem;
+  overflow: hidden;
+  background: var(--yw-cream);
+  color: var(--yw-ink);
+}
+.diary-palm {
+  position: absolute;
+  z-index: 0;
+  top: -1rem;
+  right: 8%;
+  width: min(28rem, 42vw);
+  height: auto;
+  color: var(--yw-maroon);
+  opacity: 0.14;
+  pointer-events: none;
+}
+.diary-copy { position: relative; z-index: 1; max-width: 44rem; }
+.diary-lede {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.85rem, 3vw, 2.75rem);
+  letter-spacing: -0.025em;
+  line-height: 1.38;
+  color: var(--yw-maroon);
+}
+.diary-lede-next { margin-top: 1.35rem; font-size: clamp(1.35rem, 2vw, 1.85rem); line-height: 1.48; }
+.diary-frame {
+  position: relative;
+  z-index: 1;
+  justify-self: end;
+  width: min(20rem, 100%);
+  margin: 1.6rem 0 0;
+}
+.diary-print { position: relative; transform: rotate(1.6deg); }
+.diary-print::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0.85rem -0.75rem -0.95rem 0.7rem;
+  border: 1px solid var(--yw-maroon);
+}
+.diary-print img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: #efe4d0;
+}
+.diary-frame figcaption,
+.diary-companion figcaption { margin-top: 0.55rem; font-size: 0.85rem; line-height: 1.4; color: var(--yw-muted); }
+.diary-frame figcaption { margin-top: 2.2rem; }
+.diary-companion { max-width: 16rem; margin: 2.4rem 0 0; }
+.diary-companion img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: #efe4d0;
+}
+
+.diary-drives {
+  padding: 4.6rem 7vw 6.2rem;
+  background: var(--yw-cream);
+  color: var(--yw-ink);
+}
+.diary-drives h2 {
+  margin: 0 0 1.8rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  letter-spacing: -0.03em;
+  color: var(--yw-maroon);
+}
+.diary-triptych {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.15rem;
+  align-items: start;
+}
+.diary-card {
+  padding: 1.35rem 1.25rem 1.6rem;
+  background: rgba(220, 35, 91, 0.1);
+  border: 1px solid rgba(220, 35, 91, 0.45);
+}
+.diary-card:nth-child(2) {
+  transform: translateY(2.4rem);
+  background: rgba(228, 112, 29, 0.14);
+  border-color: rgba(228, 112, 29, 0.55);
+}
+.diary-card:nth-child(3) { background: rgba(220, 35, 91, 0.06); }
+.diary-ico {
+  display: grid;
+  place-items: center;
+  width: 2.45rem;
+  height: 2.45rem;
+  margin: 0;
+  border-radius: 50%;
+  background: var(--yw-yellow);
+  color: #fff;
+}
+.diary-ico svg { width: 1.15rem; height: 1.15rem; }
+.diary-card h3 {
+  margin: 0.9rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.7rem;
+  color: var(--yw-maroon);
+}
+.diary-card p:last-child { margin: 0.55rem 0 0; line-height: 1.55; color: var(--yw-ink); }
+
+.diary-close {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 2.6rem 4vw;
+  align-items: start;
+  padding: 5.4rem 7vw 5rem;
+  overflow: hidden;
+  background: var(--yw-dark);
+  color: var(--yw-cream);
+}
+.diary-hide {
+  position: absolute;
+  z-index: 0;
+  right: -4%;
+  bottom: -10%;
+  width: min(40rem, 48vw);
+  height: auto;
+  opacity: 0.55;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse at 72% 58%, #000 8%, transparent 68%);
+  mask-image: radial-gradient(ellipse at 72% 58%, #000 8%, transparent 68%);
+}
+.diary-manifest,
+.diary-experience { position: relative; z-index: 1; }
+.diary-quote {
+  margin: 0;
+  max-width: 16ch;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2.3rem, 4.2vw, 3.8rem);
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  color: var(--yw-cream);
+}
+.diary-aside { max-width: 34rem; margin: 1.3rem 0 0; line-height: 1.6; color: rgba(247, 238, 218, 0.82); }
+.diary-companion-light figcaption { color: rgba(247, 238, 218, 0.72); }
+.diary-experience h2 {
+  margin: 0.2rem 0 1.1rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  letter-spacing: -0.03em;
+  color: var(--yw-cream);
+}
+.diary-close .yw-kicker { color: var(--yw-yellow); }
+.diary-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.5rem;
+}
+.diary-columns p { margin: 0; font-size: 0.98rem; line-height: 1.65; color: rgba(247, 238, 218, 0.9); }
+.diary-columns div p + p { margin-top: 0.9rem; }
+.diary-experience .yw-pill { background: var(--yw-red); color: #fff; }
+
+@media (max-width: 800px) {
+  .diary-open,
+  .diary-close { grid-template-columns: 1fr; padding: 3.2rem 1.25rem 3.4rem; }
+  .diary-frame { width: min(100%, 18rem); margin-right: 0.4rem; }
+  .diary-print { transform: rotate(1deg); }
+  .diary-drives { padding: 2.8rem 1.25rem 3.2rem; }
+  .diary-triptych { grid-template-columns: 1fr; }
+  .diary-card:nth-child(2) { transform: none; }
+  .diary-columns { grid-template-columns: 1fr; }
+  .diary-hide { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .diary-print { transform: none; }
+}
