@@ -29,6 +29,17 @@ function DriveIcon({ name }: { name: (typeof drives)[number]["icon"] }) {
 const llanos = siteCopy.story[0];
 const across = siteCopy.story[1];
 const carry = siteCopy.story[2];
+const openSentences = llanos.paragraphs[0].split(/(?<=\.)\s+/);
+const foundAt = llanos.paragraphs[1].indexOf("I didn’t");
+const foundLines = [llanos.paragraphs[1].slice(0, foundAt).trim(), llanos.paragraphs[1].slice(foundAt).trim()];
+
+function StoryLines({ lines }: { lines: string[] }) {
+  return (
+    <span className="story-lines">
+      {lines.map((line) => <span key={line}>{line}</span>)}
+    </span>
+  );
+}
 
 export function AboutPage() {
   const board = useRef<HTMLDivElement>(null);
@@ -64,15 +75,12 @@ export function AboutPage() {
           <p className="yw-kicker">My story · {llanos.title}</p>
           <div className="diary-board" ref={board}>
             <article className="story-card story-card-lead">
-              <h2>{llanos.paragraphs[0]}</h2>
+              <h2><StoryLines lines={openSentences} /></h2>
             </article>
             <figure className="story-card story-card-photo story-card-plants">
               <img src={plants} width={1400} height={1400} alt="Yrmis Barroeta smiling among large green leaves" />
               <figcaption>Among the plants.</figcaption>
             </figure>
-            <article className="story-card story-card-note">
-              <p>{llanos.paragraphs[1]}</p>
-            </article>
             <figure className="story-card story-card-photo story-card-portrait">
               <img
                 src={blazer}
@@ -82,6 +90,9 @@ export function AboutPage() {
               />
               <figcaption>Black blazer, black and white.</figcaption>
             </figure>
+            <article className="story-card story-card-note">
+              <p><StoryLines lines={foundLines} /></p>
+            </article>
           </div>
         </section>
 
