@@ -10,8 +10,7 @@ import palms from "@/assets/reference/ref-tile-palms.jpg";
 import wetland from "@/assets/reference/ref-tile-wetland.jpg";
 import field from "@/assets/reference/ref-tile-plain.jpg";
 import night from "@/assets/reference/ref-tile-night.jpg";
-import jabiruPhoto from "@/assets/reference/ref-speaking-jabiru.jpg";
-import jabiru from "@/assets/g-jabiru-authored.png";
+import heron from "@/assets/fauna/heron-crystal.jpg";
 const topics = [
   { title: studio.keynote.title, body: studio.keynote.out, img: palms },
   { title: "For the room", body: studio.keynote.for, img: wetland },
@@ -25,12 +24,12 @@ export function SpeakingPage() {
     <Shell current="Speaking">
       <main className="yw">
         <EditorialHero
+          fauna="heron"
           kicker="Speaking"
           title={studio.keynote.title}
           deck={siteCopy.speaking}
-          ground={jabiruPhoto}
-          groundAlt="A jabiru in the shallow water of the Llanos"
-          animal={{ src: jabiru, width: 1024, height: 1024, alt: "An illustrated jabiru with its beak open" }}
+          ground={heron}
+          groundAlt="A crystal heron stands in dark water, neon light dripping from its beak and wings"
         >
           <Link to="/contact" search={{ interest: "Speaking" }} className="yw-pill">Book Yrmis for an event</Link>
         </EditorialHero>

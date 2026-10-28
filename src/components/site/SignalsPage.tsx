@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { Shell } from "@/components/site/Shell";
 import { Band } from "@/components/editorial/Reference";
 import { EditorialHero } from "@/components/editorial/EditorialHero";
-import { KeyedPuma } from "@/components/site/KeyedPuma";
 import { markVisited } from "@/components/safari/visited";
 import { signalIssues, signals, siteCopy, substackArchive, subscribeUrl } from "@/content/yrmis";
+import cardinal from "@/assets/fauna/cardinal-orinoco.jpg";
 import night from "@/assets/land-signals-observation.jpg";
 import glasses from "@/assets/sourced/portraits/yrmis-glasses.png";
 
@@ -29,19 +29,14 @@ export function SignalsPage() {
     <Shell current="Signals">
       <main className="yw yw-night page-pad">
         <EditorialHero
+          fauna="cardinal"
           kicker="1•1•1 Signals"
           title="1.1.1 Signals"
           deck={siteCopy.signalsOffer}
-          ground={night}
-          groundAlt="Night observation over the Llanos"
-          night
-          companion={<KeyedPuma className="ed-animal" />}
+          ground={cardinal}
+          groundAlt="A red cardinal with crystal feathers perches in the Llanos at dusk"
         >
           <p className="ed-deck">{siteCopy.signalsPromise}</p>
-          <figure className="ed-native">
-            <img src={glasses} width={212} height={258} alt="Yrmis Barroeta wearing glasses, the portrait published in the 1.1.1 Signals footer" />
-            <figcaption>The portrait from the 1.1.1 Signals footer.</figcaption>
-          </figure>
         </EditorialHero>
         <section className="yw-dark">
           <h2>What you’ll find</h2>

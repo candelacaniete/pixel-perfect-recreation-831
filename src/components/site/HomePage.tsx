@@ -9,7 +9,7 @@ import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
 import wetland from "@/assets/reference/ref-click-llanos.jpg";
 import palms from "@/assets/reference/ref-tile-palms.jpg";
 import anaconda from "@/assets/reference/ref-about-anaconda.jpg";
-import capybara from "@/assets/reference/ref-home-capybara.jpg";
+import puma from "@/assets/fauna/puma-llanos.jpg";
 import portrait from "@/assets/sourced/portraits/yrmis-red.jpg";
 
 const areas = [
@@ -33,17 +33,12 @@ export function HomePage() {
     <Shell current="Home">
       <main className="yw">
         <EditorialHero
+          fauna="puma"
           kicker="Yrmis Barroeta"
           title={siteCopy.identity}
           deck={siteCopy.about}
-          ground={capybara}
-          groundAlt="A capybara at the edge of a Venezuelan Llanos wetland"
-          plate={{
-            src: portrait,
-            width: 1440,
-            height: 1800,
-            alt: "Yrmis Barroeta in a black dress, red tights, and red heels, one hand resting on her shin",
-          }}
+          ground={puma}
+          groundAlt="A puma with painted scales walks through the Llanos at dusk, reflected in the water"
         >
           <div className="yw-actions">
             <Link to="/speaking" className="yw-pill">Speaking</Link>
@@ -51,6 +46,14 @@ export function HomePage() {
           </div>
         </EditorialHero>
         <section className="yw-sheet yw-sheet-home">
+          <figure className="yw-plate">
+            <img
+              src={portrait}
+              width={1440}
+              height={1800}
+              alt="Yrmis Barroeta in a black dress, red tights, and red heels, one hand resting on her shin"
+            />
+          </figure>
           <div className="yw-split">
             <div>
               <h2>A shared perspective.<br />Multiple territories.</h2>

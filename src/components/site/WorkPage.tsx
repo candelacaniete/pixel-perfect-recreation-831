@@ -4,8 +4,7 @@ import { Shell } from "@/components/site/Shell";
 import { EditorialHero } from "@/components/editorial/EditorialHero";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
-import plain from "@/assets/reference/ref-dusk-llanos.jpg";
-import capy from "@/assets/g-capymech-authored.png";
+import capy from "@/assets/fauna/capybara-constructor.jpg";
 
 const tracks = [
   { eyebrow: "Founders", title: "From idea to next stage.", body: siteCopy.founders, interest: "Consulting Studio" as const },
@@ -19,12 +18,12 @@ export function WorkPage() {
     <Shell current="Work with me">
       <main className="yw">
         <EditorialHero
+          fauna="capybara"
           kicker="Consulting studio"
           title="Plan and conspire."
           deck={siteCopy.studio}
-          ground={plain}
-          groundAlt="The Llanos at dusk"
-          animal={{ src: capy, width: 1024, height: 1024, alt: "An illustrated capybara at a workbench" }}
+          ground={capy}
+          groundAlt="A capybara in work clothes studies a glowing blueprint on a dock in the Llanos"
         />
         <section className="yw-plain">
         <div className="yw-tracks">

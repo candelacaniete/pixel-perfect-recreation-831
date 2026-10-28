@@ -5,7 +5,7 @@ import { EditorialHero } from "@/components/editorial/EditorialHero";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import turtle from "@/assets/reference/ref-press-turtle.jpg";
-import macaw from "@/assets/g-macaw-authored.png";
+import crystalTurtle from "@/assets/fauna/turtle-crystal.jpg";
 import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
 import blazer from "@/assets/sourced/portraits/yrmis-blazer.jpg";
 import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
@@ -47,12 +47,12 @@ export function PressPage() {
     <Shell current="Press kit">
       <main className="yw">
         <EditorialHero
+          fauna="turtle"
           kicker="Press kit"
           title="Media assets"
           deck={`${siteCopy.identity}. Official materials for media, events, and collaborations.`}
-          ground={turtle}
-          groundAlt="A turtle on the dry ground of the Llanos"
-          animal={{ src: macaw, width: 1024, height: 1024, alt: "An illustrated macaw in flight" }}
+          ground={crystalTurtle}
+          groundAlt="A tortoise with a crystal shell walks a log under a starry Llanos sky"
         />
         <section className="yw-sheet">
           <p>These are the files already published. Nothing here is a placeholder download.</p>

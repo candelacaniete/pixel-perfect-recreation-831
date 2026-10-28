@@ -6,8 +6,7 @@ import { EditorialHero } from "@/components/editorial/EditorialHero";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy, ventureStories } from "@/content/yrmis";
 import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
-import caiman from "@/assets/reference/ref-ventures-caiman.jpg";
-import emerald from "@/assets/river-crocodile-emerald.png";
+import crocodile from "@/assets/fauna/crocodile-neon.jpg";
 import greenhouse from "@/assets/sourced/ventures/mh-greenhouse.jpg";
 import family from "@/assets/sourced/ventures/abs-family.jpg";
 import hem from "@/assets/sourced/ventures/hem-store.jpg";
@@ -20,12 +19,12 @@ export function VenturesPage() {
     <Shell current="Ventures">
       <main className="yw">
         <EditorialHero
+          fauna="crocodile"
           kicker="Ventures"
           title="Featured projects"
           deck={siteCopy.venturesLead}
-          ground={caiman}
-          groundAlt="A caiman on the bank of a Llanos river"
-          animal={{ src: emerald, width: 896, height: 1200, alt: "A crocodile drawn with emerald scales" }}
+          ground={crocodile}
+          groundAlt="A neon wireframe crocodile at the edge of a Llanos marsh at dusk"
         />
         <section className="yw-sheet">
           <p>I develop and collaborate on projects that turn a way of seeing into a working business.</p>

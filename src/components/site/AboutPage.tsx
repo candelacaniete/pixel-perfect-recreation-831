@@ -6,6 +6,7 @@ import { EditorialHero } from "@/components/editorial/EditorialHero";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
 import anaconda from "@/assets/reference/ref-about-anaconda.jpg";
+import serpent from "@/assets/fauna/anaconda-stars.jpg";
 import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
 import blazer from "@/assets/sourced/portraits/yrmis-blazer.jpg";
 import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
@@ -34,20 +35,19 @@ export function AboutPage() {
     <Shell current="About">
       <main className="yw">
         <EditorialHero
+          fauna="anaconda"
           kicker="A journey across territories, ideas and life."
           title="A curious way of belonging"
           deck={siteCopy.about}
-          ground={dusk}
-          groundAlt="Dusk over the open Llanos"
-          plate={{
-            src: blazer,
-            width: 2688,
-            height: 4032,
-            alt: "Yrmis Barroeta in a black blazer, hands at her waist, photographed in black and white",
-          }}
+          ground={serpent}
+          groundAlt="An anaconda with starry scales coiled in a Llanos wetland at night"
         />
         <section className="yw-read" id="story">
           <h2>My story</h2>
+          <figure className="yw-plate">
+            <img src={blazer} width={2688} height={4032} alt="Yrmis Barroeta in a black blazer, hands at her waist, photographed in black and white" />
+            <figcaption>Black blazer, black and white.</figcaption>
+          </figure>
           {siteCopy.story.map((chapter, index) => (
             <article key={chapter.title} className="yw-story">
               <h3>{chapter.title}</h3>

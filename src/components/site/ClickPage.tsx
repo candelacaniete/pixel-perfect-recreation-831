@@ -7,7 +7,7 @@ import { ClickFive } from "@/components/site/ClickFive";
 import { markVisited } from "@/components/safari/visited";
 import { clickExamples, clickOutcomes, riverDestination } from "@/content/yrmis";
 import llanos from "@/assets/reference/ref-click-llanos.jpg";
-import heron from "@/assets/g-heron-authored.png";
+import piranha from "@/assets/fauna/piranha-iridescent.jpg";
 
 const crops = ["20% 70%", "70% 40%", "40% 30%", "80% 80%", "30% 50%"];
 
@@ -37,17 +37,17 @@ export function ClickPage() {
     <Shell current="CLICK">
       <main className="yw">
         <EditorialHero
+          fauna="piranha"
           kicker="CLICK"
           title={riverDestination.line}
           deck={riverDestination.intro}
-          ground={llanos}
-          groundAlt="Flooded grassland in the Llanos"
-          animal={{ src: heron, width: 1024, height: 1024, alt: "An illustrated heron standing in the shallows" }}
-          stage={<ClickFive />}
+          ground={piranha}
+          groundAlt="An iridescent piranha among mangrove roots and water lilies"
         >
           <Link to="/river" className="yw-pill">Enter the river</Link>
         </EditorialHero>
         <section className="yw-sheet">
+          <ClickFive />
           <div className="yw-block">
             <h2>The principles of CLICK</h2>
             <div className="yw-principles">
