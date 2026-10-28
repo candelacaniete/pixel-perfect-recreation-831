@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { EditorialHero } from "@/components/editorial/EditorialHero";
@@ -10,20 +10,74 @@ import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
 import heels from "@/assets/sourced/portraits/yrmis-red.jpg";
 
 const drives = [
-  { title: "Curiosity", body: "Notice what bugs you. Ask what could work better.", icon: "eye" },
-  { title: "Nature", body: "What I found was a problem I cared about too much to ignore.", icon: "leaf" },
-  { title: "People", body: "I work with founders and leadership teams.", icon: "people" },
+  { title: "Curiosity", body: "Notice what bugs you. Ask what could work better." },
+  { title: "Nature", body: "What I found was a problem I cared about too much to ignore." },
+  { title: "People", body: "I work with founders and leadership teams." },
 ] as const;
 
-function DriveIcon({ name }: { name: (typeof drives)[number]["icon"] }) {
-  const common = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
-  if (name === "eye") {
-    return <svg {...common}><circle cx="12" cy="12" r="3" /><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z" /></svg>;
-  }
-  if (name === "leaf") {
-    return <svg {...common}><path d="M5 19c8 0 14-8 14-14-6 0-14 6-14 14z" /><path d="M8 14c2-2 5-4 8-5" /></svg>;
-  }
-  return <svg {...common}><circle cx="9" cy="9" r="2.2" /><circle cx="16" cy="10" r="1.7" /><path d="M4.5 18c.6-2.2 2.4-3.4 4.5-3.4S13 15.8 13.6 18M14 18c.3-1.5 1.4-2.5 3-2.5 1.2 0 2.2.6 2.7 1.6" /></svg>;
+type DriveName = (typeof drives)[number]["title"];
+
+const stroke = { fill: "none", stroke: "currentColor", strokeWidth: 1.4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+
+function CuriosityScene() {
+  return (
+    <>
+      <svg className="mark glass-a" viewBox="0 0 64 64" aria-hidden="true"><circle {...stroke} cx="26" cy="26" r="14" /><path {...stroke} d="M36 36 L50 50" /></svg>
+      <svg className="mark glass-b" viewBox="0 0 64 64" aria-hidden="true"><circle {...stroke} cx="26" cy="26" r="14" /><path {...stroke} d="M36 36 L50 50" /></svg>
+      <span className="mark q-small q-a">?</span>
+      <span className="mark q-small q-b">?</span>
+      <span className="mark q-big">?</span>
+      <svg className="mark book" viewBox="0 0 72 48" aria-hidden="true"><path {...stroke} d="M8 12c8-6 16-6 24 0v26c-8-6-16-6-24 0z" /><path {...stroke} d="M64 12c-8-6-16-6-24 0v26c8-6 16-6 24 0z" /><path {...stroke} d="M32 12v26" /></svg>
+      <svg className="mark bins" viewBox="0 0 64 40" aria-hidden="true"><circle {...stroke} cx="16" cy="22" r="10" /><circle {...stroke} cx="46" cy="22" r="10" /><path {...stroke} d="M26 22h10M8 12h10M44 12h10" /></svg>
+    </>
+  );
+}
+
+function NatureScene() {
+  const drops = ["d1", "d2", "d3", "d4", "d5"];
+  return (
+    <>
+      <svg className="mark palm palm-a" viewBox="0 0 120 160" aria-hidden="true">
+        <path {...stroke} d="M58 152c2-40 2-78 0-112" />
+        <path {...stroke} d="M58 48c-16-8-34-6-52 6" />
+        <path {...stroke} d="M58 42c-8-22-8-44 6-64" />
+        <path {...stroke} d="M60 46c18-6 38-2 56 12" />
+        <path {...stroke} d="M58 62c-18 4-32 16-40 34" />
+        <path {...stroke} d="M60 60c16 6 30 18 36 36" />
+      </svg>
+      <svg className="mark palm palm-b" viewBox="0 0 120 160" aria-hidden="true">
+        <path {...stroke} d="M58 152c2-40 2-78 0-112" />
+        <path {...stroke} d="M58 48c-16-8-34-6-52 6" />
+        <path {...stroke} d="M58 42c-8-22-8-44 6-64" />
+        <path {...stroke} d="M60 46c18-6 38-2 56 12" />
+        <path {...stroke} d="M58 62c-18 4-32 16-40 34" />
+        <path {...stroke} d="M60 60c16 6 30 18 36 36" />
+      </svg>
+      {drops.map((name) => (
+        <svg key={name} className={`mark drop ${name}`} viewBox="0 0 24 36" aria-hidden="true">
+          <path {...stroke} d="M12 3c5 8 8 13 8 18a8 8 0 1 1-16 0c0-5 3-10 8-18z" />
+        </svg>
+      ))}
+      <svg className="mark leaf" viewBox="0 0 72 40" aria-hidden="true"><path {...stroke} d="M6 30c16-2 32-16 52-26-4 16-16 28-34 32" /><path {...stroke} d="M22 28c6-6 14-10 24-12" /></svg>
+    </>
+  );
+}
+
+function PeopleScene() {
+  return (
+    <>
+      <svg className="mark circles" viewBox="0 0 88 72" aria-hidden="true">
+        <circle {...stroke} cx="30" cy="30" r="16" />
+        <circle {...stroke} cx="56" cy="30" r="16" />
+        <circle {...stroke} cx="43" cy="46" r="16" />
+      </svg>
+      <svg className="mark people-line" viewBox="0 0 100 4" preserveAspectRatio="none" aria-hidden="true">
+        <path {...stroke} pathLength={1} d="M0 2h100" />
+      </svg>
+      <svg className="mark arc arc-a" viewBox="0 0 64 36" aria-hidden="true"><path {...stroke} d="M6 28c8-16 44-16 52 0" /></svg>
+      <svg className="mark arc arc-b" viewBox="0 0 64 36" aria-hidden="true"><path {...stroke} d="M6 28c8-16 44-16 52 0" /></svg>
+    </>
+  );
 }
 
 const llanos = siteCopy.story[0];
@@ -43,7 +97,37 @@ function StoryLines({ lines }: { lines: string[] }) {
 
 export function AboutPage() {
   const board = useRef<HTMLDivElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [open, setOpen] = useState<DriveName | null>(null);
+  const [scene, setScene] = useState<DriveName | null>(null);
   useEffect(() => markVisited("about"), []);
+  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+  useEffect(() => {
+    if (!open || !stage.current) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    stage.current.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+  }, [open]);
+  function toggle(title: DriveName) {
+    if (timer.current) clearTimeout(timer.current);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (open === title) {
+      setScene(null);
+      if (reduce) setOpen(null);
+      else timer.current = setTimeout(() => setOpen(null), 260);
+      return;
+    }
+    setScene(null);
+    setOpen(title);
+    if (reduce) setScene(title);
+    else timer.current = setTimeout(() => setScene(title), 420);
+  }
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") toggle(open); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
   useEffect(() => {
     const node = board.current;
     if (!node) return;
@@ -98,14 +182,27 @@ export function AboutPage() {
 
         <section className="diary-drives" aria-labelledby="drives-title">
           <h2 id="drives-title">What drives me</h2>
-          <div className="diary-triptych">
-            {drives.map((item) => (
-              <article key={item.title} className="diary-card">
-                <p className="diary-ico"><DriveIcon name={item.icon} /></p>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </article>
-            ))}
+          <div className={`diary-stage${open ? " is-open" : ""}`} data-open={open ?? "none"} ref={stage}>
+            <div className="drive-scene" aria-hidden="true">
+              {scene === "Curiosity" && <CuriosityScene />}
+              {scene === "Nature" && <NatureScene />}
+              {scene === "People" && <PeopleScene />}
+            </div>
+            <div className="diary-triptych">
+              {drives.map((item) => (
+                <button
+                  key={item.title}
+                  type="button"
+                  className={`diary-card${open === item.title ? " is-chosen" : ""}`}
+                  data-drive={item.title}
+                  aria-expanded={open === item.title}
+                  onClick={() => toggle(item.title)}
+                >
+                  <h3>{item.title}</h3>
+                  <span className="sr-only">{item.body}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
