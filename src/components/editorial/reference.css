@@ -1545,64 +1545,55 @@ canvas.ed-animal {
 /* About, as a diary: a wide story, a staggered triptych, a two-column close. */
 .diary-open {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(15rem, 0.62fr);
-  gap: 2.4rem 4vw;
-  align-items: end;
-  padding: 6.2rem 7vw 5.4rem;
+  padding: 5.4rem 7vw 5.2rem;
   overflow: hidden;
   background: var(--yw-cream);
   color: var(--yw-ink);
 }
-.diary-palm {
-  position: absolute;
-  z-index: 0;
-  top: -1rem;
-  right: 8%;
-  width: min(28rem, 42vw);
-  height: auto;
-  color: var(--yw-maroon);
-  opacity: 0.14;
-  pointer-events: none;
+.diary-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.42fr) minmax(14rem, 0.9fr);
+  gap: 0.9rem 1rem;
+  align-items: start;
 }
-.diary-copy { position: relative; z-index: 1; max-width: 44rem; }
-.diary-lede {
+.story-card {
+  border: 1px solid rgba(117, 2, 23, 0.34);
+  background: #fffaf3;
+}
+.story-card-lead {
+  grid-column: 1 / 3;
+  align-self: stretch;
+  padding: 1.5rem 1.6rem 1.7rem;
+}
+.story-card-plants { grid-column: 3; }
+.story-card-note { grid-column: 1; padding: 1.25rem 1.35rem 1.4rem; }
+.story-card-portrait { grid-column: 2 / 4; }
+.story-card h2,
+.story-card-note p {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.85rem, 3vw, 2.75rem);
-  letter-spacing: -0.025em;
-  line-height: 1.38;
   color: var(--yw-maroon);
 }
-.diary-lede-next { margin-top: 1.35rem; font-size: clamp(1.35rem, 2vw, 1.85rem); line-height: 1.48; }
-.diary-frame {
-  position: relative;
-  z-index: 1;
-  justify-self: end;
-  width: min(20rem, 100%);
-  margin: 1.6rem 0 0;
+.story-card h2 {
+  font-size: clamp(1.7rem, 2.5vw, 2.45rem);
+  letter-spacing: -0.025em;
+  line-height: 1.28;
 }
-.diary-print { position: relative; transform: rotate(1.6deg); }
-.diary-print::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  inset: 0.85rem -0.75rem -0.95rem 0.7rem;
-  border: 1px solid var(--yw-maroon);
+.story-card-note p {
+  font-size: clamp(1.15rem, 1.5vw, 1.45rem);
+  line-height: 1.45;
 }
-.diary-print img {
-  position: relative;
-  z-index: 1;
+.story-card-photo { padding: 0.55rem 0.55rem 0.7rem; background: #f4ecdf; }
+.story-card-photo img {
   display: block;
   width: 100%;
   height: auto;
   object-fit: contain;
   background: #efe4d0;
 }
-.diary-frame figcaption,
+.story-card-photo figcaption { margin: 0.5rem 0.2rem 0.1rem; font-size: 0.82rem; line-height: 1.4; color: var(--yw-muted); }
 .diary-companion figcaption { margin-top: 0.55rem; font-size: 0.85rem; line-height: 1.4; color: var(--yw-muted); }
-.diary-frame figcaption { margin-top: 2.2rem; }
 .diary-companion { max-width: 16rem; margin: 2.4rem 0 0; }
 .diary-companion img {
   display: block;
@@ -1718,11 +1709,26 @@ canvas.ed-animal {
 .diary-columns div p + p { margin-top: 0.9rem; }
 .diary-experience .yw-pill { background: var(--yw-red); color: #fff; }
 
+@media (prefers-reduced-motion: no-preference) {
+  .story-card { opacity: 0; transform: translateY(18px); }
+  .story-card.is-in { animation: diary-rise 0.72s ease forwards; }
+  .story-card:nth-child(2).is-in { animation-delay: 0.1s; }
+  .story-card:nth-child(3).is-in { animation-delay: 0.2s; }
+  .story-card:nth-child(4).is-in { animation-delay: 0.3s; }
+}
+@keyframes diary-rise {
+  to { opacity: 1; transform: none; }
+}
+
 @media (max-width: 800px) {
   .diary-open,
-  .diary-close { grid-template-columns: 1fr; padding: 3.2rem 1.25rem 3.4rem; }
-  .diary-frame { width: min(100%, 18rem); margin-right: 0.4rem; }
-  .diary-print { transform: rotate(1deg); }
+  .diary-close { padding: 3.2rem 1.25rem 3.4rem; }
+  .diary-close { grid-template-columns: 1fr; }
+  .diary-board { grid-template-columns: 1fr; }
+  .story-card-lead,
+  .story-card-plants,
+  .story-card-note,
+  .story-card-portrait { grid-column: auto; }
   .diary-drives { padding: 2.8rem 1.25rem 3.2rem; }
   .diary-triptych { grid-template-columns: 1fr; }
   .diary-card:nth-child(2) { transform: none; }
@@ -1730,5 +1736,5 @@ canvas.ed-animal {
   .diary-hide { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .diary-print { transform: none; }
+  .story-card { opacity: 1; transform: none; animation: none; }
 }

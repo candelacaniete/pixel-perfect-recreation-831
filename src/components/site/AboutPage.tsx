@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
 import { EditorialHero } from "@/components/editorial/EditorialHero";
@@ -31,7 +31,23 @@ const across = siteCopy.story[1];
 const carry = siteCopy.story[2];
 
 export function AboutPage() {
+  const board = useRef<HTMLDivElement>(null);
   useEffect(() => markVisited("about"), []);
+  useEffect(() => {
+    const node = board.current;
+    if (!node) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const cards = [...node.querySelectorAll<HTMLElement>(".story-card")];
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add("is-in");
+        io.unobserve(entry.target);
+      }
+    }, { threshold: 0.22, rootMargin: "0px 0px -6% 0px" });
+    for (const card of cards) io.observe(card);
+    return () => io.disconnect();
+  }, []);
   return (
     <Shell current="About">
       <main className="yw">
@@ -45,44 +61,28 @@ export function AboutPage() {
         />
 
         <section className="diary-open" id="story">
-          <svg className="diary-palm" viewBox="0 0 240 360" aria-hidden="true">
-            <g fill="none" stroke="currentColor" strokeWidth="1.2">
-              <path d="M118 348c2-78 4-150 2-228" />
-              <path d="M120 132c-28-18-62-16-96 2" />
-              <path d="M120 118c-18-34-22-70 2-104" />
-              <path d="M122 126c34-14 70-6 102 18" />
-              <path d="M120 150c-36 6-64 28-78 62" />
-              <path d="M122 146c32 10 58 32 70 66" />
-            </g>
-            <g fill="currentColor">
-              <circle cx="28" cy="48" r="1.3" />
-              <circle cx="54" cy="28" r="1" />
-              <circle cx="86" cy="18" r="1.4" />
-              <circle cx="168" cy="36" r="1.1" />
-              <circle cx="198" cy="62" r="1.3" />
-              <circle cx="210" cy="96" r="1" />
-            </g>
-          </svg>
-          <div className="diary-copy">
-            <p className="yw-kicker">My story · {llanos.title}</p>
-            <h2 className="diary-lede">{llanos.paragraphs[0]}</h2>
-            <p className="diary-lede diary-lede-next">{llanos.paragraphs[1]}</p>
-            <figure className="diary-companion">
+          <p className="yw-kicker">My story · {llanos.title}</p>
+          <div className="diary-board" ref={board}>
+            <article className="story-card story-card-lead">
+              <h2>{llanos.paragraphs[0]}</h2>
+            </article>
+            <figure className="story-card story-card-photo story-card-plants">
               <img src={plants} width={1400} height={1400} alt="Yrmis Barroeta smiling among large green leaves" />
               <figcaption>Among the plants.</figcaption>
             </figure>
-          </div>
-          <figure className="diary-frame">
-            <div className="diary-print">
+            <article className="story-card story-card-note">
+              <p>{llanos.paragraphs[1]}</p>
+            </article>
+            <figure className="story-card story-card-photo story-card-portrait">
               <img
                 src={blazer}
                 width={2688}
                 height={4032}
                 alt="Yrmis Barroeta in a black blazer, hands at her waist, photographed in black and white"
               />
-            </div>
-            <figcaption>Black blazer, black and white.</figcaption>
-          </figure>
+              <figcaption>Black blazer, black and white.</figcaption>
+            </figure>
+          </div>
         </section>
 
         <section className="diary-drives" aria-labelledby="drives-title">
