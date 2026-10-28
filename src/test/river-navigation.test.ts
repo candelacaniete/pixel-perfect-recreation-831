@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { riverTarget, riverFrame, project, curve, curveD, riverSequenceTarget, canLeaveCrocodile } from "@/components/safari/river/world";
+import { riverChapterState } from "@/components/safari/river/EncounterLayer";
 import { assetUrl } from "@/lib/asset-url";
 
 describe("River navigation", () => {
@@ -37,6 +38,14 @@ it("requires offering food before continuing the crocodile section", () => {
   expect(canLeaveCrocodile("waiting")).toBe(false);
   expect(canLeaveCrocodile("feeding")).toBe(false);
   expect(canLeaveCrocodile("ready")).toBe(true);
+});
+it("names each river chapter state in order", () => {
+  expect(riverChapterState("arrival")).toBe("Entrada");
+  expect(riverChapterState("dialogue")).toBe("Diálogo");
+  expect(riverChapterState("interaction")).toBe("Acción");
+  expect(riverChapterState("revelation", false)).toBe("Respuesta");
+  expect(riverChapterState("revelation", true)).toBe("Aprendizaje");
+  expect(riverChapterState("departure")).toBe("Continuar");
 });
 it("inserts wildlife between guardians without replacing the five CLICK principles", () => {
   expect(riverSequenceTarget([], 0, false)).toEqual({ index: 0, z: 46 });

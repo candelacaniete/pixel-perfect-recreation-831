@@ -81,8 +81,11 @@ function currentPath(path: string, to: string) {
 export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
   const [mapOpen, setMapOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [solid, setSolid] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
   const onRiver = path === "/river";
+  const inkHero = path === "/contact";
+  const here = (to: string) => path === to || (to === "/" && path === "/home");
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -95,6 +98,35 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
   }, []);
 
   useEffect(() => { setMenuOpen(false); }, [path]);
+  useEffect(() => {
+    const onScroll = () => setSolid(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  if (!onRiver) {
+    const worldNav = [
+      { to: "/about", label: "About" },
+      { to: "/work", label: "Work with me" },
+      { to: "/speaking", label: "Speaking" },
+      { to: "/ventures", label: "Ventures" },
+      { to: "/press", label: "Press kit" },
+      { to: "/signals", label: "Signals" },
+      { to: "/click", label: "CLICK" },
+    ] as const;
+    return (
+      <header data-ui className={`yw-chrome${inkHero ? " is-ink" : ""}${solid ? " is-solid" : ""}`}>
+        <Link to="/" className="yw-wordmark" aria-label="Yrmis, home">Yrmis</Link>
+        <nav className="yw-nav" aria-label="Site navigation">
+          {worldNav.map((item) => (
+            <Link key={item.to} to={item.to} aria-current={here(item.to) ? "page" : undefined}>{item.label}</Link>
+          ))}
+        </nav>
+        <Link to="/contact" search={{ interest: "Consulting Studio" }} className="yw-cta">Start a conversation</Link>
+      </header>
+    );
+  }
 
   return (
     <>
@@ -115,7 +147,7 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
             River map
           </button>
         )}
-        <Link to="/contact" search={{ interest: "Consulting Studio" }} className="site-cta" aria-current={path === "/contact" ? "page" : undefined}>
+        <Link to="/contact" search={{ interest: "Consulting Studio" }} className="site-cta">
           Start a conversation →
         </Link>
       </header>
@@ -132,6 +164,46 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
 /** Three zones from the guide: the wool line and networks, Site, and 1•1•1 Signals. */
 export function NextStops({ current, tone = "night" }: { current?: string; tone?: "night" | "paper" | "scarlet" }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
+  if (path !== "/river") {
+    const year = new Date().getFullYear();
+    const destinations = [
+      { to: "/", label: "Home" },
+      { to: "/about", label: "About" },
+      { to: "/work", label: "Work with me" },
+      { to: "/speaking", label: "Speaking" },
+      { to: "/ventures", label: "Ventures" },
+      { to: "/press", label: "Press kit" },
+      { to: "/signals", label: "Signals" },
+      { to: "/click", label: "CLICK" },
+      { to: "/world", label: "Yrmis World" },
+    ] as const;
+    return (
+      <footer className="ed-foot">
+        <div className="ed-foot-brand">
+          <p className="yw-kicker">All Black Sheep</p>
+          <p className="ed-foot-name">Yrmis</p>
+          <p>Wild black wool<br />never dyes.</p>
+          <div className="ed-foot-socials">
+            {socials.map((item) => (
+              <a key={item.name} href={item.href} target="_blank" rel="noreferrer">{item.name}</a>
+            ))}
+          </div>
+          <img className="ed-foot-animal" src={capybara} alt="" />
+        </div>
+        <nav aria-label="Footer">
+          <p className="yw-kicker">The issue</p>
+          {destinations.map((item) => <Link key={item.label} to={item.to}>{item.label}</Link>)}
+          <Link to="/contact" search={{ interest: "Consulting Studio" }}>Contact</Link>
+        </nav>
+        <div className="ed-foot-signals">
+          <p className="yw-kicker">1•1•1 Signals</p>
+          <p>Field notes from the edge of the wild and the boardroom. Free, every other week.</p>
+          <a href={substackHome} target="_blank" rel="noreferrer">Read on Substack</a>
+        </div>
+        <p className="ed-foot-fine">© {year} Yrmis · From the Llanos, Venezuela</p>
+      </footer>
+    );
+  }
   return (
     <footer className="site-footer" data-current={current} data-tone={tone}>
       <img className="footer-bird" src={ibis} alt="" />

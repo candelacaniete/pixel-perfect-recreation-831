@@ -3,9 +3,18 @@ import type { Stop } from "@/content/journey";
 import { LensReveal } from "../LensReveal";
 import { Button } from "@/components/ui/button";
 
-export type Phase = "dialogue" | "interaction" | "revelation" | "departure";
+export type Phase = "arrival" | "dialogue" | "interaction" | "revelation" | "departure";
 
-/** Arrival → Recognition happen in-world; this layer runs Dialogue → Interaction → Revelation → Departure. */
+/** The six chapter states a traveller can see: entrada, diálogo, acción, respuesta, aprendizaje, continuar. */
+export function riverChapterState(phase: Phase, takeaway = false) {
+  if (phase === "arrival") return "Entrada";
+  if (phase === "dialogue") return "Diálogo";
+  if (phase === "interaction") return "Acción";
+  if (phase === "revelation") return takeaway ? "Aprendizaje" : "Respuesta";
+  return "Continuar";
+}
+
+/** Arrival opens the chapter; dialogue, action, response, learning, and departure follow. */
 export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, onFog }: {
   stop: Stop; phase: Phase; setPhase: (p: Phase) => void; onDepart: (completed: boolean) => void; onClearLog: () => void; onFog: (n: number) => void;
 }) {
@@ -17,8 +26,16 @@ export function EncounterLayer({ stop, phase, setPhase, onDepart, onClearLog, on
 
   return (
     <>
+      <p role="status" className="river-state">{riverChapterState(phase, takeaway)}</p>
+      {phase === "arrival" && (
+        <div data-ui className="pointer-events-auto">
+          <p className="eyebrow text-gold">{stop.guardian}</p>
+          <p className="speech mt-1">{stop.recognition}</p>
+          <Button variant="ghost" data-ui autoFocus onClick={() => setPhase("dialogue")} className="row-btn mt-4 h-auto min-h-11 whitespace-normal">Begin</Button>
+        </div>
+      )}
       {phase === "dialogue" && (
-        <Button variant="ghost" data-ui className="pointer-events-auto block h-auto w-full whitespace-normal p-0 text-left hover:bg-transparent" onClick={() => (line + 1 < stop.dialogue.length ? setLine(line + 1) : setPhase("interaction"))}>
+        <Button key={line} variant="ghost" data-ui autoFocus className="pointer-events-auto block h-auto min-h-11 w-full whitespace-normal p-0 text-left hover:bg-transparent" onClick={() => (line + 1 < stop.dialogue.length ? setLine(line + 1) : setPhase("interaction"))}>
           <span className="eyebrow block text-gold">{stop.guardian}</span>
           <span key={line} className="speech mt-1 block animate-in fade-in slide-in-from-bottom-1 duration-700">{stop.dialogue[line]}</span>
           <span className="eyebrow mt-2 block text-paper/70">Continue ›</span>
@@ -95,7 +112,7 @@ function Clues({ onDone }: { onDone: () => void }) {
   return (
     <div className="absolute inset-0">
       {clues.map((c, i) => (
-        <button key={i} onClick={() => setFound((f) => [...new Set([...f, i])])} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${c.x}%`, top: `${c.y}%` }} aria-label={`Look closer at glint ${i + 1}`}>
+        <button key={i} autoFocus={i === 0} onClick={() => setFound((f) => [...new Set([...f, i])])} className="absolute -translate-x-1/2 -translate-y-1/2 min-h-11 min-w-11" style={{ left: `${c.x}%`, top: `${c.y}%` }} aria-label={`Look closer at glint ${i + 1}`}>
           {found.includes(i) ? (
             <span className="speech block w-[min(13rem,36vw)] animate-in fade-in duration-500 text-sm">{c.t}</span>
           ) : (
@@ -111,7 +128,7 @@ function LensStage({ onDone }: { onDone: () => void }) {
   const [revealed, setRevealed] = useState(false);
   return (
     <div className="absolute inset-0 animate-in fade-in duration-1000">
-      <LensReveal fill onReveal={() => setRevealed(true)} />
+      <LensReveal fill autoFocus onReveal={() => setRevealed(true)} />
       {revealed && (
         <button onClick={onDone} className="row-btn absolute bottom-[calc(env(safe-area-inset-bottom)+5rem)] left-1/2 z-30 -translate-x-1/2 animate-in fade-in">Lower the lens</button>
       )}
@@ -152,7 +169,7 @@ function Truck({ onDone }: { onDone: (note: string) => void }) {
       <p aria-live="polite" className="speech min-h-6 text-center">{msg}</p>
       <div className="flex max-w-xl flex-wrap justify-center gap-3">
         {kit.map((k, i) => (
-          <button key={k} onClick={() => tap(k)} aria-pressed={pick.includes(k)} className={`driftwood ${pick.includes(k) ? "driftwood-on" : ""}`} style={{ animationDelay: `${i * 0.4}s` }}>{k}</button>
+          <button key={k} autoFocus={i === 0} onClick={() => tap(k)} aria-pressed={pick.includes(k)} className={`driftwood min-h-11 ${pick.includes(k) ? "driftwood-on" : ""}`} style={{ animationDelay: `${i * 0.4}s` }}>{k}</button>
         ))}
       </div>
     </div>
@@ -175,7 +192,7 @@ function Signals({ onDone }: { onDone: () => void }) {
       {storm.map((w, i) => {
         const on = kept.includes(w.w);
         return (
-          <button key={w.w} onClick={() => (w.s ? setKept((x) => [...new Set([...x, w.w])]) : setHit(w.w))}
+          <button key={w.w} autoFocus={i === 0} onClick={() => (w.s ? setKept((x) => [...new Set([...x, w.w])]) : setHit(w.w))}
             className={`storm-word absolute max-w-[42vw] min-h-11 px-1 text-left md:max-w-none ${on ? "storm-kept" : ""}`}
             style={{ top: `calc(6.5rem + ${i} * (100% - 12rem) / 10)`, left: `${STORM_X[i] ?? 10}%`, animationDelay: `${-i * 1.3}s`, opacity: w.s || on ? 1 : 1 - k * 0.75, filter: w.s || on ? "none" : `blur(${k * 4}px)` }}>
             {w.w}
@@ -196,7 +213,7 @@ function Fog({ onStep, onDone }: { onStep: (n: number) => void; onDone: () => vo
       <p aria-live="polite" className="speech text-center">{n ? notes[n - 1] : "Two channels. No map. Pick one."}</p>
       {n < 3 && (
         <div className="flex gap-6">
-          <button onClick={go} className="row-btn">← Left channel</button>
+          <button autoFocus onClick={go} className="row-btn min-h-11">← Left channel</button>
           <button onClick={go} className="row-btn">Right channel →</button>
         </div>
       )}

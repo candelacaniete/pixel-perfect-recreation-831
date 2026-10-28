@@ -1,10 +1,15 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
+import { Band } from "@/components/editorial/Reference";
+import { EditorialHero } from "@/components/editorial/EditorialHero";
 import { ClickFive } from "@/components/site/ClickFive";
 import { markVisited } from "@/components/safari/visited";
-import { clickExamples, riverDestination } from "@/content/yrmis";
-import coil from "@/assets/living/anaconda-coil-1.jpg";
+import { clickExamples, clickOutcomes, riverDestination } from "@/content/yrmis";
+import llanos from "@/assets/reference/ref-click-llanos.jpg";
+import piranha from "@/assets/fauna/piranha-iridescent.jpg";
+
+const crops = ["20% 70%", "70% 40%", "40% 30%", "80% 80%", "30% 50%"];
 
 const fields = [
   { key: "problem", label: "The problem I keep noticing", long: true },
@@ -29,78 +34,79 @@ export function ClickPage() {
   }
 
   return (
-    <Shell>
-      <main className="llanos">
-        <section className="ll-split">
-          <div className="ll-panel">
-            <p className="ll-kicker">CLICK</p>
-            <h1 className="ll-display" style={{ marginTop: "0.7rem" }}>{riverDestination.headline}</h1>
-            <p className="ll-lede">Think of your desk, your company, your neighborhood. What’s one thing that bugs you? Start there. You can open this page without finishing the river.</p>
-          </div>
-          <figure className="ll-portrait" style={{ minHeight: "22rem" }}>
-            <img src={coil} alt="The anaconda coiled in the night water" />
-          </figure>
-        </section>
-        <section className="ll-pad">
+    <Shell current="CLICK">
+      <main className="yw">
+        <EditorialHero
+          fauna="piranha"
+          kicker="CLICK"
+          title={riverDestination.line}
+          deck={riverDestination.intro}
+          ground={piranha}
+          groundAlt="An iridescent piranha among mangrove roots and water lilies"
+        >
+          <Link to="/river" className="yw-pill">Enter the river</Link>
+        </EditorialHero>
+        <section className="yw-sheet">
           <ClickFive />
-        </section>
-        <section className="ll-pad" style={{ paddingTop: 0 }}>
-          <p className="ll-kicker">Illustrative examples from the talk</p>
-          <h2 className="ll-title" style={{ marginTop: "0.6rem" }}>Find. Adapt. Build.</h2>
-          <div className="ll-examples" style={{ marginTop: "1.2rem" }} role="group" aria-label="Explore innovation examples">
-            {clickExamples.map((item, index) => (
-              <button key={item.title} type="button" aria-pressed={scene === index} onClick={() => setScene(index)} className="ll-btn">
-                {item.title}
-              </button>
-            ))}
+          <div className="yw-block">
+            <h2>The principles of CLICK</h2>
+            <div className="yw-principles">
+              {clickOutcomes.map((item, index) => (
+                <Link key={item.name} to="/river" search={{ stop: index }} className="yw-principle">
+                  <img className="yw-thumb" src={llanos} alt="" style={{ height: "4.4rem", objectPosition: crops[index] }} />
+                  <strong>0{index + 1} {item.name}</strong>
+                  <span>{item.line}</span>
+                </Link>
+              ))}
+            </div>
           </div>
-          <div style={{ marginTop: "1.5rem", maxWidth: "40rem" }}>
-            <h3 className="ll-title" style={{ fontSize: "2rem" }}>{example.title}</h3>
+          <div className="yw-block">
+            <p className="yw-kicker">Illustrative examples from the talk</p>
+            <div className="yw-examples" role="group" aria-label="Explore innovation examples">
+              {clickExamples.map((item, index) => (
+                <button key={item.title} type="button" aria-pressed={scene === index} onClick={() => setScene(index)}>{item.title}</button>
+              ))}
+            </div>
+            <h3 className="yw-display" style={{ fontSize: "2rem", marginTop: "1.2rem", textTransform: "none" }}>{example.title}</h3>
             <p><strong>The problem. </strong>{example.problem}</p>
             <p><strong>A useful lens. </strong>{example.lens}</p>
             <p><strong>A first move. </strong>{example.move}</p>
           </div>
-        </section>
-        <section className="ll-pad ll-red">
-          <p className="ll-kicker">Your turn</p>
-          <h2 className="ll-title" style={{ marginTop: "0.6rem" }}>Give that curiosity something to work on.</h2>
-          <p className="ll-lede">Optional local exercise. Your notes stay in this page’s memory; they are not sent, saved, or evaluated by AI.</p>
-          <form onSubmit={onSubmit} className="ll-form" style={{ maxWidth: "40rem", marginTop: "1.5rem" }}>
-            {fields.map((field) => (
-              <label key={field.key}>
-                <span className="ll-kicker">{field.label}</span>
-                {field.long ? (
-                  <textarea className="ll-field" style={{ borderColor: "#fff", color: "#fff" }} maxLength={800} required value={idea[field.key]} onChange={(event) => setIdea({ ...idea, [field.key]: event.target.value })} />
-                ) : (
-                  <input className="ll-field" style={{ borderColor: "#fff", color: "#fff" }} maxLength={300} required={field.key === "test"} value={idea[field.key]} onChange={(event) => setIdea({ ...idea, [field.key]: event.target.value })} />
-                )}
-              </label>
-            ))}
-            <button className="ll-btn ll-btn-light" type="submit" style={{ width: "fit-content" }}>Put the pieces together</button>
-          </form>
-          {shown.length > 0 && (
-            <article className="ll-panel" style={{ marginTop: "1.5rem", maxWidth: "40rem", background: "var(--ll-bone)", color: "var(--ll-ink)" }} aria-live="polite">
-              <p className="ll-kicker">Your working idea</p>
-              <h3 className="ll-title" style={{ fontSize: "2rem", marginTop: "0.4rem" }}>Find. Adapt. Build.</h3>
-              <dl>
+          <div className="yw-block">
+            <h2>Give that curiosity something to work on.</h2>
+            <p>Optional local exercise. Your notes stay in this page’s memory; they are not sent, saved, or evaluated by AI.</p>
+            <form onSubmit={onSubmit} className="ll-form" style={{ maxWidth: "40rem", marginTop: "1.2rem" }}>
+              {fields.map((field) => (
+                <label key={field.key}>
+                  <span className="yw-kicker">{field.label}</span>
+                  {field.long ? (
+                    <textarea className="ll-field" maxLength={800} required value={idea[field.key]} onChange={(event) => setIdea({ ...idea, [field.key]: event.target.value })} />
+                  ) : (
+                    <input className="ll-field" maxLength={300} required={field.key === "test"} value={idea[field.key]} onChange={(event) => setIdea({ ...idea, [field.key]: event.target.value })} />
+                  )}
+                </label>
+              ))}
+              <button className="yw-pill" type="submit">Put the pieces together</button>
+            </form>
+            {shown.length > 0 && (
+              <article aria-live="polite" style={{ marginTop: "1.4rem" }}>
+                <p className="yw-kicker">Your working idea</p>
                 {fields.filter((field) => shown.includes(field.key)).map((field) => (
-                  <div key={field.key} style={{ marginTop: "1rem" }}>
-                    <dt className="ll-kicker">{field.label}</dt>
-                    <dd style={{ margin: "0.3rem 0 0" }}>{idea[field.key].trim()}</dd>
-                  </div>
+                  <p key={field.key}><strong>{field.label}. </strong>{idea[field.key].trim()}</p>
                 ))}
-              </dl>
-            </article>
-          )}
-        </section>
-        <section className="ll-pad">
-          <h2 className="ll-title">What comes next?</h2>
-          <div className="ll-actions">
-            <Link to="/contact" search={{ interest: "Speaking" }} className="ll-btn ll-btn-red">Bring CLICK to your team</Link>
-            <Link to="/contact" search={{ interest: "Consulting Studio" }} className="ll-btn">Build with me</Link>
-            <Link to="/signals" className="ll-btn">Keep exploring</Link>
+              </article>
+            )}
+          </div>
+          <div className="yw-block">
+            <h2>Open a part of the river</h2>
+            <div style={{ marginTop: "1rem" }}><ClickFive /></div>
           </div>
         </section>
+        <Band src={llanos} tall>
+          <h2>Explore the CLICK experience</h2>
+          <p>A separate journey. It is not part of this page, and it is not in the main menu.</p>
+          <Link to="/river" className="yw-pill">Enter the experience →</Link>
+        </Band>
       </main>
     </Shell>
   );

@@ -1,9 +1,16 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
+import { EditorialHero } from "@/components/editorial/EditorialHero";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
-import portrait from "@/assets/sourced/portraits/yrmis-red.jpg";
+import turtle from "@/assets/reference/ref-press-turtle.jpg";
+import crystalTurtle from "@/assets/fauna/turtle-crystal.jpg";
+import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
+import blazer from "@/assets/sourced/portraits/yrmis-blazer.jpg";
+import plants from "@/assets/sourced/portraits/yrmis-plants.jpg";
+import heels from "@/assets/sourced/portraits/yrmis-red.jpg";
+import anaconda from "@/assets/reference/ref-about-anaconda.jpg";
 import tedx from "@/assets/sourced/logos/tedx.svg";
 import vogue from "@/assets/sourced/logos/vogue.svg";
 import chronicle from "@/assets/sourced/logos/sfchronicle.svg";
@@ -22,35 +29,75 @@ const logos = [
   [bullet, "Bulletproof"],
 ] as const;
 
+const assets = [
+  { title: "Press kit 2026", note: "Biography and published materials.", href: "/press/yrmis-barroeta-press-kit-2026.pdf", external: false, img: turtle },
+  { title: "Media kit 2025", note: "Photographs and supporting files.", href: "/press/yrmis-media-kit-2025.pdf", external: false, img: dusk },
+  { title: "Speaker materials", note: "The keynote page at My Headquarters.", href: "https://www.myheadquarters.club/innovationkeynote", external: true, img: anaconda },
+] as const;
+
+const gallery = [
+  { src: blazer, width: 2688, height: 4032, alt: "Yrmis Barroeta in a black blazer, hands at her waist, photographed in black and white", caption: "Black blazer, black and white." },
+  { src: plants, width: 1400, height: 1400, alt: "Yrmis Barroeta smiling among large green leaves", caption: "Among the plants." },
+  { src: heels, width: 1440, height: 1800, alt: "Yrmis Barroeta in red tights and red heels, one hand resting on her shin", caption: "Red tights and red heels." },
+] as const;
+
 export function PressPage() {
   useEffect(() => markVisited("press"), []);
   return (
-    <Shell tone="paper" current="Press kit">
-      <main className="llanos">
-        <section className="ll-split">
-          <figure className="ll-portrait" style={{ minHeight: "28rem" }}>
-            <img src={portrait} alt="Yrmis Barroeta, original red portrait" width={1440} height={1800} />
-          </figure>
-          <div className="ll-panel">
-            <p className="ll-kicker">05 · Press kit</p>
-            <h1 className="ll-display" style={{ marginTop: "0.7rem" }}>Press kit</h1>
-            <p className="ll-lede">{siteCopy.identity}</p>
-            <p>Speaker materials and a press inquiry. The kits are the documents already published.</p>
-            <div className="ll-actions">
-              <a className="ll-btn ll-btn-ink" href="/press/yrmis-barroeta-press-kit-2026.pdf">Press kit 2026</a>
-              <a className="ll-btn" href="/press/yrmis-media-kit-2025.pdf">Media kit 2025</a>
-              <a className="ll-btn" href="https://www.myheadquarters.club/innovationkeynote" target="_blank" rel="noreferrer">Speaker materials ↗</a>
-              <Link to="/contact" search={{ interest: "Press" }} className="ll-btn ll-btn-red">Press inquiry</Link>
-            </div>
+    <Shell current="Press kit">
+      <main className="yw">
+        <EditorialHero
+          fauna="turtle"
+          kicker="Press kit"
+          title="Media assets"
+          deck={`${siteCopy.identity}. Official materials for media, events, and collaborations.`}
+          ground={crystalTurtle}
+          groundAlt="A tortoise with a crystal shell walks a log under a starry Llanos sky"
+        />
+        <section className="yw-sheet">
+          <p>These are the files already published. Nothing here is a placeholder download.</p>
+          <div className="yw-assets">
+            {assets.map((asset) => (
+              <a key={asset.title} className="yw-asset" href={asset.href} {...(asset.external ? { target: "_blank", rel: "noreferrer" } : {})}>
+                <img src={asset.img} alt="" />
+                <span>
+                  <h3>{asset.title}</h3>
+                  <p>{asset.note}</p>
+                </span>
+                <span className="yw-go" aria-hidden="true">+</span>
+              </a>
+            ))}
+            <Link className="yw-asset" to="/contact" search={{ interest: "Press" }}>
+              <img src={dusk} alt="" />
+              <span>
+                <h3>Press contact</h3>
+                <p>Interviews, speaking, and press inquiries.</p>
+              </span>
+              <span className="yw-go" aria-hidden="true">+</span>
+            </Link>
+          </div>
+          <h2>Photographs</h2>
+          <p>The portraits published with the press kit. Each frame shows the full photograph.</p>
+          <div className="yw-gallery">
+            {gallery.map((photo) => (
+              <figure key={photo.caption}>
+                <a href={photo.src} target="_blank" rel="noreferrer">
+                  <img src={photo.src} width={photo.width} height={photo.height} alt={photo.alt} />
+                </a>
+                <figcaption>{photo.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <ul className="yw-logos">
+            {logos.map(([src, alt]) => <li key={alt}><img src={src} alt={alt} /></li>)}
+          </ul>
+          <div className="yw-block">
+            <h2>Press contact</h2>
+            <p>For media inquiries, interviews, and speaking, write directly.</p>
+            <Link to="/contact" search={{ interest: "Press" }} className="yw-pill">Get in touch →</Link>
           </div>
         </section>
-        <section className="ll-pad">
-          <ul className="ll-logos">
-            {logos.map(([src, alt]) => (
-              <li key={alt}><img src={src} alt={alt} /></li>
-            ))}
-          </ul>
-        </section>
+        <section className="yw-strip"><img src={dusk} alt="" /></section>
       </main>
     </Shell>
   );

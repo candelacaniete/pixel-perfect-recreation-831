@@ -1,85 +1,86 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { Shell } from "@/components/site/Shell";
-import { HomeScene } from "@/components/editorial/HomeScene";
-import { Reveal } from "@/components/editorial/Reveal";
+import { Band } from "@/components/editorial/Reference";
+import { EditorialHero } from "@/components/editorial/EditorialHero";
 import { markVisited } from "@/components/safari/visited";
 import { siteCopy } from "@/content/yrmis";
-import horses from "@/assets/living/horses-gallop-2.jpg";
+import dusk from "@/assets/reference/ref-dusk-llanos.jpg";
+import wetland from "@/assets/reference/ref-click-llanos.jpg";
+import palms from "@/assets/reference/ref-tile-palms.jpg";
+import anaconda from "@/assets/reference/ref-about-anaconda.jpg";
+import puma from "@/assets/fauna/puma-llanos.jpg";
+import portrait from "@/assets/sourced/portraits/yrmis-red.jpg";
 
-const chapters = [
-  { n: "02", title: "About", line: "Another field. Another lens.", to: "/about", go: "Read the story" },
-  { n: "03", title: "Speaking", line: "CLICK into Wild Innovation", to: "/speaking", go: "The keynote" },
-  { n: "04", title: "Work with me", line: "Plan and conspire.", to: "/work", go: "Work with me" },
-  { n: "05", title: "Ventures", line: "Different ventures. More ways to see.", to: "/ventures", go: "Meet the ventures" },
-  { n: "06", title: "1•1•1 Signals", line: siteCopy.yellow, to: "/signals", go: "Read Signals" },
-] as const;
+const areas = [
+  { title: "Science & innovation", to: "/speaking" as const, img: dusk, focus: "30% 55%" },
+  { title: "Nature & conservation", to: "/about" as const, img: wetland, focus: "50% 60%" },
+  { title: "Culture & education", to: "/ventures" as const, img: anaconda, focus: "55% 62%" },
+  { title: "Territory & community", to: "/signals" as const, img: palms, focus: "50% 40%" },
+];
+
+function Arrow() {
+  return (
+    <svg viewBox="0 0 12 12" aria-hidden="true">
+      <path d="M2 6h8M7 3l3 3-3 3" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 export function HomePage() {
   useEffect(() => markVisited("home"), []);
   return (
     <Shell current="Home">
-      <main className="llanos">
-        <HomeScene />
-
-        <Reveal>
-          <section className="ll-split">
-            <div className="ll-panel">
-              <p className="ll-kicker">About</p>
-              <h2 className="ll-title" style={{ marginTop: "0.8rem" }}>Another field. Another lens.</h2>
-              <p className="ll-lede">{siteCopy.about}</p>
-              <Link to="/about" className="ll-btn" style={{ marginTop: "1.5rem" }}>Read the story</Link>
+      <main className="yw">
+        <EditorialHero
+          fauna="puma"
+          kicker="Yrmis Barroeta"
+          title={siteCopy.identity}
+          deck={siteCopy.about}
+          ground={puma}
+          groundAlt="A puma with painted scales walks through the Llanos at dusk, reflected in the water"
+        >
+          <div className="yw-actions">
+            <Link to="/speaking" className="yw-pill">Speaking</Link>
+            <Link to="/work" className="yw-pill yw-pill-ink">Work with me</Link>
+          </div>
+        </EditorialHero>
+        <section className="yw-sheet yw-sheet-home">
+          <figure className="yw-plate">
+            <img
+              src={portrait}
+              width={1440}
+              height={1800}
+              alt="Yrmis Barroeta in a black dress, red tights, and red heels, one hand resting on her shin"
+            />
+          </figure>
+          <div className="yw-split">
+            <div>
+              <h2>A shared perspective.<br />Multiple territories.</h2>
+              <p>{siteCopy.homeShared}</p>
             </div>
-            <div className="ll-panel ll-yellow">
-              <p className="ll-kicker">1•1•1 Signals</p>
-              <h2 className="ll-title" style={{ marginTop: "0.8rem" }}>{siteCopy.yellow}</h2>
-              <p className="ll-lede">{siteCopy.signalsOffer}</p>
-              <Link to="/signals" className="ll-btn ll-btn-light" style={{ marginTop: "1.5rem" }}>Read Signals</Link>
-            </div>
-          </section>
-        </Reveal>
-
-        <Reveal>
-          <section className="ll-split">
-            <figure className="ll-portrait" style={{ minHeight: "24rem" }}>
-              <img src={horses} alt="Four horses — crimson, black, gold and green — galloping on the plain" />
-            </figure>
-            <div className="ll-panel ll-ox">
-              <p className="ll-kicker">Speaking</p>
-              <h2 className="ll-title" style={{ marginTop: "0.8rem" }}>CLICK into<br /><em>Wild Innovation</em></h2>
-              <p className="ll-lede">{siteCopy.speaking}</p>
-              <Link to="/speaking" className="ll-btn ll-btn-light" style={{ marginTop: "1.5rem" }}>The keynote</Link>
-            </div>
-          </section>
-        </Reveal>
-
-        <section className="ll-pad">
-          <p className="ll-kicker">{siteCopy.identity}</p>
-          <nav className="ll-index" aria-label="Sections" style={{ marginTop: "1rem" }}>
-            {chapters.map((chapter) => (
-              <Link key={chapter.n} to={chapter.to}>
-                <span className="ll-kicker">{chapter.n}</span>
-                <h2>{chapter.title}</h2>
-                <span className="ll-go">{chapter.go}</span>
-              </Link>
-            ))}
-            <Link to="/world">
-              <span className="ll-kicker">✶</span>
-              <h2>Yrmis World</h2>
-              <span className="ll-go">Explore Yrmis World</span>
-            </Link>
-          </nav>
-        </section>
-
-        <section className="ll-pad ll-red">
-          <p className="ll-kicker">Start a conversation</p>
-          <h2 className="ll-title" style={{ marginTop: "0.8rem" }}>Let’s make things happen.</h2>
-          <p className="ll-lede">{siteCopy.conversation}</p>
-          <div className="ll-actions">
-            <Link to="/contact" search={{ interest: "Speaking" }} className="ll-btn ll-btn-light">Event inquiry</Link>
-            <Link to="/contact" search={{ interest: "Consulting Studio" }} className="ll-btn ll-btn-light">Project inquiry</Link>
+            <img className="yw-wave" src={dusk} alt="" />
           </div>
         </section>
+        <section className="yw-dark">
+          <p className="yw-kicker">Areas of exploration</p>
+          <div className="yw-quad">
+            {areas.map((area) => (
+              <Link key={area.title} to={area.to}>
+                <span className="yw-area-label">{area.title}</span>
+                <span className="yw-shot">
+                  <img src={area.img} alt="" style={{ objectPosition: area.focus }} />
+                  <span className="yw-orb"><Arrow /></span>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+        <Band src={dusk} tall>
+          <h2>Conversations.<br />Projects.<br />Collaborations.</h2>
+          <p>{siteCopy.homeClose}</p>
+          <Link to="/ventures" className="yw-pill yw-pill-ghost">Explore my projects →</Link>
+        </Band>
       </main>
     </Shell>
   );

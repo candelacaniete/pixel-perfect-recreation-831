@@ -3,7 +3,7 @@ import base from "@/assets/lens-base.jpg";
 import vivid from "@/assets/lens-vivid.jpg";
 
 /** Two synchronized layers; a circular lens follows pointer / touch and reveals the transformed world. */
-export function LensReveal({ onReveal, fill = false }: { onReveal?: () => void; fill?: boolean }) {
+export function LensReveal({ onReveal, fill = false, autoFocus = false }: { onReveal?: () => void; fill?: boolean; autoFocus?: boolean }) {
   const box = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: 50, y: 55 });
   const travelled = useRef(0);
@@ -25,6 +25,7 @@ export function LensReveal({ onReveal, fill = false }: { onReveal?: () => void; 
       onPointerMove={(e) => move(e.clientX, e.clientY)}
       onPointerDown={(e) => move(e.clientX, e.clientY)}
       tabIndex={0}
+      autoFocus={autoFocus}
       role="application"
       aria-label="Magic lens. Move the pointer, drag, or use arrow keys to look through it."
       onKeyDown={(e) => {

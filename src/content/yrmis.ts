@@ -155,6 +155,11 @@ export const siteCopy = {
   headline: "New territory.",
   headlineEm: "Bring what you know.",
   homeIntro: "I carry what I learn into what I build next. I help people and companies do the same.",
+  homeDeck: "Science, nature, culture and imagination to design a more alive future.",
+  homeShared:
+    "I explore the intersections between science, nature, culture and imagination to generate ideas, projects and conversations that connect people, ecosystems and real possibilities.",
+  homeClose:
+    "From talks and experiences, to research initiatives, each project is an opportunity to connect knowledge, people and territories to imagine and build a more alive world.",
   about: "I’ve moved from economics into fashion, food, and technology by solving one problem after another. Each field gives me another lens for the next one.",
   studio: "I work with founders and leadership teams on strategy, growth, and the decisions that turn a promising idea into a working business.",
   speaking: "I take teams on a trip through the problems that became my companies. Along the way, we practice spotting problems, using what we know, and putting ideas to work through CLICK.",

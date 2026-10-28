@@ -39,7 +39,7 @@ export function ContactPage({ interest }: { interest: InquiryType }) {
 
   return (
     <Shell tone="paper" current="Contact">
-      <main className="llanos">
+      <main className="yw yw-plain">
         <section className="ll-pad">
           <p className="ll-kicker">Work with me</p>
           <h1 className="ll-display" style={{ marginTop: "0.6rem", maxWidth: "12ch" }}>Let’s make things happen.</h1>
