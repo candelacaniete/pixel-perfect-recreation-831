@@ -15,9 +15,9 @@ const NAV = [
   { to: "/about", label: "About" },
   { to: "/work", label: "Work with me" },
   { to: "/speaking", label: "Speaking" },
-  { to: "/ventures", label: "Entrepreneurial Ventures" },
+  { to: "/ventures", label: "Ventures" },
   { to: "/press", label: "Press kit" },
-  { to: "/signals", label: "1•1•1 Signals Newsletter" },
+  { to: "/signals", label: "Signals" },
 ] as const;
 
 const SOCIAL_MARK: Record<(typeof socials)[number]["name"], string> = {
@@ -100,7 +100,7 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
   return (
     <>
       <header data-ui className={`site-chrome${overlay ? " site-chrome-overlay" : ""}`}>
-        <Link to="/" className="site-logo" aria-label="Yrmis Barroeta, home">Yrmis Barroeta</Link>
+        <Link to="/" className="site-logo" aria-label="Yrmis Barroeta, home">YRMIS</Link>
         <button type="button" className="site-menu-toggle" aria-expanded={menuOpen} aria-controls="site-nav" onClick={() => setMenuOpen((open) => !open)}>
           Menu
         </button>
@@ -131,7 +131,7 @@ export function SiteChrome({ overlay = false }: { overlay?: boolean }) {
 }
 
 /** Three zones from the guide: the wool line and networks, Site, and 1•1•1 Signals. */
-export function NextStops({ current, tone = "night" }: { current?: string; tone?: "night" | "paper" | "scarlet" }) {
+export function NextStops({ current, tone = "night" }: { current?: string; tone?: "night" | "paper" | "scarlet" | "sunset" | "day" }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   return (
     <footer className="site-footer" data-current={current} data-tone={tone}>

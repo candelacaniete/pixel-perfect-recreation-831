@@ -5,16 +5,19 @@ export function Shell({
   children,
   tone = "night",
   current,
+  bleed = false,
 }: {
   children: ReactNode;
-  tone?: "night" | "paper" | "scarlet";
+  tone?: "night" | "paper" | "scarlet" | "sunset" | "day";
   current?: string;
+  bleed?: boolean;
 }) {
-  return (
+  const page = (
     <>
       <SiteChrome />
       {children}
       <NextStops tone={tone} {...(current ? { current } : {})} />
     </>
   );
+  return bleed ? <div className="site-bleed">{page}</div> : page;
 }
